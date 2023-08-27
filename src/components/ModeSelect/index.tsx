@@ -1,7 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
-import Container from '@mui/material/Container';
 import { useColorScheme } from '@mui/material/styles';
-import { useTheme } from '@mui/styles';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -11,11 +8,6 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import { Theme } from '@/common/enums';
-import { CustomThemeOptions } from '@/common/styles/theme';
-
-type MainLayoutProps = {
-  children: ReactNode;
-};
 
 function ModeSelect() {
   const { mode, setMode } = useColorScheme();
@@ -55,45 +47,4 @@ function ModeSelect() {
   );
 }
 
-function MainLayout({ children }: MainLayoutProps) {
-  const [isClient, setIsClient] = useState(false);
-  const theme = useTheme<CustomThemeOptions>();
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return <p>Loading...</p>;
-  }
-
-  return (
-    <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
-      <Box
-        sx={{
-          backgroundColor: 'primary.light',
-          width: '100%',
-          height: theme.customProps.appBarHeight,
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <ModeSelect />
-      </Box>
-      <Box
-        sx={{
-          backgroundColor: 'primary.dark',
-          width: '100%',
-          height: theme.customProps.boardBarHeight,
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        Board Bar
-      </Box>
-      <main>{children}</main>
-    </Container>
-  );
-}
-
-export default MainLayout;
+export default ModeSelect;
