@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { AppProps } from 'next/app';
 import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import MainLayout from '@/components/Layout';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { StyledEngineProvider } from '@mui/material/styles';
 import theme from '@/common/styles/theme';
@@ -27,9 +26,7 @@ export default function MyApp(props: MyAppProps) {
         </Head>
         <CssVarsProvider theme={theme}>
           <CssBaseline />
-          <MainLayout>
-            <Component {...pageProps} />
-          </MainLayout>
+          <Component {...pageProps} />
         </CssVarsProvider>
       </CacheProvider>
     </StyledEngineProvider>
