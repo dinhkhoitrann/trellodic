@@ -30,6 +30,7 @@ function WorkspacesView() {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         endIcon={<ExpandMoreIcon />}
+        sx={{ color: 'white' }}
         onClick={handleClick}
       >
         Workspaces
