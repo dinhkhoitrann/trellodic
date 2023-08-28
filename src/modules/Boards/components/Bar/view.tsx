@@ -12,15 +12,16 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useTheme } from '@mui/styles';
 import { CustomThemeOptions } from '@/common/styles/theme';
+import { Theme } from '@/common/enums';
 
 const CHIP_STYLES = {
-  color: 'primary.main',
-  bgcolor: 'white',
+  color: 'white',
+  bgcolor: 'transparent',
   border: 'none',
   paddingX: '5px',
   borderRadius: '4px',
-  '& .MuiSvgIcon-root': {
-    color: 'primary.main',
+  '.MuiSvgIcon-root': {
+    color: 'white',
   },
   '&:hover': {
     bgcolor: 'primary.50',
@@ -41,7 +42,8 @@ function BoardBarView() {
         paddingX: 2,
         gap: 2,
         overflowX: 'auto',
-        borderTop: '1px solid #00bfa5',
+        borderBottom: '1px solid white',
+        bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#34495e' : '#1976d2'),
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -52,10 +54,17 @@ function BoardBarView() {
         <Chip icon={<FilterListIcon />} label="Filter" clickable sx={CHIP_STYLES} />
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Button variant="outlined" startIcon={<PersonAddIcon />}>
+        <Button
+          variant="outlined"
+          startIcon={<PersonAddIcon />}
+          sx={{ color: 'white', borderColor: 'white', '&:hover': { borderColor: 'white' } }}
+        >
           Invite
         </Button>
-        <AvatarGroup max={4} sx={{ '& .MuiAvatar-root': { width: '34px', height: '34px', fontSize: '0.8rem' } }}>
+        <AvatarGroup
+          max={4}
+          sx={{ '& .MuiAvatar-root': { width: '34px', height: '34px', fontSize: '0.8rem', border: 'none' } }}
+        >
           <Tooltip title="Tran Dinh Khoi">
             <Avatar alt="Tran Dinh Khoi" src="https://i.pravatar.cc/" />
           </Tooltip>
