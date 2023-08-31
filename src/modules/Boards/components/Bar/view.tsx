@@ -42,7 +42,6 @@ function BoardBarView() {
         paddingX: 2,
         gap: 2,
         overflowX: 'auto',
-        borderBottom: '1px solid white',
         bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#34495e' : '#1976d2'),
       }}
     >
@@ -63,7 +62,17 @@ function BoardBarView() {
         </Button>
         <AvatarGroup
           max={4}
-          sx={{ '& .MuiAvatar-root': { width: '34px', height: '34px', fontSize: '0.8rem', border: 'none' } }}
+          sx={{
+            '& .MuiAvatar-root': {
+              width: '34px',
+              height: '34px',
+              fontSize: '0.8rem',
+              border: 'none',
+              color: 'white',
+              cursor: 'pointer',
+              '&:first-of-type': { bgcolor: '#a4b0be' },
+            },
+          }}
         >
           <Tooltip title="Tran Dinh Khoi">
             <Avatar alt="Tran Dinh Khoi" src="https://i.pravatar.cc/" />
