@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
@@ -28,8 +29,19 @@ const CHIP_STYLES = {
   },
 };
 
-function BoardBarView() {
+type BoardBarViewProps = {
+  board: any;
+};
+
+function BoardBarView({ board }: BoardBarViewProps) {
+  const [loaded, setLoaded] = useState(false);
   const theme = useTheme<CustomThemeOptions>();
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
+  if (!loaded) return <p>...</p>;
 
   return (
     <Box
@@ -46,8 +58,14 @@ function BoardBarView() {
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Chip icon={<DashboardIcon />} label="TranDinhKhoi Board" clickable sx={CHIP_STYLES} />
-        <Chip icon={<VpnLockIcon />} label="Public/Private Workspace" clickable sx={CHIP_STYLES} />
+        <Chip icon={<DashboardIcon />} label={board?.title} clickable sx={CHIP_STYLES} />
+        <Chip
+          icon={<VpnLockIcon />}
+          label={board?.type}
+          clickable
+          sx={CHIP_STYLES}
+          style={{ textTransform: 'capitalize' }}
+        />
         <Chip icon={<AddToDriveIcon />} label="Add To Google Drive" clickable sx={CHIP_STYLES} />
         <Chip icon={<BoltIcon />} label="Automation" clickable sx={CHIP_STYLES} />
         <Chip icon={<FilterListIcon />} label="Filter" clickable sx={CHIP_STYLES} />

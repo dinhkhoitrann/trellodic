@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useTheme } from '@mui/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -21,18 +20,16 @@ import { CustomThemeOptions } from '@/common/styles/theme';
 import { Theme } from '@/common/enums';
 import ListCards from './ListCards';
 
-function ColumnView() {
-  const [anchorEl, setAnchorEl] = useState<null | SVGSVGElement>(null);
+type ColumnViewProps = {
+  column: any;
+  anchorEl: SVGSVGElement | null;
+  onClick: (_event: React.MouseEvent<SVGSVGElement>) => void;
+  onClose: () => void;
+};
+
+function ColumnView({ column, anchorEl, onClick, onClose }: ColumnViewProps) {
   const theme = useTheme<CustomThemeOptions>();
   const open = Boolean(anchorEl);
-
-  const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   return (
     <Box
@@ -56,7 +53,7 @@ function ColumnView() {
         }}
       >
         <Typography variant="h6" sx={{ fontSize: '1rem', fontWeight: 'bold', cursor: 'pointer' }}>
-          Column Title
+          {column?.title}
         </Typography>
         <Box>
           <Tooltip title="More options">
@@ -66,14 +63,14 @@ function ColumnView() {
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
               sx={{ color: 'text.primary', cursor: 'pointer' }}
-              onClick={handleClick}
+              onClick={onClick}
             />
           </Tooltip>
           <Menu
             id="basic-menu-column-dropdown"
             anchorEl={anchorEl}
             open={open}
-            onClose={handleClose}
+            onClose={onClose}
             MenuListProps={{
               'aria-labelledby': 'basic-column-dropdown',
             }}
@@ -119,7 +116,7 @@ function ColumnView() {
         </Box>
       </Box>
 
-      <ListCards />
+      <ListCards cards={column?.cards} cardOrderIds={column?.cardOrderIds} />
 
       <Box
         sx={{

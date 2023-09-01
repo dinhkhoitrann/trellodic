@@ -4,7 +4,11 @@ import { CustomThemeOptions } from '@/common/styles/theme';
 import { Theme } from '@/common/enums';
 import ListColumns from './ListColumns';
 
-function BoardContentView() {
+type BoardContentViewProps = {
+  board: any;
+};
+
+function BoardContentView({ board }: BoardContentViewProps) {
   const theme = useTheme<CustomThemeOptions>();
 
   return (
@@ -29,7 +33,7 @@ function BoardContentView() {
           },
         }}
       >
-        <ListColumns />
+        <ListColumns columns={board?.columns} columnOrderIds={board?.columnOrderIds} />
       </Box>
     </Box>
   );

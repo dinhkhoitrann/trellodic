@@ -3,7 +3,11 @@ import { useTheme } from '@mui/styles';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import Card from './Card';
 
-function ListCardsView() {
+type ListCardsViewProps = {
+  cards: any;
+};
+
+function ListCardsView({ cards }: ListCardsViewProps) {
   const theme = useTheme<CustomThemeOptions>();
 
   return (
@@ -26,7 +30,9 @@ function ListCardsView() {
         },
       }}
     >
-      <Card />
+      {cards?.map((card: any) => (
+        <Card key={card._id} card={card} />
+      ))}
     </Box>
   );
 }

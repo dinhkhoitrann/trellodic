@@ -1,7 +1,11 @@
 import BoardContentView from './view';
 
-function BoardContent() {
-  return <BoardContentView />;
+type BoardContentProps = {
+  board: any;
+};
+
+function BoardContent({ board }: BoardContentProps) {
+  return <BoardContentView board={board} />;
 }
 
 export default BoardContent;
