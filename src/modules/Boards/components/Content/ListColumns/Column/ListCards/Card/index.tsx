@@ -1,7 +1,11 @@
 import CardView from './view';
 
-function Card() {
-  return <CardView />;
+type CardProps = {
+  card: any;
+};
+
+function Card({ card }: CardProps) {
+  return <CardView card={card} />;
 }
 
 export default Card;
