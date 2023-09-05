@@ -1,7 +1,8 @@
+import { Board } from '@/types/board.type';
 import BoardBarView from './view';
 
 type BoardBarProps = {
-  board: any;
+  board: Board;
 };
 
 function BoardBar({ board }: BoardBarProps) {

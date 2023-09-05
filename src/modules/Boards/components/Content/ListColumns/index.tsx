@@ -1,14 +1,12 @@
-import { mapOrder } from '@/utils/sort';
+import { Column } from '@/types/column.type';
 import ListColumnsView from './view';
 
 type ListColumnsProps = {
-  columns: any;
-  columnOrderIds: string[];
+  columns: Column[];
 };
 
-function ListColumns({ columns, columnOrderIds }: ListColumnsProps) {
-  const orderedColumns = mapOrder(columns, columnOrderIds, '_id');
-  return <ListColumnsView columns={orderedColumns} />;
+function ListColumns({ columns }: ListColumnsProps) {
+  return <ListColumnsView columns={columns} />;
 }
 
 export default ListColumns;
