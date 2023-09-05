@@ -1,16 +1,31 @@
 import { useTheme } from '@mui/styles';
 import Box from '@mui/material/Box';
-import { CustomThemeOptions } from '@/common/styles/theme';
-import { Theme } from '@/common/enums';
+import { DragOverlay, DropAnimation, defaultDropAnimationSideEffects } from '@dnd-kit/core';
 import ListColumns from './ListColumns';
+import Column from './ListColumns/Column';
+import Card from './ListColumns/Column/ListCards/Card';
 import { Board } from '@/types/board.type';
+import { Theme } from '@/common/enums';
+import { CustomThemeOptions } from '@/common/styles/theme';
+import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
 
 type BoardContentViewProps = {
   board: Board;
+  activeDragItemType: string | null;
+  activeDragItemData: any | null;
 };
 
-function BoardContentView({ board }: BoardContentViewProps) {
+function BoardContentView({ board, activeDragItemType, activeDragItemData }: BoardContentViewProps) {
   const theme = useTheme<CustomThemeOptions>();
+  const dropAnimation: DropAnimation = {
+    sideEffects: defaultDropAnimationSideEffects({
+      styles: {
+        active: {
+          opacity: '0.5',
+        },
+      },
+    }),
+  };
 
   return (
     <Box
@@ -35,6 +50,10 @@ function BoardContentView({ board }: BoardContentViewProps) {
         }}
       >
         <ListColumns columns={board?.columns} />
+        <DragOverlay dropAnimation={dropAnimation}>
+          {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && <Column column={activeDragItemData} />}
+          {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD && <Card card={activeDragItemData} />}
+        </DragOverlay>
       </Box>
     </Box>
   );

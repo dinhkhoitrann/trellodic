@@ -1,9 +1,18 @@
 import { useEffect, useState } from 'react';
-import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
+import {
+  DndContext,
+  DragEndEvent,
+  DragStartEvent,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import BoardContentView from './view';
 import { mapOrder } from '@/utils/sort';
 import { Board } from '@/types/board.type';
+import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
 
 type BoardContentProps = {
   board: Board;
@@ -11,6 +20,9 @@ type BoardContentProps = {
 
 function BoardContent({ board: boardProp }: BoardContentProps) {
   const [board, setBoard] = useState(boardProp);
+  const [activeDragItemId, setActiveDragItemId] = useState<string | null>(null);
+  const [activeDragItemType, setActiveDragItemType] = useState<string | null>(null);
+  const [activeDragItemData, setActiveDragItemData] = useState<any | null>(null);
   // Use MouseSensor and TouchSensor rather than PointerSensor for better experience in mobile
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
@@ -35,7 +47,16 @@ function BoardContent({ board: boardProp }: BoardContentProps) {
     });
   }, [boardProp?.columnOrderIds, boardProp?.columns]);
 
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveDragItemId(event?.active?.id.toString());
+    setActiveDragItemType(
+      event?.active?.data?.current?.columnId ? ACTIVE_DRAG_ITEM_TYPE.CARD : ACTIVE_DRAG_ITEM_TYPE.COLUMN,
+    );
+    setActiveDragItemData(event?.active?.data?.current);
+  };
+
   const handleDragEnd = (event: DragEndEvent) => {
+    console.log(event);
     const { active, over } = event;
     if (!over) return;
 
@@ -46,11 +67,15 @@ function BoardContent({ board: boardProp }: BoardContentProps) {
       // TODO: Then, store Column Order Ids to DB
       setBoard((prevBoard) => ({ ...prevBoard, columns: [...dndOrderedColumns] }));
     }
+
+    setActiveDragItemId(null);
+    setActiveDragItemType(null);
+    setActiveDragItemData(null);
   };
 
   return (
-    <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
-      <BoardContentView board={board} />
+    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+      <BoardContentView board={board} activeDragItemType={activeDragItemType} activeDragItemData={activeDragItemData} />
     </DndContext>
   );
 }
