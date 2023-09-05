@@ -7,9 +7,10 @@ import CardMedia from '@mui/material/CardMedia';
 import CommentIcon from '@mui/icons-material/Comment';
 import GroupIcon from '@mui/icons-material/Group';
 import AttachmentIcon from '@mui/icons-material/Attachment';
+import { Card as CardType } from '@/types/card.type';
 
 type CardViewProps = {
-  card: any;
+  card: CardType;
 };
 
 function CardView({ card }: CardViewProps) {

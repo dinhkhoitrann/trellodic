@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import ColumnView from './view';
+import { Column as ColumnType } from '@/types/column.type';
 
 type ColumnProps = {
-  column: any;
+  column: ColumnType;
 };
 
 function Column({ column }: ColumnProps) {

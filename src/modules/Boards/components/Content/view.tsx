@@ -3,9 +3,10 @@ import Box from '@mui/material/Box';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import { Theme } from '@/common/enums';
 import ListColumns from './ListColumns';
+import { Board } from '@/types/board.type';
 
 type BoardContentViewProps = {
-  board: any;
+  board: Board;
 };
 
 function BoardContentView({ board }: BoardContentViewProps) {
@@ -33,7 +34,7 @@ function BoardContentView({ board }: BoardContentViewProps) {
           },
         }}
       >
-        <ListColumns columns={board?.columns} columnOrderIds={board?.columnOrderIds} />
+        <ListColumns columns={board?.columns} />
       </Box>
     </Box>
   );

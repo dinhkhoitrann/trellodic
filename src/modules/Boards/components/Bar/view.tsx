@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
@@ -14,6 +13,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useTheme } from '@mui/styles';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import { Theme } from '@/common/enums';
+import { Board } from '@/types/board.type';
 
 const CHIP_STYLES = {
   color: 'white',
@@ -30,18 +30,11 @@ const CHIP_STYLES = {
 };
 
 type BoardBarViewProps = {
-  board: any;
+  board: Board;
 };
 
 function BoardBarView({ board }: BoardBarViewProps) {
-  const [loaded, setLoaded] = useState(false);
   const theme = useTheme<CustomThemeOptions>();
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
-
-  if (!loaded) return <p>...</p>;
 
   return (
     <Box

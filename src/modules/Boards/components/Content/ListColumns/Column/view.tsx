@@ -1,3 +1,5 @@
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { useTheme } from '@mui/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -19,9 +21,10 @@ import DragHandleIcon from '@mui/icons-material/DragHandle';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import { Theme } from '@/common/enums';
 import ListCards from './ListCards';
+import { Column } from '@/types/column.type';
 
 type ColumnViewProps = {
-  column: any;
+  column: Column;
   anchorEl: SVGSVGElement | null;
   onClick: (_event: React.MouseEvent<SVGSVGElement>) => void;
   onClose: () => void;
@@ -31,8 +34,21 @@ function ColumnView({ column, anchorEl, onClick, onClose }: ColumnViewProps) {
   const theme = useTheme<CustomThemeOptions>();
   const open = Boolean(anchorEl);
 
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
+    id: column._id,
+    data: { ...column },
+  });
+  const dndKitColumnStyle = {
+    transform: CSS.Translate.toString(transform),
+    transition,
+  };
+
   return (
     <Box
+      ref={setNodeRef}
+      style={dndKitColumnStyle}
+      {...attributes}
+      {...listeners}
       sx={{
         minWidth: '300px',
         maxWidth: '300px',

@@ -1,8 +1,9 @@
 import { mapOrder } from '@/utils/sort';
 import ListCardsView from './view';
+import { Card } from '@/types/card.type';
 
 type ListCardsProps = {
-  cards: any;
+  cards: Card[];
   cardOrderIds: string[];
 };
 
