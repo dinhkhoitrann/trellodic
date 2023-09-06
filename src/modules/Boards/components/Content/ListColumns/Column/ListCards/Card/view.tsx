@@ -24,6 +24,7 @@ function CardView({ card }: CardViewProps) {
     transform: CSS.Translate.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : undefined,
+    border: isDragging ? '1px solid #2980b9' : undefined,
   };
 
   const shouldShowCardActions = () => {
