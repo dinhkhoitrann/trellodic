@@ -10,11 +10,9 @@ import {
   Over,
   TouchSensor,
   UniqueIdentifier,
-  closestCenter,
   closestCorners,
   getFirstCollision,
   pointerWithin,
-  rectIntersection,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
@@ -58,16 +56,17 @@ function BoardContent({ board: boardProp }: BoardContentProps) {
       }
 
       const pointerIntersections = pointerWithin(args);
-      const intersections = pointerIntersections?.length > 0 ? pointerIntersections : rectIntersection(args);
+      // Check if user drag card to outside of the valid area
+      if (pointerIntersections?.length === 0) return [];
 
-      let overId = getFirstCollision(intersections, 'id');
+      let overId = getFirstCollision(pointerIntersections, 'id');
 
       if (overId) {
         // If overId is a column id, try to find the closest card id within collision area based on
-        // closestCenter or closestCorners, but closestCenter brings to a smoother experience
+        // closestCenter or closestCorners, but closestCorners brings to a smoother experience
         const existingColumn = board?.columns?.find((column) => column._id === overId);
         if (existingColumn) {
-          overId = closestCenter({
+          overId = closestCorners({
             ...args,
             droppableContainers: args.droppableContainers.filter(
               (container) => container.id !== overId && existingColumn?.cardOrderIds?.includes(container.id.toString()),
