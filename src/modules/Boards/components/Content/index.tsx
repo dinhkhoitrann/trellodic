@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import {
   Active,
+  CollisionDetection,
   DndContext,
   DragEndEvent,
   DragOverEvent,
@@ -9,7 +10,11 @@ import {
   Over,
   TouchSensor,
   UniqueIdentifier,
+  closestCenter,
   closestCorners,
+  getFirstCollision,
+  pointerWithin,
+  rectIntersection,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
@@ -31,6 +36,7 @@ function BoardContent({ board: boardProp }: BoardContentProps) {
   const [activeDragItemType, setActiveDragItemType] = useState<string | null>(null);
   const [activeDragItemData, setActiveDragItemData] = useState<any | null>(null);
   const [oldColumnWhenDraggingCard, setOldColumnWhenDraggingCard] = useState<Column | undefined>();
+  const lastOverId = useRef<UniqueIdentifier | null>(null);
   // Use MouseSensor and TouchSensor rather than PointerSensor for better experience in mobile
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
@@ -44,6 +50,39 @@ function BoardContent({ board: boardProp }: BoardContentProps) {
     },
   });
   const sensors = useSensors(mouseSensor, touchSensor);
+  // Handle flickering when dragging cards between columns
+  const collisionDetectionStrategy: CollisionDetection = useCallback(
+    (args) => {
+      if (activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN) {
+        return closestCorners({ ...args });
+      }
+
+      const pointerIntersections = pointerWithin(args);
+      const intersections = pointerIntersections?.length > 0 ? pointerIntersections : rectIntersection(args);
+
+      let overId = getFirstCollision(intersections, 'id');
+
+      if (overId) {
+        // If overId is a column id, try to find the closest card id within collision area based on
+        // closestCenter or closestCorners, but closestCenter brings to a smoother experience
+        const existingColumn = board?.columns?.find((column) => column._id === overId);
+        if (existingColumn) {
+          overId = closestCenter({
+            ...args,
+            droppableContainers: args.droppableContainers.filter(
+              (container) => container.id !== overId && existingColumn?.cardOrderIds?.includes(container.id.toString()),
+            ),
+          })[0]?.id;
+        }
+
+        lastOverId.current = overId;
+        return [{ id: overId }];
+      }
+
+      return lastOverId.current ? [{ id: lastOverId.current }] : [];
+    },
+    [activeDragItemType, board?.columns],
+  );
 
   useEffect(() => {
     setBoard((prevBoard) => {
@@ -92,7 +131,9 @@ function BoardContent({ board: boardProp }: BoardContentProps) {
           ...activeDraggingCardData,
           columnId: nextOverColumn._id,
         };
-        nextOverColumn.cards = nextOverColumn.cards.toSpliced(newCardIndex, 0, rebuild_activeDraggingCardData);
+        const clonedNextOverCards = [...nextOverColumn.cards];
+        clonedNextOverCards.splice(newCardIndex, 0, rebuild_activeDraggingCardData);
+        nextOverColumn.cards = [...clonedNextOverCards];
         nextOverColumn.cardOrderIds = nextOverColumn.cards.map((card) => card._id);
       }
 
@@ -206,7 +247,7 @@ function BoardContent({ board: boardProp }: BoardContentProps) {
   return (
     <DndContext
       sensors={sensors}
-      collisionDetection={closestCorners}
+      collisionDetection={collisionDetectionStrategy}
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
