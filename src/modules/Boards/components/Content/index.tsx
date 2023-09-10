@@ -17,12 +17,13 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, isEmpty } from 'lodash';
 import BoardContentView from './view';
 import { mapOrder } from '@/utils/sort';
 import { Board } from '@/types/board.type';
 import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
 import { Column } from '@/types/column.type';
+import { generatePlaceholderCard } from '@/utils/card';
 
 type BoardContentProps = {
   board: Board;
@@ -121,6 +122,10 @@ function BoardContent({ board: boardProp }: BoardContentProps) {
 
       if (nextActiveColumn) {
         nextActiveColumn.cards = nextActiveColumn.cards.filter((card) => card._id !== activeDraggingCardId);
+        if (isEmpty(nextActiveColumn.cards)) {
+          nextActiveColumn.cards = [generatePlaceholderCard(nextActiveColumn)];
+        }
+
         nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map((card) => card._id);
       }
 
@@ -133,6 +138,8 @@ function BoardContent({ board: boardProp }: BoardContentProps) {
         const clonedNextOverCards = [...nextOverColumn.cards];
         clonedNextOverCards.splice(newCardIndex, 0, rebuild_activeDraggingCardData);
         nextOverColumn.cards = [...clonedNextOverCards];
+        nextOverColumn.cards = nextOverColumn.cards.filter((card) => !card.FE_isPlaceholderCard);
+
         nextOverColumn.cardOrderIds = nextOverColumn.cards.map((card) => card._id);
       }
 
