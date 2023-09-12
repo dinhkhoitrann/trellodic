@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Board from '@/modules/Boards/components/Details';
-import { API_ROOT, TAGS_CACHE } from '@/utils/constants';
+import { FE_API_ROOT, TAGS_CACHE } from '@/utils/constants';
 
 type Props = {
   params: { boardId: string };
@@ -8,7 +8,7 @@ type Props = {
 };
 
 async function getBoard(boardId: string) {
-  const res = await fetch(`${API_ROOT}/api/boards/${boardId}`, {
+  const res = await fetch(`${FE_API_ROOT}/api/boards/${boardId}`, {
     next: { revalidate: 10, tags: [`${TAGS_CACHE.BOARDS}/${boardId}`] },
   });
   const {

@@ -5,13 +5,17 @@ import { CustomThemeOptions } from '@/common/styles/theme';
 import Card from './components/Card';
 import { Card as CardType } from '@/types/card.type';
 import AddCardSection from './components/AddCardSection';
+import OutsideAddCard from './components/OutsideAddCard';
 
 type ListCardsViewProps = {
   cards: CardType[];
   columnId: string;
+  isAddingMode: boolean;
+  onAddingMode: () => void;
+  onCancelAddingMode: () => void;
 };
 
-function ListCardsView({ cards, columnId }: ListCardsViewProps) {
+function ListCardsView({ cards, columnId, isAddingMode, onAddingMode, onCancelAddingMode }: ListCardsViewProps) {
   const theme = useTheme<CustomThemeOptions>();
 
   return (
@@ -38,10 +42,13 @@ function ListCardsView({ cards, columnId }: ListCardsViewProps) {
         {cards?.map((card) => (
           <Card key={card._id} card={card} />
         ))}
+        {isAddingMode && <AddCardSection columnId={columnId} onHideTextField={onCancelAddingMode} />}
       </Box>
-      <Box sx={{ px: 1, pt: 1 }}>
-        <AddCardSection columnId={columnId} />
-      </Box>
+      {!isAddingMode && (
+        <Box sx={{ px: 1, pt: 1 }}>
+          <OutsideAddCard onShowTextField={onAddingMode} />
+        </Box>
+      )}
     </SortableContext>
   );
 }
