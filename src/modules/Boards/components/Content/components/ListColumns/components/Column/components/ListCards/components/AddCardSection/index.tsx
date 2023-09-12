@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import AddCardSectionView from './view';
 import { useMutation } from '@tanstack/react-query';
@@ -7,28 +6,20 @@ import { addCard } from '@/services/card';
 
 type AddCardSectionProps = {
   columnId: string;
+  onHideTextField: () => void;
 };
 
-function AddCardSection({ columnId }: AddCardSectionProps) {
+function AddCardSection({ columnId, onHideTextField }: AddCardSectionProps) {
   const { boardId } = useParams();
-  const [isAdding, setIsAdding] = useState(false);
-
-  const handleShowTextField = () => {
-    setIsAdding(true);
-  };
-
-  const handleHideTextField = () => {
-    setIsAdding(false);
-  };
 
   const handleAddCard = async (cardTitle: string) => {
-    await addCard(cardTitle, boardId as string, columnId);
+    await addCard({ cardTitle, boardId: boardId as string, columnId });
   };
 
   const { mutate, isPending } = useMutation({
     mutationFn: handleAddCard,
     onSuccess: () => {
-      setIsAdding(false);
+      onHideTextField();
       toast.success('Added card successfully');
     },
     onError: (error) => {
@@ -36,15 +27,7 @@ function AddCardSection({ columnId }: AddCardSectionProps) {
     },
   });
 
-  return (
-    <AddCardSectionView
-      isAddingMode={isAdding}
-      isPending={isPending}
-      onShowTextField={handleShowTextField}
-      onHideTextField={handleHideTextField}
-      onAddCard={mutate}
-    />
-  );
+  return <AddCardSectionView isPending={isPending} onHideTextField={onHideTextField} onAddCard={mutate} />;
 }
 
 export default AddCardSection;

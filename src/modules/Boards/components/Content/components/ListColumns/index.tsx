@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Column } from '@/types/column.type';
 import ListColumnsView from './view';
 
@@ -6,7 +7,24 @@ type ListColumnsProps = {
 };
 
 function ListColumns({ columns }: ListColumnsProps) {
-  return <ListColumnsView columns={columns} />;
+  const [isAddingMode, setIsAddingMode] = useState(false);
+
+  const handleAddingMode = () => {
+    setIsAddingMode(true);
+  };
+
+  const handleCancelAddingMode = () => {
+    setIsAddingMode(false);
+  };
+
+  return (
+    <ListColumnsView
+      columns={columns}
+      isAddingMode={isAddingMode}
+      onAddingMode={handleAddingMode}
+      onCancelAddingMode={handleCancelAddingMode}
+    />
+  );
 }
 
 export default ListColumns;

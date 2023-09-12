@@ -4,12 +4,16 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import Column from './components/Column';
 import { Column as ColumnType } from '@/types/column.type';
+import AddColumnSection from './components/AddColumnSection';
 
 type ListColumnsViewProps = {
   columns: ColumnType[];
+  isAddingMode: boolean;
+  onAddingMode: () => void;
+  onCancelAddingMode: () => void;
 };
 
-function ListColumnsView({ columns }: ListColumnsViewProps) {
+function ListColumnsView({ columns, isAddingMode, onAddingMode, onCancelAddingMode }: ListColumnsViewProps) {
   return (
     <SortableContext items={columns?.map((column) => column._id)} strategy={horizontalListSortingStrategy}>
       <Box
@@ -31,17 +35,25 @@ function ListColumnsView({ columns }: ListColumnsViewProps) {
 
         <Box
           sx={{
-            minWidth: '180px',
-            maxWidth: '180px',
+            minWidth: '270px',
+            maxWidth: '270px',
             mx: 2,
             borderRadius: '6px',
             height: 'fit-content',
             bgcolor: '#ffffff3d',
           }}
         >
-          <Button startIcon={<AddIcon />} sx={{ color: 'white', width: '100%' }}>
-            Add new column
-          </Button>
+          {isAddingMode ? (
+            <AddColumnSection onCancelAddingMode={onCancelAddingMode} />
+          ) : (
+            <Button
+              startIcon={<AddIcon />}
+              sx={{ color: 'white', width: '100%', height: '100%', justifyContent: 'left', p: '14px' }}
+              onClick={onAddingMode}
+            >
+              Add new column
+            </Button>
+          )}
         </Box>
       </Box>
     </SortableContext>
