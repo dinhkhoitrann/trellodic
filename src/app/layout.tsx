@@ -6,11 +6,14 @@ import { Experimental_CssVarsProvider as CssVarsProvider, StyledEngineProvider }
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { CacheProvider } from '@emotion/react';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { ToastContainer } from 'react-toastify';
 import AppBar from '@/components/AppBar';
+import BackdropLoading from '@/components/Loading/Backdrop';
 import theme from '@/common/styles/theme';
 import createEmotionCache from '@/common/styles/createEmotionCache';
+import 'react-toastify/dist/ReactToastify.css';
 import '@/common/styles/globals.css';
-import BackdropLoading from '@/components/Loading/Backdrop';
 
 const clientSideEmotionCache = createEmotionCache();
 const roboto = Roboto({
@@ -18,6 +21,7 @@ const roboto = Roboto({
   subsets: ['latin'],
   display: 'swap',
 });
+const queryClient = new QueryClient();
 
 export const metadata: Metadata = {
   title: 'Trellodic',
@@ -37,16 +41,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <CacheProvider value={clientSideEmotionCache}>
           <CssVarsProvider theme={theme}>
             <CssBaseline />
-            <body>
-              {!isLoaded ? (
-                <BackdropLoading />
-              ) : (
-                <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
-                  <AppBar />
-                  {!isLoaded ? <BackdropLoading /> : children}
-                </Container>
-              )}
-            </body>
+            <QueryClientProvider client={queryClient}>
+              <body>
+                {!isLoaded ? (
+                  <BackdropLoading />
+                ) : (
+                  <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
+                    <AppBar />
+                    {!isLoaded ? <BackdropLoading /> : children}
+                  </Container>
+                )}
+                <ToastContainer
+                  position="top-right"
+                  autoClose={3000}
+                  closeOnClick
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="colored"
+                />
+              </body>
+            </QueryClientProvider>
           </CssVarsProvider>
         </CacheProvider>
       </StyledEngineProvider>

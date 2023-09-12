@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Typography from '@mui/material/Typography';
 
 export const metadata: Metadata = {
   title: 'Home Page | Trellodic',
@@ -9,8 +10,10 @@ export const metadata: Metadata = {
 function HomePage() {
   return (
     <div>
-      <p>Home Page</p>
-      <Link href="/boards/1">Go to Board 1</Link>
+      <Typography>Home Page</Typography>
+      <Typography>
+        <Link href="/boards/1">Go to Board 1</Link>
+      </Typography>
     </div>
   );
 }
