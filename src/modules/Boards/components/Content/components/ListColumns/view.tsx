@@ -2,7 +2,7 @@ import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortabl
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
-import Column from './Column';
+import Column from './components/Column';
 import { Column as ColumnType } from '@/types/column.type';
 
 type ListColumnsViewProps = {

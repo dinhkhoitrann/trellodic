@@ -1,9 +1,9 @@
 import { useTheme } from '@mui/styles';
 import Box from '@mui/material/Box';
 import { DragOverlay, DropAnimation, defaultDropAnimationSideEffects } from '@dnd-kit/core';
-import ListColumns from './ListColumns';
-import Column from './ListColumns/Column';
-import Card from './ListColumns/Column/ListCards/Card';
+import ListColumns from './components/ListColumns';
+import Column from './components/ListColumns/components/Column';
+import Card from './components/ListColumns/components/Column/components/ListCards/components/Card';
 import { Board } from '@/types/board.type';
 import { Theme } from '@/common/enums';
 import { CustomThemeOptions } from '@/common/styles/theme';

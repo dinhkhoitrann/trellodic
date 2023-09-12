@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTheme } from '@mui/styles';
+import Link from 'next/link';
 import Box from '@mui/material/Box';
 import AppsIcon from '@mui/icons-material/Apps';
 import SvgIcon from '@mui/material/SvgIcon';
@@ -43,12 +44,14 @@ function AppBarView() {
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <AppsIcon sx={{ color: 'white' }} />
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-          <SvgIcon component={TrelloIcon} inheritViewBox fontSize="small" sx={{ color: 'white' }} />
-          <Typography variant="caption" sx={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'white' }}>
-            Trellodic
-          </Typography>
-        </Box>
+        <Link href="/">
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <SvgIcon component={TrelloIcon} inheritViewBox fontSize="small" sx={{ color: 'white' }} />
+            <Typography variant="caption" sx={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'white' }}>
+              Trellodic
+            </Typography>
+          </Box>
+        </Link>
         <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
           <Workspaces />
           <Recent />

@@ -2,14 +2,16 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/styles';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CustomThemeOptions } from '@/common/styles/theme';
-import Card from './Card';
+import Card from './components/Card';
 import { Card as CardType } from '@/types/card.type';
+import AddCardSection from './components/AddCardSection';
 
 type ListCardsViewProps = {
   cards: CardType[];
+  columnId: string;
 };
 
-function ListCardsView({ cards }: ListCardsViewProps) {
+function ListCardsView({ cards, columnId }: ListCardsViewProps) {
   const theme = useTheme<CustomThemeOptions>();
 
   return (
@@ -36,6 +38,9 @@ function ListCardsView({ cards }: ListCardsViewProps) {
         {cards?.map((card) => (
           <Card key={card._id} card={card} />
         ))}
+      </Box>
+      <Box sx={{ px: 1, pt: 1 }}>
+        <AddCardSection columnId={columnId} />
       </Box>
     </SortableContext>
   );

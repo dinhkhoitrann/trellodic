@@ -1,9 +1,13 @@
 'use client';
+import { Board as BoardType } from '@/types/board.type';
 import BoardContent from '../Content';
-import { mockData } from '@/apis/mock-data';
 
-function Board() {
-  return <BoardContent board={mockData.board} />;
+type BoardProps = {
+  board: BoardType;
+};
+
+function Board({ board }: BoardProps) {
+  return <BoardContent board={board} />;
 }
 
 export default Board;
