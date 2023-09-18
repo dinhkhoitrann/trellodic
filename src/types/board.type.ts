@@ -9,4 +9,12 @@ export interface Board {
   memberIds: string[];
   columnOrderIds: string[];
   columns: Column[];
+  labels: Label[];
+}
+
+export interface Label {
+  readonly _id: string;
+  title: string;
+  color: string;
+  isSelected?: boolean;
 }
