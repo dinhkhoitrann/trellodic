@@ -1,25 +1,31 @@
-import Box from '@mui/material/Box';
+import { useRef } from 'react';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { colors } from '../../constants';
+import Colors from '@/common/components/Colors';
 
-const colors = ['#1abc9c', '#2ecc71', '#3498db', '#9b59b6', '#34495e'];
+type CreateLabelViewProps = {
+  selectedColor: string;
+  isPending: boolean;
+  onSelectColorChange: (_color: string) => void;
+  onCreate: (_title: string, _color: string) => void;
+};
 
-function CreateLabelView() {
+function CreateLabelView({ selectedColor, isPending, onSelectColorChange, onCreate }: CreateLabelViewProps) {
+  const titleRef = useRef<HTMLInputElement>(null);
+
+  const handleCreateLabel = () => {
+    onCreate(titleRef.current?.value || '', selectedColor);
+  };
+
   return (
     <>
-      <TextField fullWidth size="small" placeholder="Title" sx={{ marginTop: '20px' }} />
+      <TextField inputRef={titleRef} fullWidth size="small" placeholder="Title" sx={{ marginTop: '20px' }} />
       <Typography sx={{ my: 2 }}>Select a color</Typography>
-      <Grid container spacing={1}>
-        {colors.map((color, index) => (
-          <Grid key={index} item>
-            <Box sx={{ width: '50px', height: '35px', bgcolor: color, borderRadius: '4px' }} />
-          </Grid>
-        ))}
-      </Grid>
-      <Button variant="contained" sx={{ mt: 2 }}>
-        Create
+      <Colors colors={colors} selectedColor={selectedColor} onSelect={onSelectColorChange} />
+      <Button variant="contained" disabled={isPending} sx={{ mt: 2 }} onClick={handleCreateLabel}>
+        {isPending ? 'Creating...' : 'Create'}
       </Button>
     </>
   );

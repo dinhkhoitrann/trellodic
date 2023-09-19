@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Members from './components/Members';
 import Labels from './components/Labels';
+import Checklist from './components/Checklist';
 
 function AddToCardView() {
   return (
@@ -14,6 +15,9 @@ function AddToCardView() {
         </Grid>
         <Grid item>
           <Labels />
+        </Grid>
+        <Grid item>
+          <Checklist />
         </Grid>
       </Grid>
     </Box>

@@ -3,12 +3,16 @@ import SelectLabelsView from './view';
 import { Label } from '@/types/board.type';
 
 const labels: Label[] = [
-  { _id: '1', title: 'Title 1', color: '#2980b9', isSelected: true },
-  { _id: '2', title: 'Title 2', color: '#9b59b6', isSelected: true },
-  { _id: '3', title: 'Title 3', color: '#f1c40f', isSelected: false },
+  { _id: '1', title: 'Title 1', color: '#164b35', isSelected: true },
+  { _id: '2', title: 'Title 2', color: '#2ecc71', isSelected: true },
+  { _id: '3', title: 'Title 3', color: '#3498db', isSelected: false },
 ];
 
-function SelectLabels() {
+type SelectLabelsProps = {
+  onEditMode: (_label: Label) => void;
+};
+
+function SelectLabels({ onEditMode }: SelectLabelsProps) {
   const [search, setSearch] = useState('');
   const [checkedLabels, setCheckedLabels] = useState(labels);
 
@@ -34,6 +38,7 @@ function SelectLabels() {
       labels={checkedLabels}
       onSearchChange={handleSearchChange}
       onSelectedLabelsChange={handleSelectedLabelsChange}
+      onEditMode={onEditMode}
     />
   );
 }

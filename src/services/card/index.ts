@@ -11,3 +11,7 @@ export const fetchCard = async (data: { cardId: string; boardId: string; signal:
   });
   return response.data?.card;
 };
+
+export const addChecklist = async (data: { checklistTitle: string; cardId: string; boardId: string }) => {
+  return internalRequest.post(`${FE_API_ROOT}/api/boards/${data.boardId}/card/${data.cardId}/checklist`, data);
+};

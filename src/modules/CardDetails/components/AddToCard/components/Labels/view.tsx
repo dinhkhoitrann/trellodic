@@ -5,27 +5,14 @@ import ActionButton, { ActionButtonRef } from '@/common/components/ActionButton'
 import PopoverWrapper from '../Popover';
 import SelectLabels from './components/SelectLabels';
 import CreateLabel from './components/CreateLabel';
-
-const MODES = {
-  VIEW: 'view',
-  CREATE: 'create',
-  EDIT: 'edit',
-};
+import { MODES } from './constants';
+import EditLabel from './components/EditLabel';
+import { Label } from '@/types/board.type';
 
 function LabelsView() {
   const [mode, setMode] = useState(MODES.VIEW);
   const ref = useRef<ActionButtonRef>(null);
-
-  const content = {
-    [MODES.VIEW]: {
-      title: 'Labels',
-      component: <SelectLabels />,
-    },
-    [MODES.CREATE]: {
-      title: 'Create label',
-      component: <CreateLabel />,
-    },
-  };
+  const labelRef = useRef<Label>();
 
   const handleClose = () => {
     ref.current?.handleClose();
@@ -35,8 +22,28 @@ function LabelsView() {
     setMode(MODES.CREATE);
   };
 
+  const handleEditMode = (label: Label) => {
+    labelRef.current = label;
+    setMode(MODES.EDIT);
+  };
+
   const handleBackToViewMode = () => {
     setMode(MODES.VIEW);
+  };
+
+  const content = {
+    [MODES.VIEW]: {
+      title: 'Labels',
+      component: <SelectLabels onEditMode={handleEditMode} />,
+    },
+    [MODES.CREATE]: {
+      title: 'Create label',
+      component: <CreateLabel onCreateSuccess={handleBackToViewMode} />,
+    },
+    [MODES.EDIT]: {
+      title: 'Edit label',
+      component: <EditLabel label={labelRef.current} onEditSuccess={handleBackToViewMode} />,
+    },
   };
 
   return (

@@ -1,8 +1,8 @@
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 
 function MembersView() {
@@ -13,11 +13,9 @@ function MembersView() {
         <Avatar alt="Tran Dinh Khoi" src="https://i.pravatar.cc/" />
         <Avatar alt="Tran Dinh Khoi" src="https://i.pravatar.cc/" />
         <Avatar alt="Tran Dinh Khoi" src="https://i.pravatar.cc/" />
-        <Avatar>
-          <Button sx={{ height: '100%' }}>
-            <AddIcon />
-          </Button>
-        </Avatar>
+        <IconButton>
+          <AddIcon />
+        </IconButton>
       </Stack>
     </Box>
   );

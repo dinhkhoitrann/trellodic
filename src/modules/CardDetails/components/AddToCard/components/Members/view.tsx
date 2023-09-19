@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -51,6 +52,9 @@ function MembersView() {
               console.log(details);
             }}
           />
+          <Button variant="contained" sx={{ mt: 2 }}>
+            Save
+          </Button>
         </PopoverWrapper>
       }
     >
