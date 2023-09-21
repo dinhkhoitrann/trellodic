@@ -44,6 +44,7 @@ function DatesView() {
             alignItems: 'center',
             py: 1,
             px: 2,
+            width: '180px',
             borderRadius: '4px',
             cursor: 'pointer',
             ':hover': {
@@ -53,7 +54,10 @@ function DatesView() {
           }}
           onClick={handleClick}
         >
-          {new Date(value[1]?.toString() as string).toLocaleDateString()} <ExpandMoreIcon sx={{ ml: 1 }} />
+          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ flex: 1 }}>
+            <Typography sx={{ flex: 1 }}>{new Date(value[1]?.toString() as string).toLocaleDateString()}</Typography>
+            <ExpandMoreIcon sx={{ ml: 1 }} />
+          </Stack>
         </Card>
         <Popover
           id={id}

@@ -9,3 +9,9 @@ export const generatePlaceholderCard = (column: Column): Card => {
     FE_isPlaceholderCard: true,
   };
 };
+
+export const isInvalidFile = (files: File[], selectedFile: File) => {
+  return files.some(
+    (file) => file.name === selectedFile.name && file.size === selectedFile.size && file.type === selectedFile.type,
+  );
+};

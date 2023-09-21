@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -7,7 +7,7 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 type PopoverWrapperProps = {
   title: string;
-  children: ReactElement[] | ReactElement;
+  children: ReactNode[] | ReactNode;
   canGoBack?: boolean;
   onClose: () => void;
   onGoBack?: () => void;

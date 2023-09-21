@@ -4,6 +4,8 @@ import Grid from '@mui/material/Grid';
 import Members from './components/Members';
 import Labels from './components/Labels';
 import Checklist from './components/Checklist';
+import Dates from './components/Dates';
+import Attachment from './components/Attachment';
 
 function AddToCardView() {
   return (
@@ -18,6 +20,12 @@ function AddToCardView() {
         </Grid>
         <Grid item>
           <Checklist />
+        </Grid>
+        <Grid item>
+          <Dates />
+        </Grid>
+        <Grid item>
+          <Attachment />
         </Grid>
       </Grid>
     </Box>

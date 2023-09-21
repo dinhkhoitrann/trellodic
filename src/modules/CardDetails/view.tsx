@@ -27,11 +27,11 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '80%',
+  width: { xs: '95%', md: '80%' },
   bgcolor: 'background.paper',
   boxShadow: 24,
   borderRadius: '6px',
-  px: 3,
+  px: { xs: 4, md: 5 },
   py: 4,
 };
 
@@ -43,34 +43,34 @@ export default function CardDetailsView({ card, isPending, isError, error }: Car
   };
 
   let content = (
-    <Stack direction="row" spacing={2}>
-      <LaptopIcon />
-      <Box sx={{ flex: 1 }}>
-        <Tooltip title={card?.title}>
+    <Box sx={{ flex: 1 }}>
+      <Tooltip title={card?.title}>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <LaptopIcon />
           <Typography variant="h6" component="span" sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
             {card?.title}
           </Typography>
-        </Tooltip>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={9}>
-            <Grid container spacing={2} sx={{ mt: 1 }}>
-              <Grid item>
-                <Members />
-              </Grid>
-              <Grid item>
-                <Labels />
-              </Grid>
-              <Grid item>
-                <Dates />
-              </Grid>
+        </Stack>
+      </Tooltip>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={9}>
+          <Grid container spacing={2} sx={{ mt: 1 }}>
+            <Grid item>
+              <Members />
+            </Grid>
+            <Grid item>
+              <Labels />
+            </Grid>
+            <Grid item>
+              <Dates />
             </Grid>
           </Grid>
-          <Grid item xs={12} md={3}>
-            <AddToCard />
-          </Grid>
         </Grid>
-      </Box>
-    </Stack>
+        <Grid item xs={12} md={3}>
+          <AddToCard />
+        </Grid>
+      </Grid>
+    </Box>
   );
 
   if (isPending) {
