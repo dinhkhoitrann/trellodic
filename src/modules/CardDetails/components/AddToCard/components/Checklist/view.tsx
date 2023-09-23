@@ -2,7 +2,7 @@ import { useRef, useEffect, ChangeEvent } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import ChecklistIcon from '@mui/icons-material/Checklist';
-import ActionButton, { ActionButtonRef } from '@/common/components/ActionButton';
+import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import PopoverWrapper from '../Popover';
 
 type ChecklistViewProps = {

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import Button from '@mui/material/Button';
 import LabelOutlinedIcon from '@mui/icons-material/LabelOutlined';
-import ActionButton, { ActionButtonRef } from '@/common/components/ActionButton';
+import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import PopoverWrapper from '../Popover';
 import SelectLabels from './components/SelectLabels';
 import CreateLabel from './components/CreateLabel';

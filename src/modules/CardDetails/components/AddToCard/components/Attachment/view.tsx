@@ -7,7 +7,7 @@ import AttachmentIcon from '@mui/icons-material/Attachment';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import ActionButton, { ActionButtonRef } from '@/common/components/ActionButton';
+import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import PopoverWrapper from '../Popover';
 
 type AttachmentViewProps = {

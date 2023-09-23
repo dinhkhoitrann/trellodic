@@ -4,16 +4,12 @@ import Backdrop from '@mui/material/Backdrop';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import Tooltip from '@mui/material/Tooltip';
-import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
-import LaptopIcon from '@mui/icons-material/Laptop';
 import { Card } from '@/types/card.type';
-import Members from './components/Members';
-import Labels from './components/Labels';
-import Dates from './components/Dates';
 import { Theme } from '@/common/enums';
 import AddToCard from './components/AddToCard';
+import ActiveSections from './components/ActiveSections';
+import Description from './components/Description';
 
 type CardDetailsViewProps = {
   card: Card;
@@ -26,7 +22,7 @@ const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
-  transform: 'translate(-50%, -50%)',
+  transform: 'translate(-50%, -250px)',
   width: { xs: '95%', md: '80%' },
   bgcolor: 'background.paper',
   boxShadow: 24,
@@ -44,27 +40,10 @@ export default function CardDetailsView({ card, isPending, isError, error }: Car
 
   let content = (
     <Box sx={{ flex: 1 }}>
-      <Tooltip title={card?.title}>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <LaptopIcon />
-          <Typography variant="h6" component="span" sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-            {card?.title}
-          </Typography>
-        </Stack>
-      </Tooltip>
       <Grid container spacing={2}>
         <Grid item xs={12} md={9}>
-          <Grid container spacing={2} sx={{ mt: 1 }}>
-            <Grid item>
-              <Members />
-            </Grid>
-            <Grid item>
-              <Labels />
-            </Grid>
-            <Grid item>
-              <Dates />
-            </Grid>
-          </Grid>
+          <ActiveSections card={card} />
+          <Description />
         </Grid>
         <Grid item xs={12} md={3}>
           <AddToCard />
@@ -93,12 +72,21 @@ export default function CardDetailsView({ card, isPending, isError, error }: Car
             timeout: 500,
           },
         }}
+        style={{ overflow: 'auto' }}
       >
-        <Fade in>
-          <Box sx={{ ...style, bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0') }}>
-            {content}
-          </Box>
-        </Fade>
+        <div>
+          <Fade in>
+            <Box
+              sx={{
+                ...style,
+                bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0'),
+                color: (theme) => (theme.palette.mode === Theme.Light ? '#172b4d' : '#B6C2CF'),
+              }}
+            >
+              {content}
+            </Box>
+          </Fade>
+        </div>
       </Modal>
     </div>
   );

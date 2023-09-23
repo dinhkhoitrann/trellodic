@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { colors } from '../../constants';
-import Colors from '@/common/components/Colors';
+import Colors from '@/components/Colors';
 
 type CreateLabelViewProps = {
   selectedColor: string;
