@@ -44,6 +44,40 @@ export const mockData: MockData = {
             memberIds: ['test-user-id-01'],
             comments: ['test comment 01', 'test comment 02'],
             attachments: ['test attachment 01', 'test attachment 02', 'test attachment 03'],
+            checklists: [
+              {
+                _id: 'cl1',
+                name: 'test zzz',
+                items: [
+                  {
+                    _id: 'item-1',
+                    title: '123',
+                    isDone: false,
+                  },
+                  {
+                    _id: 'item-2',
+                    title: '456',
+                    isDone: false,
+                  },
+                ],
+              },
+              {
+                _id: 'cl2',
+                name: 'test aaa',
+                items: [
+                  {
+                    _id: 'item-3',
+                    title: 'zzz',
+                    isDone: false,
+                  },
+                  {
+                    _id: 'item-4',
+                    title: 'test 111',
+                    isDone: false,
+                  },
+                ],
+              },
+            ],
           },
           {
             _id: 'card-id-02',

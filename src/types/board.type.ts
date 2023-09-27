@@ -9,7 +9,7 @@ export interface Board {
   memberIds: string[];
   columnOrderIds: string[];
   columns: Column[];
-  labels: Label[];
+  labels?: Label[];
 }
 
 export interface Label {

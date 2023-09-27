@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -11,9 +9,8 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Styles from './styles.module.css';
-import { useTheme } from '@mui/styles';
-import { Theme } from '@mui/material/styles';
 import { Theme as AppTheme } from '@/common/enums';
+import Editor from '@/components/Editor';
 
 type DescriptionViewProps = {
   editorVisible: boolean;
@@ -22,7 +19,6 @@ type DescriptionViewProps = {
 };
 
 function DescriptionView({ editorVisible, onSave, onShowHideEditor }: DescriptionViewProps) {
-  const theme = useTheme<Theme>();
   const [editorData, setEditorData] = useState('aaa');
   const [showMore, setShowMore] = useState(editorData.length <= 250);
   const editorDataRef = useRef<HTMLDivElement>(null);
@@ -45,6 +41,10 @@ function DescriptionView({ editorVisible, onSave, onShowHideEditor }: Descriptio
     }
   }, [editorData.length, editorVisible]);
 
+  const handleEditorDataChange = (data: string) => {
+    setEditorData(data);
+  };
+
   const renderAction = () => {
     if (!editorVisible) {
       return <Button onClick={onShowHideEditor}>Edit</Button>;
@@ -55,69 +55,7 @@ function DescriptionView({ editorVisible, onSave, onShowHideEditor }: Descriptio
     if (editorVisible) {
       return (
         <>
-          <div className={theme.palette.mode === 'dark' ? Styles.editor : ''}>
-            <CKEditor
-              editor={ClassicEditor}
-              data={editorData}
-              config={{
-                ckfinder: {
-                  // Upload the images to the server using the CKFinder QuickUpload command.
-                  uploadUrl:
-                    // eslint-disable-next-line max-len
-                    'https://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json',
-                },
-                toolbar: {
-                  items: [
-                    'undo',
-                    'redo',
-                    '|',
-                    'heading',
-                    '|',
-                    'fontfamily',
-                    'fontsize',
-                    'fontColor',
-                    'fontBackgroundColor',
-                    '|',
-                    'bold',
-                    'italic',
-                    'strikethrough',
-                    'subscript',
-                    'superscript',
-                    'code',
-                    '|',
-                    'uploadImage',
-                    'blockQuote',
-                    'codeBlock',
-                    '|',
-                    'alignment',
-                    '|',
-                    'bulletedList',
-                    'numberedList',
-                    'todoList',
-                    'outdent',
-                    'indent',
-                  ],
-                  shouldNotGroupWhenFull: true,
-                },
-              }}
-              onReady={(editor) => {
-                // You can store the "editor" and use when it is needed.
-                console.log('Editor is ready to use!', editor);
-              }}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                setEditorData(data);
-                console.log({ event, editor, data });
-              }}
-              onBlur={(event, editor) => {
-                console.log('Blur.', editor);
-              }}
-              onFocus={(event, editor) => {
-                console.log('Event.', event);
-                console.log('Focus.', editor);
-              }}
-            />
-          </div>
+          <Editor data={editorData} onDataChange={handleEditorDataChange} />
           <Box sx={{ mt: 2 }}>
             <Button variant="contained" onClick={() => onSave(editorData)}>
               Save
@@ -176,7 +114,7 @@ function DescriptionView({ editorVisible, onSave, onShowHideEditor }: Descriptio
   };
 
   return (
-    <Box sx={{ mt: 3 }}>
+    <Box sx={{ mt: 6 }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Stack direction="row" alignItems="center" spacing={1}>
           <DescriptionOutlinedIcon />

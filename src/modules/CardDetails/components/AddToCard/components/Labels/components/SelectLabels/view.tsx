@@ -7,9 +7,9 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import { Label } from '@/types/board.type';
-import { IconButton } from '@mui/material';
 
 type SelectLabelsViewProps = {
   labels: Label[];

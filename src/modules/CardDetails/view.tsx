@@ -10,6 +10,8 @@ import { Theme } from '@/common/enums';
 import AddToCard from './components/AddToCard';
 import ActiveSections from './components/ActiveSections';
 import Description from './components/Description';
+import Checklist from './components/Checklist';
+import Comments from './components/Comments';
 
 type CardDetailsViewProps = {
   card: Card;
@@ -23,7 +25,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -250px)',
-  width: { xs: '95%', md: '80%' },
+  width: { xs: '95%', md: '75%' },
   bgcolor: 'background.paper',
   boxShadow: 24,
   borderRadius: '6px',
@@ -44,6 +46,10 @@ export default function CardDetailsView({ card, isPending, isError, error }: Car
         <Grid item xs={12} md={9}>
           <ActiveSections card={card} />
           <Description />
+          {card?.checklists?.map((checklist) => (
+            <Checklist key={checklist._id} checklist={checklist} />
+          ))}
+          <Comments />
         </Grid>
         <Grid item xs={12} md={3}>
           <AddToCard />
