@@ -5,19 +5,21 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Grid from '@mui/material/Grid';
-import { Card } from '@/types/card.type';
 import { Theme } from '@/common/enums';
 import AddToCard from './components/AddToCard';
 import ActiveSections from './components/ActiveSections';
 import Description from './components/Description';
 import Checklist from './components/Checklist';
 import Comments from './components/Comments';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { SerializedError } from '@reduxjs/toolkit';
+import { Card } from '@/types/card.type';
 
 type CardDetailsViewProps = {
   card: Card;
   isPending: boolean;
   isError: boolean;
-  error: Error | null;
+  error: FetchBaseQueryError | SerializedError | undefined;
 };
 
 const style = {
@@ -33,7 +35,7 @@ const style = {
   py: 4,
 };
 
-export default function CardDetailsView({ card, isPending, isError, error }: CardDetailsViewProps) {
+export default function CardDetailsView({ card, isError, error }: CardDetailsViewProps) {
   const router = useRouter();
 
   const handleCloseModal = () => {
@@ -58,12 +60,8 @@ export default function CardDetailsView({ card, isPending, isError, error }: Car
     </Box>
   );
 
-  if (isPending) {
-    content = <Typography>Loading...</Typography>;
-  }
-
   if (isError) {
-    content = <Typography>{error?.message}</Typography>;
+    content = <Typography>{(error as SerializedError).message}</Typography>;
   }
 
   return (

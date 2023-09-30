@@ -42,7 +42,16 @@ export const mockData: MockData = {
             cover:
               'https://trungquandev.com/wp-content/uploads/2022/07/fair-mern-stack-advanced-banner-trungquandev.jpg',
             memberIds: ['test-user-id-01'],
-            comments: ['test comment 01', 'test comment 02'],
+            comments: [
+              {
+                _id: 'cm1',
+                avatarUrl: '',
+                username: 'Trần Đình Khôi',
+                createdAt: new Date(),
+                updatedAt: new Date(),
+                content: 'This is a comment',
+              },
+            ],
             attachments: ['test attachment 01', 'test attachment 02', 'test attachment 03'],
             checklists: [
               {

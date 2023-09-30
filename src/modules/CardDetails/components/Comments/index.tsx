@@ -1,11 +1,7 @@
 import CommentsView from './view';
 
 function Comments() {
-  const handleSave = (content: string) => {
-    console.log(content);
-  };
-
-  return <CommentsView onSave={handleSave} />;
+  return <CommentsView />;
 }
 
 export default Comments;

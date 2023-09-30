@@ -1,7 +1,6 @@
 import { useParams } from 'next/navigation';
+import { useGetCardDetailsQuery } from '@/redux/services/card';
 import CardDetailsView from './view';
-import { useQuery } from '@tanstack/react-query';
-import { fetchCard } from '@/services/card';
 
 type CardDetailsProps = {
   cardId: string;
@@ -9,13 +8,12 @@ type CardDetailsProps = {
 
 function CardDetails({ cardId }: CardDetailsProps) {
   const { boardId } = useParams();
-  const { data, isPending, isError, error } = useQuery({
-    queryKey: [cardId],
-    queryFn: ({ signal }) => fetchCard({ cardId, boardId: boardId.toString(), signal }),
-    staleTime: 3000,
-  });
+  const { data, error, isFetching, isError } = useGetCardDetailsQuery(
+    { cardId, boardId: boardId.toString() },
+    { pollingInterval: 60000 * 5, refetchOnFocus: true, refetchOnReconnect: true },
+  );
 
-  return <CardDetailsView card={data} isPending={isPending} isError={isError} error={error} />;
+  return <CardDetailsView card={data!} isPending={isFetching} isError={isError} error={error} />;
 }
 
 export default CardDetails;

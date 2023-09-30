@@ -80,7 +80,11 @@ function ChecklistView({
           <Stack direction="row" alignItems="center" spacing={1} sx={{ flex: 1 }}>
             <ChecklistIcon />
             {editChecklistMode ? (
-              <EditCLName currentName={checklist?.name} onClose={handleShowHideEditCLNameForm} />
+              <EditCLName
+                checklistId={checklist._id}
+                currentName={checklist?.name}
+                onClose={handleShowHideEditCLNameForm}
+              />
             ) : (
               <Typography
                 variant="body2"

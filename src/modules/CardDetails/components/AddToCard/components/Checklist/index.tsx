@@ -1,9 +1,7 @@
 import { useState, ChangeEvent } from 'react';
 import ChecklistView from './view';
 import { useParams, useSearchParams } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
-import { addChecklist } from '@/services/card';
-import { toast } from 'react-toastify';
+import { useCreateChecklistMutation } from '@/redux/services/card';
 
 function Checklist() {
   const [checklistTitle, setChecklistTitle] = useState<string | undefined>();
@@ -11,19 +9,11 @@ function Checklist() {
   const searchParams = useSearchParams();
   const cardId = searchParams.get('cardId');
 
-  const { mutate, isPending, isSuccess } = useMutation({
-    mutationFn: addChecklist,
-    onSuccess: () => {
-      toast.success('Checklist added successfully');
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+  const [trigger, { isSuccess, isLoading }] = useCreateChecklistMutation();
 
   const handleAddChecklist = async (title: string) => {
     if (!title) return;
-    mutate({ checklistTitle: title, cardId: cardId!.toString(), boardId: boardId.toString() });
+    trigger({ checklistTitle: title, cardId: cardId!.toString(), boardId: boardId.toString() });
   };
 
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +23,7 @@ function Checklist() {
   return (
     <ChecklistView
       title={checklistTitle}
-      isPending={isPending}
+      isPending={isLoading}
       isSuccess={isSuccess}
       onAddChecklist={handleAddChecklist}
       onTitleChange={handleTitleChange}

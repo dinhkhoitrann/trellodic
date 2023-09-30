@@ -1,6 +1,12 @@
+import { Checklist } from '@/types/card.type';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-  const { checklistTitle, cardId, boardId } = await request.json();
-  return NextResponse.json({ checklistTitle, cardId, boardId });
+  const { checklistTitle } = await request.json();
+  const checklist: Checklist = {
+    _id: Math.random().toString(),
+    name: checklistTitle,
+    items: [],
+  };
+  return NextResponse.json({ checklist });
 }

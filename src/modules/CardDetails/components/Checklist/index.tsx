@@ -1,6 +1,8 @@
 import { useState, useEffect, ChangeEvent } from 'react';
+import { useParams, useSearchParams } from 'next/navigation';
 import ChecklistView from './view';
 import { Checklist as ChecklistType, ChecklistItem } from '@/types/card.type';
+import { useDeleteChecklistMutation } from '@/redux/services/card';
 
 type ChecklistProps = {
   checklist: ChecklistType;
@@ -9,6 +11,10 @@ type ChecklistProps = {
 function Checklist({ checklist }: ChecklistProps) {
   const [items, setItems] = useState<ChecklistItem[]>(checklist?.items || []);
   const [progress, setProgress] = useState<number>();
+  const [trigger] = useDeleteChecklistMutation();
+  const { boardId } = useParams();
+  const searchParams = useSearchParams();
+  const cardId = searchParams.get('cardId');
 
   useEffect(() => {
     let numberOfCheckedItems = 0;
@@ -36,7 +42,7 @@ function Checklist({ checklist }: ChecklistProps) {
   };
 
   const handleDeleteChecklist = (checklistId: string) => {
-    console.log(checklistId);
+    trigger({ checklistId, cardId: cardId!, boardId: boardId.toString() });
   };
 
   const handleAddItem = (title: string) => {
