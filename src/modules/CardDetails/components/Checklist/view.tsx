@@ -116,7 +116,7 @@ function ChecklistView({
                   }}
                 >
                   <Checkbox name={item._id} checked={item.isDone} sx={{ mr: 2 }} onChange={onItemDone} />
-                  <ChecklistItemLabel item={item} />
+                  <ChecklistItemLabel item={item} checklistId={checklist._id} />
                   <IconButton onClick={() => handleOpenAlertForItem(item._id, 222)}>
                     <DeleteIcon fontSize="small" />
                   </IconButton>

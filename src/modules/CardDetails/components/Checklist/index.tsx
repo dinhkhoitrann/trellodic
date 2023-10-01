@@ -1,63 +1,66 @@
 import { useState, useEffect, ChangeEvent } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import ChecklistView from './view';
-import { Checklist as ChecklistType, ChecklistItem } from '@/types/card.type';
-import { useDeleteChecklistMutation } from '@/redux/services/card';
+import { Checklist as ChecklistType } from '@/types/card.type';
+import {
+  useAddChecklistItemMutation,
+  useDeleteChecklistMutation,
+  useDeleteChecklistItemMutation,
+  useMarkChecklistItemDoneMutation,
+} from '@/redux/services/card';
 
 type ChecklistProps = {
   checklist: ChecklistType;
 };
 
 function Checklist({ checklist }: ChecklistProps) {
-  const [items, setItems] = useState<ChecklistItem[]>(checklist?.items || []);
   const [progress, setProgress] = useState<number>();
-  const [trigger] = useDeleteChecklistMutation();
   const { boardId } = useParams();
   const searchParams = useSearchParams();
   const cardId = searchParams.get('cardId');
 
+  const [deleteCheckList] = useDeleteChecklistMutation();
+  const [markItemDone] = useMarkChecklistItemDoneMutation();
+  const [deleteItem] = useDeleteChecklistItemMutation();
+  const [addChecklistItem] = useAddChecklistItemMutation();
+
   useEffect(() => {
     let numberOfCheckedItems = 0;
-    items.forEach((item) => {
+    checklist.items.forEach((item) => {
       if (item.isDone) {
         numberOfCheckedItems++;
       }
     });
 
-    setProgress((numberOfCheckedItems / items.length) * 100);
-  }, [items]);
+    setProgress((numberOfCheckedItems / checklist.items.length) * 100);
+  }, [checklist.items]);
 
   const handleItemDone = (event: ChangeEvent<HTMLInputElement>) => {
-    const updatedItems = [...items];
-    const selectedItemIndex = updatedItems.findIndex((item) => item._id === event.target.name);
-    updatedItems[selectedItemIndex].isDone = !updatedItems[selectedItemIndex].isDone;
-    setItems(updatedItems);
+    markItemDone({
+      itemId: event.target.name,
+      checklistId: checklist._id,
+      cardId: cardId!,
+      boardId: boardId.toString(),
+    });
   };
 
   const handleDeleteItem = (params: any[]) => {
     const [itemId] = params;
-    const updatedItems = [...items];
-    const filteredItems = updatedItems.filter((item) => item._id !== itemId);
-    setItems(filteredItems);
+    deleteItem({ itemId, checklistId: checklist._id, cardId: cardId!, boardId: boardId.toString() });
   };
 
   const handleDeleteChecklist = (checklistId: string) => {
-    trigger({ checklistId, cardId: cardId!, boardId: boardId.toString() });
+    deleteCheckList({ checklistId, cardId: cardId!, boardId: boardId.toString() });
   };
 
   const handleAddItem = (title: string) => {
-    const item: ChecklistItem = {
-      _id: Math.random().toString(),
-      title: title,
-      isDone: false,
-    };
-    setItems((prevState) => [...prevState, item]);
+    addChecklistItem({ title, checklistId: checklist._id, cardId: cardId!, boardId: boardId.toString() });
   };
 
   return (
     <ChecklistView
       checklist={checklist}
-      items={items}
+      items={checklist.items}
       progress={progress}
       onItemDone={handleItemDone}
       onAdd={handleAddItem}

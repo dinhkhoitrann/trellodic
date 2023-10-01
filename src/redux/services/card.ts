@@ -1,6 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { Card, Checklist } from '@/types/card.type';
-import { addChecklist, deleteChecklist, editChecklistTitle, fetchCard } from '@/services/card';
+import type { Card } from '@/types/card.type';
+import { fetchCard } from '@/services/card';
+import {
+  addChecklist,
+  createChecklistItem,
+  deleteChecklist,
+  deleteChecklistItem,
+  editChecklistTitle,
+  editTitleChecklistItem,
+  markChecklistItemIsDone,
+} from '@/services/card/checklist';
 
 export const cardApi = createApi({
   reducerPath: 'cardApi',
@@ -15,28 +24,44 @@ export const cardApi = createApi({
       providesTags: (_result, _error, { cardId }) => [{ type: 'Card', id: cardId }],
       keepUnusedDataFor: 5,
     }),
-    createChecklist: builder.mutation<Checklist, { checklistTitle: string; cardId: string; boardId: string }>({
-      queryFn: async (args, { signal }) => {
-        const checklist: Checklist = await addChecklist({ ...args, signal });
-        return { data: checklist };
-      },
+    createChecklist: builder.mutation<void, { checklistTitle: string; cardId: string; boardId: string }>({
+      queryFn: (args, { signal }) => addChecklist({ ...args, signal }),
       invalidatesTags: (_result, _error, { cardId }) => [{ type: 'Card', id: cardId }],
     }),
-    deleteChecklist: builder.mutation<string, { checklistId: string; cardId: string; boardId: string }>({
-      queryFn: async (args, { signal }) => {
-        await deleteChecklist({ ...args, signal });
-        return { data: args.checklistId };
-      },
+    deleteChecklist: builder.mutation<void, { checklistId: string; cardId: string; boardId: string }>({
+      queryFn: (args, { signal }) => deleteChecklist({ ...args, signal }),
       invalidatesTags: (_result, _error, { cardId }) => [{ type: 'Card', id: cardId }],
     }),
     updateChecklistTitle: builder.mutation<
-      Checklist,
+      void,
       { checklistId: string; updatedTitle: string; cardId: string; boardId: string }
     >({
-      queryFn: async (args, { signal }) => {
-        const updatedChecklist: Checklist = await editChecklistTitle({ ...args, signal });
-        return { data: updatedChecklist };
-      },
+      queryFn: (args, { signal }) => editChecklistTitle({ ...args, signal }),
+      invalidatesTags: (_result, _error, { cardId }) => [{ type: 'Card', id: cardId }],
+    }),
+    markChecklistItemDone: builder.mutation<
+      void,
+      { itemId: string; checklistId: string; cardId: string; boardId: string }
+    >({
+      queryFn: (args, { signal }) => markChecklistItemIsDone({ ...args, signal }),
+      invalidatesTags: (_result, _error, { cardId }) => [{ type: 'Card', id: cardId }],
+    }),
+    deleteChecklistItem: builder.mutation<
+      void,
+      { itemId: string; checklistId: string; cardId: string; boardId: string }
+    >({
+      queryFn: (args, { signal }) => deleteChecklistItem({ ...args, signal }),
+      invalidatesTags: (_result, _error, { cardId }) => [{ type: 'Card', id: cardId }],
+    }),
+    updateTitleChecklistItem: builder.mutation<
+      void,
+      { itemId: string; title: string; checklistId: string; cardId: string; boardId: string }
+    >({
+      queryFn: (args, { signal }) => editTitleChecklistItem({ ...args, signal }),
+      invalidatesTags: (_result, _error, { cardId }) => [{ type: 'Card', id: cardId }],
+    }),
+    addChecklistItem: builder.mutation<void, { title: string; checklistId: string; cardId: string; boardId: string }>({
+      queryFn: (args, { signal }) => createChecklistItem({ ...args, signal }),
       invalidatesTags: (_result, _error, { cardId }) => [{ type: 'Card', id: cardId }],
     }),
   }),
@@ -47,4 +72,8 @@ export const {
   useCreateChecklistMutation,
   useDeleteChecklistMutation,
   useUpdateChecklistTitleMutation,
+  useMarkChecklistItemDoneMutation,
+  useDeleteChecklistItemMutation,
+  useUpdateTitleChecklistItemMutation,
+  useAddChecklistItemMutation,
 } = cardApi;

@@ -3,7 +3,7 @@ import { Dayjs } from 'dayjs';
 import { toast } from 'react-toastify';
 import { useMutation } from '@tanstack/react-query';
 import DatesView from './view';
-import { editDueDates } from '@/services/card';
+import { editDueDates } from '@/services/card/dates';
 
 function Dates() {
   const { boardId } = useParams();
