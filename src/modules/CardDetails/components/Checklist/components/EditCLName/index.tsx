@@ -1,24 +1,25 @@
-import { useParams, useSearchParams } from 'next/navigation';
 import EditCLNameView from './view';
-import { useUpdateChecklistTitleMutation } from '@/redux/services/card';
+import { useUpdateChecklistTitleMutation } from '@/redux/services/card/checklist';
+import withBoard from '@/hocs/withBoard';
 
 type EditCLNameProps = {
   checklistId: string;
   currentName: string;
+  boardId: string;
+  cardId: string;
   onClose: () => void;
+  onRefreshCard: () => void;
 };
 
-function EditCLName({ checklistId, ...rest }: EditCLNameProps) {
-  const { boardId } = useParams();
-  const searchParams = useSearchParams();
-  const cardId = searchParams.get('cardId');
-  const [trigger] = useUpdateChecklistTitleMutation();
+function EditCLName({ checklistId, boardId, cardId, onRefreshCard, ...rest }: EditCLNameProps) {
+  const [updateChecklistTitle] = useUpdateChecklistTitleMutation();
 
-  const handleEdit = (newName: string) => {
-    trigger({ checklistId, cardId: cardId!, boardId: boardId.toString(), updatedTitle: newName });
+  const handleEdit = async (newName: string) => {
+    await updateChecklistTitle({ checklistId, cardId: cardId, boardId: boardId, updatedTitle: newName });
+    onRefreshCard();
   };
 
   return <EditCLNameView {...rest} onEdit={handleEdit} />;
 }
 
-export default EditCLName;
+export default withBoard(EditCLName);

@@ -1,5 +1,5 @@
 import { useParams } from 'next/navigation';
-import { useGetCardDetailsQuery } from '@/redux/services/card';
+import { useGetCardDetailsQuery } from '@/redux/services/card/card';
 import CardDetailsView from './view';
 
 type CardDetailsProps = {

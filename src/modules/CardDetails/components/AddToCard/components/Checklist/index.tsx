@@ -1,19 +1,23 @@
 import { useState, ChangeEvent } from 'react';
 import ChecklistView from './view';
-import { useParams, useSearchParams } from 'next/navigation';
-import { useCreateChecklistMutation } from '@/redux/services/card';
+import { useCreateChecklistMutation } from '@/redux/services/card/checklist';
+import withBoard from '@/hocs/withBoard';
 
-function Checklist() {
+type ChecklistProps = {
+  boardId: string;
+  cardId: string;
+  onRefreshCard: () => void;
+};
+
+function Checklist({ boardId, cardId, onRefreshCard }: ChecklistProps) {
   const [checklistTitle, setChecklistTitle] = useState<string | undefined>();
-  const { boardId } = useParams();
-  const searchParams = useSearchParams();
-  const cardId = searchParams.get('cardId');
 
-  const [trigger, { isSuccess, isLoading }] = useCreateChecklistMutation();
+  const [createChecklist, { isSuccess, isLoading }] = useCreateChecklistMutation();
 
   const handleAddChecklist = async (title: string) => {
     if (!title) return;
-    trigger({ checklistTitle: title, cardId: cardId!.toString(), boardId: boardId.toString() });
+    await createChecklist({ checklistTitle: title, cardId: cardId, boardId: boardId });
+    onRefreshCard();
   };
 
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -31,4 +35,4 @@ function Checklist() {
   );
 }
 
-export default Checklist;
+export default withBoard(Checklist);

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Card } from '@/types/card.type';
-import { cardApi } from '../services/card';
+import { cardApi } from '../services/card/card';
 import { RootState } from '../store';
 
 const initialState: { detail: Card } = {

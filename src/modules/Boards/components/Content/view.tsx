@@ -1,5 +1,4 @@
 import { useTheme } from '@mui/styles';
-import { useSearchParams } from 'next/navigation';
 import Box from '@mui/material/Box';
 import { DragOverlay, DropAnimation, defaultDropAnimationSideEffects } from '@dnd-kit/core';
 import ListColumns from './components/ListColumns';
@@ -10,14 +9,16 @@ import { Theme } from '@/common/enums';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
 import CardDetails from '@/modules/CardDetails';
+import withBoard from '@/hocs/withBoard';
 
 type BoardContentViewProps = {
   board: Board;
+  cardId?: string;
   activeDragItemType: string | null;
   activeDragItemData: any | null;
 };
 
-function BoardContentView({ board, activeDragItemType, activeDragItemData }: BoardContentViewProps) {
+function BoardContentView({ board, cardId, activeDragItemType, activeDragItemData }: BoardContentViewProps) {
   const theme = useTheme<CustomThemeOptions>();
   const dropAnimation: DropAnimation = {
     sideEffects: defaultDropAnimationSideEffects({
@@ -28,8 +29,6 @@ function BoardContentView({ board, activeDragItemType, activeDragItemData }: Boa
       },
     }),
   };
-  const searchParams = useSearchParams();
-  const cardId = searchParams.get('cardId');
 
   return (
     <>
@@ -66,4 +65,4 @@ function BoardContentView({ board, activeDragItemType, activeDragItemData }: Boa
   );
 }
 
-export default BoardContentView;
+export default withBoard(BoardContentView);

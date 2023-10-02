@@ -1,30 +1,31 @@
 import { ChecklistItem } from '@/types/card.type';
 import ChecklistItemLabelView from './view';
-import { useParams, useSearchParams } from 'next/navigation';
-import { useUpdateTitleChecklistItemMutation } from '@/redux/services/card';
+import { useUpdateTitleChecklistItemMutation } from '@/redux/services/card/checklist';
+import withBoard from '@/hocs/withBoard';
 
 type ChecklistItemLabelProps = {
   item: ChecklistItem;
   checklistId: string;
+  boardId: string;
+  cardId: string;
+  onRefreshCard: () => void;
 };
 
-function ChecklistItemLabel({ checklistId, ...rest }: ChecklistItemLabelProps) {
-  const { boardId } = useParams();
-  const searchParams = useSearchParams();
-  const cardId = searchParams.get('cardId');
+function ChecklistItemLabel({ checklistId, boardId, cardId, onRefreshCard, ...rest }: ChecklistItemLabelProps) {
   const [editTitleItem] = useUpdateTitleChecklistItemMutation();
 
-  const handleEditItem = (newTitle: string) => {
-    editTitleItem({
+  const handleEditItem = async (newTitle: string) => {
+    await editTitleItem({
       itemId: rest.item._id,
       title: newTitle,
-      boardId: boardId.toString(),
-      cardId: cardId!,
+      boardId: boardId,
+      cardId: cardId,
       checklistId: checklistId,
     });
+    onRefreshCard();
   };
 
   return <ChecklistItemLabelView {...rest} onEdit={handleEditItem} />;
 }
 
-export default ChecklistItemLabel;
+export default withBoard(ChecklistItemLabel);

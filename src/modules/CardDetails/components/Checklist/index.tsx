@@ -1,5 +1,4 @@
 import { useState, useEffect, ChangeEvent } from 'react';
-import { useParams, useSearchParams } from 'next/navigation';
 import ChecklistView from './view';
 import { Checklist as ChecklistType } from '@/types/card.type';
 import {
@@ -7,22 +6,22 @@ import {
   useDeleteChecklistMutation,
   useDeleteChecklistItemMutation,
   useMarkChecklistItemDoneMutation,
-} from '@/redux/services/card';
+} from '@/redux/services/card/checklist';
+import withBoard from '@/hocs/withBoard';
 
 type ChecklistProps = {
   checklist: ChecklistType;
+  boardId: string;
+  cardId: string;
+  onRefreshCard: () => void;
 };
 
-function Checklist({ checklist }: ChecklistProps) {
+function Checklist({ checklist, boardId, cardId, onRefreshCard }: ChecklistProps) {
   const [progress, setProgress] = useState<number>();
-  const { boardId } = useParams();
-  const searchParams = useSearchParams();
-  const cardId = searchParams.get('cardId');
-
   const [deleteCheckList] = useDeleteChecklistMutation();
   const [markItemDone] = useMarkChecklistItemDoneMutation();
   const [deleteItem] = useDeleteChecklistItemMutation();
-  const [addChecklistItem] = useAddChecklistItemMutation();
+  const [addItem] = useAddChecklistItemMutation();
 
   useEffect(() => {
     let numberOfCheckedItems = 0;
@@ -35,26 +34,30 @@ function Checklist({ checklist }: ChecklistProps) {
     setProgress((numberOfCheckedItems / checklist.items.length) * 100);
   }, [checklist.items]);
 
-  const handleItemDone = (event: ChangeEvent<HTMLInputElement>) => {
-    markItemDone({
+  const handleItemDone = async (event: ChangeEvent<HTMLInputElement>) => {
+    await markItemDone({
       itemId: event.target.name,
       checklistId: checklist._id,
-      cardId: cardId!,
-      boardId: boardId.toString(),
+      cardId: cardId,
+      boardId: boardId,
     });
+    onRefreshCard();
   };
 
-  const handleDeleteItem = (params: any[]) => {
+  const handleDeleteItem = async (params: any[]) => {
     const [itemId] = params;
-    deleteItem({ itemId, checklistId: checklist._id, cardId: cardId!, boardId: boardId.toString() });
+    await deleteItem({ itemId, checklistId: checklist._id, cardId: cardId, boardId: boardId });
+    onRefreshCard();
   };
 
-  const handleDeleteChecklist = (checklistId: string) => {
-    deleteCheckList({ checklistId, cardId: cardId!, boardId: boardId.toString() });
+  const handleDeleteChecklist = async (checklistId: string) => {
+    await deleteCheckList({ checklistId, cardId: cardId, boardId: boardId });
+    onRefreshCard();
   };
 
-  const handleAddItem = (title: string) => {
-    addChecklistItem({ title, checklistId: checklist._id, cardId: cardId!, boardId: boardId.toString() });
+  const handleAddItem = async (title: string) => {
+    await addItem({ title, checklistId: checklist._id, cardId: cardId, boardId: boardId });
+    onRefreshCard();
   };
 
   return (
@@ -70,4 +73,4 @@ function Checklist({ checklist }: ChecklistProps) {
   );
 }
 
-export default Checklist;
+export default withBoard(Checklist);
