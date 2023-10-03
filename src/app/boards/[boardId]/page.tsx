@@ -10,9 +10,7 @@ async function getBoard(boardId: string) {
   const res = await fetch(`${FE_API_ROOT}/api/boards/${boardId}`, {
     next: { revalidate: 10, tags: [`${TAGS_CACHE.BOARDS}/${boardId}`] },
   });
-  const {
-    data: { board },
-  } = await res.json();
+  const { board } = await res.json();
 
   return board;
 }

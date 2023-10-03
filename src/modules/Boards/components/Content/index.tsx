@@ -25,13 +25,21 @@ import { Board } from '@/types/board.type';
 import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
 import { Column } from '@/types/column.type';
 import { generatePlaceholderCard } from '@/utils/card';
+import { useGetBoardDetailsQuery } from '@/redux/services/board/board';
+import withBoard from '@/hocs/withBoard';
 
 type BoardContentProps = {
+  boardId: string;
   board: Board;
 };
 
-function BoardContent({ board: boardProp }: BoardContentProps) {
-  const [board, setBoard] = useState(boardProp);
+function BoardContent({ boardId, board: boardProp }: BoardContentProps) {
+  const { data } = useGetBoardDetailsQuery(
+    { boardId },
+    { pollingInterval: 60000 * 5, refetchOnFocus: true, refetchOnReconnect: true },
+  );
+
+  const [board, setBoard] = useState(data || boardProp);
   const [activeDragItemId, setActiveDragItemId] = useState<string | null>(null);
   const [activeDragItemType, setActiveDragItemType] = useState<string | null>(null);
   const [activeDragItemData, setActiveDragItemData] = useState<any | null>(null);
@@ -264,4 +272,4 @@ function BoardContent({ board: boardProp }: BoardContentProps) {
   );
 }
 
-export default BoardContent;
+export default withBoard(BoardContent);

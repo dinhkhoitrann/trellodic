@@ -3,7 +3,7 @@ import { Card } from '@/types/card.type';
 import { cardApi } from '../services/card/card';
 import { RootState } from '../store';
 
-const initialState: { detail: Card } = {
+const initialState: { detail: Partial<Card> } = {
   detail: {},
 };
 

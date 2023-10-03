@@ -11,13 +11,26 @@ export default function withBoard<T>(Component: ComponentType<T>) {
 
     const handleRefreshCard = () => {
       dispatch({
-        type: `cardApi/invalidateTags`,
+        type: 'cardApi/invalidateTags',
         payload: [{ type: 'Card', id: cardId }],
       });
     };
 
+    const handleRefreshBoard = () => {
+      dispatch({
+        type: 'boardApi/invalidateTags',
+        payload: [{ type: 'Board', id: boardId.toString() }],
+      });
+    };
+
     return (
-      <Component {...(props as T)} boardId={boardId.toString()} cardId={cardId!} onRefreshCard={handleRefreshCard} />
+      <Component
+        {...(props as T)}
+        boardId={boardId.toString()}
+        cardId={cardId!}
+        onRefreshCard={handleRefreshCard}
+        onRefreshBoard={handleRefreshBoard}
+      />
     );
   };
 

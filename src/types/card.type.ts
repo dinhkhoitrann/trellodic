@@ -1,9 +1,9 @@
 import { Label } from './board.type';
 
 export interface Card {
-  readonly _id?: string;
-  boardId?: string;
-  columnId?: string;
+  readonly _id: string;
+  boardId: string;
+  columnId: string;
   title?: string;
   description?: string;
   cover?: string;

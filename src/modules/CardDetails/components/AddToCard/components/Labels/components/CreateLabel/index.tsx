@@ -1,30 +1,35 @@
 import { useState } from 'react';
-import { useParams } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
 import CreateLabelView from './view';
-import { createLabel } from '@/services/board';
+import withBoard from '@/hocs/withBoard';
+import { useAddLabelMutation } from '@/redux/services/board/label';
+import { toast } from 'react-toastify';
 
 type CreateLabelProps = {
+  boardId: string;
+  onRefreshBoard: () => void;
+  onRefreshCard: () => void;
   onCreateSuccess: () => void;
 };
 
-function CreateLabel({ onCreateSuccess }: CreateLabelProps) {
+function CreateLabel({ boardId, onRefreshBoard, onRefreshCard, onCreateSuccess }: CreateLabelProps) {
   const [selectedColor, setSelectedColor] = useState('');
-  const { boardId } = useParams();
-  const { mutate, isPending } = useMutation({
-    mutationFn: createLabel,
-    onSuccess: () => {
-      onCreateSuccess();
-      toast.success('Label created successfully');
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+  const [createLabel, { isLoading }] = useAddLabelMutation();
 
   const handleCreateLabel = async (title: string, color: string) => {
-    mutate({ title, color, boardId: boardId.toString() });
+    createLabel({
+      title,
+      color,
+      boardId,
+      onSuccess: () => {
+        toast.success('Create label successfully');
+        onCreateSuccess();
+        onRefreshBoard();
+        onRefreshCard();
+      },
+      onFailed: (errorMsg) => {
+        toast.error(errorMsg);
+      },
+    });
   };
 
   const handleSelectColor = (color: string) => {
@@ -34,11 +39,11 @@ function CreateLabel({ onCreateSuccess }: CreateLabelProps) {
   return (
     <CreateLabelView
       selectedColor={selectedColor}
-      isPending={isPending}
+      isPending={isLoading}
       onSelectColorChange={handleSelectColor}
       onCreate={handleCreateLabel}
     />
   );
 }
 
-export default CreateLabel;
+export default withBoard(CreateLabel);

@@ -1,9 +1,9 @@
 import { externalRequest } from '../request';
 
-export const createLabel = (data: { title: string; color: string; boardId: string }) => {
-  return externalRequest.post(`/api/boards/${data.boardId}/label`, data);
-};
+export const fetchBoardDetails = async (data: { boardId: string; signal: AbortSignal }) => {
+  const response = await externalRequest.get(`/api/boards/${data.boardId}`, {
+    signal: data.signal,
+  });
 
-export const editLabel = (data: { title: string; color: string; boardId: string }) => {
-  return externalRequest.put(`/api/boards/${data.boardId}/label`, data);
+  return response.data?.board;
 };
