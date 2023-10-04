@@ -3,7 +3,7 @@ import { useParams, useSearchParams } from 'next/navigation';
 import { useAppDispatch } from '@/redux/store';
 
 export default function withBoard<T>(Component: ComponentType<T>) {
-  const WithBoardComponent = (props: Omit<T, 'boardId' | 'cardId' | 'onRefreshCard'>) => {
+  const WithBoardComponent = (props: Omit<T, 'boardId' | 'cardId' | 'onRefreshCard' | 'onRefreshBoard'>) => {
     const { boardId } = useParams();
     const searchParams = useSearchParams();
     const cardId = searchParams.get('cardId');

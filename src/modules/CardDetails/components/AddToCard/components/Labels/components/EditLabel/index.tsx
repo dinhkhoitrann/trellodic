@@ -1,43 +1,47 @@
 import { useState } from 'react';
-import { useParams } from 'next/navigation';
 import { Label } from '@/types/board.type';
 import EditLabelView from './view';
-import { useMutation } from '@tanstack/react-query';
-import { editLabel } from '@/services/board';
 import { toast } from 'react-toastify';
+import { useEditLabelMutation } from '@/redux/services/board/label';
+import withBoard from '@/hocs/withBoard';
 
 type EditLabelProps = {
   label?: Label;
+  boardId: string;
+  onRefreshBoard: () => void;
+  onRefreshCard: () => void;
   onEditSuccess: () => void;
 };
 
-function EditLabel({ label, onEditSuccess }: EditLabelProps) {
+function EditLabel({ label, boardId, onRefreshBoard, onRefreshCard, onEditSuccess }: EditLabelProps) {
   const [selectedColor, setSelectedColor] = useState(label?.color || '');
-  const { boardId } = useParams();
-  const { mutate, isPending } = useMutation({
-    mutationFn: editLabel,
-    onSuccess: () => {
-      toast.success('Label edited successfully');
-      onEditSuccess();
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+  const [editLabel, { isLoading }] = useEditLabelMutation();
 
   const handleSelectColor = (color: string) => {
     setSelectedColor(color);
   };
 
   const handleEdit = (title: string, color: string) => {
-    console.log({ title, color, boardId: boardId.toString() });
-    mutate({ title, color, boardId: boardId.toString() });
+    editLabel({
+      title,
+      color,
+      boardId,
+      onSuccess: () => {
+        toast.success('Label edited successfully');
+        onEditSuccess();
+        onRefreshBoard();
+        onRefreshCard();
+      },
+      onFailed: (errorMsg) => {
+        toast.error(errorMsg);
+      },
+    });
   };
 
   return (
     <EditLabelView
       label={label}
-      isPending={isPending}
+      isPending={isLoading}
       selectedColor={selectedColor}
       onSelectColorChange={handleSelectColor}
       onEdit={handleEdit}
@@ -45,4 +49,4 @@ function EditLabel({ label, onEditSuccess }: EditLabelProps) {
   );
 }
 
-export default EditLabel;
+export default withBoard(EditLabel);
