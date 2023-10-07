@@ -3,13 +3,10 @@ import { Label } from '@/types/board.type';
 import EditLabelView from './view';
 import { toast } from 'react-toastify';
 import { useEditLabelMutation } from '@/redux/services/board/label';
-import withBoard from '@/hocs/withBoard';
+import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
 
-type EditLabelProps = {
+type EditLabelProps = BoardGlobalProps & {
   label?: Label;
-  boardId: string;
-  onRefreshBoard: () => void;
-  onRefreshCard: () => void;
   onEditSuccess: () => void;
 };
 

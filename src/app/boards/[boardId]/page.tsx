@@ -29,7 +29,7 @@ async function BoardDetailsPage({ params }: Props) {
   const { boardId } = params;
   const board = await getBoard(boardId);
 
-  return <BoardContent board={board} />;
+  return <BoardContent board={board} boardId={boardId} />;
 }
 
 export default BoardDetailsPage;

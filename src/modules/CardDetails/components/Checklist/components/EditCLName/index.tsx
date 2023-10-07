@@ -1,14 +1,11 @@
 import EditCLNameView from './view';
 import { useUpdateChecklistTitleMutation } from '@/redux/services/card/checklist';
-import withBoard from '@/hocs/withBoard';
+import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
 
-type EditCLNameProps = {
+type EditCLNameProps = BoardGlobalProps & {
   checklistId: string;
   currentName: string;
-  boardId: string;
-  cardId: string;
   onClose: () => void;
-  onRefreshCard: () => void;
 };
 
 function EditCLName({ checklistId, boardId, cardId, onRefreshCard, ...rest }: EditCLNameProps) {

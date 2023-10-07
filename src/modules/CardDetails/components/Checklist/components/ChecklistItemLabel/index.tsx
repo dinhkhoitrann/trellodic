@@ -1,14 +1,11 @@
 import { ChecklistItem } from '@/types/card.type';
 import ChecklistItemLabelView from './view';
 import { useUpdateTitleChecklistItemMutation } from '@/redux/services/card/checklist';
-import withBoard from '@/hocs/withBoard';
+import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
 
-type ChecklistItemLabelProps = {
+type ChecklistItemLabelProps = BoardGlobalProps & {
   item: ChecklistItem;
   checklistId: string;
-  boardId: string;
-  cardId: string;
-  onRefreshCard: () => void;
 };
 
 function ChecklistItemLabel({ checklistId, boardId, cardId, onRefreshCard, ...rest }: ChecklistItemLabelProps) {

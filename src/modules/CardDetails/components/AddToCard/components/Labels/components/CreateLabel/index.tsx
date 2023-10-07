@@ -1,13 +1,10 @@
 import { useState } from 'react';
 import CreateLabelView from './view';
-import withBoard from '@/hocs/withBoard';
+import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
 import { useAddLabelMutation } from '@/redux/services/board/label';
 import { toast } from 'react-toastify';
 
-type CreateLabelProps = {
-  boardId: string;
-  onRefreshBoard: () => void;
-  onRefreshCard: () => void;
+type CreateLabelProps = BoardGlobalProps & {
   onCreateSuccess: () => void;
 };
 

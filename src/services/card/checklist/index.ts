@@ -1,4 +1,3 @@
-import { FE_API_ROOT } from '@/utils/constants';
 import { externalRequest } from '../../request';
 
 export const addChecklist = (data: {
@@ -7,7 +6,7 @@ export const addChecklist = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post(`/api/boards/${data.boardId}/card/${data.cardId}/checklist`, data, {
+  return externalRequest.post('/posts', data, {
     signal: data.signal,
   });
 };
@@ -18,12 +17,9 @@ export const deleteChecklist = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.delete(
-    `${FE_API_ROOT}/api/boards/${data.boardId}/card/${data.cardId}/checklist/${data.checklistId}`,
-    {
-      signal: data.signal,
-    },
-  );
+  return externalRequest.delete('/posts/1', {
+    signal: data.signal,
+  });
 };
 
 export const editChecklistTitle = (data: {
@@ -33,7 +29,7 @@ export const editChecklistTitle = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post(`/api/boards/${data.boardId}/card/${data.cardId}/checklist/${data.checklistId}`, data, {
+  return externalRequest.post('/posts', data, {
     signal: data.signal,
   });
 };
@@ -45,8 +41,8 @@ export const markChecklistItemIsDone = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.patch(
-    `/api/boards/${data.boardId}/card/${data.cardId}/checklist/${data.checklistId}/item/${data.itemId}`,
+  return externalRequest.post(
+    '/posts',
     {},
     {
       signal: data.signal,
@@ -61,12 +57,9 @@ export const deleteChecklistItem = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.delete(
-    `/api/boards/${data.boardId}/card/${data.cardId}/checklist/${data.checklistId}/item/${data.itemId}`,
-    {
-      signal: data.signal,
-    },
-  );
+  return externalRequest.delete('/posts/1', {
+    signal: data.signal,
+  });
 };
 
 export const editTitleChecklistItem = (data: {
@@ -77,13 +70,9 @@ export const editTitleChecklistItem = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.put(
-    `/api/boards/${data.boardId}/card/${data.cardId}/checklist/${data.checklistId}/item/${data.itemId}`,
-    data,
-    {
-      signal: data.signal,
-    },
-  );
+  return externalRequest.put('/posts/1', data, {
+    signal: data.signal,
+  });
 };
 
 export const createChecklistItem = (data: {
@@ -93,11 +82,7 @@ export const createChecklistItem = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post(
-    `/api/boards/${data.boardId}/card/${data.cardId}/checklist/${data.checklistId}/item`,
-    data,
-    {
-      signal: data.signal,
-    },
-  );
+  return externalRequest.post('/posts', data, {
+    signal: data.signal,
+  });
 };

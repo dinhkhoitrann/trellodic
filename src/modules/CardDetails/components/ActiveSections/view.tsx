@@ -5,13 +5,9 @@ import LaptopIcon from '@mui/icons-material/Laptop';
 import Members from '../Members';
 import Labels from '../Labels';
 import Dates from '../Dates';
-import { Card } from '@/types/card.type';
+import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
 
-type ActiveSectionsViewProps = {
-  card?: Card;
-};
-
-function ActiveSectionsView({ card }: ActiveSectionsViewProps) {
+function ActiveSectionsView({ card }: BoardGlobalProps) {
   return (
     <>
       <Stack direction="row" alignItems="center" spacing={1}>
@@ -20,7 +16,7 @@ function ActiveSectionsView({ card }: ActiveSectionsViewProps) {
           {card?.title}
         </Typography>
       </Stack>
-      <Grid container spacing={2} sx={{ mt: 1 }}>
+      <Grid container spacing={4} sx={{ mt: 1 }}>
         <Grid item>
           <Members />
         </Grid>
@@ -35,4 +31,4 @@ function ActiveSectionsView({ card }: ActiveSectionsViewProps) {
   );
 }
 
-export default ActiveSectionsView;
+export default withBoard(ActiveSectionsView);

@@ -1,3 +1,4 @@
+import { useSearchParams } from 'next/navigation';
 import { useTheme } from '@mui/styles';
 import Box from '@mui/material/Box';
 import { DragOverlay, DropAnimation, defaultDropAnimationSideEffects } from '@dnd-kit/core';
@@ -9,16 +10,17 @@ import { Theme } from '@/common/enums';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
 import CardDetails from '@/modules/CardDetails';
-import withBoard from '@/hocs/withBoard';
 
 type BoardContentViewProps = {
   board: Board;
-  cardId?: string;
   activeDragItemType: string | null;
   activeDragItemData: any | null;
 };
 
-function BoardContentView({ board, cardId, activeDragItemType, activeDragItemData }: BoardContentViewProps) {
+function BoardContentView({ board, activeDragItemType, activeDragItemData }: BoardContentViewProps) {
+  const searchParams = useSearchParams();
+  const cardId = searchParams.get('cardId');
+
   const theme = useTheme<CustomThemeOptions>();
   const dropAnimation: DropAnimation = {
     sideEffects: defaultDropAnimationSideEffects({
@@ -65,4 +67,4 @@ function BoardContentView({ board, cardId, activeDragItemType, activeDragItemDat
   );
 }
 
-export default withBoard(BoardContentView);
+export default BoardContentView;

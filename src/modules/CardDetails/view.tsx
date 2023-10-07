@@ -46,7 +46,7 @@ export default function CardDetailsView({ card, isError, error }: CardDetailsVie
     <Box sx={{ flex: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={9}>
-          <ActiveSections card={card} />
+          <ActiveSections />
           <Description />
           {card?.checklists?.map((checklist) => (
             <Checklist key={checklist._id} checklist={checklist} />

@@ -3,14 +3,9 @@ import { toast } from 'react-toastify';
 import { useMutation } from '@tanstack/react-query';
 import DatesView from './view';
 import { editDueDates } from '@/services/card/dates';
-import withBoard from '@/hocs/withBoard';
+import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
 
-type DatesProps = {
-  boardId: string;
-  cardId: string;
-};
-
-function Dates({ boardId, cardId }: DatesProps) {
+function Dates({ boardId, cardId }: BoardGlobalProps) {
   const { mutate, isPending, isSuccess } = useMutation({
     mutationFn: editDueDates,
     onSuccess: () => {

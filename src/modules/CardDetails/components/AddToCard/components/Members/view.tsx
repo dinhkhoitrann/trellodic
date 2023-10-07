@@ -8,20 +8,20 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import PopoverWrapper from '../Popover';
+import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
+import { User } from '@/types/user.type';
+
+type MembersViewProps = BoardGlobalProps & {
+  isSaving: boolean;
+  onAddMember: (_members: User[]) => void;
+};
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
-const members = [
-  { name: 'The boy 1', from: 'Current workspace' },
-  { name: 'The boy 2', from: 'Current workspace' },
-  { name: 'The boy 3', from: 'Current workspace' },
-  { name: 'The boy 4', from: 'Current workspace' },
-  { name: 'The boy 5', from: 'Current workspace' },
-  { name: 'The boy 6', from: 'Different workspaces' },
-];
 
-function MembersView() {
+function MembersView({ card, isSaving, onAddMember }: MembersViewProps) {
   const ref = useRef<ActionButtonRef>(null);
+  const selectedMembers = useRef<User[]>(card.memberIds || []);
 
   const handleClose = () => {
     ref.current?.handleClose();
@@ -36,10 +36,10 @@ function MembersView() {
           <Autocomplete
             multiple
             size="small"
-            options={members}
+            options={card.memberIds || []}
             disableCloseOnSelect
+            defaultValue={card.memberIds}
             getOptionLabel={(option) => option.name}
-            groupBy={(option) => option.from}
             renderOption={(props, option, { selected }) => (
               <li {...props}>
                 <Checkbox icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 8 }} checked={selected} />
@@ -48,12 +48,17 @@ function MembersView() {
             )}
             style={{ width: '100%', marginTop: 20 }}
             renderInput={(params) => <TextField {...params} label="Add members" placeholder="Members" />}
-            onChange={(event, newInputValue, reason, details) => {
-              console.log(details);
+            onChange={(_event, selectedValues, _reason, _details) => {
+              selectedMembers.current = [...selectedValues];
             }}
           />
-          <Button variant="contained" sx={{ mt: 2 }}>
-            Save
+          <Button
+            variant="contained"
+            disabled={isSaving}
+            sx={{ mt: 2 }}
+            onClick={() => onAddMember(selectedMembers.current || card.memberIds)}
+          >
+            {isSaving ? 'Saving' : 'Save'}
           </Button>
         </PopoverWrapper>
       }
@@ -63,4 +68,4 @@ function MembersView() {
   );
 }
 
-export default MembersView;
+export default withBoard(MembersView);

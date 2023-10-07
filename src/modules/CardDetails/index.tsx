@@ -12,8 +12,11 @@ function CardDetails({ cardId }: CardDetailsProps) {
     { cardId, boardId: boardId.toString() },
     { pollingInterval: 60000 * 5, refetchOnFocus: true, refetchOnReconnect: true },
   );
+  console.log('re-render card details');
 
-  return <CardDetailsView card={data!} isPending={isFetching} isError={isError} error={error} />;
+  if (!data) return <></>;
+
+  return <CardDetailsView card={data} isPending={isFetching} isError={isError} error={error} />;
 }
 
 export default CardDetails;

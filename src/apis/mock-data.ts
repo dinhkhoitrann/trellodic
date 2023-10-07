@@ -14,6 +14,11 @@ export const mockData: MockData = {
     title: 'Khoi Board',
     description: 'Pro MERN stack Course',
     type: 'public', // 'private'
+    labels: [
+      { _id: '1', title: 'Title 1', color: '#164b35' },
+      { _id: '2', title: 'Title 2', color: '#2ecc71' },
+      { _id: '3', title: 'Title 3', color: '#3498db' },
+    ],
     ownerIds: [], // Những users là Admin của board
     memberIds: [], // Những users là member bình thường của board
     // eslint-disable-next-line max-len
@@ -41,7 +46,28 @@ export const mockData: MockData = {
             description: 'This is a description',
             cover:
               'https://trungquandev.com/wp-content/uploads/2022/07/fair-mern-stack-advanced-banner-trungquandev.jpg',
-            memberIds: ['test-user-id-01'],
+            memberIds: [
+              {
+                _id: 'mem-1',
+                name: 'Name',
+                email: 'emailaaa@email.com',
+                password: '123',
+                avatar: 'https://i.pravatar.cc/',
+                birthday: new Date(),
+                gender: 'male',
+                phoneNumber: '0123456789',
+              },
+              {
+                _id: 'mem-2',
+                name: 'Name 2',
+                email: 'emailzzz@email.com',
+                password: '123',
+                avatar: 'https://i.pravatar.cc/',
+                birthday: new Date(),
+                gender: 'male',
+                phoneNumber: '0123456789',
+              },
+            ],
             comments: [
               {
                 _id: 'cm1',
@@ -86,6 +112,10 @@ export const mockData: MockData = {
                   },
                 ],
               },
+            ],
+            labels: [
+              { _id: '1', title: 'Title 1', color: '#164b35' },
+              { _id: '2', title: 'Title 2', color: '#2ecc71' },
             ],
           },
           {

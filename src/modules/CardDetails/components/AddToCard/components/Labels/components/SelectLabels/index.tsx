@@ -1,46 +1,21 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 import SelectLabelsView from './view';
 import { Label } from '@/types/board.type';
+import { useAddLabelToCardMutation } from '@/redux/services/board/label';
+import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
 
-const labels: Label[] = [
-  { _id: '1', title: 'Title 1', color: '#164b35', isSelected: true },
-  { _id: '2', title: 'Title 2', color: '#2ecc71', isSelected: true },
-  { _id: '3', title: 'Title 3', color: '#3498db', isSelected: false },
-];
-
-type SelectLabelsProps = {
+type SelectLabelsProps = BoardGlobalProps & {
   onEditMode: (_label: Label) => void;
 };
 
-function SelectLabels({ onEditMode }: SelectLabelsProps) {
-  const [search, setSearch] = useState('');
-  const [checkedLabels, setCheckedLabels] = useState(labels);
-
-  useEffect(() => {
-    const filteredLabels = labels.filter((label) => label.title.toLowerCase().includes(search.toLowerCase()));
-    setCheckedLabels(filteredLabels);
-  }, [search]);
-
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
-  };
+function SelectLabels({ cardId, onRefreshCard, onEditMode }: SelectLabelsProps) {
+  const [addLabelToCard] = useAddLabelToCardMutation();
 
   const handleSelectedLabelsChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const updatedLabels = [...checkedLabels];
-    const checkedLabelIndex = updatedLabels.findIndex((label) => label.title === event.target.name);
-    updatedLabels[checkedLabelIndex].isSelected = !updatedLabels[checkedLabelIndex].isSelected;
-    setCheckedLabels(updatedLabels);
+    addLabelToCard({ labelId: event.target.name, isAdded: event.target.checked, cardId, onSuccess: onRefreshCard });
   };
 
-  return (
-    <SelectLabelsView
-      search={search}
-      labels={checkedLabels}
-      onSearchChange={handleSearchChange}
-      onSelectedLabelsChange={handleSelectedLabelsChange}
-      onEditMode={onEditMode}
-    />
-  );
+  return <SelectLabelsView onSelectedLabelsChange={handleSelectedLabelsChange} onEditMode={onEditMode} />;
 }
 
-export default SelectLabels;
+export default withBoard(SelectLabels);

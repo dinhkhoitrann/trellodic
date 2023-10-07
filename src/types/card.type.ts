@@ -1,4 +1,5 @@
 import { Label } from './board.type';
+import { User } from './user.type';
 
 export interface Card {
   readonly _id: string;
@@ -7,7 +8,7 @@ export interface Card {
   title?: string;
   description?: string;
   cover?: string;
-  memberIds?: string[];
+  memberIds?: User[];
   comments?: Comment[]; // TODO: define Comment interface
   checklists?: Checklist[];
   attachments?: string[];

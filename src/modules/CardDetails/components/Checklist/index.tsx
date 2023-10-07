@@ -7,13 +7,10 @@ import {
   useDeleteChecklistItemMutation,
   useMarkChecklistItemDoneMutation,
 } from '@/redux/services/card/checklist';
-import withBoard from '@/hocs/withBoard';
+import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
 
-type ChecklistProps = {
+type ChecklistProps = BoardGlobalProps & {
   checklist: ChecklistType;
-  boardId: string;
-  cardId: string;
-  onRefreshCard: () => void;
 };
 
 function Checklist({ checklist, boardId, cardId, onRefreshCard }: ChecklistProps) {

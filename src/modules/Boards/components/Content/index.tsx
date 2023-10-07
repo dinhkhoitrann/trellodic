@@ -26,7 +26,6 @@ import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
 import { Column } from '@/types/column.type';
 import { generatePlaceholderCard } from '@/utils/card';
 import { useGetBoardDetailsQuery } from '@/redux/services/board/board';
-import withBoard from '@/hocs/withBoard';
 
 type BoardContentProps = {
   boardId: string;
@@ -272,4 +271,4 @@ function BoardContent({ boardId, board: boardProp }: BoardContentProps) {
   );
 }
 
-export default withBoard(BoardContent);
+export default BoardContent;

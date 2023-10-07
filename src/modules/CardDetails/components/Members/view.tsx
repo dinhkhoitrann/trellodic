@@ -2,23 +2,21 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import IconButton from '@mui/material/IconButton';
-import AddIcon from '@mui/icons-material/Add';
+import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
 
-function MembersView() {
+function MembersView({ card }: BoardGlobalProps) {
+  const members = card.memberIds;
+
   return (
     <Box>
       <Typography sx={{ mb: 1, fontWeight: 500 }}>Members</Typography>
       <Stack direction="row" spacing={1}>
-        <Avatar alt="Tran Dinh Khoi" src="https://i.pravatar.cc/" />
-        <Avatar alt="Tran Dinh Khoi" src="https://i.pravatar.cc/" />
-        <Avatar alt="Tran Dinh Khoi" src="https://i.pravatar.cc/" />
-        <IconButton>
-          <AddIcon />
-        </IconButton>
+        {members?.map((mem, index) => (
+          <Avatar key={index} alt="Tran Dinh Khoi" src={mem.avatar} />
+        ))}
       </Stack>
     </Box>
   );
 }
 
-export default MembersView;
+export default withBoard(MembersView);
