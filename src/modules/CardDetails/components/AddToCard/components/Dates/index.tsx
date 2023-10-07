@@ -1,26 +1,24 @@
 import { Dayjs } from 'dayjs';
 import { toast } from 'react-toastify';
-import { useMutation } from '@tanstack/react-query';
-import DatesView from './view';
-import { editDueDates } from '@/services/card/dates';
 import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
+import { useEditDueDateMutation } from '@/redux/services/card/dates';
+import DatesView from './view';
 
-function Dates({ boardId, cardId }: BoardGlobalProps) {
-  const { mutate, isPending, isSuccess } = useMutation({
-    mutationFn: editDueDates,
-    onSuccess: () => {
-      toast.success('Due dates saved successfully');
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+function Dates({ boardId, cardId, onRefreshCard }: BoardGlobalProps) {
+  const [editDueDates, { isLoading, isSuccess }] = useEditDueDateMutation();
 
-  const handleSaveDueDate = (day: Dayjs) => {
-    mutate({ dueDate: day.toDate(), cardId: cardId, boardId: boardId });
+  const handleSaveDueDate = (startDate: Dayjs, endDate: Dayjs) => {
+    editDueDates({
+      startDate: startDate.toDate(),
+      endDate: endDate.toDate(),
+      cardId,
+      boardId,
+      onSuccess: onRefreshCard,
+      onFailed: (errMsg) => toast.error(errMsg),
+    });
   };
 
-  return <DatesView isPending={isPending} isSuccess={isSuccess} onSave={handleSaveDueDate} />;
+  return <DatesView isPending={isLoading} isSuccess={isSuccess} onSave={handleSaveDueDate} />;
 }
 
 export default withBoard(Dates);

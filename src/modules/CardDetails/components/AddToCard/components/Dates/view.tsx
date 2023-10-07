@@ -12,7 +12,7 @@ import PopoverWrapper from '../Popover';
 type DatesViewProps = {
   isPending: boolean;
   isSuccess: boolean;
-  onSave: (_day: Dayjs) => void;
+  onSave: (_startDate: Dayjs, _endDate: Dayjs) => void;
 };
 
 function DatesView({ isPending, isSuccess, onSave }: DatesViewProps) {
@@ -29,8 +29,8 @@ function DatesView({ isPending, isSuccess, onSave }: DatesViewProps) {
   };
 
   const handleSave = () => {
-    if (dates[1]) {
-      onSave(dates[1]);
+    if (dates[0] && dates[1]) {
+      onSave(dates[0], dates[1]);
     }
   };
 

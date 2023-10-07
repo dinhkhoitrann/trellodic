@@ -7,6 +7,7 @@ import { checklistApi } from './services/card/checklist';
 import { boardApi } from './services/board/board';
 import { labelApi } from './services/board/label';
 import { memberApi } from './services/card/member';
+import { datesApi } from './services/card/dates';
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     [boardApi.reducerPath]: boardApi.reducer,
     [labelApi.reducerPath]: labelApi.reducer,
     [memberApi.reducerPath]: memberApi.reducer,
+    [datesApi.reducerPath]: datesApi.reducer,
     card: cardReducer,
     board: boardReducer,
   },
@@ -25,6 +27,7 @@ export const store = configureStore({
       boardApi.middleware,
       labelApi.middleware,
       memberApi.middleware,
+      datesApi.middleware,
     ]),
 });
 

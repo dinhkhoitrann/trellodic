@@ -1,86 +1,62 @@
-import { useState, MouseEvent, ChangeEvent } from 'react';
-import dayjs, { Dayjs } from 'dayjs';
+import { ChangeEvent } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
+import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
-import Popover from '@mui/material/Popover';
-import { LocalizationProvider } from '@mui/x-date-pickers-pro';
-import { DateRange } from '@mui/x-date-pickers-pro';
-import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
-import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
+import { isExpired } from '@/utils/card';
 
-function DatesView() {
-  const [isDone, setIsDone] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [value, setValue] = useState<DateRange<Dayjs>>([dayjs(new Date()), dayjs(new Date())]);
+type DatesViewProps = BoardGlobalProps & {
+  onCheckDone: (_isDone: boolean) => void;
+};
 
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
-
-  const handleClick = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+function DatesView({ card, onCheckDone }: DatesViewProps) {
+  const isDone = card.isDone;
 
   const handleCheckDone = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsDone(e.target.checked);
+    onCheckDone(e.target.checked);
   };
+
+  const renderTag = () => {
+    if (isDone) {
+      return <Chip label="Completed" color="success" size="small" />;
+    }
+
+    if (isExpired(card.endDate?.toDateString())) {
+      return <Chip label="Overdue" color="error" size="small" />;
+    }
+    return <Chip label="In Progress" color="info" size="small" />;
+  };
+
+  if (!card.endDate) {
+    return <></>;
+  }
 
   return (
     <Box>
       <Typography sx={{ mb: 1, fontWeight: 500 }}>Due date</Typography>
       <Stack direction="row" alignItems="center" spacing={1}>
-        <Checkbox checked={isDone} onChange={handleCheckDone} />
+        <Checkbox defaultChecked={isDone} onChange={handleCheckDone} />
         <Card
-          aria-describedby={id}
           sx={{
             display: 'flex',
             alignItems: 'center',
             py: 1,
             px: 2,
-            width: '180px',
+            minWidth: '180px',
             borderRadius: '4px',
-            cursor: 'pointer',
-            ':hover': {
-              opacity: 0.6,
-              transition: 'all 0.5s',
-            },
           }}
-          onClick={handleClick}
         >
-          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ flex: 1 }}>
-            <Typography sx={{ flex: 1 }}>{new Date(value[1]?.toString() as string).toLocaleDateString()}</Typography>
-            <ExpandMoreIcon sx={{ ml: 1 }} />
+          <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} sx={{ flex: 1 }}>
+            <Typography sx={{ flex: 1 }}>{card.endDate.toLocaleDateString()}</Typography>
+            {renderTag()}
           </Stack>
         </Card>
-        <Popover
-          id={id}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-        >
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateRangePicker
-              localeText={{ start: 'Start date', end: 'End date' }}
-              sx={{ p: 2 }}
-              value={value}
-              onChange={(newValue) => setValue(newValue)}
-            />
-          </LocalizationProvider>
-        </Popover>
       </Stack>
     </Box>
   );
 }
 
-export default DatesView;
+export default withBoard(DatesView);

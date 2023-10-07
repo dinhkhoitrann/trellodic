@@ -7,12 +7,16 @@ import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
 function MembersView({ card }: BoardGlobalProps) {
   const members = card.memberIds;
 
+  if (!members || members.length === 0) {
+    return <></>;
+  }
+
   return (
     <Box>
       <Typography sx={{ mb: 1, fontWeight: 500 }}>Members</Typography>
       <Stack direction="row" spacing={1}>
-        {members?.map((mem, index) => (
-          <Avatar key={index} alt="Tran Dinh Khoi" src={mem.avatar} />
+        {members.map((mem, index) => (
+          <Avatar key={index} alt={mem.name} src={mem.avatar} />
         ))}
       </Stack>
     </Box>

@@ -9,10 +9,13 @@ export interface Card {
   description?: string;
   cover?: string;
   memberIds?: User[];
-  comments?: Comment[]; // TODO: define Comment interface
+  comments?: Comment[];
   checklists?: Checklist[];
   attachments?: string[];
   labels?: Label[];
+  startDate?: Date;
+  endDate?: Date;
+  isDone?: boolean;
   FE_isPlaceholderCard?: true;
 }
 

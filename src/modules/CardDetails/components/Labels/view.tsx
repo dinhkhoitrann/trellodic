@@ -8,11 +8,15 @@ function LabelItem({ color }: { color: string }) {
 }
 
 function LabelsView({ card }: BoardGlobalProps) {
+  if (!card.labels || card.labels.length === 0) {
+    return <></>;
+  }
+
   return (
     <Box>
       <Typography sx={{ mb: 1, fontWeight: 500 }}>Labels</Typography>
       <Stack direction="row" spacing={1}>
-        {card.labels?.map((label) => (
+        {card.labels.map((label) => (
           <LabelItem key={label._id} color={label.color} />
         ))}
       </Stack>
