@@ -1,6 +1,6 @@
 import { useMarkCardIsDoneMutation } from '@/redux/services/card/dates';
 import DatesView from './view';
-import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
+import { withBoard, BoardGlobalProps } from '@/hocs';
 import { toast } from 'react-toastify';
 
 function Dates({ cardId, boardId, onRefreshCard }: BoardGlobalProps) {

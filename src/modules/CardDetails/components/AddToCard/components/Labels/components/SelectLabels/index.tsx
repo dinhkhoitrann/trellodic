@@ -2,7 +2,7 @@ import { ChangeEvent } from 'react';
 import SelectLabelsView from './view';
 import { Label } from '@/types/board.type';
 import { useAddLabelToCardMutation } from '@/redux/services/board/label';
-import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
+import { withBoard, BoardGlobalProps } from '@/hocs';
 
 type SelectLabelsProps = BoardGlobalProps & {
   onEditMode: (_label: Label) => void;

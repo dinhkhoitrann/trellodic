@@ -5,7 +5,7 @@ import LaptopIcon from '@mui/icons-material/Laptop';
 import Members from '../Members';
 import Labels from '../Labels';
 import Dates from '../Dates';
-import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
+import { withBoard, BoardGlobalProps } from '@/hocs';
 
 function ActiveSectionsView({ card }: BoardGlobalProps) {
   return (

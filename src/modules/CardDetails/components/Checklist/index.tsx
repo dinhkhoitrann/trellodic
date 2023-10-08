@@ -7,7 +7,7 @@ import {
   useDeleteChecklistItemMutation,
   useMarkChecklistItemDoneMutation,
 } from '@/redux/services/card/checklist';
-import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
+import { withBoard, BoardGlobalProps } from '@/hocs';
 
 type ChecklistProps = BoardGlobalProps & {
   checklist: ChecklistType;

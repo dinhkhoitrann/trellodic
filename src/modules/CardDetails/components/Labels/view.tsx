@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
+import { withBoard, BoardGlobalProps } from '@/hocs';
 
 function LabelItem({ color }: { color: string }) {
   return <Box sx={{ width: '50px', height: '40px', bgcolor: color, borderRadius: '4px' }} />;

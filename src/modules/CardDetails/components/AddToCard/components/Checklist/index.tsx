@@ -1,7 +1,7 @@
 import { useState, ChangeEvent } from 'react';
 import ChecklistView from './view';
 import { useCreateChecklistMutation } from '@/redux/services/card/checklist';
-import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
+import { withBoard, BoardGlobalProps } from '@/hocs';
 
 function Checklist({ boardId, cardId, onRefreshCard }: BoardGlobalProps) {
   const [checklistTitle, setChecklistTitle] = useState<string | undefined>();

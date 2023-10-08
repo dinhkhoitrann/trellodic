@@ -1,6 +1,6 @@
 import { User } from '@/types/user.type';
 import MembersView from './view';
-import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
+import { withBoard, BoardGlobalProps } from '@/hocs';
 import { useAddMembersToCardMutation } from '@/redux/services/card/member';
 import { toast } from 'react-toastify';
 

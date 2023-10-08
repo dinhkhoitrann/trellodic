@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 import { toast } from 'react-toastify';
-import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
+import { withBoard, BoardGlobalProps } from '@/hocs';
 import { useEditDueDateMutation } from '@/redux/services/card/dates';
 import DatesView from './view';
 

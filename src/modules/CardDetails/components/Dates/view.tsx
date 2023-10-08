@@ -5,7 +5,7 @@ import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
-import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
+import { withBoard, BoardGlobalProps } from '@/hocs';
 import { isExpired } from '@/utils/card';
 
 type DatesViewProps = BoardGlobalProps & {

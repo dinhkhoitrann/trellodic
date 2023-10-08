@@ -8,7 +8,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import PopoverWrapper from '../Popover';
-import withBoard, { BoardGlobalProps } from '@/hocs/withBoard';
+import { withBoard, BoardGlobalProps } from '@/hocs';
 import { User } from '@/types/user.type';
 
 type MembersViewProps = BoardGlobalProps & {
