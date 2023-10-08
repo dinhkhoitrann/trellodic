@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Theme } from '@/common/enums';
 import { Checklist, ChecklistItem } from '@/types/card.type';
 import LinearProgressWithLabel from './components/LinearProgress';
-import useAlert from '@/hooks/alert';
+import { useAlert } from '@/hooks';
 import EditCLName from './components/EditCLName';
 import ChecklistItemLabel from './components/ChecklistItemLabel';
 

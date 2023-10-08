@@ -118,7 +118,7 @@ export const mockData: MockData = {
               { _id: '2', title: 'Title 2', color: '#2ecc71' },
             ],
             startDate: new Date('2002-09-13'),
-            endDate: new Date('2023-10-8'),
+            endDate: new Date('2023-10-10'),
             isDone: false,
           },
           {

@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import Editor from '@/components/Editor';
-import useAlert from '@/hooks/alert';
+import { useAlert } from '@/hooks';
 
 type CommentEditorViewProps = {
   onSave: (_content: string) => void;
