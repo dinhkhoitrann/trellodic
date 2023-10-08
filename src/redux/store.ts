@@ -8,6 +8,7 @@ import { boardApi } from './services/board/board';
 import { labelApi } from './services/board/label';
 import { memberApi } from './services/card/member';
 import { datesApi } from './services/card/dates';
+import { attachmentApi } from './services/card/attachment';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     [labelApi.reducerPath]: labelApi.reducer,
     [memberApi.reducerPath]: memberApi.reducer,
     [datesApi.reducerPath]: datesApi.reducer,
+    [attachmentApi.reducerPath]: attachmentApi.reducer,
     card: cardReducer,
     board: boardReducer,
   },
@@ -28,6 +30,7 @@ export const store = configureStore({
       labelApi.middleware,
       memberApi.middleware,
       datesApi.middleware,
+      attachmentApi.middleware,
     ]),
 });
 

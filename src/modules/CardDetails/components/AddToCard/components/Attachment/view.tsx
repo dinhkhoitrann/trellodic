@@ -12,13 +12,14 @@ import PopoverWrapper from '../Popover';
 
 type AttachmentViewProps = {
   files: File[];
+  loading: boolean;
   onUpload: (_event: ChangeEvent<HTMLInputElement>) => void;
-  onSave: () => void;
+  onSave: (_onSuccess: () => void) => void;
   onRemoveFile: (_removedFile: File) => void;
   onRemoveAll: () => void;
 };
 
-function AttachmentView({ files, onUpload, onSave, onRemoveFile, onRemoveAll }: AttachmentViewProps) {
+function AttachmentView({ files, loading, onUpload, onSave, onRemoveFile, onRemoveAll }: AttachmentViewProps) {
   const ref = useRef<ActionButtonRef>(null);
 
   const handleClose = () => {
@@ -68,8 +69,8 @@ function AttachmentView({ files, onUpload, onSave, onRemoveFile, onRemoveAll }: 
                 ))}
               </Box>
               <Stack direction="row" spacing={1}>
-                <Button variant="contained" onClick={onSave}>
-                  Save
+                <Button variant="contained" disabled={loading} onClick={() => onSave(handleClose)}>
+                  {loading ? 'Saving' : 'Save'}
                 </Button>
                 <Button variant="outlined" color="error" onClick={onRemoveAll}>
                   Remove all

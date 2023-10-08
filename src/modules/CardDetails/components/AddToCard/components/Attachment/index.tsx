@@ -1,9 +1,13 @@
 import { ChangeEvent, useState } from 'react';
-import AttachmentView from './view';
+import { toast } from 'react-toastify';
 import { isInvalidFile } from '@/utils/card';
+import { useUploadFilesMutation } from '@/redux/services/card/attachment';
+import { BoardGlobalProps, withBoard } from '@/hocs';
+import AttachmentView from './view';
 
-function Attachment() {
+function Attachment({ boardId, cardId, onRefreshCard }: BoardGlobalProps) {
   const [files, setFiles] = useState<File[]>([]);
+  const [uploadFiles, { isLoading }] = useUploadFilesMutation();
 
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
@@ -15,8 +19,18 @@ function Attachment() {
     setFiles((prevState) => [...prevState, file]);
   };
 
-  const handleSaveUploadedFiles = () => {
-    console.log(files);
+  const handleSaveUploadedFiles = (onSuccess: () => void) => {
+    uploadFiles({
+      files,
+      cardId,
+      boardId,
+      onSuccess: () => {
+        onSuccess();
+        handleClear();
+        onRefreshCard();
+      },
+      onFailed: (errMsg) => toast.error(errMsg),
+    });
   };
 
   const handleRemoveFile = (removedFile: File) => {
@@ -26,19 +40,20 @@ function Attachment() {
     });
   };
 
-  const handleRemoveAll = () => {
+  const handleClear = () => {
     setFiles([]);
   };
 
   return (
     <AttachmentView
       files={files}
+      loading={isLoading}
       onUpload={handleFileUpload}
       onSave={handleSaveUploadedFiles}
       onRemoveFile={handleRemoveFile}
-      onRemoveAll={handleRemoveAll}
+      onRemoveAll={handleClear}
     />
   );
 }
 
-export default Attachment;
+export default withBoard(Attachment);
