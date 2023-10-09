@@ -14,6 +14,7 @@ import Comments from './components/Comments';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 import { Card } from '@/types/card.type';
+import Attachment from './components/Attachment';
 
 type CardDetailsViewProps = {
   card: Card;
@@ -51,6 +52,7 @@ export default function CardDetailsView({ card, isError, error }: CardDetailsVie
           {card?.checklists?.map((checklist) => (
             <Checklist key={checklist._id} checklist={checklist} />
           ))}
+          <Attachment />
           <Comments />
         </Grid>
         <Grid item xs={12} md={3}>

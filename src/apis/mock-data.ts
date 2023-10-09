@@ -19,8 +19,40 @@ export const mockData: MockData = {
       { _id: '2', title: 'Title 2', color: '#2ecc71' },
       { _id: '3', title: 'Title 3', color: '#3498db' },
     ],
-    ownerIds: [], // Những users là Admin của board
-    memberIds: [], // Những users là member bình thường của board
+    ownerIds: [
+      {
+        _id: 'mem-1',
+        name: 'Name',
+        email: 'emailaaa@email.com',
+        password: '123',
+        avatar: 'https://i.pravatar.cc/',
+        birthday: new Date(),
+        gender: 'male',
+        phoneNumber: '0123456789',
+      },
+    ], // Những users là Admin của board
+    memberIds: [
+      {
+        _id: 'mem-1',
+        name: 'Name',
+        email: 'emailaaa@email.com',
+        password: '123',
+        avatar: 'https://i.pravatar.cc/',
+        birthday: new Date(),
+        gender: 'male',
+        phoneNumber: '0123456789',
+      },
+      {
+        _id: 'mem-2',
+        name: 'Name 2',
+        email: 'emailzzz@email.com',
+        password: '123',
+        avatar: 'https://i.pravatar.cc/',
+        birthday: new Date(),
+        gender: 'male',
+        phoneNumber: '0123456789',
+      },
+    ], // Những users là member bình thường của board
     // eslint-disable-next-line max-len
     columnOrderIds: ['column-id-03', 'column-id-01', 'column-id-02', 'column-id-04'], // Thứ tự sắp xếp / vị trí của các Columns trong 1 boards
     columns: [
@@ -78,7 +110,15 @@ export const mockData: MockData = {
                 content: 'This is a comment',
               },
             ],
-            attachments: ['test attachment 01', 'test attachment 02', 'test attachment 03'],
+            attachments: [
+              {
+                _id: 'a1',
+                url: '#',
+                fileName: 'This is a file.pdf',
+                extension: 'pdf',
+                createdTime: new Date().getTime(),
+              },
+            ],
             checklists: [
               {
                 _id: 'cl1',

@@ -1,11 +1,19 @@
 import { useState } from 'react';
+import { useEditDescriptionMutation } from '@/redux/services/card/description';
+import { BoardGlobalProps, withBoard } from '@/hocs';
 import DescriptionView from './view';
 
-function Description() {
+function Description({ boardId, cardId, card, onRefreshCard }: BoardGlobalProps) {
   const [editorVisible, setEditorVisible] = useState(false);
+  const [editDescription, { isLoading }] = useEditDescriptionMutation();
 
-  const handleSave = (data: string) => {
-    console.log(data);
+  const handleSave = async (data: string) => {
+    await editDescription({
+      content: data,
+      boardId,
+      cardId,
+      onSuccess: onRefreshCard,
+    });
     setEditorVisible(false);
   };
 
@@ -13,7 +21,15 @@ function Description() {
     setEditorVisible((prevState) => !prevState);
   };
 
-  return <DescriptionView editorVisible={editorVisible} onSave={handleSave} onShowHideEditor={handleShowHideEditor} />;
+  return (
+    <DescriptionView
+      card={card}
+      editorVisible={editorVisible}
+      isLoading={isLoading}
+      onSave={handleSave}
+      onShowHideEditor={handleShowHideEditor}
+    />
+  );
 }
 
-export default Description;
+export default withBoard(Description);

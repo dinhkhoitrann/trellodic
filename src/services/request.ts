@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { BE_API_ROOT, FE_API_ROOT } from '../utils/constants';
+import { toast } from 'react-toastify';
 
 export const internalRequest = axios.create({
   baseURL: FE_API_ROOT,
@@ -14,3 +15,13 @@ export const externalRequest = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+externalRequest.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    toast.error(error.message);
+    return Promise.reject(error);
+  },
+);

@@ -11,15 +11,18 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Styles from './styles.module.css';
 import { Theme as AppTheme } from '@/common/enums';
 import Editor from '@/components/Editor';
+import { Card as CardType } from '@/types/card.type';
 
 type DescriptionViewProps = {
   editorVisible: boolean;
+  isLoading: boolean;
+  card: CardType;
   onSave: (_data: string) => void;
   onShowHideEditor: () => void;
 };
 
-function DescriptionView({ editorVisible, onSave, onShowHideEditor }: DescriptionViewProps) {
-  const [editorData, setEditorData] = useState('aaa');
+function DescriptionView({ editorVisible, isLoading, card, onSave, onShowHideEditor }: DescriptionViewProps) {
+  const [editorData, setEditorData] = useState(card.description || '');
   const [showMore, setShowMore] = useState(editorData.length <= 250);
   const editorDataRef = useRef<HTMLDivElement>(null);
 
@@ -57,8 +60,8 @@ function DescriptionView({ editorVisible, onSave, onShowHideEditor }: Descriptio
         <>
           <Editor data={editorData} onDataChange={handleEditorDataChange} />
           <Box sx={{ mt: 2 }}>
-            <Button variant="contained" onClick={() => onSave(editorData)}>
-              Save
+            <Button variant="contained" disabled={isLoading} onClick={() => onSave(editorData)}>
+              {isLoading ? 'Saving' : 'Save'}
             </Button>
             <Button
               sx={{

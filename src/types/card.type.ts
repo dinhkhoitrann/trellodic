@@ -11,7 +11,7 @@ export interface Card {
   memberIds?: User[];
   comments?: Comment[];
   checklists?: Checklist[];
-  attachments?: string[];
+  attachments?: Attachment[];
   labels?: Label[];
   startDate?: Date;
   endDate?: Date;
@@ -38,4 +38,12 @@ export interface Comment {
   createdAt: Date;
   updatedAt?: Date;
   content: string;
+}
+
+export interface Attachment {
+  readonly _id: string;
+  url: string;
+  fileName: string;
+  extension: string;
+  createdTime: number;
 }
