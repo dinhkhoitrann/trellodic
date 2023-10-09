@@ -11,15 +11,15 @@ type ChecklistItemLabelProps = BoardGlobalProps & {
 function ChecklistItemLabel({ checklistId, boardId, cardId, onRefreshCard, ...rest }: ChecklistItemLabelProps) {
   const [editTitleItem] = useUpdateTitleChecklistItemMutation();
 
-  const handleEditItem = async (newTitle: string) => {
-    await editTitleItem({
+  const handleEditItem = (newTitle: string) => {
+    editTitleItem({
       itemId: rest.item._id,
       title: newTitle,
       boardId: boardId,
       cardId: cardId,
       checklistId: checklistId,
+      onSuccess: onRefreshCard,
     });
-    onRefreshCard();
   };
 
   return <ChecklistItemLabelView {...rest} onEdit={handleEditItem} />;

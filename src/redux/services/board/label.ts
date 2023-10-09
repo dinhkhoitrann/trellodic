@@ -12,13 +12,9 @@ export const labelApi = createApi({
       { title: string; color: string; boardId: string; onSuccess?: () => void; onFailed?: (_errorMsg: string) => void }
     >({
       queryFn: (args, { signal }) => createLabel({ ...args, signal }),
-      onQueryStarted: async ({ onSuccess, onFailed }, { queryFulfilled }) => {
-        try {
-          await queryFulfilled;
-          onSuccess && onSuccess();
-        } catch (error) {
-          onFailed && onFailed((error as Error).message);
-        }
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
       },
     }),
     editLabel: builder.mutation<
@@ -26,13 +22,9 @@ export const labelApi = createApi({
       { title: string; color: string; boardId: string; onSuccess?: () => void; onFailed?: (_errorMsg: string) => void }
     >({
       queryFn: (args, { signal }) => editLabel({ ...args, signal }),
-      onQueryStarted: async ({ onSuccess, onFailed }, { queryFulfilled }) => {
-        try {
-          await queryFulfilled;
-          onSuccess && onSuccess();
-        } catch (error) {
-          onFailed && onFailed((error as Error).message);
-        }
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
       },
     }),
     addLabelToCard: builder.mutation<
@@ -46,13 +38,9 @@ export const labelApi = createApi({
       }
     >({
       queryFn: (args, { signal }) => addLabelToCard({ ...args, signal }),
-      onQueryStarted: async ({ onSuccess, onFailed }, { queryFulfilled }) => {
-        try {
-          await queryFulfilled;
-          onSuccess && onSuccess();
-        } catch (error) {
-          onFailed && onFailed((error as Error).message);
-        }
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
       },
     }),
   }),

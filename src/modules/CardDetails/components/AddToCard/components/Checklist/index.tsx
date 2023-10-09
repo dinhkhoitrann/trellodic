@@ -8,10 +8,9 @@ function Checklist({ boardId, cardId, onRefreshCard }: BoardGlobalProps) {
 
   const [createChecklist, { isSuccess, isLoading }] = useCreateChecklistMutation();
 
-  const handleAddChecklist = async (title: string) => {
+  const handleAddChecklist = (title: string) => {
     if (!title) return;
-    await createChecklist({ checklistTitle: title, cardId: cardId, boardId: boardId });
-    onRefreshCard();
+    createChecklist({ checklistTitle: title, cardId: cardId, boardId: boardId, onSuccess: onRefreshCard });
   };
 
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {

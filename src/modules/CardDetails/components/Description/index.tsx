@@ -12,9 +12,11 @@ function Description({ boardId, cardId, card, onRefreshCard }: BoardGlobalProps)
       content: data,
       boardId,
       cardId,
-      onSuccess: onRefreshCard,
+      onSuccess: () => {
+        onRefreshCard();
+        setEditorVisible(false);
+      },
     });
-    setEditorVisible(false);
   };
 
   const handleShowHideEditor = () => {

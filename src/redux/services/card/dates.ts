@@ -15,31 +15,22 @@ export const datesApi = createApi({
         cardId: string;
         boardId: string;
         onSuccess?: () => void;
-        onFailed?: (_errMsg: string) => void;
       }
     >({
       queryFn: (args, { signal }) => editDueDates({ ...args, signal }),
-      onQueryStarted: async ({ onSuccess, onFailed }, { queryFulfilled }) => {
-        try {
-          await queryFulfilled;
-          onSuccess && onSuccess();
-        } catch (error) {
-          onFailed && onFailed((error as Error).message);
-        }
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
       },
     }),
     markCardIsDone: builder.mutation<
       void,
-      { cardId: string; boardId: string; isDone: boolean; onSuccess?: () => void; onFailed?: (_errMsg: string) => void }
+      { cardId: string; boardId: string; isDone: boolean; onSuccess?: () => void }
     >({
       queryFn: (args, { signal }) => markCardIsDone({ ...args, signal }),
-      onQueryStarted: async ({ onSuccess, onFailed }, { queryFulfilled }) => {
-        try {
-          await queryFulfilled;
-          onSuccess && onSuccess();
-        } catch (error) {
-          onFailed && onFailed('Something went wrong');
-        }
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
       },
     }),
   }),

@@ -1,5 +1,4 @@
 import { Dayjs } from 'dayjs';
-import { toast } from 'react-toastify';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 import { useEditDueDateMutation } from '@/redux/services/card/dates';
 import DatesView from './view';
@@ -14,7 +13,6 @@ function Dates({ boardId, cardId, onRefreshCard }: BoardGlobalProps) {
       cardId,
       boardId,
       onSuccess: onRefreshCard,
-      onFailed: (errMsg) => toast.error(errMsg),
     });
   };
 

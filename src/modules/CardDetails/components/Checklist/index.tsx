@@ -31,30 +31,33 @@ function Checklist({ checklist, boardId, cardId, onRefreshCard }: ChecklistProps
     setProgress((numberOfCheckedItems / checklist.items.length) * 100);
   }, [checklist.items]);
 
-  const handleItemDone = async (event: ChangeEvent<HTMLInputElement>) => {
-    await markItemDone({
+  const handleItemDone = (event: ChangeEvent<HTMLInputElement>) => {
+    markItemDone({
       itemId: event.target.name,
       checklistId: checklist._id,
       cardId: cardId,
       boardId: boardId,
+      onSuccess: onRefreshCard,
     });
-    onRefreshCard();
   };
 
-  const handleDeleteItem = async (params: any[]) => {
+  const handleDeleteItem = (params: any[]) => {
     const [itemId] = params;
-    await deleteItem({ itemId, checklistId: checklist._id, cardId: cardId, boardId: boardId });
-    onRefreshCard();
+    deleteItem({
+      itemId,
+      checklistId: checklist._id,
+      cardId: cardId,
+      boardId: boardId,
+      onSuccess: onRefreshCard,
+    });
   };
 
-  const handleDeleteChecklist = async (checklistId: string) => {
-    await deleteCheckList({ checklistId, cardId: cardId, boardId: boardId });
-    onRefreshCard();
+  const handleDeleteChecklist = (checklistId: string) => {
+    deleteCheckList({ checklistId, cardId: cardId, boardId: boardId, onSuccess: onRefreshCard });
   };
 
-  const handleAddItem = async (title: string) => {
-    await addItem({ title, checklistId: checklist._id, cardId: cardId, boardId: boardId });
-    onRefreshCard();
+  const handleAddItem = (title: string) => {
+    addItem({ title, checklistId: checklist._id, cardId: cardId, boardId: boardId, onSuccess: onRefreshCard });
   };
 
   return (

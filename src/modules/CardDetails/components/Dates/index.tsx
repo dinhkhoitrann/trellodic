@@ -1,7 +1,6 @@
 import { useMarkCardIsDoneMutation } from '@/redux/services/card/dates';
 import DatesView from './view';
 import { withBoard, BoardGlobalProps } from '@/hocs';
-import { toast } from 'react-toastify';
 
 function Dates({ cardId, boardId, onRefreshCard }: BoardGlobalProps) {
   const [markCardIsDone] = useMarkCardIsDoneMutation();
@@ -12,9 +11,6 @@ function Dates({ cardId, boardId, onRefreshCard }: BoardGlobalProps) {
       boardId,
       isDone,
       onSuccess: onRefreshCard,
-      onFailed: (errMsg) => {
-        toast.error(errMsg);
-      },
     });
   };
 

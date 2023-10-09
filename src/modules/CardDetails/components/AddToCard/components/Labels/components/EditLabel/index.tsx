@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Label } from '@/types/board.type';
 import EditLabelView from './view';
-import { toast } from 'react-toastify';
 import { useEditLabelMutation } from '@/redux/services/board/label';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 
@@ -24,13 +23,9 @@ function EditLabel({ label, boardId, onRefreshBoard, onRefreshCard, onEditSucces
       color,
       boardId,
       onSuccess: () => {
-        toast.success('Label edited successfully');
         onEditSuccess();
         onRefreshBoard();
         onRefreshCard();
-      },
-      onFailed: (errorMsg) => {
-        toast.error(errorMsg);
       },
     });
   };

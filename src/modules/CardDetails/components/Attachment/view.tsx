@@ -13,17 +13,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { BoardGlobalProps, withBoard } from '@/hocs';
 import { Theme } from '@/common/enums';
 import { useAlert } from '@/hooks';
-import { toast } from 'react-toastify';
 
 type AttachmentViewProps = BoardGlobalProps & {
-  onDelete: (_params: string[], _onSuccess: () => void, _onFailed: (_errMsg: string) => void) => void;
+  onDelete: (_params: string[], _onSuccess: () => void) => void;
 };
 
 function AttachmentView({ card, cardId, boardId, onRefreshCard, onDelete }: AttachmentViewProps) {
   const { handleOpenAlert, renderAlert } = useAlert({
     title: 'Delete this file?',
     content: 'You can not get the file back',
-    onOk: (restParams) => onDelete(restParams, onRefreshCard, (errMsg: string) => toast.error(errMsg)),
+    onOk: (restParams) => onDelete(restParams, onRefreshCard),
   });
 
   return (

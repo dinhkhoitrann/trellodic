@@ -12,13 +12,9 @@ export const attachmentApi = createApi({
       { files: File[]; boardId: string; cardId: string; onSuccess?: () => void; onFailed?: (_errMsg: string) => void }
     >({
       queryFn: (args, { signal }) => uploadAttachments({ ...args, signal }),
-      onQueryStarted: async ({ onSuccess, onFailed }, { queryFulfilled }) => {
-        try {
-          await queryFulfilled;
-          onSuccess && onSuccess();
-        } catch (error) {
-          onFailed && onFailed('Something went wrong');
-        }
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
       },
     }),
     deleteAttachment: builder.mutation<
@@ -32,13 +28,9 @@ export const attachmentApi = createApi({
       }
     >({
       queryFn: (args, { signal }) => deleteAttachment({ ...args, signal }),
-      onQueryStarted: async ({ onSuccess, onFailed }, { queryFulfilled }) => {
-        try {
-          await queryFulfilled;
-          onSuccess && onSuccess();
-        } catch (error) {
-          onFailed && onFailed('Something went wrong');
-        }
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
       },
     }),
   }),

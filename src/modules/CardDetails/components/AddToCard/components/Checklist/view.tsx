@@ -9,7 +9,7 @@ type ChecklistViewProps = {
   title?: string;
   isPending: boolean;
   isSuccess: boolean;
-  onAddChecklist: (_title: string) => Promise<void>;
+  onAddChecklist: (_title: string) => void;
   onTitleChange: (_event: ChangeEvent<HTMLInputElement>) => void;
 };
 

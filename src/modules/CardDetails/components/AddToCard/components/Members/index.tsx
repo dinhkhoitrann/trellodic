@@ -2,7 +2,6 @@ import { User } from '@/types/user.type';
 import MembersView from './view';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 import { useAddMembersToCardMutation } from '@/redux/services/card/member';
-import { toast } from 'react-toastify';
 
 function Members({ cardId, boardId, onRefreshCard }: BoardGlobalProps) {
   const [addMembers, { isLoading }] = useAddMembersToCardMutation();
@@ -13,13 +12,7 @@ function Members({ cardId, boardId, onRefreshCard }: BoardGlobalProps) {
       memberIds,
       cardId,
       boardId,
-      onSuccess: () => {
-        toast.success('Save successfully');
-        onRefreshCard();
-      },
-      onFailed: (errMsg) => {
-        toast.error(errMsg);
-      },
+      onSuccess: onRefreshCard,
     });
   };
 

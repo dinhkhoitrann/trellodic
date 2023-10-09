@@ -1,5 +1,4 @@
 import { ChangeEvent, useState } from 'react';
-import { toast } from 'react-toastify';
 import { isInvalidFile } from '@/utils/card';
 import { useUploadFilesMutation } from '@/redux/services/card/attachment';
 import { BoardGlobalProps, withBoard } from '@/hocs';
@@ -29,7 +28,6 @@ function Attachment({ boardId, cardId, onRefreshCard }: BoardGlobalProps) {
         handleClear();
         onRefreshCard();
       },
-      onFailed: (errMsg) => toast.error(errMsg),
     });
   };
 

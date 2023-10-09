@@ -2,7 +2,6 @@ import { useState } from 'react';
 import CreateLabelView from './view';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 import { useAddLabelMutation } from '@/redux/services/board/label';
-import { toast } from 'react-toastify';
 
 type CreateLabelProps = BoardGlobalProps & {
   onCreateSuccess: () => void;
@@ -18,13 +17,9 @@ function CreateLabel({ boardId, onRefreshBoard, onRefreshCard, onCreateSuccess }
       color,
       boardId,
       onSuccess: () => {
-        toast.success('Create label successfully');
         onCreateSuccess();
         onRefreshBoard();
         onRefreshCard();
-      },
-      onFailed: (errorMsg) => {
-        toast.error(errorMsg);
       },
     });
   };

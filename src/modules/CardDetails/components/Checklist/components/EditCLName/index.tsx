@@ -11,9 +11,14 @@ type EditCLNameProps = BoardGlobalProps & {
 function EditCLName({ checklistId, boardId, cardId, onRefreshCard, ...rest }: EditCLNameProps) {
   const [updateChecklistTitle] = useUpdateChecklistTitleMutation();
 
-  const handleEdit = async (newName: string) => {
-    await updateChecklistTitle({ checklistId, cardId: cardId, boardId: boardId, updatedTitle: newName });
-    onRefreshCard();
+  const handleEdit = (newName: string) => {
+    updateChecklistTitle({
+      checklistId,
+      cardId: cardId,
+      boardId: boardId,
+      updatedTitle: newName,
+      onSuccess: onRefreshCard,
+    });
   };
 
   return <EditCLNameView {...rest} onEdit={handleEdit} />;
