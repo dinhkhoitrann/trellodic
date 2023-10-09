@@ -7,10 +7,7 @@ export const attachmentApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Attachment'],
   endpoints: (builder) => ({
-    uploadFiles: builder.mutation<
-      void,
-      { files: File[]; boardId: string; cardId: string; onSuccess?: () => void; onFailed?: (_errMsg: string) => void }
-    >({
+    uploadFiles: builder.mutation<void, { files: File[]; boardId: string; cardId: string; onSuccess?: () => void }>({
       queryFn: (args, { signal }) => uploadAttachments({ ...args, signal }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
@@ -24,7 +21,6 @@ export const attachmentApi = createApi({
         boardId: string;
         cardId: string;
         onSuccess?: () => void;
-        onFailed?: (_errMsg: string) => void;
       }
     >({
       queryFn: (args, { signal }) => deleteAttachment({ ...args, signal }),

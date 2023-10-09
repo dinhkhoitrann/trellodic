@@ -7,20 +7,14 @@ export const labelApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Label'],
   endpoints: (builder) => ({
-    addLabel: builder.mutation<
-      void,
-      { title: string; color: string; boardId: string; onSuccess?: () => void; onFailed?: (_errorMsg: string) => void }
-    >({
+    addLabel: builder.mutation<void, { title: string; color: string; boardId: string; onSuccess?: () => void }>({
       queryFn: (args, { signal }) => createLabel({ ...args, signal }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
       },
     }),
-    editLabel: builder.mutation<
-      void,
-      { title: string; color: string; boardId: string; onSuccess?: () => void; onFailed?: (_errorMsg: string) => void }
-    >({
+    editLabel: builder.mutation<void, { title: string; color: string; boardId: string; onSuccess?: () => void }>({
       queryFn: (args, { signal }) => editLabel({ ...args, signal }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
@@ -34,7 +28,6 @@ export const labelApi = createApi({
         cardId: string;
         isAdded: boolean;
         onSuccess?: () => void;
-        onFailed?: (_errorMsg: string) => void;
       }
     >({
       queryFn: (args, { signal }) => addLabelToCard({ ...args, signal }),
