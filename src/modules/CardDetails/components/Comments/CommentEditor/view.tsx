@@ -11,21 +11,13 @@ import Editor from '@/components/Editor';
 import { useAlert } from '@/hooks';
 
 type CommentEditorViewProps = {
-  onSave: (_content: string) => void;
+  isLoading: boolean;
+  onSave: (_content: string, _onSaveSuccess: () => void) => void;
 };
 
-function CommentEditorView({ onSave }: CommentEditorViewProps) {
+function CommentEditorView({ isLoading, onSave }: CommentEditorViewProps) {
   const [addMode, setAddMode] = useState(false);
   const [comment, setComment] = useState('');
-  const { renderAlert, handleOpenAlert } = useAlert({
-    title: 'Discard changes?',
-    content: "Your comment will be lost if you don't save it",
-    okText: 'Discard',
-    onOk: () => {
-      setAddMode(false);
-      setComment('');
-    },
-  });
 
   const handleShowHideEditor = () => {
     setAddMode(!addMode);
@@ -42,6 +34,18 @@ function CommentEditorView({ onSave }: CommentEditorViewProps) {
       setAddMode(false);
     }
   };
+
+  const handleClear = () => {
+    setAddMode(false);
+    setComment('');
+  };
+
+  const { renderAlert, handleOpenAlert } = useAlert({
+    title: 'Discard changes?',
+    content: "Your comment will be lost if you don't save it",
+    okText: 'Discard',
+    onOk: handleClear,
+  });
 
   return (
     <>
@@ -63,8 +67,13 @@ function CommentEditorView({ onSave }: CommentEditorViewProps) {
               <>
                 <Editor data={comment} onDataChange={handleCommentChange} />
                 <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 2 }}>
-                  <Button variant="contained" disabled={comment === ''} sx={{ mt: 2 }} onClick={() => onSave(comment)}>
-                    Save
+                  <Button
+                    variant="contained"
+                    disabled={comment === '' || isLoading}
+                    sx={{ mt: 2 }}
+                    onClick={() => onSave(comment, handleClear)}
+                  >
+                    {isLoading ? 'Saving' : 'Save'}
                   </Button>
                   <Button onClick={handleCloseEditor}>Cancel</Button>
                 </Stack>

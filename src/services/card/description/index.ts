@@ -7,7 +7,7 @@ export const editDescription = async (data: {
   signal: AbortSignal;
 }) => {
   const { signal, ...rest } = data;
-  return externalRequest.post('/posts1', rest, {
+  return externalRequest.post('/posts', rest, {
     signal,
   });
 };

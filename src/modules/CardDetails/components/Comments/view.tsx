@@ -1,14 +1,17 @@
 import Box from '@mui/material/Box';
 import CommentEditor from './CommentEditor';
-import CommentList from './CommentList';
+import { BoardGlobalProps, withBoard } from '@/hocs';
+import CommentItem from './CommentItem';
 
-function CommentsView() {
+function CommentsView({ card }: BoardGlobalProps) {
   return (
     <Box>
       <CommentEditor />
-      <CommentList />
+      {card.comments?.map((comment) => (
+        <CommentItem key={comment._id} comment={comment} />
+      ))}
     </Box>
   );
 }
 
-export default CommentsView;
+export default withBoard(CommentsView);

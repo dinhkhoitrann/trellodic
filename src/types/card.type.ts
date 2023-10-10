@@ -35,8 +35,8 @@ export interface Comment {
   readonly _id: string;
   avatarUrl?: string;
   username: string;
-  createdAt: Date;
-  updatedAt?: Date;
+  createdAt: string;
+  updatedAt?: string;
   content: string;
 }
 

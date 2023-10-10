@@ -103,10 +103,10 @@ export const mockData: MockData = {
             comments: [
               {
                 _id: 'cm1',
-                avatarUrl: '',
+                avatarUrl: 'https://i.pravatar.cc/',
                 username: 'Trần Đình Khôi',
-                createdAt: new Date(),
-                updatedAt: new Date(),
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
                 content: 'This is a comment',
               },
             ],
