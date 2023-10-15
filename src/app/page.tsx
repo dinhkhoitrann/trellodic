@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import WorkspaceSidebar from '@/modules/Workspace/Sidebar';
+import WorkspaceInfo from '@/modules/Workspace/Info';
 
 export const metadata: Metadata = {
   title: 'Home Page | Trellodic',
@@ -9,12 +11,16 @@ export const metadata: Metadata = {
 
 function HomePage() {
   return (
-    <div>
-      <Typography>Home Page</Typography>
-      <Typography>
-        <Link href="/boards/1">Go to Board 1</Link>
-      </Typography>
-    </div>
+    <Container maxWidth="lg">
+      <Grid container sx={{ my: 2 }} spacing={4}>
+        <Grid item sm={12} md={3}>
+          <WorkspaceSidebar />
+        </Grid>
+        <Grid item sm={12} md={9}>
+          <WorkspaceInfo />
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 
