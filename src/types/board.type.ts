@@ -6,7 +6,7 @@ export interface Board {
   title: string;
   description: string;
   type?: string;
-  admin: User; // admin
+  admin: User | string; // admin
   memberIds: User[]; //members: [{_id, name, avatar}] consists of admin
   columnOrderIds: string[];
   columns: Column[];

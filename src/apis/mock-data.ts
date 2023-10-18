@@ -338,6 +338,7 @@ export const mockWorkspace: Workspace = {
     {
       _id: '1',
       title: '123',
+      admin: '1',
     },
   ],
   createdAt: new Date().toISOString(),

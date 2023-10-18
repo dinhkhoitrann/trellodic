@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { createBoard, getWorkspace, getWorkspaceList } from '@/services/workspace';
+import { createBoard, editWorkspaceName, getWorkspace, getWorkspaceList } from '@/services/workspace';
 import { save as saveBoard } from '@/redux/slices/board';
 import { save as saveWorkspace } from '@/redux/slices/workspace';
 import { mockData } from '@/apis/mock-data';
@@ -52,7 +52,22 @@ export const workspaceApi = createApi({
         onSuccess && onSuccess(boardId);
       },
     }),
+    editWorkspaceName: builder.mutation<void, { workspaceId: string; name: string }>({
+      queryFn: (args, { signal }) => editWorkspaceName({ ...args, signal }),
+      onQueryStarted: async ({ workspaceId }, { queryFulfilled, dispatch }) => {
+        await queryFulfilled;
+        dispatch({
+          type: 'workspaceApi/invalidateTags',
+          payload: [{ type: 'Workspace', id: workspaceId }],
+        });
+      },
+    }),
   }),
 });
 
-export const { useCreateBoardMutation, useLazyGetWorkspaceQuery, useGetWorkspaceListQuery } = workspaceApi;
+export const {
+  useCreateBoardMutation,
+  useLazyGetWorkspaceQuery,
+  useGetWorkspaceListQuery,
+  useEditWorkspaceNameMutation,
+} = workspaceApi;

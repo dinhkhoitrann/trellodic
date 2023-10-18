@@ -15,5 +15,24 @@ export const getWorkspace = async (data: { workspaceId: string; signal: AbortSig
 export const getWorkspaceList = async (data: { userId: string; signal: AbortSignal }) => {
   const { userId, signal } = data;
   await externalRequest.get(`/posts/${userId}`, { signal });
-  return [mockWorkspace, { ...mockWorkspace, name: 'W2', _id: '2' }];
+  return [
+    mockWorkspace,
+    {
+      ...mockWorkspace,
+      name: 'W2',
+      boards: [
+        {
+          _id: '2',
+          title: 'aaa',
+          admin: '2',
+        },
+      ],
+      _id: '2',
+    },
+  ];
+};
+
+export const editWorkspaceName = async (data: { workspaceId: string; name: string; signal: AbortSignal }) => {
+  const { signal, ...rest } = data;
+  return externalRequest.post('/posts', rest, { signal });
 };

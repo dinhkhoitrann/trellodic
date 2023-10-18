@@ -10,7 +10,7 @@ function WorkspaceInfoView() {
 
   return (
     <Box>
-      <WorkspaceHeader workspaceName={workspace.name || ''} />
+      <WorkspaceHeader workspaceName={workspace.name || ''} workspaceId={workspace._id || ''} />
       <Sections />
     </Box>
   );

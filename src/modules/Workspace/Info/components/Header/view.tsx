@@ -1,5 +1,7 @@
+import { useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -7,9 +9,23 @@ import EditIcon from '@mui/icons-material/Edit';
 
 type WorkspaceHeaderViewProps = {
   workspaceName: string;
+  onEditName: (_editedName: string) => void;
 };
 
-function WorkspaceHeaderView({ workspaceName }: WorkspaceHeaderViewProps) {
+function WorkspaceHeaderView({ workspaceName, onEditName }: WorkspaceHeaderViewProps) {
+  const [editNameMode, setEditNameMode] = useState(false);
+  const workspaceNameRef = useRef<HTMLInputElement>();
+
+  const handleEditMode = () => {
+    setEditNameMode((prevMode) => !prevMode);
+  };
+
+  const handleEditName = () => {
+    if (!workspaceNameRef.current) return;
+    onEditName(workspaceNameRef.current?.value);
+    handleEditMode();
+  };
+
   return (
     <>
       <Stack direction="row" alignItems="center" spacing={2}>
@@ -29,10 +45,24 @@ function WorkspaceHeaderView({ workspaceName }: WorkspaceHeaderViewProps) {
           T
         </Box>
         <Box>
-          <Typography variant="h6">
-            {workspaceName}&apos;s workspace <EditIcon sx={{ fontSize: '16px', ml: 1, cursor: 'pointer' }} />
-          </Typography>
-          <Stack direction="row" alignItems="center" spacing={1}>
+          {!editNameMode && (
+            <Typography variant="h6">
+              {workspaceName}&apos;s workspace{' '}
+              <EditIcon sx={{ fontSize: '16px', ml: 1, cursor: 'pointer' }} onClick={handleEditMode} />
+            </Typography>
+          )}
+          {editNameMode && (
+            <TextField
+              inputRef={workspaceNameRef}
+              defaultValue={workspaceName}
+              fullWidth
+              autoFocus
+              size="small"
+              placeholder="Edit workspace name"
+              onBlur={handleEditName}
+            />
+          )}
+          <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: '6px' }}>
             <LockOutlinedIcon fontSize="small" sx={{ opacity: '0.75' }} />
             <Typography variant="caption">Private</Typography>
           </Stack>

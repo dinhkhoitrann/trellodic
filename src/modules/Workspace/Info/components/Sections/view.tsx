@@ -7,35 +7,50 @@ import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import BoardItem from './components/BoardItem';
 import Link from 'next/link';
 import CreateBoard from './components/CreateBoard';
+import { Board } from '@/types/board.type';
 
-function SectionsView() {
-  return (
-    <Box sx={{ ml: 2, my: 4 }}>
-      <Box>
+type SectionsViewProps = {
+  ownerBoards: Partial<Board>[];
+  otherBoards: Partial<Board>[];
+};
+
+function SectionsView({ ownerBoards, otherBoards }: SectionsViewProps) {
+  const renderSection = (title: string, boards: Partial<Board>[]) => {
+    return (
+      <Box sx={{ mb: 6 }}>
         <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 2 }}>
           <PersonOutlinedIcon sx={{ opacity: '0.75' }} />
-          <Typography sx={{ fontSize: '1rem !important', fontWeight: 'bold' }}>Your boards</Typography>
+          <Typography sx={{ fontSize: '1rem !important', fontWeight: 'bold' }}>{title}</Typography>
         </Stack>
         <Grid container spacing={2}>
-          <Grid item>
-            <Link href="/boards/1">
-              <BoardItem
-                sx={{
-                  bgcolor: '#ae4d7b',
-                  padding: 1,
-                  fontWeight: 'bold',
-                  color: 'white',
-                }}
-              >
-                Board của tui nè nha
-              </BoardItem>
-            </Link>
-          </Grid>
+          {boards.map((board) => (
+            <Grid item key={board._id}>
+              <Link href={`/boards/${board._id}`}>
+                <BoardItem
+                  sx={{
+                    bgcolor: '#ae4d7b',
+                    padding: 1,
+                    fontWeight: 'bold',
+                    color: 'white',
+                  }}
+                >
+                  {board.title}
+                </BoardItem>
+              </Link>
+            </Grid>
+          ))}
           <Grid item>
             <CreateBoard />
           </Grid>
         </Grid>
       </Box>
+    );
+  };
+
+  return (
+    <Box sx={{ ml: 2, my: 4 }}>
+      {renderSection('Your boards', ownerBoards)}
+      {renderSection('All boards in this Workspace', otherBoards)}
     </Box>
   );
 }
