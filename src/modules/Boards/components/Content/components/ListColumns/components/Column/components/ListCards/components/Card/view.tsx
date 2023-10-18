@@ -13,9 +13,10 @@ import { Card as CardType } from '@/types/card.type';
 
 type CardViewProps = {
   card: CardType;
+  onShowDetails: () => void;
 };
 
-function CardView({ card }: CardViewProps) {
+function CardView({ card, onShowDetails }: CardViewProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: card._id,
     data: { ...card },
@@ -43,6 +44,7 @@ function CardView({ card }: CardViewProps) {
         overflow: 'unset',
         display: card?.FE_isPlaceholderCard ? 'none' : 'block',
       }}
+      onClick={onShowDetails}
     >
       {card?.cover && <CardMedia sx={{ height: 140 }} image={card?.cover} />}
       <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>

@@ -1,19 +1,16 @@
 import { Metadata } from 'next';
-import Board from '@/modules/Boards/components/Details';
+import BoardContent from '@/modules/Boards/components/Content';
 import { FE_API_ROOT, TAGS_CACHE } from '@/utils/constants';
 
 type Props = {
   params: { boardId: string };
-  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 async function getBoard(boardId: string) {
   const res = await fetch(`${FE_API_ROOT}/api/boards/${boardId}`, {
     next: { revalidate: 10, tags: [`${TAGS_CACHE.BOARDS}/${boardId}`] },
   });
-  const {
-    data: { board },
-  } = await res.json();
+  const { board } = await res.json();
 
   return board;
 }
@@ -32,7 +29,7 @@ async function BoardDetailsPage({ params }: Props) {
   const { boardId } = params;
   const board = await getBoard(boardId);
 
-  return <Board board={board} />;
+  return <BoardContent board={board} boardId={boardId} />;
 }
 
 export default BoardDetailsPage;

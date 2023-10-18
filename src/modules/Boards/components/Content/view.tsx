@@ -1,3 +1,4 @@
+import { useSearchParams } from 'next/navigation';
 import { useTheme } from '@mui/styles';
 import Box from '@mui/material/Box';
 import { DragOverlay, DropAnimation, defaultDropAnimationSideEffects } from '@dnd-kit/core';
@@ -8,6 +9,7 @@ import { Board } from '@/types/board.type';
 import { Theme } from '@/common/enums';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
+import CardDetails from '@/modules/CardDetails';
 
 type BoardContentViewProps = {
   board: Board;
@@ -16,6 +18,9 @@ type BoardContentViewProps = {
 };
 
 function BoardContentView({ board, activeDragItemType, activeDragItemData }: BoardContentViewProps) {
+  const searchParams = useSearchParams();
+  const cardId = searchParams.get('cardId');
+
   const theme = useTheme<CustomThemeOptions>();
   const dropAnimation: DropAnimation = {
     sideEffects: defaultDropAnimationSideEffects({
@@ -28,34 +33,37 @@ function BoardContentView({ board, activeDragItemType, activeDragItemData }: Boa
   };
 
   return (
-    <Box
-      sx={{
-        width: '100%',
-        height: theme.customProps.boardContentHeight,
-        bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#34495e' : '#1976d2'),
-        p: '10px 0',
-      }}
-    >
+    <>
       <Box
         sx={{
-          bgcolor: 'inherit',
           width: '100%',
-          height: '100%',
-          display: 'flex',
-          overflowX: 'auto',
-          overflowY: 'hidden',
-          '&::-webkit-scrollbar-track': {
-            m: 2,
-          },
+          height: theme.customProps.boardContentHeight,
+          bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#34495e' : '#1976d2'),
+          p: '10px 0',
         }}
       >
-        <ListColumns columns={board?.columns} />
-        <DragOverlay dropAnimation={dropAnimation}>
-          {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && <Column column={activeDragItemData} />}
-          {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD && <Card card={activeDragItemData} />}
-        </DragOverlay>
+        <Box
+          sx={{
+            bgcolor: 'inherit',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            overflowX: 'auto',
+            overflowY: 'hidden',
+            '&::-webkit-scrollbar-track': {
+              m: 2,
+            },
+          }}
+        >
+          <ListColumns columns={board?.columns} />
+          <DragOverlay dropAnimation={dropAnimation}>
+            {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && <Column column={activeDragItemData} />}
+            {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD && <Card card={activeDragItemData} />}
+          </DragOverlay>
+        </Box>
       </Box>
-    </Box>
+      {cardId && <CardDetails cardId={cardId} />}
+    </>
   );
 }
 
