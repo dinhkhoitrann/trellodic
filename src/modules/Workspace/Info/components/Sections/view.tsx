@@ -10,7 +10,7 @@ import CreateBoard from './components/CreateBoard';
 
 function SectionsView() {
   return (
-    <Box sx={{ ml: 2, my: 3 }}>
+    <Box sx={{ ml: 2, my: 4 }}>
       <Box>
         <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 2 }}>
           <PersonOutlinedIcon sx={{ opacity: '0.75' }} />

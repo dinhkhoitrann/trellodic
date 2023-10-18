@@ -5,7 +5,11 @@ import Divider from '@mui/material/Divider';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 
-function WorkspaceHeaderView() {
+type WorkspaceHeaderViewProps = {
+  workspaceName: string;
+};
+
+function WorkspaceHeaderView({ workspaceName }: WorkspaceHeaderViewProps) {
   return (
     <>
       <Stack direction="row" alignItems="center" spacing={2}>
@@ -26,7 +30,7 @@ function WorkspaceHeaderView() {
         </Box>
         <Box>
           <Typography variant="h6">
-            Tran Dinh Khoi&apos;s workspace <EditIcon sx={{ fontSize: '16px', ml: 1, cursor: 'pointer' }} />
+            {workspaceName}&apos;s workspace <EditIcon sx={{ fontSize: '16px', ml: 1, cursor: 'pointer' }} />
           </Typography>
           <Stack direction="row" alignItems="center" spacing={1}>
             <LockOutlinedIcon fontSize="small" sx={{ opacity: '0.75' }} />
@@ -34,7 +38,7 @@ function WorkspaceHeaderView() {
           </Stack>
         </Box>
       </Stack>
-      <Divider sx={{ mt: 2 }} />
+      <Divider sx={{ mt: 4 }} />
     </>
   );
 }

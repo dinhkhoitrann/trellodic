@@ -10,7 +10,11 @@ const initialState: { detail: Partial<Board> } = {
 const boardSlice = createSlice({
   name: 'board',
   initialState,
-  reducers: {},
+  reducers: {
+    save: (state, action) => {
+      state.detail = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addMatcher(boardApi.endpoints.getBoardDetails.matchFulfilled, (state, action) => {
       state.detail = action.payload;
@@ -18,6 +22,7 @@ const boardSlice = createSlice({
   },
 });
 
+export const { save } = boardSlice.actions;
 export default boardSlice.reducer;
 
 export const selectBoardDetails = (state: RootState) => state.board.detail;

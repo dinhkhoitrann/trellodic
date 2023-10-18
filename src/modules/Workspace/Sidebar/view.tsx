@@ -4,8 +4,13 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import WorkspaceItem from './components/WorkspaceItem';
+import { Workspace } from '@/types/workspace.type';
 
-function WorkspaceSidebarView() {
+type WorkspaceSidebarViewProps = {
+  workspaces: Workspace[];
+};
+
+function WorkspaceSidebarView({ workspaces }: WorkspaceSidebarViewProps) {
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -14,10 +19,9 @@ function WorkspaceSidebarView() {
           <AddIcon />
         </IconButton>
       </Stack>
-      <WorkspaceItem />
-      <WorkspaceItem />
-      <WorkspaceItem />
-      <WorkspaceItem />
+      {workspaces.map((workspace) => (
+        <WorkspaceItem key={workspace._id} workspace={workspace} />
+      ))}
     </Box>
   );
 }

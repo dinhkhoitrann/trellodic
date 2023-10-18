@@ -1,14 +1,24 @@
 import Image from 'next/image';
+import { UseFormReturn } from 'react-hook-form';
+import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import FormProvider from '@/components/Form/FormProvider';
+import RHFTextField from '@/components/Form/RHFTextField';
+import RHFAutocomplete from '@/components/Form/RHFAutocomplete';
 
 type CreateFormViewProps = {
+  methods: UseFormReturn<any, any>;
+  isLoading: boolean;
+  onSubmit: (_values: { name: string; workspace: string }) => void;
   onClose: () => void;
 };
 
-function CreateFormView({ onClose }: CreateFormViewProps) {
+function CreateFormView({ methods, isLoading, onSubmit, onClose }: CreateFormViewProps) {
+  const { handleSubmit } = methods;
+
   return (
     <Box sx={{ p: 2, width: 300 }}>
       <Box sx={{ width: '100%', display: 'grid', gridTemplateColumns: '32px 1fr 32px', alignItems: 'center' }}>
@@ -26,6 +36,7 @@ function CreateFormView({ onClose }: CreateFormViewProps) {
           backgroundPosition: 'center center',
           borderRadius: '4px',
           mt: 2,
+          mb: 4,
           backgroundImage:
             // eslint-disable-next-line max-len
             'url("https://images.unsplash.com/photo-1696580436068-f19c26850e8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjk3MzQ4MDYzfA&ixlib=rb-4.0.3&q=80&w=400")',
@@ -33,6 +44,21 @@ function CreateFormView({ onClose }: CreateFormViewProps) {
       >
         <Image src="/create-board.svg" alt="" width={150} height={150} />
       </Box>
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <RHFTextField name="name" label="Board title" id="name" placeholder="Board title" size="small" />
+        <RHFAutocomplete
+          name="workspace"
+          label="Workspace"
+          size="small"
+          id="workspace"
+          options={['123']}
+          getOptionLabel={(option: string) => option}
+          isOptionEqualToValue={(option: any, value: any) => option === value}
+        />
+        <Button fullWidth variant="contained" type="submit" disabled={isLoading} sx={{ mt: 2 }}>
+          {isLoading ? 'Creating' : 'Create'}
+        </Button>
+      </FormProvider>
     </Box>
   );
 }

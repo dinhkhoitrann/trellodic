@@ -1,18 +1,25 @@
 import { ReactElement } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { Autocomplete, SxProps, TextField, Theme } from '@mui/material';
+import { Autocomplete, SxProps, TextField, Theme, Typography } from '@mui/material';
 
 type RHFAutocompleteProps<T> = {
+  id: string;
   name: string;
   onChangeValue?: Function;
   label: string;
   options: T[];
+  size?: 'small' | 'medium';
+  isRequired?: boolean;
   getOptionLabel?: ((_option: T) => string) | undefined;
   isOptionEqualToValue?: ((_option: T, _value: T) => boolean) | undefined;
   sx?: SxProps<Theme> | undefined;
 };
 
-export default function RHFAutocomplete<T extends {}>({ name, ...other }: RHFAutocompleteProps<T>): ReactElement {
+export default function RHFAutocomplete<T extends {}>({
+  name,
+  isRequired,
+  ...other
+}: RHFAutocompleteProps<T>): ReactElement {
   const { control } = useFormContext();
 
   return (
@@ -29,14 +36,25 @@ export default function RHFAutocomplete<T extends {}>({ name, ...other }: RHFAut
               field.onChange(value);
               if (other.onChangeValue) other.onChangeValue();
             }}
+            placeholder={other.label}
             renderInput={(params) => (
-              <TextField
-                {...params}
-                label={other.label}
-                value={field.value}
-                error={!!error}
-                helperText={error?.message}
-              />
+              <>
+                <Typography component="label" htmlFor={other.id} sx={{ display: 'inline-block', mb: '4px' }}>
+                  {other.label}{' '}
+                  {isRequired && (
+                    <Typography component="span" sx={{ color: 'red' }}>
+                      *
+                    </Typography>
+                  )}
+                </Typography>
+                <TextField
+                  {...params}
+                  // label={other.label}
+                  value={field.value}
+                  error={!!error}
+                  helperText={error?.message}
+                />
+              </>
             )}
             {...other}
           />

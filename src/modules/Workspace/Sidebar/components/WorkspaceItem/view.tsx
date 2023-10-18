@@ -1,7 +1,12 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
-function WorkspaceItemView() {
+type WorkspaceItemViewProps = {
+  name: string;
+  onGetWorkspace: () => void;
+};
+
+function WorkspaceItemView({ name, onGetWorkspace }: WorkspaceItemViewProps) {
   return (
     <Button
       fullWidth
@@ -21,8 +26,9 @@ function WorkspaceItemView() {
           T
         </Box>
       }
+      onClick={onGetWorkspace}
     >
-      Tran Dinh Khoi&apos;s workspace
+      {name}&apos;s workspace
     </Button>
   );
 }

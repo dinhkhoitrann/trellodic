@@ -1,14 +1,15 @@
 import { Board } from '@/types/board.type';
+import { Workspace } from '@/types/workspace.type';
 
 /**
  * YouTube: TrungQuanDev - Một Lập Trình Viên
  * Created by trungquandev.com's author on Jun 28, 2023
  */
-interface MockData {
+interface MockBoardData {
   board: Board;
 }
 
-export const mockData: MockData = {
+export const mockData: MockBoardData = {
   board: {
     _id: 'board-id-01',
     title: 'Khoi Board',
@@ -19,18 +20,16 @@ export const mockData: MockData = {
       { _id: '2', title: 'Title 2', color: '#2ecc71' },
       { _id: '3', title: 'Title 3', color: '#3498db' },
     ],
-    ownerIds: [
-      {
-        _id: 'mem-1',
-        name: 'Name',
-        email: 'emailaaa@email.com',
-        password: '123',
-        avatar: 'https://i.pravatar.cc/',
-        birthday: new Date(),
-        gender: 'male',
-        phoneNumber: '0123456789',
-      },
-    ], // Những users là Admin của board
+    admin: {
+      _id: 'mem-1',
+      name: 'Name',
+      email: 'emailaaa@email.com',
+      password: '123',
+      avatar: 'https://i.pravatar.cc/',
+      birthday: new Date(),
+      gender: 'male',
+      phoneNumber: '0123456789',
+    }, // Những users là Admin của board
     memberIds: [
       {
         _id: 'mem-1',
@@ -77,7 +76,7 @@ export const mockData: MockData = {
             title: 'Title of card 01',
             description: 'This is a description',
             cover:
-              'https://trungquandev.com/wp-content/uploads/2022/07/fair-mern-stack-advanced-banner-trungquandev.jpg',
+              'https://images.unsplash.com/photo-1682685797660-3d847763208e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
             memberIds: [
               {
                 _id: 'mem-1',
@@ -329,3 +328,18 @@ export const mockData: MockData = {
   },
 };
 1;
+
+export const mockWorkspace: Workspace = {
+  _id: '1',
+  name: 'W1',
+  image: undefined,
+  ownerUserId: 'o1',
+  boards: [
+    {
+      _id: '1',
+      title: '123',
+    },
+  ],
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+};

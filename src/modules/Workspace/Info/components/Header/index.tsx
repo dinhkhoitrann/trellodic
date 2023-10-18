@@ -1,7 +1,11 @@
 import WorkspaceHeaderView from './view';
 
-function WorkspaceHeader() {
-  return <WorkspaceHeaderView />;
+type WorkspaceHeaderProps = {
+  workspaceName: string;
+};
+
+function WorkspaceHeader({ workspaceName }: WorkspaceHeaderProps) {
+  return <WorkspaceHeaderView workspaceName={workspaceName} />;
 }
 
 export default WorkspaceHeader;

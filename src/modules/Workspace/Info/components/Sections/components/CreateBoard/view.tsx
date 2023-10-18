@@ -1,3 +1,4 @@
+'use client';
 import { MouseEvent, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Popover from '@mui/material/Popover';
