@@ -1,4 +1,3 @@
-import { ReactElement } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Autocomplete, SxProps, TextField, Theme, Typography } from '@mui/material';
 
@@ -15,11 +14,7 @@ type RHFAutocompleteProps<T> = {
   sx?: SxProps<Theme> | undefined;
 };
 
-export default function RHFAutocomplete<T extends {}>({
-  name,
-  isRequired,
-  ...other
-}: RHFAutocompleteProps<T>): ReactElement {
+export default function RHFAutocomplete<T extends {}>({ name, isRequired, ...other }: RHFAutocompleteProps<T>) {
   const { control } = useFormContext();
 
   return (

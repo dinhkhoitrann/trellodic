@@ -1,6 +1,5 @@
 import { TextField, TextareaAutosize, TextFieldProps, TextareaAutosizeProps, Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
-import { ReactElement } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 type RHFTextFieldProps = TextFieldProps &
@@ -15,12 +14,9 @@ type RHFTextFieldProps = TextFieldProps &
   };
 
 const blue = {
-  100: '#DAECFF',
   200: '#b6daff',
   400: '#3399FF',
   500: '#007FFF',
-  600: '#0072E5',
-  900: '#003A75',
 };
 
 const StyledTextarea = styled(TextareaAutosize)(
@@ -55,7 +51,7 @@ const StyledTextarea = styled(TextareaAutosize)(
   `,
 );
 
-export default function RHFTextField({ name, label, isRequired = true, ...other }: RHFTextFieldProps): ReactElement {
+export default function RHFTextField({ name, label, isRequired = true, tag, text, ...other }: RHFTextFieldProps) {
   const { control } = useFormContext();
 
   return (
@@ -72,12 +68,12 @@ export default function RHFTextField({ name, label, isRequired = true, ...other 
               </Typography>
             )}
           </Typography>
-          {other.tag === 'textarea' ? (
-            <StyledTextarea {...field} value={field.value || other.text || ''} minRows={3} />
+          {tag === 'textarea' ? (
+            <StyledTextarea {...field} value={field.value || text || ''} minRows={3} />
           ) : (
             <TextField
               {...field}
-              value={field.value || other.text || ''}
+              value={field.value || text || ''}
               error={!!error}
               sx={{ width: '100%' }}
               helperText={error?.message}
