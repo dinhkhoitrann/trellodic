@@ -7,7 +7,7 @@ export const attachmentApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Attachment'],
   endpoints: (builder) => ({
-    uploadFiles: builder.mutation<void, { files: File[]; boardId: string; cardId: string; onSuccess?: () => void }>({
+    uploadFiles: builder.mutation<void, { formData: FormData; onSuccess?: () => void }>({
       queryFn: (args, { signal }) => uploadAttachments({ ...args, signal }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;

@@ -4,7 +4,7 @@ import { getHeaders } from '../util';
 
 export const createBoard = async (data: { name: string; workspaceId: string; signal: AbortSignal }) => {
   const { signal, ...rest } = data;
-  return externalRequest.post('http://localhost:8080/api/v1/boards', rest, { signal, ...getHeaders() });
+  return externalRequest.post('http://localhost:8080/api/v1/boards', rest, { signal, headers: getHeaders() });
 };
 
 export const getWorkspace = async (data: { workspaceId: string; signal: AbortSignal }) => {
@@ -40,5 +40,5 @@ export const editWorkspaceName = async (data: { workspaceId: string; name: strin
 
 export const createWorkspace = async (data: { name: string; signal: AbortSignal }) => {
   const { signal, ...rest } = data;
-  return externalRequest.post('http://localhost:8080/api/v1/workspaces', rest, { signal, ...getHeaders() });
+  return externalRequest.post('http://localhost:8080/api/v1/workspaces', rest, { signal, headers: getHeaders() });
 };

@@ -64,11 +64,8 @@ export const workspaceApi = createApi({
     }),
     createWorkspace: builder.mutation<{ data: Partial<Workspace> }, { name: string; onSuccess?: () => void }>({
       queryFn: (args, { signal }) => createWorkspace({ ...args, signal }),
-      onQueryStarted: async ({ onSuccess }, { queryFulfilled, dispatch }) => {
-        const {
-          data: { data },
-        } = await queryFulfilled;
-        dispatch(saveWorkspace({ detail: data }));
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
         onSuccess && onSuccess();
       },
       invalidatesTags: [{ type: 'Workspace', id: 'LIST' }],

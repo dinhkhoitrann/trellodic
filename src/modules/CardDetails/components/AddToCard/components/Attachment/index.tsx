@@ -19,10 +19,15 @@ function Attachment({ boardId, cardId, onRefreshCard }: BoardGlobalProps) {
   };
 
   const handleSaveUploadedFiles = (onSuccess: () => void) => {
+    const formData: any = new FormData();
+    formData.append('boardId', boardId);
+    formData.append('cardId', cardId);
+    files.forEach((file) => {
+      formData.append('file', file);
+    });
+
     uploadFiles({
-      files,
-      cardId,
-      boardId,
+      formData,
       onSuccess: () => {
         onSuccess();
         handleClear();
