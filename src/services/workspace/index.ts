@@ -1,9 +1,10 @@
 import { mockWorkspace } from '@/apis/mock-data';
 import { externalRequest } from '../request';
+import { getHeaders } from '../util';
 
-export const createBoard = async (data: { boardTitle: string; workspaceId: string; signal: AbortSignal }) => {
+export const createBoard = async (data: { name: string; workspaceId: string; signal: AbortSignal }) => {
   const { signal, ...rest } = data;
-  return externalRequest.post('/posts', rest, { signal });
+  return externalRequest.post('http://localhost:8080/api/v1/boards', rest, { signal, ...getHeaders() });
 };
 
 export const getWorkspace = async (data: { workspaceId: string; signal: AbortSignal }) => {
@@ -27,7 +28,7 @@ export const getWorkspaceList = async (data: { userId: string; signal: AbortSign
           admin: '2',
         },
       ],
-      _id: '2',
+      _id: '6535cb2d3a66ba004f83df63',
     },
   ];
 };
@@ -35,4 +36,9 @@ export const getWorkspaceList = async (data: { userId: string; signal: AbortSign
 export const editWorkspaceName = async (data: { workspaceId: string; name: string; signal: AbortSignal }) => {
   const { signal, ...rest } = data;
   return externalRequest.post('/posts', rest, { signal });
+};
+
+export const createWorkspace = async (data: { name: string; signal: AbortSignal }) => {
+  const { signal, ...rest } = data;
+  return externalRequest.post('http://localhost:8080/api/v1/workspaces', rest, { signal, ...getHeaders() });
 };

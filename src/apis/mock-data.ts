@@ -330,7 +330,7 @@ export const mockData: MockBoardData = {
 1;
 
 export const mockWorkspace: Workspace = {
-  _id: '1',
+  _id: '6535c89c3a66ba004f83df61',
   name: 'W1',
   image: undefined,
   ownerUserId: 'o1',

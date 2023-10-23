@@ -2,6 +2,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useCreateBoardMutation } from '@/redux/services/workspace/workspace';
+import { Workspace } from '@/types/workspace.type';
 import CreateFormView from './view';
 import { CreateBoardSchema, defaultValues } from './validation';
 
@@ -17,12 +18,12 @@ function CreateForm(props: CreateFormProps) {
   const [createBoard, { isLoading }] = useCreateBoardMutation();
   const router = useRouter();
 
-  const onSubmit = (values: { name: string; workspace: string }) => {
+  const onSubmit = (values: { name: string; workspace: Workspace }) => {
     const onSuccess = (boardId: string) => {
       router.push(`/boards/${boardId}`);
     };
 
-    createBoard({ boardTitle: values.name, workspaceId: values.workspace, onSuccess });
+    createBoard({ name: values.name, workspaceId: values.workspace._id, onSuccess });
   };
 
   return <CreateFormView {...props} methods={methods} isLoading={isLoading} onSubmit={onSubmit} />;

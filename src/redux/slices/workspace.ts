@@ -3,8 +3,9 @@ import { Workspace } from '@/types/workspace.type';
 import { RootState } from '../store';
 import { workspaceApi } from '../services/workspace/workspace';
 
-const initialState: { detail: Partial<Workspace> } = {
+const initialState: { detail: Partial<Workspace>; list: Partial<Workspace>[] } = {
   detail: {},
+  list: [],
 };
 
 const workspaceSlice = createSlice({
@@ -12,7 +13,9 @@ const workspaceSlice = createSlice({
   initialState,
   reducers: {
     save: (state, action) => {
-      state.detail = action.payload;
+      const { detail, list } = action.payload;
+      if (detail) state.detail = detail;
+      if (list) state.list = list;
     },
   },
   extraReducers: (builder) => {
@@ -26,3 +29,4 @@ export default workspaceSlice.reducer;
 export const { save } = workspaceSlice.actions;
 
 export const selectWorkspaceDetails = (state: RootState) => state.workspace.detail;
+export const selectWorkspaceList = (state: RootState) => state.workspace.list;

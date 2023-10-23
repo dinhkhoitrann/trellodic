@@ -5,7 +5,7 @@ import WorkspaceSidebarView from './view';
 function WorkspaceSidebar() {
   const { data } = useGetWorkspaceListQuery(
     {
-      userId: '1',
+      userId: '2',
     },
     { pollingInterval: 60000 * 5 },
   );

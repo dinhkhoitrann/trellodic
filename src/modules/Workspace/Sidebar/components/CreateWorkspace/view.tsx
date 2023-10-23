@@ -4,6 +4,7 @@ import Image from 'next/image';
 import CreateForm from './components/Form';
 import Grid from '@mui/material/Grid';
 import Modal, { CUSTOM_STYLES_MODAL } from '@/components/Modal';
+import { Theme } from '@/common/enums';
 
 type CreateWorkspaceModalViewProps = {
   isShowCreateModal: boolean;
@@ -14,7 +15,6 @@ const style = {
   minHeight: '630px',
   transform: 'translate(-50%, -50%)',
   width: '90%',
-  bgcolor: '#22272b',
   px: 0,
   py: 0,
 };
@@ -26,6 +26,7 @@ function CreateWorkspaceModalView({ isShowCreateModal, onClose }: CreateWorkspac
         sx={{
           ...CUSTOM_STYLES_MODAL,
           ...style,
+          bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#22272b' : 'white'),
           overflow: 'hidden',
         }}
         container
@@ -38,7 +39,7 @@ function CreateWorkspaceModalView({ isShowCreateModal, onClose }: CreateWorkspac
             <Typography variant="body1" sx={{ mt: 1 }}>
               Boost your productivity by making it easier for everyone to access boards in one location.
             </Typography>
-            <CreateForm />
+            <CreateForm onCreateSuccess={onClose} />
           </Container>
         </Grid>
         <Grid

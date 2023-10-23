@@ -21,8 +21,9 @@ function WorkspaceHeaderView({ workspaceName, onEditName }: WorkspaceHeaderViewP
   };
 
   const handleEditName = () => {
-    if (!workspaceNameRef.current) return;
-    onEditName(workspaceNameRef.current?.value);
+    if (workspaceNameRef.current && workspaceNameRef.current.value.trim() !== workspaceName.trim()) {
+      onEditName(workspaceNameRef.current?.value);
+    }
     handleEditMode();
   };
 

@@ -1,16 +1,12 @@
-import { useGetWorkspaceListQuery } from '@/redux/services/workspace/workspace';
 import SectionsView from './view';
 import { getBoardsForSections } from './service';
+import { useAppSelector } from '@/redux/store';
+import { selectWorkspaceDetails } from '@/redux/slices/workspace';
 
 function Sections() {
   // TODO: get user id from somewhere and replace '1' to that id
-  const { data } = useGetWorkspaceListQuery(
-    {
-      userId: '1',
-    },
-    { pollingInterval: 60000 * 5 },
-  );
-  const { ownerBoards, otherBoards } = getBoardsForSections('1', data || []);
+  const workspace = useAppSelector(selectWorkspaceDetails);
+  const { ownerBoards, otherBoards } = getBoardsForSections('1', workspace);
 
   return <SectionsView ownerBoards={ownerBoards} otherBoards={otherBoards} />;
 }

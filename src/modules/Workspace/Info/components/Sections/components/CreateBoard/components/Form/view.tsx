@@ -8,16 +8,20 @@ import CloseIcon from '@mui/icons-material/Close';
 import FormProvider from '@/components/Form/FormProvider';
 import RHFTextField from '@/components/Form/RHFTextField';
 import RHFAutocomplete from '@/components/Form/RHFAutocomplete';
+import { useAppSelector } from '@/redux/store';
+import { selectWorkspaceList } from '@/redux/slices/workspace';
+import { Workspace } from '@/types/workspace.type';
 
 type CreateFormViewProps = {
   methods: UseFormReturn<any, any>;
   isLoading: boolean;
-  onSubmit: (_values: { name: string; workspace: string }) => void;
+  onSubmit: (_values: { name: string; workspace: Workspace }) => void;
   onClose: () => void;
 };
 
 function CreateFormView({ methods, isLoading, onSubmit, onClose }: CreateFormViewProps) {
   const { handleSubmit } = methods;
+  const workspaces = useAppSelector(selectWorkspaceList);
 
   return (
     <Box sx={{ p: 2, width: 300 }}>
@@ -51,8 +55,8 @@ function CreateFormView({ methods, isLoading, onSubmit, onClose }: CreateFormVie
           label="Workspace"
           size="small"
           id="workspace"
-          options={['123']}
-          getOptionLabel={(option: string) => option}
+          options={[...workspaces]}
+          getOptionLabel={(option: Partial<Workspace>) => option.name || ''}
           isOptionEqualToValue={(option: any, value: any) => option === value}
         />
         <Button fullWidth variant="contained" type="submit" disabled={isLoading} sx={{ mt: 2 }}>

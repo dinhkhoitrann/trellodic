@@ -1,10 +1,10 @@
 /* eslint-disable indent */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { createBoard, editWorkspaceName, getWorkspace, getWorkspaceList } from '@/services/workspace';
+import { createBoard, createWorkspace, editWorkspaceName, getWorkspace, getWorkspaceList } from '@/services/workspace';
 import { save as saveBoard } from '@/redux/slices/board';
 import { save as saveWorkspace } from '@/redux/slices/workspace';
-import { mockData } from '@/apis/mock-data';
 import { Workspace } from '@/types/workspace.type';
+import { Board } from '@/types/board.type';
 
 export const workspaceApi = createApi({
   reducerPath: 'workspaceApi',
@@ -17,10 +17,9 @@ export const workspaceApi = createApi({
         return { data };
       },
       providesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
-      keepUnusedDataFor: 5,
       onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
         const { data } = await queryFulfilled;
-        dispatch(saveWorkspace(data));
+        dispatch(saveWorkspace({ detail: data }));
       },
     }),
     getWorkspaceList: builder.query<Workspace[], { userId: string }>({
@@ -31,26 +30,27 @@ export const workspaceApi = createApi({
       onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
         const { data } = await queryFulfilled;
         if (data.length > 0) {
-          dispatch(saveWorkspace(data[0]));
+          dispatch(saveWorkspace({ detail: data[0], list: data }));
         }
       },
+      providesTags: (result) =>
+        result
+          ? [...result.map(({ _id }) => ({ type: 'Workspace', id: _id } as const)), { type: 'Workspace', id: 'LIST' }]
+          : [{ type: 'Workspace', id: 'LIST' }],
     }),
     createBoard: builder.mutation<
-      { boardId: string },
-      { boardTitle: string; workspaceId: string; onSuccess?: (_boardId: string) => void }
+      { data: Partial<Board> },
+      { name: string; workspaceId: string; onSuccess?: (_boardId: string) => void }
     >({
-      queryFn: async (args, { signal }) => {
-        await createBoard({ ...args, signal });
-        return { data: { boardId: '1' } };
-      },
+      queryFn: async (args, { signal }) => createBoard({ ...args, signal }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled, dispatch }) => {
         const {
-          data: { boardId },
+          data: { data },
         } = await queryFulfilled;
-        await queryFulfilled;
-        dispatch(saveBoard(mockData.board));
-        onSuccess && onSuccess(boardId);
+        dispatch(saveBoard(data));
+        onSuccess && onSuccess(data._id || '');
       },
+      invalidatesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
     }),
     editWorkspaceName: builder.mutation<void, { workspaceId: string; name: string }>({
       queryFn: (args, { signal }) => editWorkspaceName({ ...args, signal }),
@@ -62,6 +62,17 @@ export const workspaceApi = createApi({
         });
       },
     }),
+    createWorkspace: builder.mutation<{ data: Partial<Workspace> }, { name: string; onSuccess?: () => void }>({
+      queryFn: (args, { signal }) => createWorkspace({ ...args, signal }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled, dispatch }) => {
+        const {
+          data: { data },
+        } = await queryFulfilled;
+        dispatch(saveWorkspace({ detail: data }));
+        onSuccess && onSuccess();
+      },
+      invalidatesTags: [{ type: 'Workspace', id: 'LIST' }],
+    }),
   }),
 });
 
@@ -70,4 +81,5 @@ export const {
   useLazyGetWorkspaceQuery,
   useGetWorkspaceListQuery,
   useEditWorkspaceNameMutation,
+  useCreateWorkspaceMutation,
 } = workspaceApi;
