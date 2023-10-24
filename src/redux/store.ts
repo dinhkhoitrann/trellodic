@@ -13,6 +13,7 @@ import { attachmentApi } from './services/card/attachment';
 import { descriptionApi } from './services/card/description';
 import { commentApi } from './services/card/comment';
 import { workspaceApi } from './services/workspace/workspace';
+import { authApi } from './services/auth/auth';
 
 export const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ export const store = configureStore({
     [descriptionApi.reducerPath]: descriptionApi.reducer,
     [commentApi.reducerPath]: commentApi.reducer,
     [workspaceApi.reducerPath]: workspaceApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
     card: cardReducer,
     board: boardReducer,
     workspace: workspaceReducer,
@@ -42,6 +44,7 @@ export const store = configureStore({
       descriptionApi.middleware,
       commentApi.middleware,
       workspaceApi.middleware,
+      authApi.middleware,
     ]),
 });
 
