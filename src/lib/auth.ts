@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
+import { User } from '@/types/user.type';
 import { DefaultSession, NextAuthOptions, getServerSession } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { getSession } from 'next-auth/react';
@@ -23,17 +23,20 @@ export const authOptions: NextAuthOptions = {
   theme: {
     colorScheme: 'light',
   },
+  pages: {
+    signIn: '/auth/login',
+  },
   callbacks: {
-    async jwt({ token, account }) {
+    jwt: async ({ token, user }) => {
       // Persist the OAuth access_token to the token right after signin
-      if (account) {
-        token.accessToken = account.access_token;
+      if (user) {
+        token.user = { ...user, avatar: user.image };
       }
       return token;
     },
-    async session({ session, token }) {
+    session: async ({ session, token }) => {
       // Send properties to the client, like an access_token from a provider.
-      session.accessToken = token.accessToken as string;
+      session.user = token.user as Partial<User>;
       return session;
     },
   },

@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import type { Metadata } from 'next';
 import { Lexend } from 'next/font/google';
 import { Provider } from 'react-redux';
@@ -18,7 +18,6 @@ import createEmotionCache from '@/common/styles/createEmotionCache';
 import store from '@/redux/store';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/common/styles/globals.css';
-import { loginIsRequiredClient } from '@/lib/auth';
 
 const clientSideEmotionCache = createEmotionCache();
 const roboto = Lexend({
@@ -36,16 +35,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
 
   useEffect(() => {
     setIsLoaded(true);
-    const protectRoute = async () => {
-      await loginIsRequiredClient(router);
-    };
-
-    protectRoute();
-  }, [router]);
+  }, []);
 
   return (
     <html lang="en" className={roboto.className}>
@@ -54,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <CacheProvider value={clientSideEmotionCache}>
             <CssVarsProvider theme={theme}>
               <CssBaseline />
-              <SessionProvider>
+              <SessionProvider refetchInterval={5 * 60} refetchOnWindowFocus={true}>
                 <QueryClientProvider client={queryClient}>
                   <body>
                     {!isLoaded ? (
