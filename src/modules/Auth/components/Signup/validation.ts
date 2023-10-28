@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
 export interface SignupDefaultValues {
   email: string;
@@ -7,7 +7,7 @@ export interface SignupDefaultValues {
   password: string;
   confirmPassword: string;
   phoneNumber: string;
-  birthday: Dayjs;
+  birthday: Date;
 }
 
 export const SignupSchema = Yup.object().shape({
@@ -32,5 +32,5 @@ export const defaultValues: SignupDefaultValues = {
   password: '',
   confirmPassword: '',
   phoneNumber: '',
-  birthday: dayjs(Date.now()),
+  birthday: dayjs(Date.now()).toDate(),
 };
