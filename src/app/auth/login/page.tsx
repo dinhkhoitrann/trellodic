@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import Login from '@/modules/Auth/Login';
 import { getAuthSession } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import LoginForm from '@/modules/Auth/components/Login';
 
 export const metadata: Metadata = {
   title: 'Login Page | Trellodic',
@@ -12,7 +12,7 @@ async function LoginPage() {
   const session = await getAuthSession();
   if (session) return redirect('/');
 
-  return <Login />;
+  return <LoginForm />;
 }
 
 export default LoginPage;

@@ -1,8 +1,12 @@
-import { TextField, TextareaAutosize, TextFieldProps, TextareaAutosizeProps, Typography, Box } from '@mui/material';
+import { TextFieldProps, TextareaAutosizeProps } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import { styled } from '@mui/system';
 import { Controller, useFormContext } from 'react-hook-form';
 
-type RHFTextFieldProps = TextFieldProps &
+export type RHFTextFieldProps = TextFieldProps &
   TextareaAutosizeProps & {
     name: string;
     label: string;

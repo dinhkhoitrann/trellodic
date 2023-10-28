@@ -1,20 +1,12 @@
 'use client';
-import { useColorScheme } from '@mui/material/styles';
+import { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import SvgIcon from '@mui/material/SvgIcon';
 import TrelloIcon from '@/common/assets/icons/trello.svg';
-import Form from './components/Form';
-import { useEffect } from 'react';
 
-function LoginView() {
-  const { setMode } = useColorScheme();
-
-  useEffect(() => {
-    setMode('light');
-  }, [setMode]);
-
+function AuthFormView({ children }: { children: ReactNode }) {
   return (
     <Box
       sx={{
@@ -54,13 +46,10 @@ function LoginView() {
             Trellodic
           </Typography>
         </Box>
-        <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: '1rem', textAlign: 'center', mb: 2 }}>
-          Login to continue
-        </Typography>
-        <Form />
+        {children}
       </Card>
     </Box>
   );
 }
 
-export default LoginView;
+export default AuthFormView;

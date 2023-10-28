@@ -1,11 +1,12 @@
+'use client';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import FormView from './view';
+import LoginFormView from './view';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginSchema, defaultValues } from './validation';
 import { useLoginMutation } from '@/redux/services/auth/auth';
 
-function Form() {
+function LoginForm() {
   const methods = useForm({
     resolver: yupResolver(LoginSchema),
     defaultValues,
@@ -22,7 +23,7 @@ function Form() {
     });
   };
 
-  return <FormView methods={methods} onSubmit={handleSubmit} />;
+  return <LoginFormView methods={methods} onSubmit={handleSubmit} />;
 }
 
-export default Form;
+export default LoginForm;
