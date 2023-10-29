@@ -14,6 +14,7 @@ import AppBar from '@/components/AppBar';
 import BackdropLoading from '@/components/Loading/Backdrop';
 import theme from '@/common/styles/theme';
 import createEmotionCache from '@/common/styles/createEmotionCache';
+import { withAuth } from '@/hocs';
 import store from '@/redux/store';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/common/styles/globals.css';
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
   description: 'A project with love',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+function RootLayout({ children }: { children: React.ReactNode }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const pathname = usePathname();
 
@@ -74,3 +75,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
+export default withAuth(RootLayout);

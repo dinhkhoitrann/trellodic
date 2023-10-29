@@ -1,12 +1,10 @@
 'use client';
-import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import LoginFormView from './view';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginSchema, defaultValues } from './validation';
 import { useLoginMutation } from '@/redux/services/auth/auth';
-import { useEffect } from 'react';
 
 function LoginForm() {
   const methods = useForm({
@@ -15,13 +13,6 @@ function LoginForm() {
   });
   const [login, { isLoading }] = useLoginMutation();
   const router = useRouter();
-
-  useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      router.push('/');
-    }
-  }, [router]);
 
   const handleSubmit = (values: { email: string; password: string }) => {
     login({

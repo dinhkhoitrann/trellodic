@@ -1,4 +1,6 @@
 import { UseFormReturn } from 'react-hook-form';
+import Link from 'next/link';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import FormProvider from '@/components/Form/FormProvider';
@@ -51,6 +53,11 @@ function SignupFormView({ methods, isSigningup, onSubmit }: SignupFormViewProps)
         <Button fullWidth variant="contained" type="submit" disabled={isSigningup}>
           {isSigningup ? 'Creating' : 'Create'}
         </Button>
+        <Box sx={{ textAlign: 'center', fontSize: '14px', mt: 2 }}>
+          <Link href="/auth/login" style={{ textDecoration: 'none' }}>
+            You have already an account? Log in
+          </Link>
+        </Box>
       </FormProvider>
     </>
   );

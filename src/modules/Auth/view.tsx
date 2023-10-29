@@ -10,7 +10,6 @@ function AuthFormView({ children }: { children: ReactNode }) {
   return (
     <Box
       sx={{
-        width: '100vw',
         height: '100vh',
         backgroundSize: {
           xs: 'calc(((100vw - 400px) / 2) - 32px), calc(((100vw - 400px) / 2) - 32px), cover',
@@ -31,6 +30,7 @@ function AuthFormView({ children }: { children: ReactNode }) {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
+          marginTop: '12px',
           width: '400px',
           py: 4,
           px: 5,

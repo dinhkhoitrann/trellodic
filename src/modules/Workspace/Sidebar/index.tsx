@@ -1,7 +1,6 @@
 'use client';
 import { useGetWorkspaceListQuery } from '@/redux/services/workspace/workspace';
 import WorkspaceSidebarView from './view';
-import { withAuth } from '@/hocs';
 
 function WorkspaceSidebar() {
   const { data } = useGetWorkspaceListQuery(
@@ -14,4 +13,4 @@ function WorkspaceSidebar() {
   return <WorkspaceSidebarView workspaces={data || []} />;
 }
 
-export default withAuth(WorkspaceSidebar);
+export default WorkspaceSidebar;
