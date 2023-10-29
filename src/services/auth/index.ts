@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { externalRequest } from '../request';
 
 export const login = (data: { email: string; password: string; signal: AbortSignal }) => {
@@ -20,4 +21,10 @@ export const signup = (data: {
 
 export const verifyToken = (token: string) => {
   return externalRequest.post(`http://localhost:8080/api/v1/auth/verify?token=${token}`, {});
+};
+
+export const refreshToken = async () => {
+  const refreshToken = Cookies.get('refreshToken');
+  const res = await externalRequest.post('http://localhost:8080/api/v1/auth/refresh', { refreshToken });
+  return res.data?.data.accessToken;
 };
