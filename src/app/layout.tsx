@@ -4,7 +4,6 @@ import { usePathname } from 'next/navigation';
 import type { Metadata } from 'next';
 import { Lexend } from 'next/font/google';
 import { Provider } from 'react-redux';
-import { SessionProvider } from 'next-auth/react';
 import { Experimental_CssVarsProvider as CssVarsProvider, StyledEngineProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
@@ -47,29 +46,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <CacheProvider value={clientSideEmotionCache}>
             <CssVarsProvider theme={theme}>
               <CssBaseline />
-              <SessionProvider refetchInterval={5 * 60} refetchOnWindowFocus={true}>
-                <QueryClientProvider client={queryClient}>
-                  <body>
-                    {!isLoaded ? (
-                      <BackdropLoading />
-                    ) : (
-                      <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
-                        {pathname.startsWith('/auth') ? <></> : <AppBar />}
-                        {!isLoaded ? <BackdropLoading /> : children}
-                      </Container>
-                    )}
-                    <ToastContainer
-                      position="top-right"
-                      autoClose={3000}
-                      closeOnClick
-                      pauseOnFocusLoss
-                      draggable
-                      pauseOnHover
-                      theme="colored"
-                    />
-                  </body>
-                </QueryClientProvider>
-              </SessionProvider>
+              <QueryClientProvider client={queryClient}>
+                <body>
+                  {!isLoaded ? (
+                    <BackdropLoading />
+                  ) : (
+                    <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
+                      {pathname.startsWith('/auth') ? <></> : <AppBar />}
+                      {!isLoaded ? <BackdropLoading /> : children}
+                    </Container>
+                  )}
+                  <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    closeOnClick
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                  />
+                </body>
+              </QueryClientProvider>
             </CssVarsProvider>
           </CacheProvider>
         </StyledEngineProvider>

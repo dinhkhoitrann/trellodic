@@ -21,7 +21,9 @@ externalRequest.interceptors.response.use(
     return response;
   },
   function (error) {
-    toast.error(error.message);
+    if (typeof window !== 'undefined') {
+      toast.error(error.response.data?.message || error.message);
+    }
     return Promise.reject(error);
   },
 );

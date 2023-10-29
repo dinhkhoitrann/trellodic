@@ -19,10 +19,11 @@ type FormViewProps = {
     any,
     undefined
   >;
+  isLoggingin: boolean;
   onSubmit: (_values: { email: string; password: string }) => void;
 };
 
-function LoginFormView({ methods, onSubmit }: FormViewProps) {
+function LoginFormView({ methods, isLoggingin, onSubmit }: FormViewProps) {
   const { handleSubmit } = methods;
 
   return (
@@ -34,7 +35,7 @@ function LoginFormView({ methods, onSubmit }: FormViewProps) {
         <RHFTextField name="email" label="Email" id="email" placeholder="Enter your email" type="email" size="small" />
         <PasswordField name="password" label="Password" id="password" placeholder="Enter your password" size="small" />
         <Button fullWidth variant="contained" type="submit">
-          Login
+          {isLoggingin ? 'Logging in' : 'Login'}
         </Button>
         <Divider sx={{ my: 4 }}>Or</Divider>
         <GoogleSignInButton />

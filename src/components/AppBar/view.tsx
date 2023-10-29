@@ -23,12 +23,10 @@ import ModeSelect from '@/components/ModeSelect';
 import TrelloIcon from '@/common/assets/icons/trello.svg';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import Profiles from './Menus/Profiles';
-import { useSession } from 'next-auth/react';
 
 function AppBarView() {
   const [searchValue, setSearchValue] = useState('');
   const theme = useTheme<CustomThemeOptions>();
-  const { data } = useSession();
 
   return (
     <Box

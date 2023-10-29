@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import Cookies from 'js-cookie';
-import { login } from '@/services/auth';
+import { login, signup } from '@/services/auth';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const authApi = createApi({
@@ -24,7 +24,25 @@ export const authApi = createApi({
         onSuccess();
       },
     }),
+    signup: builder.mutation<
+      void,
+      {
+        email: string;
+        name: string;
+        password: string;
+        confirmPassword: string;
+        phoneNumber: string;
+        birthday: string;
+        onSuccess: () => void;
+      }
+    >({
+      queryFn: (args, { signal }) => signup({ ...args, signal }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess();
+      },
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useSignupMutation } = authApi;

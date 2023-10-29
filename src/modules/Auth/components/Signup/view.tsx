@@ -9,10 +9,11 @@ import { SignupDefaultValues } from './validation';
 
 type SignupFormViewProps = {
   methods: UseFormReturn<SignupDefaultValues, any, undefined>;
+  isSigningup: boolean;
   onSubmit: (_values: SignupDefaultValues) => void;
 };
 
-function SignupFormView({ methods, onSubmit }: SignupFormViewProps) {
+function SignupFormView({ methods, isSigningup, onSubmit }: SignupFormViewProps) {
   const { handleSubmit } = methods;
 
   return (
@@ -47,8 +48,8 @@ function SignupFormView({ methods, onSubmit }: SignupFormViewProps) {
           size="small"
         />
         <RHFDatePicker name="birthday" label="Birthday" />
-        <Button fullWidth variant="contained" type="submit">
-          Create
+        <Button fullWidth variant="contained" type="submit" disabled={isSigningup}>
+          {isSigningup ? 'Creating' : 'Create'}
         </Button>
       </FormProvider>
     </>

@@ -1,8 +1,7 @@
-import { signIn } from 'next-auth/react';
 import GoogleSignInButtonView from './view';
 
 function GoogleSignInButton() {
-  return <GoogleSignInButtonView onSignin={() => signIn('google', { callbackUrl: '/' })} />;
+  return <GoogleSignInButtonView onSignin={() => console.log('Sign in with Google')} />;
 }
 
 export default GoogleSignInButton;
