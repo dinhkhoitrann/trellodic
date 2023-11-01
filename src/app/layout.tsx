@@ -1,7 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import type { Metadata } from 'next';
 import { Lexend } from 'next/font/google';
 import { Provider } from 'react-redux';
 import { Experimental_CssVarsProvider as CssVarsProvider, StyledEngineProvider } from '@mui/material/styles';
@@ -26,11 +25,6 @@ const roboto = Lexend({
   display: 'swap',
 });
 const queryClient = new QueryClient();
-
-export const metadata: Metadata = {
-  title: 'Trellodic',
-  description: 'A project with love',
-};
 
 function RootLayout({ children }: { children: React.ReactNode }) {
   const [isLoaded, setIsLoaded] = useState(false);
