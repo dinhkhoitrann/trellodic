@@ -7,8 +7,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 
 type ProfilesViewProps = {
@@ -50,22 +48,7 @@ function ProfilesView({ onLogout }: ProfilesViewProps) {
         <MenuItem>
           <Avatar sx={{ width: 28, height: 28, mr: 2 }} /> Profile
         </MenuItem>
-        <MenuItem>
-          <Avatar sx={{ width: 28, height: 28, mr: 2 }} /> My account
-        </MenuItem>
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
         <MenuItem onClick={onLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />

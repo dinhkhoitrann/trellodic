@@ -15,7 +15,6 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import Workspaces from './Menus/Workspaces';
-import Starred from './Menus/Starred';
 import CreateWorkspaceModal from '@/modules/Workspace/Sidebar/components/CreateWorkspace';
 import ModeSelect from '@/components/ModeSelect';
 import TrelloIcon from '@/common/assets/icons/trello.svg';
@@ -62,7 +61,6 @@ function AppBarView() {
           </Link>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
             <Workspaces />
-            <Starred />
             <Button startIcon={<LibraryAddIcon />} sx={{ color: 'white' }} onClick={handleShowCreateModal}>
               Create
             </Button>

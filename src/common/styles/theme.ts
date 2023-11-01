@@ -58,7 +58,6 @@ const theme = extendTheme({
           '&.MuiTypography-body1': {
             fontSize: '0.875rem',
           },
-          // opacity: '0.8',
         },
       },
     },

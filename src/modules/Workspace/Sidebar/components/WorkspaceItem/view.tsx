@@ -16,14 +16,17 @@ function WorkspaceItemView({ name, onGetWorkspace }: WorkspaceItemViewProps) {
           sx={{
             width: '30px',
             height: '30px',
+            lineHeight: '30px',
             bgcolor: '#4bce97',
             borderRadius: '4px',
             color: 'black',
             textAlign: 'center',
+            fontSize: '14px !important',
+            fontWeight: 'bold',
             mx: 1,
           }}
         >
-          T
+          {name[0]}
         </Box>
       }
       onClick={onGetWorkspace}

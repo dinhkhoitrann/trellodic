@@ -28,7 +28,7 @@ externalRequest.interceptors.response.use(
       toast.error(error.response.data?.message || error.message);
     }
     const originalRequest = error.config;
-    if (error.response.status === 403 && !originalRequest._retry) {
+    if ((error.response.status === 403 || error.response.status === 401) && !originalRequest._retry) {
       originalRequest._retry = true;
 
       const newAccessToken = await refreshToken();
