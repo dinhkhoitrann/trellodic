@@ -15,7 +15,7 @@ export const externalRequest = axios.create({
   baseURL: BE_API_ROOT,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: Cookies.get('token') && `Bearer ${Cookies.get('token')}`,
+    Authorization: `Bearer ${Cookies.get('token')}`,
   },
 });
 

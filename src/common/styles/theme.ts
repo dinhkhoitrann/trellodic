@@ -18,18 +18,24 @@ const BOARD_CONTENT_HEIGHT = `calc(100vh - ${APP_BAR_HEIGHT} - ${BOARD_BAR_HEIGH
 const theme = extendTheme({
   colorSchemes: {
     //* NOTE: custom light and dark theme
-    // light: {
-    //   palette: {
-    //     primary: teal,
-    //     secondary: deepOrange,
-    //   },
-    // },
-    // dark: {
-    //   palette: {
-    //     primary: cyan,
-    //     secondary: orange,
-    //   },
-    // },
+    dark: {
+      palette: {
+        mode: 'dark',
+        text: {
+          primary: '#b6c2cf',
+          secondary: '#b6c2cf',
+        },
+      },
+    },
+    light: {
+      palette: {
+        mode: 'light',
+        text: {
+          primary: '#172b4d',
+          secondary: '#172b4d',
+        },
+      },
+    },
   },
   components: {
     MuiButton: {
@@ -52,7 +58,7 @@ const theme = extendTheme({
           '&.MuiTypography-body1': {
             fontSize: '0.875rem',
           },
-          opacity: '0.8',
+          // opacity: '0.8',
         },
       },
     },
