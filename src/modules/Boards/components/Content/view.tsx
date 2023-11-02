@@ -2,14 +2,15 @@ import { useSearchParams } from 'next/navigation';
 import { useTheme } from '@mui/styles';
 import Box from '@mui/material/Box';
 import { DragOverlay, DropAnimation, defaultDropAnimationSideEffects } from '@dnd-kit/core';
-import ListColumns from './components/ListColumns';
-import Column from './components/ListColumns/components/Column';
-import Card from './components/ListColumns/components/Column/components/ListCards/components/Card';
 import { Board } from '@/types/board.type';
 import { Theme } from '@/common/enums';
 import { CustomThemeOptions } from '@/common/styles/theme';
-import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
 import CardDetails from '@/modules/CardDetails';
+import SummaryTodos from '@/modules/Summary';
+import ListColumns from './components/ListColumns';
+import Column from './components/ListColumns/components/Column';
+import Card from './components/ListColumns/components/Column/components/ListCards/components/Card';
+import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
 
 type BoardContentViewProps = {
   board: Board;
@@ -61,6 +62,7 @@ function BoardContentView({ board, activeDragItemType, activeDragItemData }: Boa
             {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD && <Card card={activeDragItemData} />}
           </DragOverlay>
         </Box>
+        <SummaryTodos />
       </Box>
       {cardId && <CardDetails cardId={cardId} />}
     </>

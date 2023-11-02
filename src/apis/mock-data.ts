@@ -158,7 +158,7 @@ export const mockData: MockBoardData = {
             ],
             startDate: new Date('2002-09-13'),
             endDate: new Date('2023-10-10'),
-            isDone: false,
+            isDone: true,
           },
           {
             _id: 'card-id-02',
@@ -170,6 +170,8 @@ export const mockData: MockBoardData = {
             memberIds: [],
             comments: [],
             attachments: [],
+            endDate: new Date('2023-12-31'),
+            isDone: true,
           },
           {
             _id: 'card-id-03',
@@ -181,6 +183,7 @@ export const mockData: MockBoardData = {
             memberIds: [],
             comments: [],
             attachments: [],
+            isDone: true,
           },
           {
             _id: 'card-id-04',
@@ -192,6 +195,7 @@ export const mockData: MockBoardData = {
             memberIds: [],
             comments: [],
             attachments: [],
+            isDone: false,
           },
           {
             _id: 'card-id-05',
@@ -203,6 +207,7 @@ export const mockData: MockBoardData = {
             memberIds: [],
             comments: [],
             attachments: [],
+            isDone: false,
           },
           {
             _id: 'card-id-06',
@@ -214,6 +219,7 @@ export const mockData: MockBoardData = {
             memberIds: [],
             comments: [],
             attachments: [],
+            isDone: false,
           },
           {
             _id: 'card-id-07',
