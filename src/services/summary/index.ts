@@ -8,8 +8,7 @@ export const generateSummary = async (data: {
       dueDate: string | undefined;
     }[];
   }[];
-  stylingMode: string;
 }) => {
-  const { data: responseData } = await internalRequest.post('/api/generateSummary', data);
-  return responseData;
+  const response = await internalRequest.post('/api/chat', data);
+  return response;
 };

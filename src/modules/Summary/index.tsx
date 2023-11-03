@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import Fab from '@mui/material/Fab';
 import Box from '@mui/material/Box';
-import SummarizeIcon from '@mui/icons-material/Summarize';
+import Typography from '@mui/material/Typography';
+import AssistantIcon from '@mui/icons-material/Assistant';
 import Modal, { CUSTOM_STYLES_MODAL } from '@/components/Modal';
+import Section from '@/components/Accordion';
 import { Theme } from '@/common/enums';
-import SummaryModal from './components/Modal';
+import ChatWithGPT from './components/Chat';
+import Summary from './components/Summary';
 
 function SummaryTodos() {
   const [showModal, setShowModal] = useState(false);
@@ -21,8 +24,8 @@ function SummaryTodos() {
         sx={{ position: 'fixed', bottom: 40, right: 24 }}
         onClick={handleVisibilityModal}
       >
-        <SummarizeIcon sx={{ mr: 1 }} />
-        Summary
+        <AssistantIcon sx={{ mr: 1 }} />
+        AI Assistant
       </Fab>
       <Modal isVisibleModal={showModal} onClose={handleVisibilityModal}>
         <Box
@@ -34,7 +37,22 @@ function SummaryTodos() {
             color: (theme) => (theme.palette.mode === Theme.Light ? '#172b4d' : '#B6C2CF'),
           }}
         >
-          <SummaryModal />
+          <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center' }}>
+            AI Assistant
+          </Typography>
+          <Typography>
+            We&apos;ve harnessed the power of artificial intelligence to organize and categorize your todos for a more
+            efficient and productive day. Now, let&apos;s dive into a comprehensive summary of your tasks, or chat with
+            GPT about everything. This smart overview will help you stay on top of your to-do list effortlessly
+          </Typography>
+          <Box sx={{ mt: 2 }}>
+            <Section title="Chat with GPT">
+              <ChatWithGPT />
+            </Section>
+            <Section title="Summary">
+              <Summary />
+            </Section>
+          </Box>
         </Box>
       </Modal>
     </>
