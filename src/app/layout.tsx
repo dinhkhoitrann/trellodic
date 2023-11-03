@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
-import type { Metadata } from 'next';
-import { Roboto } from 'next/font/google';
+import { usePathname } from 'next/navigation';
+import { Lexend } from 'next/font/google';
 import { Provider } from 'react-redux';
 import { Experimental_CssVarsProvider as CssVarsProvider, StyledEngineProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,25 +13,22 @@ import AppBar from '@/components/AppBar';
 import BackdropLoading from '@/components/Loading/Backdrop';
 import theme from '@/common/styles/theme';
 import createEmotionCache from '@/common/styles/createEmotionCache';
+import { withAuth } from '@/hocs';
 import store from '@/redux/store';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/common/styles/globals.css';
 
 const clientSideEmotionCache = createEmotionCache();
-const roboto = Roboto({
+const roboto = Lexend({
   weight: '400',
   subsets: ['latin'],
   display: 'swap',
 });
 const queryClient = new QueryClient();
 
-export const metadata: Metadata = {
-  title: 'Trellodic',
-  description: 'A project with love',
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+function RootLayout({ children }: { children: React.ReactNode }) {
   const [isLoaded, setIsLoaded] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -50,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <BackdropLoading />
                   ) : (
                     <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
-                      <AppBar />
+                      {pathname.startsWith('/auth') ? <></> : <AppBar />}
                       {!isLoaded ? <BackdropLoading /> : children}
                     </Container>
                   )}
@@ -72,3 +69,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
+export default withAuth(RootLayout);

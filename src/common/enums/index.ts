@@ -4,3 +4,8 @@ export enum Theme {
   Dark = 'dark',
   System = 'system',
 }
+
+export enum WorkspaceType {
+  Private = 'private',
+  Public = 'public',
+}

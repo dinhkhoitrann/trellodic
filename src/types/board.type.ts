@@ -5,9 +5,9 @@ export interface Board {
   readonly _id: string;
   title: string;
   description: string;
-  type: string;
-  ownerIds: User[];
-  memberIds: User[];
+  type?: string;
+  admin: User | string; // admin
+  memberIds: User[]; //members: [{_id, name, avatar}] consists of admin
   columnOrderIds: string[];
   columns: Column[];
   labels?: Label[];
