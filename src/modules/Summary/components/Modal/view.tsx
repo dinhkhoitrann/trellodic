@@ -17,7 +17,8 @@ function SummaryModalView({ isSummarizing, generatedData, onSummary }: SummaryMo
 
   useEffect(() => {
     if (!resultBlockRef.current || !generatedData) return;
-    resultBlockRef.current.innerHTML = generatedData?.data?.content;
+    console.log(generatedData);
+    // resultBlockRef.current.innerHTML = generatedData?.data?.content;
   }, [generatedData]);
 
   return (
@@ -40,18 +41,20 @@ function SummaryModalView({ isSummarizing, generatedData, onSummary }: SummaryMo
         {isSummarizing ? 'Summarizing' : 'Summary now'}
       </Button>
       <Stack direction="row" spacing={3} sx={{ mt: 3 }}>
-        <Stack
-          sx={{
-            width: '40px',
-            height: '40px',
-            justifyContent: 'center',
-            alignItems: 'center',
-            bgcolor: 'rgb(25, 195, 125)',
-            borderRadius: '4px',
-          }}
-        >
-          <Image src="/gpt.svg" alt="GPT" width={26} height={26} color="white" />
-        </Stack>
+        {(generatedData || isSummarizing) && (
+          <Stack
+            sx={{
+              width: '40px',
+              height: '40px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              bgcolor: 'rgb(25, 195, 125)',
+              borderRadius: '4px',
+            }}
+          >
+            <Image src="/gpt.svg" alt="GPT" width={26} height={26} color="white" />
+          </Stack>
+        )}
         <Box sx={{ flex: 1 }}>
           {isSummarizing && (
             <>
