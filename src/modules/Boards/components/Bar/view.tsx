@@ -12,7 +12,6 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useTheme } from '@mui/styles';
 import { CustomThemeOptions } from '@/common/styles/theme';
-import { Theme } from '@/common/enums';
 import { Board } from '@/types/board.type';
 
 const CHIP_STYLES = {
@@ -47,7 +46,7 @@ function BoardBarView({ board }: BoardBarViewProps) {
         paddingX: 2,
         gap: 2,
         overflowX: 'auto',
-        bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#34495e' : '#1976d2'),
+        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#24272b' : '#1976d2'),
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
