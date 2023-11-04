@@ -8,6 +8,8 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
 import Logout from '@mui/icons-material/Logout';
+import { useAppSelector } from '@/redux/store';
+import { selectUserProfile } from '@/redux/slices/user';
 
 type ProfilesViewProps = {
   onLogout: () => void;
@@ -16,12 +18,16 @@ type ProfilesViewProps = {
 function ProfilesView({ onLogout }: ProfilesViewProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const user = useAppSelector(selectUserProfile);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <Box>
       <Tooltip title="Account settings">
@@ -33,7 +39,7 @@ function ProfilesView({ onLogout }: ProfilesViewProps) {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar sx={{ width: '36px', height: '36px' }}>M</Avatar>
+          <Avatar sx={{ width: '36px', height: '36px' }}>{user?.name?.[0].toUpperCase() || ''}</Avatar>
         </IconButton>
       </Tooltip>
       <Menu
@@ -42,7 +48,7 @@ function ProfilesView({ onLogout }: ProfilesViewProps) {
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          'aria-labelledby': 'basic-button-profiles',
+          'aria-labelledby': 'user-profiles',
         }}
       >
         <MenuItem>

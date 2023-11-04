@@ -2,6 +2,7 @@
 import Cookies from 'js-cookie';
 import { login, signup } from '@/services/auth';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { User } from '@/types/user.type';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -9,15 +10,16 @@ export const authApi = createApi({
   tagTypes: ['Auth'],
   endpoints: (builder) => ({
     login: builder.mutation<
-      { data: { accessToken: string; refreshToken: string } },
+      { accessToken: string; refreshToken: string; user: User },
       { email: string; password: string; onSuccess: () => void }
     >({
-      queryFn: (args, { signal }) => login({ ...args, signal }),
+      queryFn: async (args, { signal }) => {
+        const response = await login({ ...args, signal });
+        return response.data;
+      },
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         const {
-          data: {
-            data: { accessToken, refreshToken },
-          },
+          data: { accessToken, refreshToken },
         } = await queryFulfilled;
         Cookies.set('token', accessToken);
         Cookies.set('refreshToken', refreshToken);

@@ -6,11 +6,13 @@ import { Provider } from 'react-redux';
 import { Experimental_CssVarsProvider as CssVarsProvider, StyledEngineProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import { CacheProvider } from '@emotion/react';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ToastContainer } from 'react-toastify';
 import AppBar from '@/components/AppBar';
 import BackdropLoading from '@/components/Loading/Backdrop';
+import GlobalInfo from '@/components/GlobalInfo';
 import theme from '@/common/styles/theme';
 import createEmotionCache from '@/common/styles/createEmotionCache';
 import { withAuth } from '@/hocs';
@@ -48,7 +50,13 @@ function RootLayout({ children }: { children: React.ReactNode }) {
                   ) : (
                     <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
                       {pathname.startsWith('/auth') ? <></> : <AppBar />}
-                      {!isLoaded ? <BackdropLoading /> : children}
+                      {!isLoaded ? (
+                        <BackdropLoading />
+                      ) : (
+                        <Box sx={{ bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#24272b' : 'white') }}>
+                          <GlobalInfo>{children}</GlobalInfo>
+                        </Box>
+                      )}
                     </Container>
                   )}
                   <ToastContainer
