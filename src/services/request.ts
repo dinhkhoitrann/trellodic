@@ -25,7 +25,7 @@ externalRequest.interceptors.response.use(
   },
   async function (error) {
     if (typeof window !== 'undefined') {
-      toast.error(error.response.data?.message || error.message);
+      toast.error(error.response?.data?.message || error.message);
     }
     const originalRequest = error.config;
     if ((error.response.status === 403 || error.response.status === 401) && !originalRequest._retry) {

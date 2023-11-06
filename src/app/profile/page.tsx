@@ -1,3 +1,4 @@
+import Profile from '@/modules/Profile';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 function ProfilePage() {
-  return <>111</>;
+  return <Profile />;
 }
 
 export default ProfilePage;

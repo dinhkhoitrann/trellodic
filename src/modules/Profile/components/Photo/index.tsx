@@ -1,0 +1,62 @@
+'use client';
+import { useState } from 'react';
+import ProfilePhotoView from './view';
+import { useMutation } from '@tanstack/react-query';
+import { useUpdateAvatarMutation } from '@/redux/services/user/user';
+import { uploadFile } from '@/services/file';
+import { toast } from 'react-toastify';
+import { useAppSelector } from '@/redux/store';
+import { selectUserProfile } from '@/redux/slices/user';
+
+function ProfilePhoto() {
+  const [uploadedImage, setUploadedImage] = useState<string | ArrayBuffer | null>();
+  const [avatar, setAvatar] = useState<File>();
+  const [mutate] = useUpdateAvatarMutation();
+  const user = useAppSelector(selectUserProfile);
+  const {
+    mutate: updateAvatar,
+    isPending,
+    isSuccess,
+  } = useMutation({
+    mutationFn: uploadFile,
+    onSuccess: (response) => {
+      mutate({ avatarUrl: response.data.url, userId: user?._id || '' });
+      toast.success('Saved avatar successfully');
+    },
+    onError: () => {
+      toast.error('Failed to save avatar');
+    },
+  });
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+
+    const selectedFile = event.target.files[0];
+    if (!selectedFile) return;
+    setAvatar(selectedFile);
+
+    const reader = new FileReader();
+    reader.onload = function () {
+      setUploadedImage(reader.result);
+    };
+    reader.readAsDataURL(selectedFile);
+  };
+
+  const handleSaveAvatar = () => {
+    const formData: any = new FormData();
+    formData.append('file', avatar);
+    updateAvatar({ formData });
+  };
+
+  return (
+    <ProfilePhotoView
+      uploadedImage={uploadedImage}
+      isLoading={isPending}
+      isSuccess={isSuccess}
+      onUpload={handleFileUpload}
+      onSaveAvatar={handleSaveAvatar}
+    />
+  );
+}
+
+export default ProfilePhoto;

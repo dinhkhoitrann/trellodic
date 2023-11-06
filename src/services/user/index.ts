@@ -7,3 +7,8 @@ export const getUser = async (data: { accessToken: string; signal: AbortSignal }
   });
   return { data: { user: mockUser } };
 };
+
+export const editAvatar = async (data: { avatarUrl: string; signal: AbortSignal }) => {
+  const { avatarUrl, signal } = data;
+  return externalRequest.post('/posts', { avatarUrl }, { signal });
+};

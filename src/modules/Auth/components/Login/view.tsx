@@ -42,15 +42,11 @@ function LoginFormView({ methods, isLoggingin, onSubmit }: FormViewProps) {
         <GoogleSignInButton />
 
         <Box sx={{ fontSize: '14px', mt: 2, display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-          <Link href="/auth/forgot-password" style={{ textDecoration: 'none' }}>
-            Forgot password
-          </Link>
+          <Link href="/auth/forgot-password">Forgot password</Link>
           <Box>
             <Badge color="primary" badgeContent=" " variant="dot" sx={{ mx: 2 }} />
           </Box>
-          <Link href="/auth/signup" style={{ textDecoration: 'none' }}>
-            Create an account
-          </Link>
+          <Link href="/auth/signup">Create an account</Link>
         </Box>
       </FormProvider>
     </>

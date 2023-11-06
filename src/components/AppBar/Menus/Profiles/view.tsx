@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -19,6 +20,7 @@ function ProfilesView({ onLogout }: ProfilesViewProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const user = useAppSelector(selectUserProfile);
+  const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -51,7 +53,7 @@ function ProfilesView({ onLogout }: ProfilesViewProps) {
           'aria-labelledby': 'user-profiles',
         }}
       >
-        <MenuItem>
+        <MenuItem onClick={() => router.push('/profile')}>
           <Avatar sx={{ width: 28, height: 28, mr: 2 }} /> Profile
         </MenuItem>
         <Divider />

@@ -48,7 +48,7 @@ function AppBarView() {
           bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#24272b' : '#1565c0'),
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, a: { textDecoration: 'none' } }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <AppsIcon sx={{ color: textColor }} />
           <Link href="/">
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
