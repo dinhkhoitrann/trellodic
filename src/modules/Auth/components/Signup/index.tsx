@@ -20,8 +20,10 @@ function SignupForm() {
       ...values,
       birthday: values.birthday.toISOString(),
       onSuccess: () => {
-        toast.success('Sign up successfully');
         router.push('/auth/login');
+        setTimeout(() => {
+          toast.success('Sign up successfully');
+        }, 1000);
       },
     });
   };

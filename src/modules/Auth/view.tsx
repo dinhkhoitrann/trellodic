@@ -1,4 +1,3 @@
-'use client';
 import { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -19,11 +20,17 @@ function WorkspaceList({ workspaces }: WorkspaceListProps) {
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
+  const router = useRouter();
+
+  const handleSelectWorkspace = (workspaceId: string) => {
+    router.push('/');
+    getWorkspace({ workspaceId: workspaceId });
+  };
 
   return (
     <>
       {workspaces.map((workspace) => (
-        <StyledMenuItem key={workspace._id} onClick={() => getWorkspace({ workspaceId: workspace._id || '' })}>
+        <StyledMenuItem key={workspace._id} onClick={() => handleSelectWorkspace(workspace._id || '')}>
           <ListItemIcon
             sx={{
               width: '30px',
