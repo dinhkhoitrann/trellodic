@@ -5,6 +5,7 @@ import { save as saveBoard } from '@/redux/slices/board';
 import { save as saveWorkspace } from '@/redux/slices/workspace';
 import { Workspace } from '@/types/workspace.type';
 import { Board } from '@/types/board.type';
+import { AxiosResponse } from 'axios';
 
 export const workspaceApi = createApi({
   reducerPath: 'workspaceApi',
@@ -39,16 +40,16 @@ export const workspaceApi = createApi({
           : [{ type: 'Workspace', id: 'LIST' }],
     }),
     createBoard: builder.mutation<
-      { data: Partial<Board> },
+      AxiosResponse<{ data: Board }, any>,
       { name: string; workspaceId: string; onSuccess?: (_boardId: string) => void }
     >({
-      queryFn: async (args, { signal }) => createBoard({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await createBoard({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled, dispatch }) => {
         const {
           data: { data },
         } = await queryFulfilled;
-        dispatch(saveBoard(data));
-        onSuccess && onSuccess(data._id || '');
+        dispatch(saveBoard(data.data));
+        onSuccess && onSuccess(data.data._id || '');
       },
       invalidatesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
     }),
@@ -62,8 +63,11 @@ export const workspaceApi = createApi({
         });
       },
     }),
-    createWorkspace: builder.mutation<{ data: Partial<Workspace> }, { name: string; onSuccess?: () => void }>({
-      queryFn: (args, { signal }) => createWorkspace({ ...args, signal }),
+    createWorkspace: builder.mutation<
+      AxiosResponse<{ data: Partial<Board> }, any>,
+      { name: string; onSuccess?: () => void }
+    >({
+      queryFn: async (args, { signal }) => ({ data: await createWorkspace({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

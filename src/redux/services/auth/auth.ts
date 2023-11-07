@@ -1,33 +1,26 @@
 /* eslint-disable indent */
+import { AxiosResponse } from 'axios';
 import Cookies from 'js-cookie';
 import { login, signup } from '@/services/auth';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { User } from '@/types/user.type';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Auth'],
   endpoints: (builder) => ({
-    login: builder.mutation<
-      { accessToken: string; refreshToken: string; user: User },
-      { email: string; password: string; onSuccess: () => void }
-    >({
-      queryFn: async (args, { signal }) => {
-        const response = await login({ ...args, signal });
-        return response.data;
-      },
+    login: builder.mutation<AxiosResponse<any, any>, { email: string; password: string; onSuccess: () => void }>({
+      queryFn: async (args, { signal }) => ({ data: await login({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
-        const {
-          data: { accessToken, refreshToken },
-        } = await queryFulfilled;
+        const { data: responseData } = await queryFulfilled;
+        const { accessToken, refreshToken } = responseData.data.data;
         Cookies.set('token', accessToken);
         Cookies.set('refreshToken', refreshToken);
         onSuccess();
       },
     }),
     signup: builder.mutation<
-      void,
+      AxiosResponse<any, any>,
       {
         email: string;
         name: string;
@@ -38,7 +31,7 @@ export const authApi = createApi({
         onSuccess: () => void;
       }
     >({
-      queryFn: (args, { signal }) => signup({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await signup({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess();

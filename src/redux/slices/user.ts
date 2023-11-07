@@ -5,7 +5,7 @@ import { RootState } from '../store';
 import { userApi } from '../services/user/user';
 
 const initialState: {
-  profile: Partial<User> | null;
+  profile: User | null;
 } = {
   profile: null,
 };

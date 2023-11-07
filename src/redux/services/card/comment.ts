@@ -1,4 +1,5 @@
 /* eslint-disable indent */
+import { AxiosResponse } from 'axios';
 import { addComment, deleteComment, editComment } from '@/services/card/comment';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
@@ -7,30 +8,31 @@ export const commentApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Comment'],
   endpoints: (builder) => ({
-    createComment: builder.mutation<void, { content: string; boardId: string; cardId: string; onSuccess?: () => void }>(
-      {
-        queryFn: (args, { signal }) => addComment({ ...args, signal }),
-        onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
-          await queryFulfilled;
-          onSuccess && onSuccess();
-        },
+    createComment: builder.mutation<
+      AxiosResponse<any, any>,
+      { content: string; boardId: string; cardId: string; onSuccess?: () => void }
+    >({
+      queryFn: async (args, { signal }) => ({ data: await addComment({ ...args, signal }) }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
       },
-    ),
+    }),
     editComment: builder.mutation<
-      void,
+      AxiosResponse<any, any>,
       { content: string; commentId: string; boardId: string; cardId: string; onSuccess?: () => void }
     >({
-      queryFn: (args, { signal }) => editComment({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await editComment({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
       },
     }),
     deleteComment: builder.mutation<
-      void,
+      AxiosResponse<any, any>,
       { commentId: string; boardId: string; cardId: string; onSuccess?: () => void }
     >({
-      queryFn: (args, { signal }) => deleteComment({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await deleteComment({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

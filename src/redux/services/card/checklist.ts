@@ -1,4 +1,5 @@
 /* eslint-disable indent */
+import { AxiosResponse } from 'axios';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   addChecklist,
@@ -16,70 +17,70 @@ export const checklistApi = createApi({
   tagTypes: ['Checklist'],
   endpoints: (builder) => ({
     createChecklist: builder.mutation<
-      void,
+      AxiosResponse<any, any>,
       { checklistTitle: string; cardId: string; boardId: string; onSuccess?: () => void }
     >({
-      queryFn: (args, { signal }) => addChecklist({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await addChecklist({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
       },
     }),
     deleteChecklist: builder.mutation<
-      void,
+      AxiosResponse<any, any>,
       { checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
     >({
-      queryFn: (args, { signal }) => deleteChecklist({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await deleteChecklist({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
       },
     }),
     updateChecklistTitle: builder.mutation<
-      void,
+      AxiosResponse<any, any>,
       { checklistId: string; updatedTitle: string; cardId: string; boardId: string; onSuccess?: () => void }
     >({
-      queryFn: (args, { signal }) => editChecklistTitle({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await editChecklistTitle({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
       },
     }),
     markChecklistItemDone: builder.mutation<
-      void,
+      AxiosResponse<any, any>,
       { itemId: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
     >({
-      queryFn: (args, { signal }) => markChecklistItemIsDone({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await markChecklistItemIsDone({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
       },
     }),
     deleteChecklistItem: builder.mutation<
-      void,
+      AxiosResponse<any, any>,
       { itemId: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
     >({
-      queryFn: (args, { signal }) => deleteChecklistItem({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await deleteChecklistItem({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
       },
     }),
     updateTitleChecklistItem: builder.mutation<
-      void,
+      AxiosResponse<any, any>,
       { itemId: string; title: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
     >({
-      queryFn: (args, { signal }) => editTitleChecklistItem({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await editTitleChecklistItem({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
       },
     }),
     addChecklistItem: builder.mutation<
-      void,
+      AxiosResponse<any, any>,
       { title: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
     >({
-      queryFn: (args, { signal }) => createChecklistItem({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await createChecklistItem({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

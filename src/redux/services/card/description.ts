@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 import { editDescription } from '@/services/card/description';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { AxiosResponse } from 'axios';
 
 export const descriptionApi = createApi({
   reducerPath: 'descriptionApi',
@@ -8,7 +9,7 @@ export const descriptionApi = createApi({
   tagTypes: ['Description'],
   endpoints: (builder) => ({
     editDescription: builder.mutation<
-      void,
+      AxiosResponse<any, any>,
       {
         content: string;
         boardId: string;
@@ -16,7 +17,7 @@ export const descriptionApi = createApi({
         onSuccess?: () => void;
       }
     >({
-      queryFn: (args, { signal }) => editDescription({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await editDescription({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
