@@ -1,26 +1,27 @@
 /* eslint-disable indent */
-import { AxiosResponse } from 'axios';
-import Cookies from 'js-cookie';
-import { login, signup } from '@/services/auth';
+import { login, loginWithGoogle, signup } from '@/services/auth';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { User } from '@/types/user.type';
+import { saveAuthToken } from './util';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Auth'],
   endpoints: (builder) => ({
-    login: builder.mutation<AxiosResponse<any, any>, { email: string; password: string; onSuccess: () => void }>({
+    login: builder.mutation<
+      { data: { accessToken: string; refreshToken: string; user: User } },
+      { email: string; password: string; onSuccess: () => void }
+    >({
       queryFn: async (args, { signal }) => ({ data: await login({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         const { data: responseData } = await queryFulfilled;
-        const { accessToken, refreshToken } = responseData.data.data;
-        Cookies.set('token', accessToken);
-        Cookies.set('refreshToken', refreshToken);
+        saveAuthToken(responseData);
         onSuccess();
       },
     }),
     signup: builder.mutation<
-      AxiosResponse<any, any>,
+      void,
       {
         email: string;
         name: string;
@@ -37,7 +38,18 @@ export const authApi = createApi({
         onSuccess();
       },
     }),
+    loginWithGoogle: builder.mutation<
+      { data: { accessToken: string; refreshToken: string; user: User } },
+      { code: string; onSuccess: () => void }
+    >({
+      queryFn: async (args, { signal }) => ({ data: await loginWithGoogle({ ...args, signal }) }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        const { data: responseData } = await queryFulfilled;
+        saveAuthToken(responseData);
+        onSuccess();
+      },
+    }),
   }),
 });
 
-export const { useLoginMutation, useSignupMutation } = authApi;
+export const { useLoginMutation, useSignupMutation, useLoginWithGoogleMutation } = authApi;

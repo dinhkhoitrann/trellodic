@@ -16,13 +16,23 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builders) => {
     builders.addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
-      const { user } = action.payload;
+      const {
+        data: { user },
+      } = action.payload;
       if (user) {
         state.profile = user;
       }
     });
     builders.addMatcher(userApi.endpoints.getUser.matchFulfilled, (state, action) => {
       const { user } = action.payload;
+      if (user) {
+        state.profile = user;
+      }
+    });
+    builders.addMatcher(authApi.endpoints.loginWithGoogle.matchFulfilled, (state, action) => {
+      const {
+        data: { user },
+      } = action.payload;
       if (user) {
         state.profile = user;
       }
