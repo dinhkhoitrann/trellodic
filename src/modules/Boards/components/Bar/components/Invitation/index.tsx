@@ -15,8 +15,8 @@ function Invitation(props: InvitationProps) {
   const workspace = useAppSelector(selectWorkspaceDetails);
   const { data: response, isLoading } = useQuery({
     queryKey: ['workspaces', workspace._id],
-    queryFn: ({ signal }) => getWorkspaceMembers({ workspaceId: workspace._id, signal }),
-    staleTime: 5000,
+    queryFn: () => getWorkspaceMembers({ workspaceId: workspace._id }),
+    staleTime: 3000,
   });
 
   const { mutate: invite, isPending: isInviting } = useMutation({

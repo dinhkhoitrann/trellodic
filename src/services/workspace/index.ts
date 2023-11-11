@@ -45,8 +45,8 @@ export const createWorkspace = async (data: { name: string; signal: AbortSignal 
   return res.data;
 };
 
-export const getWorkspaceMembers = async (data: { workspaceId: string | undefined; signal: AbortSignal }) => {
-  const { workspaceId, signal } = data;
+export const getWorkspaceMembers = async (data: { workspaceId: string | undefined }) => {
+  const { workspaceId } = data;
   await externalRequest.get('/posts/1');
   return {
     data: {
