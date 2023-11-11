@@ -1,5 +1,4 @@
 /* eslint-disable indent */
-import { AxiosResponse } from 'axios';
 import { addComment, deleteComment, editComment } from '@/services/card/comment';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
@@ -9,7 +8,7 @@ export const commentApi = createApi({
   tagTypes: ['Comment'],
   endpoints: (builder) => ({
     createComment: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       { content: string; boardId: string; cardId: string; onSuccess?: () => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await addComment({ ...args, signal }) }),
@@ -19,7 +18,7 @@ export const commentApi = createApi({
       },
     }),
     editComment: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       { content: string; commentId: string; boardId: string; cardId: string; onSuccess?: () => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await editComment({ ...args, signal }) }),
@@ -29,7 +28,7 @@ export const commentApi = createApi({
       },
     }),
     deleteComment: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       { commentId: string; boardId: string; cardId: string; onSuccess?: () => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await deleteComment({ ...args, signal }) }),

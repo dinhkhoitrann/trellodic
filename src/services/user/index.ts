@@ -11,10 +11,12 @@ export const getUser = async (data: { accessToken: string; signal?: AbortSignal 
 
 export const editAvatar = async (data: { avatarUrl: string; signal: AbortSignal }) => {
   const { avatarUrl, signal } = data;
-  return externalRequest.post('/posts', { avatarUrl }, { signal });
+  const res = await externalRequest.post('/posts', { avatarUrl }, { signal });
+  return res.data;
 };
 
 export const editProfile = async (data: Partial<UserProfileFormValues> & { signal: AbortSignal }) => {
   const { signal, ...rest } = data;
-  return externalRequest.post('/posts', rest, { signal });
+  const res = await externalRequest.post('/posts', rest, { signal });
+  return res.data;
 };

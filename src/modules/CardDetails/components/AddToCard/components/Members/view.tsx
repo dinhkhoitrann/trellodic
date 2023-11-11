@@ -31,7 +31,7 @@ function MembersView({ card, isSaving, onAddMember }: MembersViewProps) {
     <ActionButton
       ref={ref}
       startIcon={<PersonOutlineOutlinedIcon />}
-      popoverContent={
+      child={
         <PopoverWrapper title="Members" onClose={handleClose}>
           <Autocomplete
             multiple

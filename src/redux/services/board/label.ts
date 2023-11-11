@@ -1,5 +1,4 @@
 /* eslint-disable indent */
-import { AxiosResponse } from 'axios';
 import { addLabelToCard, createLabel, editLabel } from '@/services/board/label';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
@@ -9,7 +8,7 @@ export const labelApi = createApi({
   tagTypes: ['Label'],
   endpoints: (builder) => ({
     addLabel: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       { title: string; color: string; boardId: string; onSuccess?: () => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await createLabel({ ...args, signal }) }),
@@ -19,7 +18,7 @@ export const labelApi = createApi({
       },
     }),
     editLabel: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       { title: string; color: string; boardId: string; onSuccess?: () => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await editLabel({ ...args, signal }) }),
@@ -29,7 +28,7 @@ export const labelApi = createApi({
       },
     }),
     addLabelToCard: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       {
         labelId: string;
         cardId: string;

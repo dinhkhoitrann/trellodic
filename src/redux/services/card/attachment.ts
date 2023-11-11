@@ -1,5 +1,4 @@
 /* eslint-disable indent */
-import { AxiosResponse } from 'axios';
 import { deleteAttachment, uploadAttachments } from '@/services/card/attachment';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
@@ -8,7 +7,7 @@ export const attachmentApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Attachment'],
   endpoints: (builder) => ({
-    uploadFiles: builder.mutation<AxiosResponse<any, any>, { formData: FormData; onSuccess?: () => void }>({
+    uploadFiles: builder.mutation<{ data: any }, { formData: FormData; onSuccess?: () => void }>({
       queryFn: async (args, { signal }) => ({ data: await uploadAttachments({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
@@ -16,7 +15,7 @@ export const attachmentApi = createApi({
       },
     }),
     deleteAttachment: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       {
         attachmentId: string;
         boardId: string;

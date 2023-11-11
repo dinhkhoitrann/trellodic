@@ -14,7 +14,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14)',
 }));
 
-type ActionButtonProps = ButtonProps & { popoverContent: ReactNode };
+type ActionButtonProps = ButtonProps & { child: ReactNode };
 export type ActionButtonRef = {
   handleClose: () => void;
 };
@@ -50,7 +50,7 @@ export default forwardRef<ActionButtonRef, ActionButtonProps>(function ActionBut
           horizontal: 'left',
         }}
       >
-        {props.popoverContent}
+        {props.child}
       </Popover>
     </>
   );

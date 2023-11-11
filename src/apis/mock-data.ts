@@ -83,6 +83,7 @@ export const mockData: MockBoardData = {
             title: 'Title of card 01',
             description: 'This is a description',
             cover:
+              // eslint-disable-next-line max-len
               'https://images.unsplash.com/photo-1682685797660-3d847763208e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
             memberIds: [
               {
@@ -167,8 +168,8 @@ export const mockData: MockBoardData = {
               { _id: '1', title: 'Title 1', color: '#164b35' },
               { _id: '2', title: 'Title 2', color: '#2ecc71' },
             ],
-            startDate: new Date('2002-09-13'),
-            endDate: new Date('2023-10-10'),
+            startDate: new Date('2002-09-13').toISOString(),
+            endDate: new Date('2023-10-10').toISOString(),
             isDone: true,
           },
           {
@@ -181,7 +182,7 @@ export const mockData: MockBoardData = {
             memberIds: [],
             comments: [],
             attachments: [],
-            endDate: new Date('2023-12-31'),
+            endDate: new Date('2023-12-31').toISOString(),
             isDone: true,
           },
           {

@@ -13,8 +13,8 @@ export interface Card {
   checklists?: Checklist[];
   attachments?: Attachment[];
   labels?: Label[];
-  startDate?: Date;
-  endDate?: Date;
+  startDate?: string;
+  endDate?: string;
   isDone?: boolean;
   FE_isPlaceholderCard?: true;
 }

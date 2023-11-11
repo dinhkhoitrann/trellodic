@@ -1,5 +1,4 @@
 /* eslint-disable indent */
-import { AxiosResponse } from 'axios';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   addChecklist,
@@ -17,7 +16,7 @@ export const checklistApi = createApi({
   tagTypes: ['Checklist'],
   endpoints: (builder) => ({
     createChecklist: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       { checklistTitle: string; cardId: string; boardId: string; onSuccess?: () => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await addChecklist({ ...args, signal }) }),
@@ -27,7 +26,7 @@ export const checklistApi = createApi({
       },
     }),
     deleteChecklist: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       { checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await deleteChecklist({ ...args, signal }) }),
@@ -37,7 +36,7 @@ export const checklistApi = createApi({
       },
     }),
     updateChecklistTitle: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       { checklistId: string; updatedTitle: string; cardId: string; boardId: string; onSuccess?: () => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await editChecklistTitle({ ...args, signal }) }),
@@ -47,7 +46,7 @@ export const checklistApi = createApi({
       },
     }),
     markChecklistItemDone: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       { itemId: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await markChecklistItemIsDone({ ...args, signal }) }),
@@ -57,7 +56,7 @@ export const checklistApi = createApi({
       },
     }),
     deleteChecklistItem: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       { itemId: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await deleteChecklistItem({ ...args, signal }) }),
@@ -67,7 +66,7 @@ export const checklistApi = createApi({
       },
     }),
     updateTitleChecklistItem: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       { itemId: string; title: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await editTitleChecklistItem({ ...args, signal }) }),
@@ -77,7 +76,7 @@ export const checklistApi = createApi({
       },
     }),
     addChecklistItem: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       { title: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await createChecklistItem({ ...args, signal }) }),

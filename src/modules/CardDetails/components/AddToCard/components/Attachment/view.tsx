@@ -30,7 +30,7 @@ function AttachmentView({ files, loading, onUpload, onSave, onRemoveFile, onRemo
     <ActionButton
       ref={ref}
       startIcon={<AttachmentIcon />}
-      popoverContent={
+      child={
         <PopoverWrapper title="Attach" onClose={handleClose}>
           <Typography sx={{ mt: 2 }}>Attach a file from your computer</Typography>
           <Typography variant="caption" sx={{ color: '#95a5a6' }}>

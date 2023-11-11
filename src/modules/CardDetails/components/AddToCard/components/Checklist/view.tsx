@@ -33,7 +33,7 @@ function ChecklistView({ title, isPending, isSuccess, onAddChecklist, onTitleCha
     <ActionButton
       ref={ref}
       startIcon={<ChecklistIcon />}
-      popoverContent={
+      child={
         <PopoverWrapper title="Add checklist" onClose={handleClose}>
           <TextField
             value={title}

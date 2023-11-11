@@ -1,5 +1,4 @@
 /* eslint-disable indent */
-import { AxiosResponse } from 'axios';
 import { editDueDates, markCardIsDone } from '@/services/card/dates';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
@@ -9,7 +8,7 @@ export const datesApi = createApi({
   tagTypes: ['Dates'],
   endpoints: (builder) => ({
     editDueDate: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       {
         startDate: Date;
         endDate: Date;
@@ -25,7 +24,7 @@ export const datesApi = createApi({
       },
     }),
     markCardIsDone: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       { cardId: string; boardId: string; isDone: boolean; onSuccess?: () => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await markCardIsDone({ ...args, signal }) }),

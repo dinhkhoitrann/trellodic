@@ -1,68 +1,73 @@
 import { externalRequest } from '../../request';
 
-export const addChecklist = (data: {
+export const addChecklist = async (data: {
   checklistTitle: string;
   cardId: string;
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('/posts', data, {
+  const res = await externalRequest.post('/posts', data, {
     signal: data.signal,
   });
+  return res.data;
 };
 
-export const deleteChecklist = (data: {
+export const deleteChecklist = async (data: {
   checklistId: string;
   cardId: string;
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.delete('/posts/1', {
+  const res = await externalRequest.delete('/posts/1', {
     signal: data.signal,
   });
+  return res.data;
 };
 
-export const editChecklistTitle = (data: {
+export const editChecklistTitle = async (data: {
   checklistId: string;
   updatedTitle: string;
   cardId: string;
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('/posts', data, {
+  const res = await externalRequest.post('/posts', data, {
     signal: data.signal,
   });
+  return res.data;
 };
 
-export const markChecklistItemIsDone = (data: {
+export const markChecklistItemIsDone = async (data: {
   itemId: string;
   checklistId: string;
   cardId: string;
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post(
+  const res = await externalRequest.post(
     '/posts',
     {},
     {
       signal: data.signal,
     },
   );
+  return res.data;
 };
 
-export const deleteChecklistItem = (data: {
+export const deleteChecklistItem = async (data: {
   itemId: string;
   checklistId: string;
   cardId: string;
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.delete('/posts/1', {
+  const res = await externalRequest.delete('/posts/1', {
     signal: data.signal,
   });
+  return res.data;
 };
 
-export const editTitleChecklistItem = (data: {
+export const editTitleChecklistItem = async (data: {
   itemId: string;
   title: string;
   checklistId: string;
@@ -70,19 +75,21 @@ export const editTitleChecklistItem = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.put('/posts/1', data, {
+  const res = await externalRequest.put('/posts/1', data, {
     signal: data.signal,
   });
+  return res.data;
 };
 
-export const createChecklistItem = (data: {
+export const createChecklistItem = async (data: {
   title: string;
   checklistId: string;
   cardId: string;
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('/posts', data, {
+  const res = await externalRequest.post('/posts', data, {
     signal: data.signal,
   });
+  return res.data;
 };

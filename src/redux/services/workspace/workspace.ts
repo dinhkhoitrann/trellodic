@@ -5,7 +5,6 @@ import { save as saveBoard } from '@/redux/slices/board';
 import { save as saveWorkspace } from '@/redux/slices/workspace';
 import { Workspace } from '@/types/workspace.type';
 import { Board } from '@/types/board.type';
-import { AxiosResponse } from 'axios';
 
 export const workspaceApi = createApi({
   reducerPath: 'workspaceApi',
@@ -40,7 +39,7 @@ export const workspaceApi = createApi({
           : [{ type: 'Workspace', id: 'LIST' }],
     }),
     createBoard: builder.mutation<
-      AxiosResponse<{ data: Board }, any>,
+      { data: { board: Board } },
       { name: string; workspaceId: string; onSuccess?: (_boardId: string) => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await createBoard({ ...args, signal }) }),
@@ -48,13 +47,13 @@ export const workspaceApi = createApi({
         const {
           data: { data },
         } = await queryFulfilled;
-        dispatch(saveBoard(data.data));
-        onSuccess && onSuccess(data.data._id || '');
+        dispatch(saveBoard(data.board));
+        onSuccess && onSuccess(data.board._id || '');
       },
       invalidatesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
     }),
-    editWorkspaceName: builder.mutation<void, { workspaceId: string; name: string }>({
-      queryFn: (args, { signal }) => editWorkspaceName({ ...args, signal }),
+    editWorkspaceName: builder.mutation<{ data: any }, { workspaceId: string; name: string }>({
+      queryFn: async (args, { signal }) => ({ data: await editWorkspaceName({ ...args, signal }) }),
       onQueryStarted: async ({ workspaceId }, { queryFulfilled, dispatch }) => {
         await queryFulfilled;
         dispatch({
@@ -63,10 +62,7 @@ export const workspaceApi = createApi({
         });
       },
     }),
-    createWorkspace: builder.mutation<
-      AxiosResponse<{ data: Partial<Board> }, any>,
-      { name: string; onSuccess?: () => void }
-    >({
+    createWorkspace: builder.mutation<{ data: any }, { name: string; onSuccess?: () => void }>({
       queryFn: async (args, { signal }) => ({ data: await createWorkspace({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;

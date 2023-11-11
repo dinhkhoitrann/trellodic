@@ -1,5 +1,4 @@
 /* eslint-disable indent */
-import { AxiosResponse } from 'axios';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { addMembers } from '@/services/card/member';
 
@@ -9,7 +8,7 @@ export const memberApi = createApi({
   tagTypes: ['Member'],
   endpoints: (builder) => ({
     addMembersToCard: builder.mutation<
-      AxiosResponse<any, any>,
+      { data: any },
       {
         cardId: string;
         boardId: string;

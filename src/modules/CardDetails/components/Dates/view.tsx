@@ -24,7 +24,7 @@ function DatesView({ card, onCheckDone }: DatesViewProps) {
       return <Chip label="Completed" color="success" size="small" />;
     }
 
-    if (isExpired(card.endDate?.toDateString())) {
+    if (isExpired(card.endDate)) {
       return <Chip label="Overdue" color="error" size="small" />;
     }
     return <Chip label="In Progress" color="info" size="small" />;
@@ -50,7 +50,7 @@ function DatesView({ card, onCheckDone }: DatesViewProps) {
           }}
         >
           <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} sx={{ flex: 1 }}>
-            <Typography sx={{ flex: 1 }}>{card.endDate.toLocaleDateString()}</Typography>
+            <Typography sx={{ flex: 1 }}>{new Date(card.endDate).toLocaleDateString()}</Typography>
             {renderTag()}
           </Stack>
         </Card>

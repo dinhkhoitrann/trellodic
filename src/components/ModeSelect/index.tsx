@@ -5,7 +5,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import { Theme } from '@/common/enums';
 
@@ -45,11 +44,6 @@ function ModeSelect() {
         <MenuItem value={Theme.Dark}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <DarkModeOutlinedIcon fontSize="small" /> Dark
-          </Box>
-        </MenuItem>
-        <MenuItem value={Theme.System}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <SettingsBrightnessIcon fontSize="small" /> System
           </Box>
         </MenuItem>
       </Select>
