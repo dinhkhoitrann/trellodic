@@ -44,3 +44,22 @@ export const createWorkspace = async (data: { name: string; signal: AbortSignal 
   const res = await externalRequest.post('http://localhost:8080/api/v1/workspaces', rest, { signal });
   return res.data;
 };
+
+export const getWorkspaceMembers = async (data: { workspaceId: string | undefined; signal: AbortSignal }) => {
+  const { workspaceId, signal } = data;
+  await externalRequest.get('/posts/1');
+  return {
+    data: {
+      members: [
+        {
+          _id: '1',
+          name: 'Member 1',
+        },
+        {
+          _id: '2',
+          name: 'Member 2',
+        },
+      ],
+    },
+  };
+};
