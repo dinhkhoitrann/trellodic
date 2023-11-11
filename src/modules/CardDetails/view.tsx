@@ -11,7 +11,7 @@ import Comments from './components/Comments';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 import { Card } from '@/types/card.type';
-import Modal, { CUSTOM_STYLES_MODAL } from '@/components/Modal';
+import Modal from '@/components/Modal';
 import Attachment from './components/Attachment';
 
 type CardDetailsViewProps = {
@@ -58,17 +58,15 @@ export default function CardDetailsView({ card, isError, error }: CardDetailsVie
   }
 
   return (
-    <Modal isVisibleModal={true} onClose={handleCloseModal}>
-      <Box
-        sx={{
-          ...CUSTOM_STYLES_MODAL,
-          ...style,
-          bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0'),
-          color: (theme) => (theme.palette.mode === Theme.Light ? '#172b4d' : '#B6C2CF'),
-        }}
-      >
-        {content}
-      </Box>
+    <Modal
+      isVisibleModal={true}
+      onClose={handleCloseModal}
+      sx={{
+        ...style,
+        bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0'),
+      }}
+    >
+      {content}
     </Modal>
   );
 }

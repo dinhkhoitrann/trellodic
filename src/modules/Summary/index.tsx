@@ -3,7 +3,7 @@ import Fab from '@mui/material/Fab';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import AssistantIcon from '@mui/icons-material/Assistant';
-import Modal, { CUSTOM_STYLES_MODAL } from '@/components/Modal';
+import Modal from '@/components/Modal';
 import Section from '@/components/Accordion';
 import { Theme } from '@/common/enums';
 import ChatWithGPT from './components/Chat';
@@ -27,16 +27,16 @@ function SummaryTodos() {
         <AssistantIcon sx={{ mr: 1 }} />
         AI Assistant
       </Fab>
-      <Modal isVisibleModal={showModal} onClose={handleVisibilityModal}>
-        <Box
-          sx={{
-            ...CUSTOM_STYLES_MODAL,
-            width: { xs: '95%', md: '60%' },
-            transform: 'translate(-50%, -250px)',
-            bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0'),
-            color: (theme) => (theme.palette.mode === Theme.Light ? '#172b4d' : '#B6C2CF'),
-          }}
-        >
+      <Modal
+        isVisibleModal={showModal}
+        onClose={handleVisibilityModal}
+        sx={{
+          width: { xs: '95%', md: '60%' },
+          transform: 'translate(-50%, -250px)',
+          bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0'),
+        }}
+      >
+        <>
           <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center' }}>
             AI Assistant
           </Typography>
@@ -53,7 +53,7 @@ function SummaryTodos() {
               <Summary />
             </Section>
           </Box>
-        </Box>
+        </>
       </Modal>
     </>
   );

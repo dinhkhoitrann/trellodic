@@ -9,7 +9,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
   ({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#333643' : '#ebecf0',
-    color: theme.palette.mode === 'light' ? '#172b4d' : '#B6C2CF',
   }),
 );
 
