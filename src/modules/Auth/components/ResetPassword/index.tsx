@@ -18,7 +18,9 @@ function ResetPasswordForm() {
     mutationFn: resetPassword,
     onSuccess: () => {
       router.push('/auth/login');
-      toast.success('Updated password successfully');
+      setTimeout(() => {
+        toast.success('Updated password successfully');
+      }, 1000);
     },
   });
   const searchParams = useSearchParams();

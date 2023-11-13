@@ -3,7 +3,6 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import FormProvider from '@/components/Form/FormProvider';
-import RHFTextField from '@/components/Form/RHFTextField';
 import PasswordField from '@/components/Form/Fields/Password';
 import { ResetPasswordDefaultValues } from './validation';
 
@@ -26,7 +25,6 @@ function ResetPasswordFormView({ methods, isSending, onSubmit }: ResetPasswordFo
         </Typography>
       </Box>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <RHFTextField name="email" label="Email" id="email" placeholder="Enter your email" type="email" size="small" />
         <PasswordField name="password" label="Password" id="password" placeholder="Enter your password" size="small" />
         <PasswordField
           name="confirmPassword"

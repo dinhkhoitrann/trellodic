@@ -1,7 +1,8 @@
 /* eslint-disable indent */
-import Cookies from 'js-cookie';
-import { login, signup } from '@/services/auth';
+import { login, loginWithGoogle, signup } from '@/services/auth';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { User } from '@/types/user.type';
+import { saveAuthToken } from './util';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -9,18 +10,13 @@ export const authApi = createApi({
   tagTypes: ['Auth'],
   endpoints: (builder) => ({
     login: builder.mutation<
-      { data: { accessToken: string; refreshToken: string } },
+      { data: { accessToken: string; refreshToken: string; user: User } },
       { email: string; password: string; onSuccess: () => void }
     >({
-      queryFn: (args, { signal }) => login({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await login({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
-        const {
-          data: {
-            data: { accessToken, refreshToken },
-          },
-        } = await queryFulfilled;
-        Cookies.set('token', accessToken);
-        Cookies.set('refreshToken', refreshToken);
+        const { data: responseData } = await queryFulfilled;
+        saveAuthToken(responseData);
         onSuccess();
       },
     }),
@@ -36,13 +32,24 @@ export const authApi = createApi({
         onSuccess: () => void;
       }
     >({
-      queryFn: (args, { signal }) => signup({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await signup({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
+        onSuccess();
+      },
+    }),
+    loginWithGoogle: builder.mutation<
+      { data: { accessToken: string; refreshToken: string; user: User } },
+      { code: string; onSuccess: () => void }
+    >({
+      queryFn: async (args, { signal }) => ({ data: await loginWithGoogle({ ...args, signal }) }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        const { data: responseData } = await queryFulfilled;
+        saveAuthToken(responseData);
         onSuccess();
       },
     }),
   }),
 });
 
-export const { useLoginMutation, useSignupMutation } = authApi;
+export const { useLoginMutation, useSignupMutation, useLoginWithGoogleMutation } = authApi;

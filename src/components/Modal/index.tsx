@@ -1,9 +1,10 @@
-import { ReactElement } from 'react';
-import { Backdrop, Fade, Modal as MUIModal } from '@mui/material';
+import React from 'react';
+import { Backdrop, Box, Fade, Modal as MUIModal, SxProps, Theme } from '@mui/material';
 
 type ModalProps = {
-  children: ReactElement;
+  children: React.ReactNode;
   isVisibleModal: boolean;
+  sx?: SxProps<Theme> | undefined;
   onClose: () => void;
 };
 
@@ -17,7 +18,7 @@ export const CUSTOM_STYLES_MODAL = {
   py: 4,
 };
 
-function Modal({ children, isVisibleModal, onClose }: ModalProps) {
+function Modal({ children, isVisibleModal, sx, onClose }: ModalProps) {
   return (
     <MUIModal
       open={isVisibleModal}
@@ -32,7 +33,22 @@ function Modal({ children, isVisibleModal, onClose }: ModalProps) {
       style={{ overflow: 'auto' }}
     >
       <div>
-        <Fade in>{children}</Fade>
+        <Fade in>
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              boxShadow: 24,
+              borderRadius: '6px',
+              px: { xs: 4, md: 5 },
+              py: 4,
+              ...sx,
+            }}
+          >
+            {children}
+          </Box>
+        </Fade>
       </div>
     </MUIModal>
   );

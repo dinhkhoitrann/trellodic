@@ -54,9 +54,7 @@ function SignupFormView({ methods, isSigningup, onSubmit }: SignupFormViewProps)
           {isSigningup ? 'Creating' : 'Create'}
         </Button>
         <Box sx={{ textAlign: 'center', fontSize: '14px', mt: 2 }}>
-          <Link href="/auth/login" style={{ textDecoration: 'none' }}>
-            You have already an account? Log in
-          </Link>
+          <Link href="/auth/login">You have already an account? Log in</Link>
         </Box>
       </FormProvider>
     </>

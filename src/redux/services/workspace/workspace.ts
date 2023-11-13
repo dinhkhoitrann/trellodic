@@ -39,21 +39,21 @@ export const workspaceApi = createApi({
           : [{ type: 'Workspace', id: 'LIST' }],
     }),
     createBoard: builder.mutation<
-      { data: Partial<Board> },
+      { data: { board: Board } },
       { name: string; workspaceId: string; onSuccess?: (_boardId: string) => void }
     >({
-      queryFn: async (args, { signal }) => createBoard({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await createBoard({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled, dispatch }) => {
         const {
           data: { data },
         } = await queryFulfilled;
-        dispatch(saveBoard(data));
-        onSuccess && onSuccess(data._id || '');
+        dispatch(saveBoard(data.board));
+        onSuccess && onSuccess(data.board._id || '');
       },
       invalidatesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
     }),
-    editWorkspaceName: builder.mutation<void, { workspaceId: string; name: string }>({
-      queryFn: (args, { signal }) => editWorkspaceName({ ...args, signal }),
+    editWorkspaceName: builder.mutation<{ data: any }, { workspaceId: string; name: string }>({
+      queryFn: async (args, { signal }) => ({ data: await editWorkspaceName({ ...args, signal }) }),
       onQueryStarted: async ({ workspaceId }, { queryFulfilled, dispatch }) => {
         await queryFulfilled;
         dispatch({
@@ -62,8 +62,8 @@ export const workspaceApi = createApi({
         });
       },
     }),
-    createWorkspace: builder.mutation<{ data: Partial<Workspace> }, { name: string; onSuccess?: () => void }>({
-      queryFn: (args, { signal }) => createWorkspace({ ...args, signal }),
+    createWorkspace: builder.mutation<{ data: any }, { name: string; onSuccess?: () => void }>({
+      queryFn: async (args, { signal }) => ({ data: await createWorkspace({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

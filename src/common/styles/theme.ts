@@ -71,23 +71,6 @@ const theme = extendTheme({
         },
       },
     },
-    MuiCssBaseline: {
-      styleOverrides: {
-        body: {
-          '*::-webkit-scrollbar': {
-            width: '6px',
-            height: '6px',
-          },
-          '*::-webkit-scrollbar-thumb': {
-            backgroundColor: '#dcdde1',
-            borderRadius: '6px',
-          },
-          '*::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: 'white',
-          },
-        },
-      },
-    },
   },
   customProps: {
     appBarHeight: APP_BAR_HEIGHT,

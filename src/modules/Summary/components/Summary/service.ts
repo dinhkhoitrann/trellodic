@@ -5,7 +5,7 @@ export const mapColumnsToSubmit = (columns: Column[]) => {
     name: column.title,
     todos: column.cards.map((card) => ({
       title: card.title,
-      dueDate: card.endDate?.toLocaleDateString(),
+      dueDate: new Date(card.endDate || '').toLocaleDateString(),
       isDone: card.isDone,
     })),
   }));

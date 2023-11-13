@@ -2,7 +2,8 @@ import { externalRequest } from '@/services/request';
 
 export const addComment = async (data: { content: string; boardId: string; cardId: string; signal: AbortSignal }) => {
   const { signal, ...rest } = data;
-  return externalRequest.post('/posts', rest, { signal });
+  const res = await externalRequest.post('/posts', rest, { signal });
+  return res.data;
 };
 
 export const editComment = async (data: {
@@ -13,7 +14,8 @@ export const editComment = async (data: {
   signal: AbortSignal;
 }) => {
   const { signal, ...rest } = data;
-  return externalRequest.post('/posts', rest, { signal });
+  const res = await externalRequest.post('/posts', rest, { signal });
+  return res.data;
 };
 
 export const deleteComment = async (data: {
@@ -22,5 +24,6 @@ export const deleteComment = async (data: {
   cardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.delete('/posts/1', { signal: data.signal });
+  const res = await externalRequest.delete('/posts/1', { signal: data.signal });
+  return res.data;
 };

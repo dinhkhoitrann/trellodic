@@ -8,7 +8,7 @@ export const datesApi = createApi({
   tagTypes: ['Dates'],
   endpoints: (builder) => ({
     editDueDate: builder.mutation<
-      void,
+      { data: any },
       {
         startDate: Date;
         endDate: Date;
@@ -17,17 +17,17 @@ export const datesApi = createApi({
         onSuccess?: () => void;
       }
     >({
-      queryFn: (args, { signal }) => editDueDates({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await editDueDates({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
       },
     }),
     markCardIsDone: builder.mutation<
-      void,
+      { data: any },
       { cardId: string; boardId: string; isDone: boolean; onSuccess?: () => void }
     >({
-      queryFn: (args, { signal }) => markCardIsDone({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await markCardIsDone({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

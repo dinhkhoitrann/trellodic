@@ -1,8 +1,5 @@
 import type { Metadata } from 'next';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import WorkspaceSidebar from '@/modules/Workspace/Sidebar';
-import WorkspaceInfo from '@/modules/Workspace/Info';
+import Workspace from '@/modules/Workspace';
 
 export const metadata: Metadata = {
   title: 'Home Page | Trellodic',
@@ -10,18 +7,7 @@ export const metadata: Metadata = {
 };
 
 function HomePage() {
-  return (
-    <Container maxWidth="lg">
-      <Grid container sx={{ my: 2 }} spacing={4}>
-        <Grid item sm={12} md={3}>
-          <WorkspaceSidebar />
-        </Grid>
-        <Grid item sm={12} md={9}>
-          <WorkspaceInfo />
-        </Grid>
-      </Grid>
-    </Container>
-  );
+  return <Workspace />;
 }
 
 export default HomePage;

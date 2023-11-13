@@ -7,30 +7,31 @@ export const commentApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Comment'],
   endpoints: (builder) => ({
-    createComment: builder.mutation<void, { content: string; boardId: string; cardId: string; onSuccess?: () => void }>(
-      {
-        queryFn: (args, { signal }) => addComment({ ...args, signal }),
-        onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
-          await queryFulfilled;
-          onSuccess && onSuccess();
-        },
+    createComment: builder.mutation<
+      { data: any },
+      { content: string; boardId: string; cardId: string; onSuccess?: () => void }
+    >({
+      queryFn: async (args, { signal }) => ({ data: await addComment({ ...args, signal }) }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
       },
-    ),
+    }),
     editComment: builder.mutation<
-      void,
+      { data: any },
       { content: string; commentId: string; boardId: string; cardId: string; onSuccess?: () => void }
     >({
-      queryFn: (args, { signal }) => editComment({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await editComment({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
       },
     }),
     deleteComment: builder.mutation<
-      void,
+      { data: any },
       { commentId: string; boardId: string; cardId: string; onSuccess?: () => void }
     >({
-      queryFn: (args, { signal }) => deleteComment({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await deleteComment({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

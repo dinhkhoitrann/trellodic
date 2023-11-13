@@ -1,12 +1,19 @@
 import Cookies from 'js-cookie';
 import { externalRequest } from '../request';
 
-export const login = (data: { email: string; password: string; signal: AbortSignal }) => {
+export const login = async (data: { email: string; password: string; signal: AbortSignal }) => {
   const { signal, ...rest } = data;
-  return externalRequest.post('http://localhost:8080/api/v1/auth/login', rest, { signal });
+  const res = await externalRequest.post('http://localhost:8080/api/v1/auth/login', rest, { signal });
+  return res.data;
 };
 
-export const signup = (data: {
+export const loginWithGoogle = async (data: { code: string; signal: AbortSignal }) => {
+  const { signal, ...rest } = data;
+  const res = await externalRequest.post('http://localhost:8080/api/v1/auth/google-login', rest, { signal });
+  return res.data;
+};
+
+export const signup = async (data: {
   email: string;
   name: string;
   password: string;
@@ -16,7 +23,8 @@ export const signup = (data: {
   signal: AbortSignal;
 }) => {
   const { signal, ...rest } = data;
-  return externalRequest.post('http://localhost:8080/api/v1/auth/register', rest, { signal });
+  const res = await externalRequest.post('http://localhost:8080/api/v1/auth/register', rest, { signal });
+  return res.data;
 };
 
 export const verifyToken = (token: string) => {
@@ -33,12 +41,7 @@ export const forgotPassword = (data: { email: string }) => {
   return externalRequest.post('http://localhost:8080/api/v1/auth/forgot-password', data);
 };
 
-export const resetPassword = (data: {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  resetToken: string | null;
-}) => {
+export const resetPassword = (data: { password: string; confirmPassword: string; resetToken: string | null }) => {
   const { resetToken, ...rest } = data;
   return externalRequest.post(`http://localhost:8080/api/v1/auth/reset-password?resetToken=${resetToken}`, rest);
 };

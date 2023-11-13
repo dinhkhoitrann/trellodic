@@ -38,7 +38,7 @@ function DatesView({ isPending, isSuccess, onSave }: DatesViewProps) {
     <ActionButton
       ref={ref}
       startIcon={<AccessTimeIcon />}
-      popoverContent={
+      child={
         <PopoverWrapper title="Dates" onClose={handleClose}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateRangePicker

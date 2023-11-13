@@ -3,7 +3,6 @@ import { useTheme } from '@mui/styles';
 import Box from '@mui/material/Box';
 import { DragOverlay, DropAnimation, defaultDropAnimationSideEffects } from '@dnd-kit/core';
 import { Board } from '@/types/board.type';
-import { Theme } from '@/common/enums';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import CardDetails from '@/modules/CardDetails';
 import SummaryTodos from '@/modules/Summary';
@@ -39,7 +38,7 @@ function BoardContentView({ board, activeDragItemType, activeDragItemData }: Boa
         sx={{
           width: '100%',
           height: theme.customProps.boardContentHeight,
-          bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#34495e' : '#1976d2'),
+          bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#24272b' : '#1976d2'),
           p: '10px 0',
         }}
       >

@@ -1,4 +1,5 @@
 import { Board } from '@/types/board.type';
+import { User } from '@/types/user.type';
 import { Workspace } from '@/types/workspace.type';
 
 /**
@@ -26,9 +27,11 @@ export const mockData: MockBoardData = {
       email: 'emailaaa@email.com',
       password: '123',
       avatar: 'https://i.pravatar.cc/',
-      birthday: new Date(),
+      birthday: '2023-11-02T15:56:37.145Z',
       gender: 'male',
       phoneNumber: '0123456789',
+      isVerified: true,
+      type: 'INTERNAL',
     }, // Những users là Admin của board
     memberIds: [
       {
@@ -37,19 +40,23 @@ export const mockData: MockBoardData = {
         email: 'emailaaa@email.com',
         password: '123',
         avatar: 'https://i.pravatar.cc/',
-        birthday: new Date(),
+        birthday: '2023-11-02T15:56:37.145Z',
         gender: 'male',
         phoneNumber: '0123456789',
+        isVerified: true,
+        type: 'INTERNAL',
       },
       {
         _id: 'mem-2',
-        name: 'Name 2',
-        email: 'emailzzz@email.com',
+        name: 'Name',
+        email: 'emailaaa@email.com',
         password: '123',
         avatar: 'https://i.pravatar.cc/',
-        birthday: new Date(),
+        birthday: '2023-11-02T15:56:37.145Z',
         gender: 'male',
         phoneNumber: '0123456789',
+        isVerified: true,
+        type: 'INTERNAL',
       },
     ], // Những users là member bình thường của board
     // eslint-disable-next-line max-len
@@ -76,6 +83,7 @@ export const mockData: MockBoardData = {
             title: 'Title of card 01',
             description: 'This is a description',
             cover:
+              // eslint-disable-next-line max-len
               'https://images.unsplash.com/photo-1682685797660-3d847763208e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
             memberIds: [
               {
@@ -84,19 +92,23 @@ export const mockData: MockBoardData = {
                 email: 'emailaaa@email.com',
                 password: '123',
                 avatar: 'https://i.pravatar.cc/',
-                birthday: new Date(),
+                birthday: '2023-11-02T15:56:37.145Z',
                 gender: 'male',
                 phoneNumber: '0123456789',
+                isVerified: true,
+                type: 'INTERNAL',
               },
               {
                 _id: 'mem-2',
-                name: 'Name 2',
-                email: 'emailzzz@email.com',
+                name: 'Name',
+                email: 'emailaaa@email.com',
                 password: '123',
                 avatar: 'https://i.pravatar.cc/',
-                birthday: new Date(),
+                birthday: '2023-11-02T15:56:37.145Z',
                 gender: 'male',
                 phoneNumber: '0123456789',
+                isVerified: true,
+                type: 'INTERNAL',
               },
             ],
             comments: [
@@ -156,8 +168,8 @@ export const mockData: MockBoardData = {
               { _id: '1', title: 'Title 1', color: '#164b35' },
               { _id: '2', title: 'Title 2', color: '#2ecc71' },
             ],
-            startDate: new Date('2002-09-13'),
-            endDate: new Date('2023-10-10'),
+            startDate: new Date('2002-09-13').toISOString(),
+            endDate: new Date('2023-10-10').toISOString(),
             isDone: true,
           },
           {
@@ -170,7 +182,7 @@ export const mockData: MockBoardData = {
             memberIds: [],
             comments: [],
             attachments: [],
-            endDate: new Date('2023-12-31'),
+            endDate: new Date('2023-12-31').toISOString(),
             isDone: true,
           },
           {
@@ -336,7 +348,7 @@ export const mockData: MockBoardData = {
 1;
 
 export const mockWorkspace: Workspace = {
-  _id: '6535c89c3a66ba004f83df61',
+  _id: '6549f9c9b62618d8b98db451',
   name: 'W1',
   image: undefined,
   ownerUserId: 'o1',
@@ -349,4 +361,17 @@ export const mockWorkspace: Workspace = {
   ],
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
+};
+
+export const mockUser: User = {
+  _id: '6543c6b511106cb6c9c5bad2',
+  createdAt: '2023-11-02T15:56:37.145Z',
+  updatedAt: '2023-11-02T15:57:41.862Z',
+  email: '20520224@gm.uit.edu.vn',
+  name: 'Khoi Tran',
+  avatar: 'https://simulacionymedicina.es/wp-content/uploads/2015/11/default-avatar-300x300-1.jpg',
+  phoneNumber: '0349175927',
+  birthday: '2023-10-10T15:55:50Z',
+  isVerified: true,
+  type: 'INTERNAL',
 };

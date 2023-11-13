@@ -3,7 +3,8 @@ import { externalRequest } from '../request';
 
 export const createBoard = async (data: { name: string; workspaceId: string; signal: AbortSignal }) => {
   const { signal, ...rest } = data;
-  return externalRequest.post('http://localhost:8080/api/v1/boards', rest, { signal });
+  const res = await externalRequest.post('http://localhost:8080/api/v1/boards', rest, { signal });
+  return res.data;
 };
 
 export const getWorkspace = async (data: { workspaceId: string; signal: AbortSignal }) => {
@@ -34,10 +35,31 @@ export const getWorkspaceList = async (data: { userId: string; signal: AbortSign
 
 export const editWorkspaceName = async (data: { workspaceId: string; name: string; signal: AbortSignal }) => {
   const { signal, ...rest } = data;
-  return externalRequest.post('/posts', rest, { signal });
+  const res = await externalRequest.post('/posts', rest, { signal });
+  return res.data;
 };
 
 export const createWorkspace = async (data: { name: string; signal: AbortSignal }) => {
   const { signal, ...rest } = data;
-  return externalRequest.post('http://localhost:8080/api/v1/workspaces', rest, { signal });
+  const res = await externalRequest.post('http://localhost:8080/api/v1/workspaces', rest, { signal });
+  return res.data;
+};
+
+export const getWorkspaceMembers = async (data: { workspaceId: string | undefined }) => {
+  const { workspaceId } = data;
+  await externalRequest.get('/posts/1');
+  return {
+    data: {
+      members: [
+        {
+          _id: '1',
+          name: 'Member 1',
+        },
+        {
+          _id: '2',
+          name: 'Member 2',
+        },
+      ],
+    },
+  };
 };

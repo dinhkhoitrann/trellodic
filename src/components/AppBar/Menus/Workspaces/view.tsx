@@ -28,7 +28,7 @@ function WorkspacesView() {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         endIcon={<ExpandMoreIcon />}
-        sx={{ color: 'white' }}
+        sx={{ color: (theme) => (theme.palette.mode === 'dark' ? '#b6c2cf' : 'white') }}
         onClick={handleClick}
       >
         Workspaces

@@ -17,8 +17,10 @@ function ForgotPasswordForm() {
   const { mutate: forgotPasswordMutation, isPending } = useMutation({
     mutationFn: forgotPassword,
     onSuccess: () => {
-      toast.success('Send email successfully');
       router.push('/auth/login');
+      setTimeout(() => {
+        toast.success('Sent email successfully');
+      }, 1000);
     },
   });
 

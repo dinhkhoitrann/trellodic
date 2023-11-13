@@ -7,7 +7,8 @@ export const editDueDates = async (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('/posts', data);
+  const res = await externalRequest.post('/posts', data);
+  return res.data;
 };
 
 export const markCardIsDone = async (data: {
@@ -16,5 +17,6 @@ export const markCardIsDone = async (data: {
   isDone: boolean;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('/posts', data);
+  const res = await externalRequest.post('/posts', data);
+  return res.data;
 };

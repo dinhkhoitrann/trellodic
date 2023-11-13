@@ -6,5 +6,6 @@ export const addMembers = async (data: {
   memberIds: string[];
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('/posts', data);
+  const res = await externalRequest.post('/posts', data);
+  return res.data;
 };

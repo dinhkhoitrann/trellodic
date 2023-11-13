@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import CreateForm from './components/Form';
 import Grid from '@mui/material/Grid';
-import Modal, { CUSTOM_STYLES_MODAL } from '@/components/Modal';
+import Modal from '@/components/Modal';
 import { Theme } from '@/common/enums';
 
 type CreateWorkspaceModalViewProps = {
@@ -21,17 +21,20 @@ const style = {
 
 function CreateWorkspaceModalView({ isShowCreateModal, onClose }: CreateWorkspaceModalViewProps) {
   return (
-    <Modal isVisibleModal={isShowCreateModal} onClose={onClose}>
+    <Modal
+      isVisibleModal={isShowCreateModal}
+      onClose={onClose}
+      sx={{
+        ...style,
+        bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#22272b' : 'white'),
+        overflow: 'hidden',
+      }}
+    >
       <Grid
-        sx={{
-          ...CUSTOM_STYLES_MODAL,
-          ...style,
-          bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#22272b' : 'white'),
-          overflow: 'hidden',
-        }}
         container
         justifyContent="center"
         direction={{ xs: 'column-reverse', md: 'row' }}
+        sx={{ minHeight: '630px' }}
       >
         <Grid item md={6} sx={{ mt: { xs: 4, md: 8 }, mb: 4 }}>
           <Container maxWidth="xs">

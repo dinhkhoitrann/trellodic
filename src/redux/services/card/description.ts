@@ -8,7 +8,7 @@ export const descriptionApi = createApi({
   tagTypes: ['Description'],
   endpoints: (builder) => ({
     editDescription: builder.mutation<
-      void,
+      { data: any },
       {
         content: string;
         boardId: string;
@@ -16,7 +16,7 @@ export const descriptionApi = createApi({
         onSuccess?: () => void;
       }
     >({
-      queryFn: (args, { signal }) => editDescription({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await editDescription({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

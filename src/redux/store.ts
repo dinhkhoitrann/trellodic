@@ -3,6 +3,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import cardReducer from './slices/card';
 import boardReducer from './slices/board';
 import workspaceReducer from './slices/workspace';
+import userReducer from './slices/user';
 import { cardApi } from './services/card/card';
 import { checklistApi } from './services/card/checklist';
 import { boardApi } from './services/board/board';
@@ -14,6 +15,7 @@ import { descriptionApi } from './services/card/description';
 import { commentApi } from './services/card/comment';
 import { workspaceApi } from './services/workspace/workspace';
 import { authApi } from './services/auth/auth';
+import { userApi } from './services/user/user';
 
 export const store = configureStore({
   reducer: {
@@ -28,9 +30,11 @@ export const store = configureStore({
     [commentApi.reducerPath]: commentApi.reducer,
     [workspaceApi.reducerPath]: workspaceApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
     card: cardReducer,
     board: boardReducer,
     workspace: workspaceReducer,
+    user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([
@@ -45,6 +49,7 @@ export const store = configureStore({
       commentApi.middleware,
       workspaceApi.middleware,
       authApi.middleware,
+      userApi.middleware,
     ]),
 });
 

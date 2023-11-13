@@ -8,7 +8,7 @@ export const memberApi = createApi({
   tagTypes: ['Member'],
   endpoints: (builder) => ({
     addMembersToCard: builder.mutation<
-      void,
+      { data: any },
       {
         cardId: string;
         boardId: string;
@@ -16,7 +16,7 @@ export const memberApi = createApi({
         onSuccess?: () => void;
       }
     >({
-      queryFn: (args, { signal }) => addMembers({ ...args, signal }),
+      queryFn: async (args, { signal }) => ({ data: await addMembers({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
