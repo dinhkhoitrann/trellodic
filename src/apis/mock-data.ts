@@ -1,6 +1,7 @@
 import { Board } from '@/types/board.type';
 import { User } from '@/types/user.type';
 import { Workspace } from '@/types/workspace.type';
+import { Notification } from '@/types/noti.type';
 
 /**
  * YouTube: TrungQuanDev - Một Lập Trình Viên
@@ -375,3 +376,20 @@ export const mockUser: User = {
   isVerified: true,
   type: 'INTERNAL',
 };
+
+export const mockNotifs: Notification[] = [
+  {
+    _id: 'n1',
+    triggeredBy: 'Tran Dinh Khoi',
+    activity: 'upload an attachment to Learn ReactJS card',
+    createdOn: new Date('10/12/2023').toISOString(),
+    isRead: false,
+  },
+  {
+    _id: 'n2',
+    triggeredBy: 'Tran Dinh Khoi',
+    activity: 'add a description to Learn NextJS card',
+    createdOn: new Date('10/12/2023').toISOString(),
+    isRead: true,
+  },
+];

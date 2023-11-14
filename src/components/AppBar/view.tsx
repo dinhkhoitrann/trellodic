@@ -7,10 +7,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Badge from '@mui/material/Badge';
-import Tooltip from '@mui/material/Tooltip';
 import InputAdornment from '@mui/material/InputAdornment';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
@@ -21,6 +18,7 @@ import TrelloIcon from '@/common/assets/icons/trello.svg';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import Profiles from './Menus/Profiles';
 import { useColorScheme } from '@mui/material';
+import Notification from '@/modules/Notification';
 
 function AppBarView() {
   const [searchValue, setSearchValue] = useState('');
@@ -117,11 +115,7 @@ function AppBarView() {
             }}
           />
           <ModeSelect />
-          <Tooltip title="Notifications">
-            <Badge color="warning" variant="dot" sx={{ cursor: 'pointer' }}>
-              <NotificationsNoneIcon sx={{ color: textColor }} />
-            </Badge>
-          </Tooltip>
+          <Notification />
           <Profiles />
         </Box>
       </Box>
