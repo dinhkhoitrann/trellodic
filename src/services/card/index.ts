@@ -1,4 +1,3 @@
-import { mockData } from '@/apis/mock-data';
 import { externalRequest } from '../request';
 
 export const addCard = async (data: { title: string; columnId: string; signal: AbortSignal }) => {
@@ -14,9 +13,9 @@ export const addCard = async (data: { title: string; columnId: string; signal: A
   return res.data;
 };
 
-export const fetchCard = async (data: { cardId: string; boardId: string; signal: AbortSignal }) => {
-  await externalRequest.get('/posts', {
+export const fetchCard = async (data: { cardId: string; signal: AbortSignal }) => {
+  const res = await externalRequest.get('http://localhost:8080/api/v1/cards/655484ea3b7dba7af3972bcf', {
     signal: data.signal,
   });
-  return mockData.board.columns[0].cards[0];
+  return res.data.data;
 };

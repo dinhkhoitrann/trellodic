@@ -1,4 +1,5 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { isEqual } from 'lodash';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
@@ -20,11 +21,24 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 function MembersView({ card, isSaving, onAddMember }: MembersViewProps) {
+  const [isModified, setIsModified] = useState(false);
   const ref = useRef<ActionButtonRef>(null);
   const selectedMembers = useRef<User[]>(card.memberIds || []);
 
   const handleClose = () => {
     ref.current?.handleClose();
+  };
+
+  const handleAddMember = () => {
+    onAddMember(selectedMembers.current);
+  };
+
+  const handleChangeMembers = (members: User[]) => {
+    selectedMembers.current = [...members];
+    const isChanged = !isEqual(selectedMembers.current, card.memberIds || []);
+    if (isChanged !== isModified) {
+      setIsModified(isChanged);
+    }
   };
 
   return (
@@ -49,15 +63,10 @@ function MembersView({ card, isSaving, onAddMember }: MembersViewProps) {
             style={{ width: '100%', marginTop: 20 }}
             renderInput={(params) => <TextField {...params} label="Add members" placeholder="Members" />}
             onChange={(_event, selectedValues, _reason, _details) => {
-              selectedMembers.current = [...selectedValues];
+              handleChangeMembers(selectedValues);
             }}
           />
-          <Button
-            variant="contained"
-            disabled={isSaving}
-            sx={{ mt: 2 }}
-            onClick={() => onAddMember(selectedMembers.current || card.memberIds)}
-          >
+          <Button variant="contained" disabled={isSaving || !isModified} sx={{ mt: 2 }} onClick={handleAddMember}>
             {isSaving ? 'Saving' : 'Save'}
           </Button>
         </PopoverWrapper>

@@ -43,7 +43,7 @@ export default function CardDetailsView({ card, isError, error }: CardDetailsVie
           {card?.checklists?.map((checklist) => (
             <Checklist key={checklist._id} checklist={checklist} />
           ))}
-          <Attachment />
+          {!!card.attachments?.length && <Attachment />}
           <Comments />
         </Grid>
         <Grid item xs={12} md={3}>

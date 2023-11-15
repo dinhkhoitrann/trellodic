@@ -8,7 +8,7 @@ export const cardApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Card'],
   endpoints: (builder) => ({
-    getCardDetails: builder.query<Card, { cardId: string; boardId: string }>({
+    getCardDetails: builder.query<Card, { cardId: string }>({
       queryFn: async (args, { signal }) => {
         const card: Card = await fetchCard({ ...args, signal });
         return { data: card };

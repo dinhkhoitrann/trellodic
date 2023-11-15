@@ -2,10 +2,10 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
 import LaptopIcon from '@mui/icons-material/Laptop';
+import { withBoard, BoardGlobalProps } from '@/hocs';
 import Members from '../Members';
 import Labels from '../Labels';
 import Dates from '../Dates';
-import { withBoard, BoardGlobalProps } from '@/hocs';
 
 function ActiveSectionsView({ card }: BoardGlobalProps) {
   return (
@@ -17,15 +17,21 @@ function ActiveSectionsView({ card }: BoardGlobalProps) {
         </Typography>
       </Stack>
       <Grid container spacing={4} sx={{ mt: 1 }}>
-        <Grid item>
-          <Members />
-        </Grid>
-        <Grid item>
-          <Labels />
-        </Grid>
-        <Grid item>
-          <Dates />
-        </Grid>
+        {!!card.memberIds?.length && (
+          <Grid item>
+            <Members />
+          </Grid>
+        )}
+        {!!card.labels?.length && (
+          <Grid item>
+            <Labels />
+          </Grid>
+        )}
+        {card.endDate && (
+          <Grid item>
+            <Dates />
+          </Grid>
+        )}
       </Grid>
     </>
   );
