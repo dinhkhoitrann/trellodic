@@ -1,6 +1,7 @@
+/* eslint-disable indent */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { Card } from '@/types/card.type';
-import { fetchCard } from '@/services/card';
+import { addCard, fetchCard } from '@/services/card';
 
 export const cardApi = createApi({
   reducerPath: 'cardApi',
@@ -15,7 +16,24 @@ export const cardApi = createApi({
       providesTags: (_result, _error, { cardId }) => [{ type: 'Card', id: cardId }],
       keepUnusedDataFor: 5,
     }),
+    createCard: builder.mutation<
+      { data: any },
+      { boardId: string; columnId: string; title: string; onSuccess: () => void }
+    >({
+      queryFn: async (args, { signal }) => {
+        const { boardId, ...rest } = args;
+        return { data: await addCard({ ...rest, signal }) };
+      },
+      onQueryStarted: async ({ boardId, onSuccess }, { queryFulfilled, dispatch }) => {
+        await queryFulfilled;
+        dispatch({
+          type: 'boardApi/invalidateTags',
+          payload: [{ type: 'Board', id: boardId }],
+        });
+        onSuccess();
+      },
+    }),
   }),
 });
 
-export const { useGetCardDetailsQuery } = cardApi;
+export const { useGetCardDetailsQuery, useCreateCardMutation } = cardApi;
