@@ -30,10 +30,10 @@ export const verifyToken = (token: string) => {
 
 export const refreshToken = async () => {
   const refreshToken = Cookies.get('refreshToken');
-  const res: { accessToken: string } = await externalRequest.post('http://localhost:8080/api/v1/auth/refresh', {
+  const res = await externalRequest.post('http://localhost:8080/api/v1/auth/refresh', {
     refreshToken,
   });
-  return res.accessToken;
+  return res.data.accessToken;
 };
 
 export const forgotPassword = (data: { email: string }) => {

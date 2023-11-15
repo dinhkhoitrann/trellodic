@@ -32,6 +32,7 @@ externalRequest.interceptors.response.use(
       originalRequest._retry = true;
 
       const newAccessToken = await refreshToken();
+      console.log(newAccessToken);
       Cookies.set('token', newAccessToken);
 
       externalRequest.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
