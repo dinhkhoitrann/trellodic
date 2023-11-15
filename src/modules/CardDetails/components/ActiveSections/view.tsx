@@ -8,6 +8,7 @@ import Labels from '../Labels';
 import Dates from '../Dates';
 
 function ActiveSectionsView({ card }: BoardGlobalProps) {
+  console.log(card);
   return (
     <>
       <Stack direction="row" alignItems="center" spacing={1}>

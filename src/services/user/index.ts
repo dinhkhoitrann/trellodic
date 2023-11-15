@@ -9,14 +9,10 @@ export const getUser = async (data: { accessToken: string; signal?: AbortSignal 
   return { data: { user: mockUser } };
 };
 
-export const editAvatar = async (data: { avatarUrl: string; signal: AbortSignal }) => {
-  const { avatarUrl, signal } = data;
-  const res = await externalRequest.post('/posts', { avatarUrl }, { signal });
-  return res.data;
+export const editAvatar = ({ avatarUrl, signal }: { avatarUrl: string; signal: AbortSignal }) => {
+  return externalRequest.post('/posts', { avatarUrl }, { signal });
 };
 
-export const editProfile = async (data: Partial<UserProfileFormValues> & { signal: AbortSignal }) => {
-  const { signal, ...rest } = data;
-  const res = await externalRequest.post('/posts', rest, { signal });
-  return res.data;
+export const editProfile = ({ signal, ...rest }: Partial<UserProfileFormValues> & { signal: AbortSignal }) => {
+  return externalRequest.post('/posts', rest, { signal });
 };

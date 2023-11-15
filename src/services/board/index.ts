@@ -9,7 +9,6 @@ export const fetchBoardDetails = async (data: { boardId: string; signal?: AbortS
   return mockData.board;
 };
 
-export const inviteMembers = async (data: { memberIds: string[] }) => {
-  const res = await externalRequest.post('/posts', data);
-  return res.data;
+export const inviteMembers = (data: { memberIds: string[] }) => {
+  return externalRequest.post('/posts', data);
 };

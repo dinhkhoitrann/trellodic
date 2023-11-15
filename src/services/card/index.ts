@@ -1,8 +1,7 @@
 import { externalRequest } from '../request';
 
-export const addCard = async (data: { title: string; columnId: string; signal: AbortSignal }) => {
-  const { signal, ...rest } = data;
-  const res = await externalRequest.post(
+export const addCard = ({ signal, ...rest }: { title: string; columnId: string; signal: AbortSignal }) => {
+  return externalRequest.post(
     'http://localhost:8080/api/v1/cards',
     {
       ...rest,
@@ -10,12 +9,14 @@ export const addCard = async (data: { title: string; columnId: string; signal: A
     },
     { signal },
   );
-  return res.data;
 };
 
 export const fetchCard = async (data: { cardId: string; signal: AbortSignal }) => {
-  const res = await externalRequest.get('http://localhost:8080/api/v1/cards/655484ea3b7dba7af3972bcf', {
-    signal: data.signal,
-  });
-  return res.data.data;
+  const { data: responseData } = await externalRequest.get(
+    'http://localhost:8080/api/v1/cards/655497a43b7dba7af3972bd4',
+    {
+      signal: data.signal,
+    },
+  );
+  return responseData;
 };

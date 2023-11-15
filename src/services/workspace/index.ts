@@ -1,10 +1,8 @@
 import { mockWorkspace } from '@/apis/mock-data';
 import { externalRequest } from '../request';
 
-export const createBoard = async (data: { name: string; workspaceId: string; signal: AbortSignal }) => {
-  const { signal, ...rest } = data;
-  const res = await externalRequest.post('http://localhost:8080/api/v1/boards', rest, { signal });
-  return res.data;
+export const createBoard = async ({ signal, ...rest }: { name: string; workspaceId: string; signal: AbortSignal }) => {
+  return externalRequest.post('http://localhost:8080/api/v1/boards', rest, { signal });
 };
 
 export const getWorkspace = async (data: { workspaceId: string; signal: AbortSignal }) => {
@@ -33,16 +31,12 @@ export const getWorkspaceList = async (data: { userId: string; signal: AbortSign
   ];
 };
 
-export const editWorkspaceName = async (data: { workspaceId: string; name: string; signal: AbortSignal }) => {
-  const { signal, ...rest } = data;
-  const res = await externalRequest.post('/posts', rest, { signal });
-  return res.data;
+export const editWorkspaceName = ({ signal, ...rest }: { workspaceId: string; name: string; signal: AbortSignal }) => {
+  return externalRequest.post('/posts', rest, { signal });
 };
 
-export const createWorkspace = async (data: { name: string; signal: AbortSignal }) => {
-  const { signal, ...rest } = data;
-  const res = await externalRequest.post('http://localhost:8080/api/v1/workspaces', rest, { signal });
-  return res.data;
+export const createWorkspace = ({ signal, ...rest }: { name: string; signal: AbortSignal }) => {
+  return externalRequest.post('http://localhost:8080/api/v1/workspaces', rest, { signal });
 };
 
 export const getWorkspaceMembers = async (data: { workspaceId: string | undefined }) => {

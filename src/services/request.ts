@@ -21,7 +21,7 @@ export const externalRequest = axios.create({
 
 externalRequest.interceptors.response.use(
   function (response) {
-    return response;
+    return response.data;
   },
   async function (error) {
     if (typeof window !== 'undefined') {

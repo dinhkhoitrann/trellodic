@@ -1,19 +1,18 @@
 import Cookies from 'js-cookie';
 import { externalRequest } from '../request';
 
-export const login = async (data: { email: string; password: string; signal: AbortSignal }) => {
-  const { signal, ...rest } = data;
-  const res = await externalRequest.post('http://localhost:8080/api/v1/auth/login', rest, { signal });
-  return res.data;
+export const login = ({ signal, ...rest }: { email: string; password: string; signal: AbortSignal }) => {
+  return externalRequest.post('http://localhost:8080/api/v1/auth/login', rest, { signal });
 };
 
-export const loginWithGoogle = async (data: { code: string; signal: AbortSignal }) => {
-  const { signal, ...rest } = data;
-  const res = await externalRequest.post('http://localhost:8080/api/v1/auth/google-login', rest, { signal });
-  return res.data;
+export const loginWithGoogle = ({ signal, ...rest }: { code: string; signal: AbortSignal }) => {
+  return externalRequest.post('http://localhost:8080/api/v1/auth/google-login', rest, { signal });
 };
 
-export const signup = async (data: {
+export const signup = ({
+  signal,
+  ...rest
+}: {
   email: string;
   name: string;
   password: string;
@@ -22,9 +21,7 @@ export const signup = async (data: {
   birthday: string;
   signal: AbortSignal;
 }) => {
-  const { signal, ...rest } = data;
-  const res = await externalRequest.post('http://localhost:8080/api/v1/auth/register', rest, { signal });
-  return res.data;
+  return externalRequest.post('http://localhost:8080/api/v1/auth/register', rest, { signal });
 };
 
 export const verifyToken = (token: string) => {
@@ -33,8 +30,10 @@ export const verifyToken = (token: string) => {
 
 export const refreshToken = async () => {
   const refreshToken = Cookies.get('refreshToken');
-  const res = await externalRequest.post('http://localhost:8080/api/v1/auth/refresh', { refreshToken });
-  return res.data?.data.accessToken;
+  const res: { accessToken: string } = await externalRequest.post('http://localhost:8080/api/v1/auth/refresh', {
+    refreshToken,
+  });
+  return res.accessToken;
 };
 
 export const forgotPassword = (data: { email: string }) => {
