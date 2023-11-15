@@ -52,7 +52,7 @@ function MembersView({ card, isSaving, onAddMember }: MembersViewProps) {
             size="small"
             options={card.memberIds || []}
             disableCloseOnSelect
-            defaultValue={card.memberIds}
+            defaultValue={card.memberIds || []}
             getOptionLabel={(option) => option.name}
             renderOption={(props, option, { selected }) => (
               <li {...props}>
