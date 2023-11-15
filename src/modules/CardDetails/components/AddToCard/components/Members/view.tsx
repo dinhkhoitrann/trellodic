@@ -20,10 +20,10 @@ type MembersViewProps = BoardGlobalProps & {
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-function MembersView({ card, isSaving, onAddMember }: MembersViewProps) {
+function MembersView({ card: { memberIds = [] }, isSaving, onAddMember }: MembersViewProps) {
   const [isModified, setIsModified] = useState(false);
   const ref = useRef<ActionButtonRef>(null);
-  const selectedMembers = useRef<User[]>(card.memberIds || []);
+  const selectedMembers = useRef<User[]>(memberIds);
 
   const handleClose = () => {
     ref.current?.handleClose();
@@ -35,7 +35,7 @@ function MembersView({ card, isSaving, onAddMember }: MembersViewProps) {
 
   const handleChangeMembers = (members: User[]) => {
     selectedMembers.current = [...members];
-    const isChanged = !isEqual(selectedMembers.current, card.memberIds || []);
+    const isChanged = !isEqual(selectedMembers.current, memberIds);
     if (isChanged !== isModified) {
       setIsModified(isChanged);
     }
@@ -50,9 +50,9 @@ function MembersView({ card, isSaving, onAddMember }: MembersViewProps) {
           <Autocomplete
             multiple
             size="small"
-            options={card.memberIds || []}
+            options={memberIds}
             disableCloseOnSelect
-            defaultValue={card.memberIds || []}
+            defaultValue={memberIds}
             getOptionLabel={(option) => option.name}
             renderOption={(props, option, { selected }) => (
               <li {...props}>
