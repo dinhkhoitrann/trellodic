@@ -2,7 +2,7 @@ import { mockData } from '@/apis/mock-data';
 import { externalRequest } from '../request';
 
 export const fetchBoardDetails = async (data: { boardId: string; signal?: AbortSignal }) => {
-  await externalRequest.get(`/posts`, {
+  await externalRequest.get('https://jsonplaceholder.typicode.com/posts', {
     signal: data.signal,
   });
 
@@ -10,5 +10,5 @@ export const fetchBoardDetails = async (data: { boardId: string; signal?: AbortS
 };
 
 export const inviteMembers = (data: { memberIds: string[] }) => {
-  return externalRequest.post('/posts', data);
+  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data);
 };

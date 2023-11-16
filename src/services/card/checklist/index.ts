@@ -6,7 +6,7 @@ export const addChecklist = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('/posts', data, {
+  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data, {
     signal: data.signal,
   });
 };
@@ -17,7 +17,7 @@ export const deleteChecklist = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.delete('/posts/1', {
+  return externalRequest.delete('https://jsonplaceholder.typicode.com/posts/1', {
     signal: data.signal,
   });
 };
@@ -29,7 +29,7 @@ export const editChecklistTitle = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('/posts', data, {
+  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data, {
     signal: data.signal,
   });
 };
@@ -42,7 +42,7 @@ export const markChecklistItemIsDone = (data: {
   signal: AbortSignal;
 }) => {
   return externalRequest.post(
-    '/posts',
+    'https://jsonplaceholder.typicode.com/posts',
     {},
     {
       signal: data.signal,
@@ -57,7 +57,7 @@ export const deleteChecklistItem = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.delete('/posts/1', {
+  return externalRequest.delete('https://jsonplaceholder.typicode.com/posts/1', {
     signal: data.signal,
   });
 };
@@ -70,7 +70,7 @@ export const editTitleChecklistItem = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.put('/posts/1', data, {
+  return externalRequest.put('https://jsonplaceholder.typicode.com/posts/1', data, {
     signal: data.signal,
   });
 };
@@ -82,7 +82,7 @@ export const createChecklistItem = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('/posts', data, {
+  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data, {
     signal: data.signal,
   });
 };

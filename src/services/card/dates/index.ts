@@ -7,9 +7,9 @@ export const editDueDates = (data: {
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('/posts', data);
+  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data);
 };
 
 export const markCardIsDone = (data: { cardId: string; boardId: string; isDone: boolean; signal: AbortSignal }) => {
-  return externalRequest.post('/posts', data);
+  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data);
 };

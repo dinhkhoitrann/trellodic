@@ -9,7 +9,7 @@ export const addComment = ({
   cardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('/posts', rest, { signal });
+  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', rest, { signal });
 };
 
 export const editComment = ({
@@ -22,9 +22,9 @@ export const editComment = ({
   cardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('/posts', rest, { signal });
+  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', rest, { signal });
 };
 
 export const deleteComment = (data: { commentId: string; boardId: string; cardId: string; signal: AbortSignal }) => {
-  return externalRequest.delete('/posts/1', { signal: data.signal });
+  return externalRequest.delete('https://jsonplaceholder.typicode.com/posts/1', { signal: data.signal });
 };

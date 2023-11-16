@@ -9,7 +9,7 @@ export const editDescription = ({
   cardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('/posts', rest, {
+  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', rest, {
     signal,
   });
 };
