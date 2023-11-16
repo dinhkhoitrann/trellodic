@@ -35,7 +35,7 @@ export const cardApi = createApi({
     }),
     editCard: builder.mutation<
       { data: any },
-      { cardId: string; title?: string; description?: string; onSuccess?: () => void }
+      { cardId: string; title?: string; description?: string; cover?: string; onSuccess?: () => void }
     >({
       queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await editCard({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {

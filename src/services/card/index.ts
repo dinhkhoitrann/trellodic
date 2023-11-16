@@ -26,6 +26,7 @@ export const editCard = ({
   cardId: string;
   title?: string;
   description?: string;
+  cover?: string;
   signal: AbortSignal;
 }) => {
   return externalRequest.patch(`/cards/${cardId}`, rest, { signal });

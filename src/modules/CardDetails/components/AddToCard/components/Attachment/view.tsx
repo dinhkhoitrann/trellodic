@@ -68,12 +68,12 @@ function AttachmentView({ files, loading, onUpload, onSave, onRemoveFile, onRemo
                   </Stack>
                 ))}
               </Box>
-              <Stack direction="row" spacing={1}>
-                <Button variant="contained" disabled={loading} onClick={() => onSave(handleClose)}>
-                  {loading ? 'Saving' : 'Save'}
-                </Button>
+              <Stack direction="row" justifyContent="end" spacing={1}>
                 <Button variant="outlined" color="error" onClick={onRemoveAll}>
                   Remove all
+                </Button>
+                <Button variant="contained" disabled={loading} onClick={() => onSave(handleClose)}>
+                  {loading ? 'Saving' : 'Save'}
                 </Button>
               </Stack>
             </>
