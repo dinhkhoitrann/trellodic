@@ -28,7 +28,7 @@ function CoverView({ image, isUploading, isSaveSuccess, onUpload, onSaveCover }:
   };
 
   const renderImage = () => {
-    if (!image || isSaveSuccess) return;
+    if (!image) return;
     return (
       <>
         <Box sx={{ mt: 2, maxHeight: '200px', borderRadius: '4px', overflow: 'hidden' }}>
