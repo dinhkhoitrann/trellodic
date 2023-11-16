@@ -1,4 +1,3 @@
-import { useParams } from 'next/navigation';
 import { useGetCardDetailsQuery } from '@/redux/services/card/card';
 import CardDetailsView from './view';
 
@@ -7,9 +6,8 @@ type CardDetailsProps = {
 };
 
 function CardDetails({ cardId }: CardDetailsProps) {
-  const { boardId } = useParams();
   const { data, error, isFetching, isError } = useGetCardDetailsQuery(
-    { cardId, boardId: boardId.toString() },
+    { cardId },
     { pollingInterval: 60000 * 5, refetchOnFocus: true, refetchOnReconnect: true },
   );
 

@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { Card } from '@/types/card.type';
-import { addCard, fetchCard } from '@/services/card';
+import { addCard, editCard, fetchCard } from '@/services/card';
 
 export const cardApi = createApi({
   reducerPath: 'cardApi',
@@ -33,7 +33,18 @@ export const cardApi = createApi({
         onSuccess();
       },
     }),
+    editCard: builder.mutation<
+      { data: any },
+      { cardId: string; title?: string; description?: string; onSuccess?: () => void }
+    >({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await editCard({ ...rest, signal }) }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess?.();
+      },
+      invalidatesTags: (_result, _error, { cardId }) => [{ type: 'Card', id: cardId }],
+    }),
   }),
 });
 
-export const { useGetCardDetailsQuery, useCreateCardMutation } = cardApi;
+export const { useGetCardDetailsQuery, useCreateCardMutation, useEditCardMutation } = cardApi;

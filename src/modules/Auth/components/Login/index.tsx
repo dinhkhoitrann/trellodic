@@ -21,7 +21,7 @@ function LoginForm() {
       ...values,
       onSuccess: () => {
         router.push('/');
-        externalRequest.defaults.headers.common['Authorization'] = `Bearer ${Cookies.get('token')}`;
+        externalRequest.defaults.headers['Authorization'] = `Bearer ${Cookies.get('token')}`;
       },
     });
   };
