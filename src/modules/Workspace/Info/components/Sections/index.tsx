@@ -8,7 +8,7 @@ function Sections() {
   const workspace = useAppSelector(selectWorkspaceDetails);
   const { ownerBoards, otherBoards } = getBoardsForSections('1', workspace);
 
-  return <SectionsView ownerBoards={ownerBoards} otherBoards={otherBoards} />;
+  return <SectionsView ownerBoards={ownerBoards} otherBoards={otherBoards} workspace={workspace} />;
 }
 
 export default Sections;

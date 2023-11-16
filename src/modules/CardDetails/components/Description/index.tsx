@@ -1,17 +1,16 @@
 import { useState } from 'react';
-import { useEditDescriptionMutation } from '@/redux/services/card/description';
 import { BoardGlobalProps, withBoard } from '@/hocs';
 import DescriptionView from './view';
+import { useEditCardMutation } from '@/redux/services/card/card';
 
-function Description({ boardId, cardId, card, onRefreshCard }: BoardGlobalProps) {
+function Description({ cardId, card, onRefreshCard }: BoardGlobalProps) {
   const [editorVisible, setEditorVisible] = useState(false);
-  const [editDescription, { isLoading }] = useEditDescriptionMutation();
+  const [editDescription, { isLoading }] = useEditCardMutation();
 
-  const handleSave = async (data: string) => {
-    await editDescription({
-      content: data,
-      boardId,
+  const handleSave = (data: string) => {
+    editDescription({
       cardId,
+      description: data,
       onSuccess: () => {
         onRefreshCard();
         setEditorVisible(false);

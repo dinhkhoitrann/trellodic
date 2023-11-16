@@ -21,7 +21,7 @@ export const authApi = createApi({
       },
     }),
     signup: builder.mutation<
-      void,
+      { data: any },
       {
         email: string;
         name: string;
@@ -42,7 +42,7 @@ export const authApi = createApi({
       { data: { accessToken: string; refreshToken: string; user: User } },
       { code: string; onSuccess: () => void }
     >({
-      queryFn: async (args, { signal }) => ({ data: await loginWithGoogle({ ...args, signal }) }),
+      queryFn: async (args) => ({ data: await loginWithGoogle({ code: args.code }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         const { data: responseData } = await queryFulfilled;
         saveAuthToken(responseData);

@@ -8,16 +8,6 @@ type ModalProps = {
   onClose: () => void;
 };
 
-export const CUSTOM_STYLES_MODAL = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  boxShadow: 24,
-  borderRadius: '6px',
-  px: { xs: 4, md: 5 },
-  py: 4,
-};
-
 function Modal({ children, isVisibleModal, sx, onClose }: ModalProps) {
   return (
     <MUIModal

@@ -1,14 +1,15 @@
 import { externalRequest } from '@/services/request';
 
-export const editDescription = async (data: {
+export const editDescription = ({
+  signal,
+  ...rest
+}: {
   content: string;
   boardId: string;
   cardId: string;
   signal: AbortSignal;
 }) => {
-  const { signal, ...rest } = data;
-  const res = await externalRequest.post('/posts', rest, {
+  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', rest, {
     signal,
   });
-  return res.data;
 };

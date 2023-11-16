@@ -251,7 +251,7 @@ export const mockData: MockBoardData = {
         _id: 'column-id-02',
         boardId: 'board-id-01',
         title: 'Inprogress Column 02',
-        cardOrderIds: ['card-id-10', 'card-id-09', 'card-id-08'],
+        cardOrderIds: ['655497a43b7dba7af3972bd4', 'card-id-09', 'card-id-08'],
         cards: [
           {
             _id: 'card-id-08',
@@ -276,12 +276,14 @@ export const mockData: MockBoardData = {
             attachments: [],
           },
           {
-            _id: 'card-id-10',
+            _id: '655497a43b7dba7af3972bd4',
             boardId: 'board-id-01',
             columnId: 'column-id-02',
             title: 'Title of card 10',
             description: '',
-            cover: '',
+            cover:
+              // eslint-disable-next-line max-len
+              'http://res.cloudinary.com/promagnet/image/upload/v1700119194/1700119194031518774/abstract-background-6m6cjbifu3zpfv84.jpg.jpg',
             memberIds: [],
             comments: [],
             attachments: [],

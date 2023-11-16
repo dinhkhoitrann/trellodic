@@ -6,6 +6,7 @@ import Labels from './components/Labels';
 import Checklist from './components/Checklist';
 import Dates from './components/Dates';
 import Attachment from './components/Attachment';
+import Cover from './components/Cover';
 
 function AddToCardView() {
   return (
@@ -23,6 +24,9 @@ function AddToCardView() {
         </Grid>
         <Grid item>
           <Dates />
+        </Grid>
+        <Grid item>
+          <Cover />
         </Grid>
         <Grid item>
           <Attachment />
