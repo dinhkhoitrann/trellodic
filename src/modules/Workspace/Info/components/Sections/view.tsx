@@ -1,20 +1,24 @@
 'use client';
 import Link from 'next/link';
+import { isEmpty } from 'lodash';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import Skeleton from '@mui/material/Skeleton';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import BoardItem from './components/BoardItem';
 import CreateBoard from './components/CreateBoard';
 import { Board } from '@/types/board.type';
+import { Workspace } from '@/types/workspace.type';
 
 type SectionsViewProps = {
   ownerBoards: Partial<Board>[];
   otherBoards: Partial<Board>[];
+  workspace: Partial<Workspace>;
 };
 
-function SectionsView({ ownerBoards, otherBoards }: SectionsViewProps) {
+function SectionsView({ ownerBoards, otherBoards, workspace }: SectionsViewProps) {
   const renderSection = (title: string, boards: Partial<Board>[]) => {
     if (boards.length === 0) return;
     return (
@@ -59,6 +63,21 @@ function SectionsView({ ownerBoards, otherBoards }: SectionsViewProps) {
       </Grid>
     );
   };
+
+  if (isEmpty(workspace)) {
+    return (
+      <Box sx={{ ml: 2, my: 4 }}>
+        <Skeleton variant="rounded" width={200} height={20} />
+        <Grid container spacing={2} sx={{ mt: 1 }}>
+          {[...Array(2)].map((_, index) => (
+            <Grid item key={index}>
+              <Skeleton variant="rounded" width={190} height={96} />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ ml: 2, my: 4 }}>
