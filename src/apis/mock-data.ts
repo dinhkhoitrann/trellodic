@@ -281,7 +281,9 @@ export const mockData: MockBoardData = {
             columnId: 'column-id-02',
             title: 'Title of card 10',
             description: '',
-            cover: '',
+            cover:
+              // eslint-disable-next-line max-len
+              'http://res.cloudinary.com/promagnet/image/upload/v1700119194/1700119194031518774/abstract-background-6m6cjbifu3zpfv84.jpg.jpg',
             memberIds: [],
             comments: [],
             attachments: [],

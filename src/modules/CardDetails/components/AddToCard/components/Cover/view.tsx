@@ -36,7 +36,7 @@ function CoverView({ image, isUploading, isSaveSuccess, onUpload, onSaveCover }:
         </Box>
         <Box sx={{ textAlign: 'end', mt: 1 }}>
           <Button variant="contained" disabled={isUploading} onClick={onSaveCover}>
-            Save
+            {isUploading ? 'Saving' : 'Save'}
           </Button>
         </Box>
       </>

@@ -6,7 +6,7 @@ import CoverView from './view';
 import { useEditCardMutation } from '@/redux/services/card/card';
 import { BoardGlobalProps, withBoard } from '@/hocs';
 
-function Cover({ cardId }: BoardGlobalProps) {
+function Cover({ cardId, boardId }: BoardGlobalProps) {
   const coverRef = useRef<File>();
   const [image, setImage] = useState<string | ArrayBuffer | null>();
 
@@ -16,7 +16,7 @@ function Cover({ cardId }: BoardGlobalProps) {
     mutationFn: uploadFile,
     onSuccess: (response) => {
       toast.success('Saved cover successfully');
-      editCover({ cardId, cover: response.data.url });
+      editCover({ cardId, boardId, cover: response.data.url });
     },
     onError: () => {
       toast.error('Failed to save cover');
