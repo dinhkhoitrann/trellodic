@@ -17,12 +17,6 @@ function Editor({ data, onDataChange }: EditorProps) {
         editor={ClassicEditor}
         data={data}
         config={{
-          ckfinder: {
-            // Upload the images to the server using the CKFinder QuickUpload command.
-            uploadUrl:
-              // eslint-disable-next-line max-len
-              'https://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json',
-          },
           toolbar: {
             items: [
               'undo',
@@ -42,17 +36,19 @@ function Editor({ data, onDataChange }: EditorProps) {
               'superscript',
               'code',
               '|',
-              'uploadImage',
               'blockQuote',
               'codeBlock',
-              '|',
-              'alignment',
               '|',
               'bulletedList',
               'numberedList',
               'todoList',
               'outdent',
               'indent',
+              '|',
+              'insertTable',
+              'tableColumn',
+              'tableRow',
+              'mergeTableCells',
             ],
             shouldNotGroupWhenFull: true,
           },

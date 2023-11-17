@@ -23,26 +23,18 @@ type DescriptionViewProps = {
 
 function DescriptionView({ editorVisible, isLoading, card, onSave, onShowHideEditor }: DescriptionViewProps) {
   const [editorData, setEditorData] = useState(card.description || '');
-  const [showMore, setShowMore] = useState(editorData.length <= 250);
+  const [showMore, setShowMore] = useState(false);
   const editorDataRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!editorVisible && editorDataRef.current) {
-      if (showMore) {
-        editorDataRef.current.innerHTML = editorData;
-      } else {
-        editorDataRef.current.innerHTML = editorData.substring(0, 247) + '...';
+      editorDataRef.current.innerHTML = editorData;
+
+      if (editorDataRef.current.clientHeight > 200) {
+        setShowMore(true);
       }
     }
-  }, [editorData, editorVisible, showMore]);
-
-  useEffect(() => {
-    if (editorData.length <= 250) {
-      setShowMore(true);
-    } else {
-      setShowMore(false);
-    }
-  }, [editorData.length, editorVisible]);
+  }, [editorData, editorVisible]);
 
   const handleEditorDataChange = (data: string) => {
     setEditorData(data);
@@ -78,21 +70,32 @@ function DescriptionView({ editorVisible, isLoading, card, onSave, onShowHideEdi
     }
   };
 
+  const renderButtons = () => {
+    if (!editorDataRef.current || (editorDataRef.current && editorDataRef.current.clientHeight <= 200)) return;
+
+    if (showMore) {
+      return (
+        <Button onClick={() => setShowMore((prevState) => !prevState)} endIcon={<ExpandMoreIcon />}>
+          Show more
+        </Button>
+      );
+    }
+
+    return (
+      <Button onClick={() => setShowMore((prevState) => !prevState)} endIcon={<ExpandLessIcon />}>
+        Show less
+      </Button>
+    );
+  };
+
   const renderEditorData = () => {
     if (!editorVisible) {
       return (
         <div className={Styles.data}>
-          <Box ref={editorDataRef} sx={{ ml: 2, cursor: 'pointer' }} onClick={onShowHideEditor} />
-          {!showMore && (
-            <Button onClick={() => setShowMore(!showMore)} endIcon={<ExpandMoreIcon />}>
-              Show more
-            </Button>
-          )}
-          {showMore && editorDataRef.current && editorDataRef.current.innerHTML.length > 250 && (
-            <Button onClick={() => setShowMore(!showMore)} endIcon={<ExpandLessIcon />}>
-              Show less
-            </Button>
-          )}
+          <Box sx={{ maxHeight: showMore ? '200px' : 'unset', overflowY: 'hidden' }}>
+            <Box ref={editorDataRef} sx={{ ml: 2, cursor: 'pointer' }} onClick={onShowHideEditor} />
+          </Box>
+          <Box sx={{ mt: 2 }}>{renderButtons()}</Box>
         </div>
       );
     }
