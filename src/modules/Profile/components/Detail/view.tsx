@@ -2,11 +2,11 @@ import { UseFormReturn } from 'react-hook-form';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import FormProvider from '@/components/Form/FormProvider';
+import FormProvider from '@/components/Form/components/FormProvider';
 import { UserProfileFormValues } from './validation';
-import RHFTextField from '@/components/Form/RHFTextField';
+import RHFTextField from '@/components/Form/components/TextField';
 import { Box, Button, Grid } from '@mui/material';
-import RHFDatePicker from '@/components/Form/RHFDatePicker';
+import RHFDatePicker from '@/components/Form/components/DatePicker';
 
 type ProfileDetailsViewProps = {
   methods: UseFormReturn<UserProfileFormValues>;

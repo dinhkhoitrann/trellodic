@@ -3,10 +3,10 @@ import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import FormProvider from '@/components/Form/FormProvider';
-import RHFTextField from '@/components/Form/RHFTextField';
-import RHFDatePicker from '@/components/Form/RHFDatePicker';
-import PasswordField from '@/components/Form/Fields/Password';
+import FormProvider from '@/components/Form/components/FormProvider';
+import RHFTextField from '@/components/Form/components/TextField';
+import RHFDatePicker from '@/components/Form/components/DatePicker';
+import PasswordField from '@/components/Form/components/Fields/Password';
 import { SignupDefaultValues } from './validation';
 
 type SignupFormViewProps = {

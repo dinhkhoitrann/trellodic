@@ -2,8 +2,8 @@ import { UseFormReturn } from 'react-hook-form';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import FormProvider from '@/components/Form/FormProvider';
-import PasswordField from '@/components/Form/Fields/Password';
+import FormProvider from '@/components/Form/components/FormProvider';
+import PasswordField from '@/components/Form/components/Fields/Password';
 import { ResetPasswordDefaultValues } from './validation';
 
 type ResetPasswordFormViewProps = {

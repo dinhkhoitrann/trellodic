@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import FormProvider from '@/components/Form/FormProvider';
-import RHFTextField from '@/components/Form/RHFTextField';
+import FormProvider from '@/components/Form/components/FormProvider';
+import RHFTextField from '@/components/Form/components/TextField';
 import { UseFormReturn } from 'react-hook-form';
 
 type CreateFormViewProps = {

@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { useMutation } from '@tanstack/react-query';
 import { markNotiAsRead } from '@/services/notification';
-import { useNotiContext } from '@/modules/Notification';
+import { useNotiContext } from '@/components/AppBar/components/Menus/Notification';
 import { Notification } from '@/types/noti.type';
 import NotiItemView from './view';
 

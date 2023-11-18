@@ -11,14 +11,14 @@ import InputAdornment from '@mui/material/InputAdornment';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
-import Workspaces from './Menus/Workspaces';
-import CreateWorkspaceModal from '@/modules/Workspace/Sidebar/components/CreateWorkspace';
-import ModeSelect from '@/components/ModeSelect';
+import Workspaces from './components/Menus/Workspaces';
+import CreateWorkspaceModal from '@/modules/Workspace/components/Sidebar/components/CreateWorkspace';
+import ModeSelect from './components/Menus/ModeSelect';
 import TrelloIcon from '@/common/assets/icons/trello.svg';
 import { CustomThemeOptions } from '@/common/styles/theme';
-import Profiles from './Menus/Profiles';
+import Profiles from './components/Menus/Profiles';
 import { useColorScheme } from '@mui/material';
-import Notification from '@/modules/Notification';
+import Notification from './components/Menus/Notification';
 
 function AppBarView() {
   const [searchValue, setSearchValue] = useState('');

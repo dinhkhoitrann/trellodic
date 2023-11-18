@@ -3,7 +3,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
-import RHFTextField, { RHFTextFieldProps } from '../RHFTextField';
+import RHFTextField, { RHFTextFieldProps } from '../TextField';
 
 function PasswordField(props: RHFTextFieldProps) {
   const [showPassword, setShowPassword] = useState(false);

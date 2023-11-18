@@ -5,11 +5,11 @@ import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import FormProvider from '@/components/Form/FormProvider';
-import RHFTextField from '@/components/Form/RHFTextField';
+import FormProvider from '@/components/Form/components/FormProvider';
+import RHFTextField from '@/components/Form/components/TextField';
 import GoogleSignInButton from './components/GoogleSignInButton';
 import Link from 'next/link';
-import PasswordField from '@/components/Form/Fields/Password';
+import PasswordField from '@/components/Form/components/Fields/Password';
 
 type FormViewProps = {
   methods: UseFormReturn<
