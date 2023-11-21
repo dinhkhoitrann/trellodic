@@ -2,6 +2,7 @@ import { Board } from '@/types/board.type';
 import { User } from '@/types/user.type';
 import { Workspace } from '@/types/workspace.type';
 import { Notification } from '@/types/noti.type';
+import { SearchResults } from '@/types/search.type';
 
 /**
  * YouTube: TrungQuanDev - Một Lập Trình Viên
@@ -395,3 +396,39 @@ export const mockNotifs: Notification[] = [
     isRead: true,
   },
 ];
+
+export const mockSearchResult: SearchResults = {
+  cards: [
+    {
+      _id: '655497a43b7dba7af3972bd4',
+      boardId: '1',
+      cardTitle: 'Learn ReactJS',
+      boardTitle: 'Board learn ReactJS',
+      cardCover:
+        // eslint-disable-next-line max-len
+        'https://res.cloudinary.com/promagnet/image/upload/v1700119194/1700119194031518774/abstract-background-6m6cjbifu3zpfv84.jpg.jpg',
+    },
+    {
+      _id: '655497a43b7dba7af3972bd4',
+      boardId: '1',
+      cardTitle: 'Learn NextJS',
+      boardTitle: 'Board learn NextJS',
+    },
+  ],
+  boards: [
+    {
+      _id: '1',
+      boardCover:
+        // eslint-disable-next-line max-len
+        'https://res.cloudinary.com/promagnet/image/upload/v1700119194/1700119194031518774/abstract-background-6m6cjbifu3zpfv84.jpg.jpg',
+      boardTitle: 'Learn Git',
+      workspaceTitle: 'Learn Testing',
+    },
+    {
+      _id: '2',
+      boardTitle: 'Learn AWS',
+      workspaceTitle: 'Learn BE',
+    },
+  ],
+  workspaces: [],
+};

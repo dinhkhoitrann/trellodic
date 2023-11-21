@@ -5,23 +5,19 @@ import Box from '@mui/material/Box';
 import AppsIcon from '@mui/icons-material/Apps';
 import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import InputAdornment from '@mui/material/InputAdornment';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
-import SearchIcon from '@mui/icons-material/Search';
-import CloseIcon from '@mui/icons-material/Close';
-import Workspaces from './components/Menus/Workspaces';
+import { useColorScheme } from '@mui/material';
 import CreateWorkspaceModal from '@/modules/Workspace/components/Sidebar/components/CreateWorkspace';
-import ModeSelect from './components/Menus/ModeSelect';
 import TrelloIcon from '@/common/assets/icons/trello.svg';
 import { CustomThemeOptions } from '@/common/styles/theme';
+import Workspaces from './components/Menus/Workspaces';
+import ModeSelect from './components/Menus/ModeSelect';
 import Profiles from './components/Menus/Profiles';
-import { useColorScheme } from '@mui/material';
 import Notification from './components/Menus/Notification';
+import Search from './components/Menus/Search';
 
 function AppBarView() {
-  const [searchValue, setSearchValue] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
   const theme = useTheme<CustomThemeOptions>();
   const { mode } = useColorScheme();
@@ -68,52 +64,7 @@ function AppBarView() {
           </Box>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <TextField
-            id="outlined-search"
-            label="Search..."
-            type="text"
-            size="small"
-            value={searchValue}
-            sx={{
-              minWidth: '120px',
-              maxWidth: '190px',
-              '& label': {
-                color: textColor,
-                '&.Mui-focused': {
-                  color: textColor,
-                },
-              },
-              '& input': {
-                color: textColor,
-              },
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderColor: textColor,
-                },
-                '&:hover fieldset': {
-                  borderColor: textColor,
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: textColor,
-                },
-              },
-            }}
-            onChange={(e) => setSearchValue(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon sx={{ color: textColor }} />
-                </InputAdornment>
-              ),
-              endAdornment: searchValue && (
-                <CloseIcon
-                  fontSize="small"
-                  sx={{ color: textColor, cursor: 'pointer' }}
-                  onClick={() => setSearchValue('')}
-                />
-              ),
-            }}
-          />
+          <Search />
           <ModeSelect />
           <Notification />
           <Profiles />

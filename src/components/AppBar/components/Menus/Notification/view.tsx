@@ -50,7 +50,6 @@ function NotificationView() {
                 bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#282e33' : 'white'),
                 minWidth: '500px',
                 mr: 2,
-                borderRadius: '4px',
               }}
             >
               <Header />
