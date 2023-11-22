@@ -10,9 +10,10 @@ import Workspaces from '../Workspaces';
 type ResultsViewProps = {
   results: SearchResults | undefined;
   isSearching: boolean;
+  onCloseResult: () => void;
 };
 
-function ResultsView({ results, isSearching }: ResultsViewProps) {
+function ResultsView({ results, isSearching, onCloseResult }: ResultsViewProps) {
   const renderResults = () => {
     if (!results) {
       return (
@@ -34,9 +35,9 @@ function ResultsView({ results, isSearching }: ResultsViewProps) {
 
     return (
       <Box sx={{ maxHeight: '400px', overflowY: 'auto' }}>
-        <Cards cards={results.cards} />
-        <Boards boards={results.boards} />
-        <Workspaces workspaces={results.workspaces} />
+        <Cards cards={results.cards} onCloseResult={onCloseResult} />
+        <Boards boards={results.boards} onCloseResult={onCloseResult} />
+        <Workspaces workspaces={results.workspaces} onCloseResult={onCloseResult} />
       </Box>
     );
   };

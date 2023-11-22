@@ -4,12 +4,14 @@ import CardsView from './view';
 
 type CardsProps = {
   cards: CardResult[] | undefined;
+  onCloseResult: () => void;
 };
 
-function Cards({ cards }: CardsProps) {
+function Cards({ cards, onCloseResult }: CardsProps) {
   const router = useRouter();
 
   const handleViewCard = (boardId: string, cardId: string) => {
+    onCloseResult();
     router.push(`/boards/${boardId}?cardId=${cardId}`);
   };
 

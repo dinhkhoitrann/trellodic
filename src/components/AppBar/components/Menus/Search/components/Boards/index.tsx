@@ -4,12 +4,14 @@ import BoardsView from './view';
 
 type BoardsProps = {
   boards: BoardResult[] | undefined;
+  onCloseResult: () => void;
 };
 
-function Boards({ boards }: BoardsProps) {
+function Boards({ boards, onCloseResult }: BoardsProps) {
   const router = useRouter();
 
   const handleViewBoard = (boardId: string) => {
+    onCloseResult();
     router.push(`/boards/${boardId}`);
   };
 

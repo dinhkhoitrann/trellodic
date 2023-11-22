@@ -6,9 +6,10 @@ import ResultsView from './view';
 
 type ResultsProps = {
   search: string;
+  onCloseResult: () => void;
 };
 
-function Results({ search }: ResultsProps) {
+function Results({ search, onCloseResult }: ResultsProps) {
   const {
     mutate,
     data: results,
@@ -22,7 +23,7 @@ function Results({ search }: ResultsProps) {
     mutate({ search: debouncedSearch.trim() });
   }, [debouncedSearch, mutate]);
 
-  return <ResultsView results={results} isSearching={isPending} />;
+  return <ResultsView results={results} isSearching={isPending} onCloseResult={onCloseResult} />;
 }
 
 export default Results;

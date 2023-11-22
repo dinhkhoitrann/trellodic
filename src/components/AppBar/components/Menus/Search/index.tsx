@@ -73,7 +73,7 @@ function Search() {
             minWidth: '500px',
           }}
         >
-          <Results search={search} />
+          <Results search={search} onCloseResult={() => setAnchorEl(null)} />
         </Card>
       </Popper>
     </>
