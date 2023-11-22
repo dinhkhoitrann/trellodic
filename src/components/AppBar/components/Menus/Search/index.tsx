@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import Image from 'next/image';
 import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Popper from '@mui/material/Popper';
+import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import { useColorScheme } from '@mui/material';
@@ -73,7 +76,14 @@ function Search() {
             minWidth: '500px',
           }}
         >
-          <Results search={search} onCloseResult={() => setAnchorEl(null)} />
+          {search.trim() ? (
+            <Results search={search} onCloseResult={() => setAnchorEl(null)} />
+          ) : (
+            <Box sx={{ textAlign: 'center', my: 6 }}>
+              <Image src="/seo.png" width={150} height={150} alt="Search" />
+              <Typography fontWeight={600}>Search cards, boards, workspaces</Typography>
+            </Box>
+          )}
         </Card>
       </Popper>
     </>
