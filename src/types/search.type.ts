@@ -22,5 +22,5 @@ export interface BoardResult {
 export interface WorkspaceResult {
   readonly _id: string;
   workspaceTitle: string;
-  workspaceImage: string;
+  workspaceImage?: string;
 }

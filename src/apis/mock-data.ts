@@ -430,5 +430,17 @@ export const mockSearchResult: SearchResults = {
       workspaceTitle: 'Learn BE',
     },
   ],
-  workspaces: [],
+  workspaces: [
+    {
+      _id: '1',
+      workspaceTitle: 'Workspace for learning web development',
+      workspaceImage:
+        // eslint-disable-next-line max-len
+        'https://res.cloudinary.com/promagnet/image/upload/v1700119194/1700119194031518774/abstract-background-6m6cjbifu3zpfv84.jpg.jpg',
+    },
+    {
+      _id: '2',
+      workspaceTitle: 'Workspace for learning HTML',
+    },
+  ],
 };

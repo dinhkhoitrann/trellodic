@@ -7,7 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 type ResultItemProps = {
   startIcon: React.ReactNode;
   primaryText: string;
-  secondaryText: string;
+  secondaryText?: string;
   onClick: () => void;
 };
 

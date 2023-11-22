@@ -5,6 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { SearchResults } from '@/types/search.type';
 import Cards from '../Cards';
 import Boards from '../Boards';
+import Workspaces from '../Workspaces';
 
 type ResultsViewProps = {
   results: SearchResults | undefined;
@@ -32,9 +33,10 @@ function ResultsView({ results, isSearching }: ResultsViewProps) {
     }
 
     return (
-      <Box>
+      <Box sx={{ maxHeight: '400px', overflowY: 'auto' }}>
         <Cards cards={results.cards} />
         <Boards boards={results.boards} />
+        <Workspaces workspaces={results.workspaces} />
       </Box>
     );
   };
