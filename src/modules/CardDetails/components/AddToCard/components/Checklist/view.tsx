@@ -6,7 +6,7 @@ import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import PopoverWrapper from '../Popover';
 
 type ChecklistViewProps = {
-  title?: string;
+  title: string | undefined;
   isPending: boolean;
   isSuccess: boolean;
   onAddChecklist: (_title: string) => void;
@@ -25,8 +25,9 @@ function ChecklistView({ title, isPending, isSuccess, onAddChecklist, onTitleCha
     ref.current?.handleClose();
   };
 
-  const handleAddChecklist = async () => {
-    await onAddChecklist(title!);
+  const handleAddChecklist = () => {
+    if (!title) return;
+    onAddChecklist(title);
   };
 
   return (
@@ -36,7 +37,7 @@ function ChecklistView({ title, isPending, isSuccess, onAddChecklist, onTitleCha
       child={
         <PopoverWrapper title="Add checklist" onClose={handleClose}>
           <TextField
-            value={title}
+            value={title || ''}
             error={title === ''}
             helperText={title === '' && '* Please enter checklist title'}
             fullWidth
@@ -45,7 +46,7 @@ function ChecklistView({ title, isPending, isSuccess, onAddChecklist, onTitleCha
             sx={{ marginTop: '20px' }}
             onChange={onTitleChange}
           />
-          <Button variant="contained" disabled={isPending} sx={{ mt: 2 }} onClick={handleAddChecklist}>
+          <Button variant="contained" disabled={isPending || !title} sx={{ mt: 2 }} onClick={handleAddChecklist}>
             {isPending ? 'Adding...' : 'Add'}
           </Button>
         </PopoverWrapper>

@@ -1,13 +1,8 @@
 import { externalRequest } from '../../request';
 
-export const addChecklist = (data: {
-  checklistTitle: string;
-  cardId: string;
-  boardId: string;
-  signal: AbortSignal;
-}) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data, {
-    signal: data.signal,
+export const addChecklist = ({ cardId, signal, ...rest }: { name: string; cardId: string; signal: AbortSignal }) => {
+  return externalRequest.post(`/cards/${cardId}/checklists`, rest, {
+    signal: signal,
   });
 };
 

@@ -11,15 +11,14 @@ import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import PopoverWrapper from '../Popover';
 
 type AttachmentViewProps = {
-  files: File[];
+  file: File | null;
   loading: boolean;
   onUpload: (_event: ChangeEvent<HTMLInputElement>) => void;
   onSave: (_onSuccess: () => void) => void;
-  onRemoveFile: (_removedFile: File) => void;
-  onRemoveAll: () => void;
+  onClearFile: () => void;
 };
 
-function AttachmentView({ files, loading, onUpload, onSave, onRemoveFile, onRemoveAll }: AttachmentViewProps) {
+function AttachmentView({ file, loading, onUpload, onSave, onClearFile }: AttachmentViewProps) {
   const ref = useRef<ActionButtonRef>(null);
 
   const handleClose = () => {
@@ -37,41 +36,31 @@ function AttachmentView({ files, loading, onUpload, onSave, onRemoveFile, onRemo
             You can upload *.doc, *.docx, *.pdf files
           </Typography>
 
-          {files.length > 0 && (
+          {file && (
             <>
               <Box sx={{ maxHeight: '300px', overflow: 'auto', px: '2px', my: 3 }}>
-                {files.map((file, index) => (
-                  <Stack
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    spacing={1}
-                    key={index}
-                    sx={{
-                      p: 2,
-                      my: 1,
-                      border: '1px solid #cecece',
-                      borderRadius: '8px',
-                    }}
-                  >
-                    <Stack direction="row" alignItems="center" spacing={1}>
-                      <FileCopyIcon fontSize="small" />
-                      <Typography sx={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                        {file?.name}
-                      </Typography>
-                    </Stack>
-                    <RemoveCircleOutlineIcon
-                      fontSize="small"
-                      sx={{ cursor: 'pointer' }}
-                      onClick={() => onRemoveFile(file)}
-                    />
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  spacing={1}
+                  sx={{
+                    p: 2,
+                    my: 1,
+                    border: '1px solid #cecece',
+                    borderRadius: '8px',
+                  }}
+                >
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <FileCopyIcon fontSize="small" />
+                    <Typography sx={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {file?.name}
+                    </Typography>
                   </Stack>
-                ))}
+                  <RemoveCircleOutlineIcon fontSize="small" sx={{ cursor: 'pointer' }} onClick={onClearFile} />
+                </Stack>
               </Box>
               <Stack direction="row" justifyContent="end" spacing={1}>
-                <Button variant="outlined" color="error" onClick={onRemoveAll}>
-                  Remove all
-                </Button>
                 <Button variant="contained" disabled={loading} onClick={() => onSave(handleClose)}>
                   {loading ? 'Saving' : 'Save'}
                 </Button>

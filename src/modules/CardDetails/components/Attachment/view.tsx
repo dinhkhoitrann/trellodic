@@ -18,7 +18,7 @@ type AttachmentViewProps = BoardGlobalProps & {
   onDelete: (_params: string[], _onSuccess: () => void) => void;
 };
 
-function AttachmentView({ card, cardId, boardId, onRefreshCard, onDelete }: AttachmentViewProps) {
+function AttachmentView({ card, cardId, onRefreshCard, onDelete }: AttachmentViewProps) {
   const { handleOpenAlert, renderAlert } = useAlert({
     title: 'Delete this file?',
     content: 'You can not get the file back',
@@ -45,11 +45,7 @@ function AttachmentView({ card, cardId, boardId, onRefreshCard, onDelete }: Atta
             <ListItem
               key={attachment._id}
               secondaryAction={
-                <IconButton
-                  edge="end"
-                  aria-label="delete"
-                  onClick={() => handleOpenAlert(attachment._id, cardId, boardId)}
-                >
+                <IconButton edge="end" aria-label="delete" onClick={() => handleOpenAlert(attachment._id, cardId)}>
                   <DeleteIcon />
                 </IconButton>
               }
