@@ -11,11 +11,13 @@ import Modal from '@/components/Modal';
 import TaskStatusChart from './components/TaskStatus';
 import NoSelectedChart from './components/NoSelectedChart';
 import CompletedTaskTrend from './components/CompletedTaskTrend';
+import TasksCount from './components/TasksCount';
 
 const chartMap = {
   '': NoSelectedChart,
   taskStatus: TaskStatusChart,
   completedTaskTrend: CompletedTaskTrend,
+  tasksCount: TasksCount,
 };
 
 function ChartsView() {
@@ -67,6 +69,7 @@ function ChartsView() {
             >
               <MenuItem value="taskStatus">Task status by assignee</MenuItem>
               <MenuItem value="completedTaskTrend">Completed task trend</MenuItem>
+              <MenuItem value="tasksCount">Tasks count by column</MenuItem>
             </Select>
           </FormControl>
         </Stack>

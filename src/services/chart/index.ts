@@ -38,3 +38,36 @@ export const getCompletedTaskTrendByMonth = (): Promise<{ [key: string]: any }> 
     }, 500);
   });
 };
+
+export const getTasksCountByColumn = (): Promise<{ [key: string]: any }[]> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        {
+          inProgress: 12,
+          overdue: 60,
+          completed: 40,
+          column: 'Done Column 03',
+        },
+        {
+          inProgress: 30,
+          overdue: 0,
+          completed: 1,
+          column: 'To Do Column 01',
+        },
+        {
+          inProgress: 90,
+          overdue: 12,
+          completed: 20,
+          column: 'Inprogress Column 02',
+        },
+        {
+          inProgress: 8,
+          overdue: 12,
+          completed: 80,
+          column: 'Empty Column 04',
+        },
+      ]);
+    }, 500);
+  });
+};

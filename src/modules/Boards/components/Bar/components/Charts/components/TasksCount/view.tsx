@@ -1,7 +1,7 @@
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useView } from '@/hooks';
 
-type TaskStatusChartViewProps = {
+type TasksCountViewProps = {
   dataset: { [key: string]: any }[] | undefined;
   isLoading: boolean;
   isError: boolean;
@@ -12,7 +12,7 @@ function valueFormatter(value: string) {
   return `${value.slice(0, 10)}...`;
 }
 
-function TaskStatusChartView({ dataset, isLoading, isError }: TaskStatusChartViewProps) {
+function TasksCountView({ dataset, isLoading, isError }: TasksCountViewProps) {
   const view = useView({ data: dataset, isLoading, isError });
   if (view) return view;
 
@@ -22,7 +22,7 @@ function TaskStatusChartView({ dataset, isLoading, isError }: TaskStatusChartVie
       yAxis={[
         {
           scaleType: 'band',
-          dataKey: 'assignee',
+          dataKey: 'column',
           valueFormatter,
         },
       ]}
@@ -43,4 +43,4 @@ function TaskStatusChartView({ dataset, isLoading, isError }: TaskStatusChartVie
   );
 }
 
-export default TaskStatusChartView;
+export default TasksCountView;
