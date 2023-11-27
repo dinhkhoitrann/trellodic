@@ -11,10 +11,10 @@ export const generatePlaceholderCard = (column: Column): Card => {
   };
 };
 
-export const isInvalidFile = (files: File[], selectedFile: File) => {
-  return files.some(
-    (file) => file.name === selectedFile.name && file.size === selectedFile.size && file.type === selectedFile.type,
-  );
+export const isValidFile = (file: File, extensions: string[]) => {
+  const extension = file.name.split('.').pop();
+  if (!extension) return false;
+  return extensions.includes(extension);
 };
 
 export const isExpired = (timestamp?: string) => {

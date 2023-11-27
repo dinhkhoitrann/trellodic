@@ -3,14 +3,13 @@ import ChecklistView from './view';
 import { useCreateChecklistMutation } from '@/redux/services/card/checklist';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 
-function Checklist({ boardId, cardId, onRefreshCard }: BoardGlobalProps) {
-  const [checklistTitle, setChecklistTitle] = useState<string | undefined>();
+function Checklist({ cardId, onRefreshCard }: BoardGlobalProps) {
+  const [checklistTitle, setChecklistTitle] = useState<string>();
 
   const [createChecklist, { isSuccess, isLoading }] = useCreateChecklistMutation();
 
   const handleAddChecklist = (title: string) => {
-    if (!title) return;
-    createChecklist({ checklistTitle: title, cardId: cardId, boardId: boardId, onSuccess: onRefreshCard });
+    createChecklist({ name: title, cardId: cardId, onSuccess: onRefreshCard });
   };
 
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {

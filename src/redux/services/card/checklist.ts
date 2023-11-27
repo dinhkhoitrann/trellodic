@@ -15,11 +15,8 @@ export const checklistApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Checklist'],
   endpoints: (builder) => ({
-    createChecklist: builder.mutation<
-      { data: any },
-      { checklistTitle: string; cardId: string; boardId: string; onSuccess?: () => void }
-    >({
-      queryFn: async (args, { signal }) => ({ data: await addChecklist({ ...args, signal }) }),
+    createChecklist: builder.mutation<{ data: any }, { name: string; cardId: string; onSuccess?: () => void }>({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await addChecklist({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

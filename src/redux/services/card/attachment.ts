@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { deleteAttachment, uploadAttachments } from '@/services/card/attachment';
+import { addAttachment, deleteAttachment, uploadAttachments } from '@/services/card/attachment';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const attachmentApi = createApi({
@@ -7,10 +7,13 @@ export const attachmentApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Attachment'],
   endpoints: (builder) => ({
-    uploadFiles: builder.mutation<{ data: any }, { formData: FormData; onSuccess?: () => void }>({
-      queryFn: async (args, { signal }) => ({ data: await uploadAttachments({ ...args, signal }) }),
-      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
-        await queryFulfilled;
+    uploadFiles: builder.mutation<{ data: any }, { formData: FormData; cardId: string; onSuccess?: () => void }>({
+      queryFn: async ({ cardId, onSuccess, ...rest }, { signal }) => ({
+        data: await uploadAttachments({ ...rest, signal }),
+      }),
+      onQueryStarted: async ({ cardId, onSuccess }, { queryFulfilled }) => {
+        const { data } = await queryFulfilled;
+        await addAttachment({ ...data.data, cardId });
         onSuccess && onSuccess();
       },
     }),
@@ -18,12 +21,11 @@ export const attachmentApi = createApi({
       { data: any },
       {
         attachmentId: string;
-        boardId: string;
         cardId: string;
         onSuccess?: () => void;
       }
     >({
-      queryFn: async (args, { signal }) => ({ data: await deleteAttachment({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await deleteAttachment({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

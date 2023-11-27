@@ -1,11 +1,11 @@
 import { ChangeEvent, useState } from 'react';
-import { isInvalidFile } from '@/utils/card';
 import { useUploadFilesMutation } from '@/redux/services/card/attachment';
 import { BoardGlobalProps, withBoard } from '@/hocs';
+import { isValidFile } from '@/utils/card';
 import AttachmentView from './view';
 
-function Attachment({ boardId, cardId, onRefreshCard }: BoardGlobalProps) {
-  const [files, setFiles] = useState<File[]>([]);
+function Attachment({ cardId, onRefreshCard }: BoardGlobalProps) {
+  const [file, setFile] = useState<File | null>(null);
   const [uploadFiles, { isLoading }] = useUploadFilesMutation();
 
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
@@ -13,48 +13,36 @@ function Attachment({ boardId, cardId, onRefreshCard }: BoardGlobalProps) {
 
     const file = event.target.files[0];
     if (!file) return;
-    if (isInvalidFile(files, file)) return;
-
-    setFiles((prevState) => [...prevState, file]);
+    if (!isValidFile(file, ['pdf', 'doc', 'docx'])) return;
+    setFile(file);
   };
 
   const handleSaveUploadedFiles = (onSuccess: () => void) => {
     const formData: any = new FormData();
-    formData.append('boardId', boardId);
-    formData.append('cardId', cardId);
-    files.forEach((file) => {
-      formData.append('file', file);
-    });
+    formData.append('file', file);
 
     uploadFiles({
       formData,
+      cardId,
       onSuccess: () => {
         onSuccess();
-        handleClear();
+        handleClearFile();
         onRefreshCard();
       },
     });
   };
 
-  const handleRemoveFile = (removedFile: File) => {
-    setFiles((prevState) => {
-      const filteredFiles = prevState.filter((file) => file.name !== removedFile.name);
-      return filteredFiles;
-    });
-  };
-
-  const handleClear = () => {
-    setFiles([]);
+  const handleClearFile = () => {
+    setFile(null);
   };
 
   return (
     <AttachmentView
-      files={files}
+      file={file}
       loading={isLoading}
       onUpload={handleFileUpload}
       onSave={handleSaveUploadedFiles}
-      onRemoveFile={handleRemoveFile}
-      onRemoveAll={handleClear}
+      onClearFile={handleClearFile}
     />
   );
 }

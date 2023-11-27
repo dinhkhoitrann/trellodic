@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useAppSelector } from '@/redux/store';
@@ -5,13 +6,9 @@ import { selectWorkspaceDetails } from '@/redux/slices/workspace';
 import { getWorkspaceMembers } from '@/services/workspace';
 import { inviteMembers } from '@/services/board';
 import { User } from '@/types/user.type';
-import InvitationView from './view';
+import InvitationView, { InvitationViewRef } from './view';
 
-type InvitationProps = {
-  onClose: () => void;
-};
-
-function Invitation(props: InvitationProps) {
+function Invitation() {
   const workspace = useAppSelector(selectWorkspaceDetails);
   const { data: response, isLoading } = useQuery({
     queryKey: ['workspaces', workspace._id],
@@ -23,12 +20,14 @@ function Invitation(props: InvitationProps) {
     mutationFn: inviteMembers,
     onSuccess: () => {
       toast.success('Invited members successfully');
-      props.onClose();
+      viewRef.current?.onClose();
     },
     onError: () => {
       toast.error('Failed to invite members');
     },
   });
+
+  const viewRef = useRef<InvitationViewRef>(null);
 
   const handleInviteMembers = (members: Partial<User>[]) => {
     const memberIds = members.map((member) => member._id || '');
@@ -37,7 +36,7 @@ function Invitation(props: InvitationProps) {
 
   return (
     <InvitationView
-      {...props}
+      ref={viewRef}
       isFetching={isLoading}
       isInviting={isInviting}
       members={response?.data.members || []}

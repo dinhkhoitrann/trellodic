@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Tooltip from '@mui/material/Tooltip';
@@ -10,12 +8,12 @@ import VpnLockIcon from '@mui/icons-material/VpnLock';
 import AddToDriveIcon from '@mui/icons-material/AddToDrive';
 import BoltIcon from '@mui/icons-material/Bolt';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useTheme } from '@mui/styles';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import { Board } from '@/types/board.type';
 import { useColorScheme } from '@mui/material';
 import Invitation from './components/Invitation';
+import Charts from './components/Charts';
 
 const CHIP_STYLES = {
   bgcolor: 'transparent',
@@ -32,7 +30,6 @@ type BoardBarViewProps = {
 };
 
 function BoardBarView({ board }: BoardBarViewProps) {
-  const [showInviteModal, setShowInviteModal] = useState(false);
   const theme = useTheme<CustomThemeOptions>();
   const { mode } = useColorScheme();
   const textColor = mode === 'dark' ? '#b6c2cf' : 'white';
@@ -42,10 +39,6 @@ function BoardBarView({ board }: BoardBarViewProps) {
     '.MuiSvgIcon-root': {
       color: textColor,
     },
-  };
-
-  const handleVisibilityInviteModal = () => {
-    setShowInviteModal((prevState) => !prevState);
   };
 
   return (
@@ -77,14 +70,8 @@ function BoardBarView({ board }: BoardBarViewProps) {
           <Chip icon={<FilterListIcon />} label="Filter" clickable sx={chipStyles} />
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Button
-            variant="outlined"
-            startIcon={<PersonAddIcon />}
-            sx={{ color: textColor, borderColor: textColor, '&:hover': { borderColor: textColor } }}
-            onClick={handleVisibilityInviteModal}
-          >
-            Invite
-          </Button>
+          <Charts />
+          <Invitation />
           <AvatarGroup
             max={4}
             sx={{
@@ -117,7 +104,6 @@ function BoardBarView({ board }: BoardBarViewProps) {
           </AvatarGroup>
         </Box>
       </Box>
-      {showInviteModal && <Invitation onClose={handleVisibilityInviteModal} />}
     </>
   );
 }

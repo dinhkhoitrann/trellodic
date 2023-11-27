@@ -1,6 +1,6 @@
 import { externalRequest } from '@/services/request';
 
-export const uploadAttachments = async ({ signal, formData }: { formData: FormData; signal: AbortSignal }) => {
+export const uploadAttachments = ({ signal, formData }: { formData: FormData; signal: AbortSignal }) => {
   return externalRequest.post('/upload/s3', formData, {
     signal,
     headers: {
@@ -9,13 +9,28 @@ export const uploadAttachments = async ({ signal, formData }: { formData: FormDa
   });
 };
 
-export const deleteAttachment = async (data: {
+export const addAttachment = ({
+  cardId,
+  ...rest
+}: {
+  cardId: string;
+  filename: string;
+  extension: string;
+  url: string;
+}) => {
+  return externalRequest.post(`/cards/${cardId}/attachments`, rest);
+};
+
+export const deleteAttachment = ({
+  cardId,
+  attachmentId,
+  signal,
+}: {
   attachmentId: string;
-  boardId: string;
   cardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.delete('https://jsonplaceholder.typicode.com/posts/1', {
-    signal: data.signal,
+  return externalRequest.delete(`/cards/${cardId}/attachments/${attachmentId}`, {
+    signal: signal,
   });
 };
