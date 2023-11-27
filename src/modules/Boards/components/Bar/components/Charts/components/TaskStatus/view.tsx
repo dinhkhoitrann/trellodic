@@ -1,8 +1,5 @@
-import Image from 'next/image';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { BarChart } from '@mui/x-charts/BarChart';
+import { useView } from '@/hooks';
 
 type TaskStatusChartViewProps = {
   dataset: { [key: string]: any }[] | undefined;
@@ -16,24 +13,8 @@ function valueFormatter(value: string) {
 }
 
 function TaskStatusChartView({ dataset, isLoading, isError }: TaskStatusChartViewProps) {
-  if (isLoading) {
-    return (
-      <Box sx={{ textAlign: 'center', my: 6 }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
-
-  if (!dataset || isError) {
-    return (
-      <Box sx={{ textAlign: 'center', my: 6 }}>
-        <Image src="/error.png" width={200} height={200} alt="No charts selected" />
-        <Typography variant="h6" sx={{ fontWeight: 600, mt: 2 }}>
-          Something went wrong, please try again
-        </Typography>
-      </Box>
-    );
-  }
+  const view = useView({ data: dataset, isLoading, isError });
+  if (view) return view;
 
   return (
     <BarChart

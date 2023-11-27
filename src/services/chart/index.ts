@@ -24,3 +24,17 @@ export const getTaskStatusChartData = (): Promise<{ [key: string]: any }[]> => {
     }, 500);
   });
 };
+
+export const getCompletedTaskTrendByMonth = (): Promise<{ [key: string]: any }> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const xAxis = [...Array(30)].map((_, index) => {
+        const today = new Date();
+        return new Date().setDate(today.getDate() - 30 + index);
+      });
+      const completedTasksByMonth = [...Array(30)].map(() => Math.floor(Math.random() * 100));
+
+      resolve({ xAxis, completedTasksByMonth });
+    }, 500);
+  });
+};

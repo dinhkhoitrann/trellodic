@@ -10,10 +10,12 @@ import ShowChartIcon from '@mui/icons-material/ShowChart';
 import Modal from '@/components/Modal';
 import TaskStatusChart from './components/TaskStatus';
 import NoSelectedChart from './components/NoSelectedChart';
+import CompletedTaskTrend from './components/CompletedTaskTrend';
 
 const chartMap = {
   '': NoSelectedChart,
   taskStatus: TaskStatusChart,
+  completedTaskTrend: CompletedTaskTrend,
 };
 
 function ChartsView() {
@@ -64,6 +66,7 @@ function ChartsView() {
               onChange={handleChange}
             >
               <MenuItem value="taskStatus">Task status by assignee</MenuItem>
+              <MenuItem value="completedTaskTrend">Completed task trend</MenuItem>
             </Select>
           </FormControl>
         </Stack>
