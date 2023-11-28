@@ -71,3 +71,28 @@ export const getTasksCountByColumn = (): Promise<{ [key: string]: any }[]> => {
     }, 500);
   });
 };
+
+export const getPercentageTaskStatus = (): Promise<{ value: number; label: string }[]> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        { value: 6, label: 'In Progress' },
+        { value: 44, label: 'Overdue' },
+        { value: 50, label: 'Completed' },
+      ]);
+    }, 500);
+  });
+};
+
+export const getPercentageTaskAssignee = (): Promise<{ value: number; label: string }[]> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        { value: 10, label: 'Taylor' },
+        { value: 80, label: 'Karen' },
+        { value: 5, label: 'Dustin' },
+        { value: 5, label: 'Karina' },
+      ]);
+    }, 500);
+  });
+};
