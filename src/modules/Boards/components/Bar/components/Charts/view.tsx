@@ -10,10 +10,18 @@ import ShowChartIcon from '@mui/icons-material/ShowChart';
 import Modal from '@/components/Modal';
 import TaskStatusChart from './components/TaskStatus';
 import NoSelectedChart from './components/NoSelectedChart';
+import CompletedTaskTrend from './components/CompletedTaskTrend';
+import TasksCount from './components/TasksCount';
+import PercentageTaskStatus from './components/PercentageTaskStatus';
+import PercentageTaskAssignee from './components/PercentageTaskAssignee';
 
 const chartMap = {
   '': NoSelectedChart,
   taskStatus: TaskStatusChart,
+  completedTaskTrend: CompletedTaskTrend,
+  tasksCount: TasksCount,
+  percentageTaskStatus: PercentageTaskStatus,
+  percentageTaskAssignee: PercentageTaskAssignee,
 };
 
 function ChartsView() {
@@ -64,6 +72,10 @@ function ChartsView() {
               onChange={handleChange}
             >
               <MenuItem value="taskStatus">Task status by assignee</MenuItem>
+              <MenuItem value="completedTaskTrend">Completed task trend</MenuItem>
+              <MenuItem value="tasksCount">Tasks count by column</MenuItem>
+              <MenuItem value="percentageTaskStatus">Percentage of task status</MenuItem>
+              <MenuItem value="percentageTaskAssignee">Percentage of task by assignee</MenuItem>
             </Select>
           </FormControl>
         </Stack>
