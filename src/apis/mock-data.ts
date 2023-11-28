@@ -277,7 +277,7 @@ export const mockData: MockBoardData = {
             attachments: [],
           },
           {
-            _id: '655497a43b7dba7af3972bd4',
+            _id: '6565f63deb98533ca7dfb133',
             boardId: 'board-id-01',
             columnId: 'column-id-02',
             title: 'Title of card 10',
@@ -358,7 +358,7 @@ export const mockWorkspace: Workspace = {
   ownerUserId: 'o1',
   boards: [
     {
-      _id: '1',
+      _id: '6565cc1d504417a2d00a7a56',
       title: '123',
       admin: '1',
     },

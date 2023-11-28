@@ -4,12 +4,13 @@ import AttachmentView from './view';
 function Attachment() {
   const [deleteAttachment] = useDeleteAttachmentMutation();
 
-  const handleDelete = (params: string[], onSuccess: () => void) => {
+  const handleDelete = (params: string[], onSuccess: () => void, onError: () => void) => {
     const [attachmentId, cardId] = params;
     deleteAttachment({
       attachmentId,
       cardId,
       onSuccess,
+      onError,
     });
   };
 

@@ -1,29 +1,28 @@
 import { toast } from 'react-toastify';
 import { useMutation } from '@tanstack/react-query';
-import AddColumnSectionView from './view';
 import { addColumn } from '@/services/column';
-import { useParams } from 'next/navigation';
+import { BoardGlobalProps, withBoard } from '@/hocs';
+import AddColumnSectionView from './view';
 
-type AddColumnSectionProps = {
+type AddColumnSectionProps = BoardGlobalProps & {
   onCancelAddingMode: () => void;
 };
 
-function AddColumnSection({ onCancelAddingMode }: AddColumnSectionProps) {
-  const { boardId } = useParams();
-
+function AddColumnSection({ boardId, onCancelAddingMode, onRefreshBoard }: AddColumnSectionProps) {
   const { mutate, isPending } = useMutation({
     mutationFn: addColumn,
     onSuccess: () => {
       onCancelAddingMode();
       toast.success('Added column successfully');
+      onRefreshBoard();
     },
-    onError: (error) => {
-      toast.error(error.message);
+    onError: () => {
+      toast.error('Something went wrong, please try again');
     },
   });
 
-  const handleAddColumn = (columnTitle: string) => {
-    mutate({ columnTitle, boardId: boardId as string });
+  const handleAddColumn = (title: string) => {
+    mutate({ title, boardId: boardId });
   };
 
   return (
@@ -31,4 +30,4 @@ function AddColumnSection({ onCancelAddingMode }: AddColumnSectionProps) {
   );
 }
 
-export default AddColumnSection;
+export default withBoard(AddColumnSection);

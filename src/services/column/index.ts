@@ -1,5 +1,5 @@
 import { externalRequest } from '../request';
 
-export const addColumn = (data: { columnTitle: string; boardId: string }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data);
+export const addColumn = (data: { title: string; boardId: string }) => {
+  return externalRequest.post(`/columns`, data);
 };

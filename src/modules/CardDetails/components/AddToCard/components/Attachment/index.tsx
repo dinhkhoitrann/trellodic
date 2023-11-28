@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useUploadFilesMutation } from '@/redux/services/card/attachment';
 import { BoardGlobalProps, withBoard } from '@/hocs';
 import { isValidFile } from '@/utils/card';
@@ -28,6 +29,9 @@ function Attachment({ cardId, onRefreshCard }: BoardGlobalProps) {
         onSuccess();
         handleClearFile();
         onRefreshCard();
+      },
+      onError: () => {
+        toast.error('Something went wrong, please try again');
       },
     });
   };

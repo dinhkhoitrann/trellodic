@@ -16,6 +16,8 @@ export interface Card {
   startDate?: string;
   endDate?: string;
   isDone?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
   FE_isPlaceholderCard?: true;
 }
 
@@ -45,5 +47,5 @@ export interface Attachment {
   url: string;
   fileName: string;
   extension: string;
-  createdTime: number;
+  createdTime: string;
 }
