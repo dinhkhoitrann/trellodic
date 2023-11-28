@@ -62,7 +62,7 @@ export const mockData: MockBoardData = {
       },
     ], // Những users là member bình thường của board
     // eslint-disable-next-line max-len
-    columnOrderIds: ['column-id-03', 'column-id-01', 'column-id-02', 'column-id-04'], // Thứ tự sắp xếp / vị trí của các Columns trong 1 boards
+    columnOrderIds: ['column-id-03', 'column-id-01', '6565faa9eb98533ca7dfb137', 'column-id-04'], // Thứ tự sắp xếp / vị trí của các Columns trong 1 boards
     columns: [
       {
         _id: 'column-id-01',
@@ -129,7 +129,7 @@ export const mockData: MockBoardData = {
                 url: '#',
                 fileName: 'This is a file.pdf',
                 extension: 'pdf',
-                createdTime: new Date().getTime(),
+                createdTime: new Date().getTime().toString(),
               },
             ],
             checklists: [
@@ -249,7 +249,7 @@ export const mockData: MockBoardData = {
         ],
       },
       {
-        _id: 'column-id-02',
+        _id: '6565faa9eb98533ca7dfb137',
         boardId: 'board-id-01',
         title: 'Inprogress Column 02',
         cardOrderIds: ['655497a43b7dba7af3972bd4', 'card-id-09', 'card-id-08'],
@@ -257,7 +257,7 @@ export const mockData: MockBoardData = {
           {
             _id: 'card-id-08',
             boardId: 'board-id-01',
-            columnId: 'column-id-02',
+            columnId: '6565faa9eb98533ca7dfb137',
             title: 'Title of card 08',
             description: '',
             cover: '',
@@ -268,7 +268,7 @@ export const mockData: MockBoardData = {
           {
             _id: 'card-id-09',
             boardId: 'board-id-01',
-            columnId: 'column-id-02',
+            columnId: '6565faa9eb98533ca7dfb137',
             title: 'Title of card 09',
             description: '',
             cover: '',
@@ -279,7 +279,7 @@ export const mockData: MockBoardData = {
           {
             _id: '6565f63deb98533ca7dfb133',
             boardId: 'board-id-01',
-            columnId: 'column-id-02',
+            columnId: '6565faa9eb98533ca7dfb137',
             title: 'Title of card 10',
             description: '',
             cover:

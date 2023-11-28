@@ -8,21 +8,23 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Tooltip from '@mui/material/Tooltip';
-import ContentCut from '@mui/icons-material/ContentCut';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ListCards from './components/ListCards';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import { Theme } from '@/common/enums';
 import { Column } from '@/types/column.type';
+import { useAlert } from '@/hooks';
 
 type ColumnViewProps = {
   column: Column;
   anchorEl: SVGSVGElement | null;
   onClick: (_event: React.MouseEvent<SVGSVGElement>) => void;
   onClose: () => void;
+  onDelete: (_params: string[]) => void;
 };
 
-function ColumnView({ column, anchorEl, onClick, onClose }: ColumnViewProps) {
+function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnViewProps) {
   const theme = useTheme<CustomThemeOptions>();
   const open = Boolean(anchorEl);
 
@@ -37,65 +39,78 @@ function ColumnView({ column, anchorEl, onClick, onClose }: ColumnViewProps) {
     opacity: isDragging ? 0.5 : undefined,
   };
 
+  const { handleOpenAlert, renderAlert } = useAlert({
+    okText: 'Delete',
+    title: 'Delete column?',
+    content: 'Are you sure? All cards in this column will be deleted',
+    onOk(params) {
+      onClose();
+      onDelete(params);
+    },
+  });
+
   return (
-    <div ref={setNodeRef} style={dndKitColumnStyles} {...attributes}>
-      <Box
-        {...listeners}
-        sx={{
-          minWidth: '300px',
-          maxWidth: '300px',
-          bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0'),
-          ml: 2,
-          borderRadius: '6px',
-          height: 'fit-content',
-          maxHeight: `calc(${theme.customProps.boardContentHeight} - 40px)`,
-        }}
-      >
+    <>
+      <div ref={setNodeRef} style={dndKitColumnStyles} {...attributes}>
         <Box
+          {...listeners}
           sx={{
-            height: theme.customProps.columnHeaderHeight,
-            p: 2,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
+            minWidth: '300px',
+            maxWidth: '300px',
+            bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0'),
+            ml: 2,
+            borderRadius: '6px',
+            height: 'fit-content',
+            maxHeight: `calc(${theme.customProps.boardContentHeight} - 40px)`,
           }}
         >
-          <Typography variant="h6" sx={{ fontSize: '1rem', fontWeight: 'bold', cursor: 'pointer' }}>
-            {column?.title}
-          </Typography>
-          <Box>
-            <Tooltip title="More options">
-              <ExpandMoreIcon
-                id="basic-column-dropdown"
-                aria-controls={open ? 'basic-menu-column-dropdown' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                sx={{ color: 'text.primary', cursor: 'pointer' }}
-                onClick={onClick}
-              />
-            </Tooltip>
-            <Menu
-              id="basic-menu-column-dropdown"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={onClose}
-              MenuListProps={{
-                'aria-labelledby': 'basic-column-dropdown',
-              }}
-            >
-              <MenuItem>
-                <ListItemIcon>
-                  <ContentCut fontSize="small" />
-                </ListItemIcon>
-                <ListItemText>Move column to</ListItemText>
-              </MenuItem>
-            </Menu>
+          <Box
+            sx={{
+              height: theme.customProps.columnHeaderHeight,
+              p: 2,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Typography variant="h6" sx={{ fontSize: '1rem', fontWeight: 'bold', cursor: 'pointer' }}>
+              {column?.title}
+            </Typography>
+            <Box>
+              <Tooltip title="More options">
+                <ExpandMoreIcon
+                  id="basic-column-dropdown"
+                  aria-controls={open ? 'basic-menu-column-dropdown' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  sx={{ color: 'text.primary', cursor: 'pointer' }}
+                  onClick={onClick}
+                />
+              </Tooltip>
+              <Menu
+                id="basic-menu-column-dropdown"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={onClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-column-dropdown',
+                }}
+              >
+                <MenuItem onClick={() => handleOpenAlert(column._id)}>
+                  <ListItemIcon>
+                    <DeleteIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Delete column</ListItemText>
+                </MenuItem>
+              </Menu>
+            </Box>
           </Box>
-        </Box>
 
-        <ListCards cards={column?.cards} columnId={column._id} cardOrderIds={column?.cardOrderIds} />
-      </Box>
-    </div>
+          <ListCards cards={column?.cards} columnId={column._id} cardOrderIds={column?.cardOrderIds} />
+        </Box>
+      </div>
+      {renderAlert()}
+    </>
   );
 }
 

@@ -1,13 +1,22 @@
 import { useState } from 'react';
-import ColumnView from './view';
+import { useMutation } from '@tanstack/react-query';
+import { deleteColumn } from '@/services/column';
+import { BoardGlobalProps, withBoard } from '@/hocs';
 import { Column as ColumnType } from '@/types/column.type';
+import ColumnView from './view';
 
-type ColumnProps = {
+type ColumnProps = BoardGlobalProps & {
   column: ColumnType;
 };
 
-function Column({ column }: ColumnProps) {
+function Column({ column, onRefreshBoard }: ColumnProps) {
   const [anchorEl, setAnchorEl] = useState<null | SVGSVGElement>(null);
+  const { mutate: removeColumn } = useMutation({
+    mutationFn: deleteColumn,
+    onSuccess: () => {
+      onRefreshBoard();
+    },
+  });
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
     setAnchorEl(event.currentTarget);
@@ -17,7 +26,19 @@ function Column({ column }: ColumnProps) {
     setAnchorEl(null);
   };
 
-  return <ColumnView column={column} anchorEl={anchorEl} onClick={handleClick} onClose={handleClose} />;
+  const handleDeleteColumn = ([columnId]: string[]) => {
+    removeColumn({ columnId });
+  };
+
+  return (
+    <ColumnView
+      column={column}
+      anchorEl={anchorEl}
+      onClick={handleClick}
+      onClose={handleClose}
+      onDelete={handleDeleteColumn}
+    />
+  );
 }
 
-export default Column;
+export default withBoard(Column);
