@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useState, useRef } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import {
   Active,
   CollisionDetection,
@@ -26,6 +27,8 @@ import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
 import { Column } from '@/types/column.type';
 import { generatePlaceholderCard } from '@/utils/card';
 import { useGetBoardDetailsQuery } from '@/redux/services/board/board';
+import { updateColumn } from '@/services/column';
+import { useAppDispatch } from '@/redux/store';
 
 type BoardContentProps = {
   boardId: string;
@@ -37,6 +40,17 @@ function BoardContent({ boardId, board: boardProp }: BoardContentProps) {
     { boardId },
     { pollingInterval: 60000 * 5, refetchOnFocus: true, refetchOnReconnect: true },
   );
+
+  const dispatch = useAppDispatch();
+  const { mutate: updateCardOrderedIds } = useMutation({
+    mutationFn: updateColumn,
+    onSuccess: () => {
+      dispatch({
+        type: 'boardApi/invalidateTags',
+        payload: [{ type: 'Board', id: boardId }],
+      });
+    },
+  });
 
   const [board, setBoard] = useState(data || boardProp);
   const [activeDragItemId, setActiveDragItemId] = useState<string | null>(null);
@@ -151,6 +165,8 @@ function BoardContent({ boardId, board: boardProp }: BoardContentProps) {
         nextOverColumn.cardOrderIds = nextOverColumn.cards.map((card) => card._id);
       }
 
+      // TODO:  Then, store nextColumns to DB
+
       return { ...prevBoard, columns: [...nextColumns] };
     });
   };
@@ -228,17 +244,15 @@ function BoardContent({ boardId, board: boardProp }: BoardContentProps) {
         const newCardIndex = overColumn?.cards?.findIndex((card) => card._id === overCardId);
         const dndOrderedCards = arrayMove(oldColumnWhenDraggingCard?.cards, oldCardIndex, newCardIndex);
 
-        setBoard((prevBoard) => {
-          const nextColumns = cloneDeep(prevBoard?.columns);
+        const nextColumns = cloneDeep(board?.columns);
 
-          const targetColumn = nextColumns.find((column) => column._id === overColumn._id);
-          if (targetColumn) {
-            targetColumn.cards = dndOrderedCards;
-            targetColumn.cardOrderIds = dndOrderedCards.map((card) => card._id);
-          }
-
-          return { ...prevBoard, columns: [...nextColumns] };
-        });
+        const targetColumn = nextColumns.find((column) => column._id === overColumn._id);
+        if (targetColumn) {
+          targetColumn.cards = dndOrderedCards;
+          targetColumn.cardOrderIds = dndOrderedCards.map((card) => card._id);
+          updateCardOrderedIds({ columnId: targetColumn._id, orderedCardIds: targetColumn.cardOrderIds });
+        }
+        setBoard({ ...board, columns: [...nextColumns] });
       }
     }
 
