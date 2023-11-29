@@ -8,10 +8,9 @@ export const getUser = async (data?: { signal?: AbortSignal }) => {
   return response.data;
 };
 
-export const editAvatar = ({ avatarUrl, signal }: { avatarUrl: string; signal: AbortSignal }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', { avatarUrl }, { signal });
-};
-
-export const editProfile = ({ signal, ...rest }: Partial<UserProfileFormValues> & { signal: AbortSignal }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', rest, { signal });
+export const editProfile = ({
+  signal,
+  ...rest
+}: Partial<UserProfileFormValues> & { signal: AbortSignal; avatar?: string }) => {
+  return externalRequest.patch('/users/me', rest, { signal });
 };

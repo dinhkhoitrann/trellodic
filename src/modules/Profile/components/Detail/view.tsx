@@ -36,7 +36,14 @@ function ProfileDetailsView({ methods, onSubmit }: ProfileDetailsViewProps) {
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-                <RHFTextField name="email" label="Email" placeholder="Enter your email" type="email" size="small" />
+                <RHFTextField
+                  name="email"
+                  label="Email"
+                  placeholder="Enter your email"
+                  type="email"
+                  size="small"
+                  disabled
+                />
               </Grid>
               <Grid item xs={12} md={6}>
                 <RHFTextField
