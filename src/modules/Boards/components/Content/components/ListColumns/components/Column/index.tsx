@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import { deleteColumn } from '@/services/column';
 import { BoardGlobalProps, withBoard } from '@/hocs';
 import { Column as ColumnType } from '@/types/column.type';
@@ -15,6 +16,7 @@ function Column({ column, onRefreshBoard }: ColumnProps) {
     mutationFn: deleteColumn,
     onSuccess: () => {
       onRefreshBoard();
+      toast.success('Deleted column successfully');
     },
   });
 

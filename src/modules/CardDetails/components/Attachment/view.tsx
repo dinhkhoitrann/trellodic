@@ -56,7 +56,7 @@ function AttachmentView({ card, cardId, onRefreshCard, onDelete }: AttachmentVie
               disablePadding
             >
               <ListItemButton>
-                <ListItemAvatar>
+                <ListItemAvatar sx={{ minWidth: '100px' }}>
                   <Box sx={{ p: 3 }}>
                     <Typography variant="h6">{attachment.extension}</Typography>
                   </Box>
@@ -68,6 +68,10 @@ function AttachmentView({ card, cardId, onRefreshCard, onDelete }: AttachmentVie
                         color: (theme) => (theme.palette.mode === Theme.Dark ? 'white' : 'black'),
                         fontWeight: 'bold',
                         mb: 1,
+                        display: 'inline-block',
+                      }}
+                      onClick={() => {
+                        window.open(attachment.url);
                       }}
                     >
                       {attachment.fileName}

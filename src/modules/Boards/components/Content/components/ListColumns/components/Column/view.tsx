@@ -2,7 +2,6 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useTheme } from '@mui/styles';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -10,11 +9,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ListCards from './components/ListCards';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import { Theme } from '@/common/enums';
 import { Column } from '@/types/column.type';
 import { useAlert } from '@/hooks';
+import ListCards from './components/ListCards';
+import ColumnTitle from './components/Title';
 
 type ColumnViewProps = {
   column: Column;
@@ -73,9 +73,7 @@ function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnView
               justifyContent: 'space-between',
             }}
           >
-            <Typography variant="h6" sx={{ fontSize: '1rem', fontWeight: 'bold', cursor: 'pointer' }}>
-              {column?.title}
-            </Typography>
+            <ColumnTitle columnId={column._id} title={column.title} />
             <Box>
               <Tooltip title="More options">
                 <ExpandMoreIcon
