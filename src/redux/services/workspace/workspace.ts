@@ -39,7 +39,7 @@ export const workspaceApi = createApi({
           : [{ type: 'Workspace', id: 'LIST' }],
     }),
     createBoard: builder.mutation<
-      { data: { board: Board } },
+      { data: Board },
       { name: string; workspaceId: string; onSuccess?: (_boardId: string) => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await createBoard({ ...args, signal }) }),
@@ -47,8 +47,8 @@ export const workspaceApi = createApi({
         const {
           data: { data },
         } = await queryFulfilled;
-        dispatch(saveBoard(data.board));
-        onSuccess && onSuccess(data.board._id || '');
+        dispatch(saveBoard(data));
+        onSuccess && data._id && onSuccess(data._id);
       },
       invalidatesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
     }),

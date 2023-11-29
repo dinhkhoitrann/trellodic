@@ -62,7 +62,7 @@ export const mockData: MockBoardData = {
       },
     ], // Những users là member bình thường của board
     // eslint-disable-next-line max-len
-    columnOrderIds: ['column-id-03', 'column-id-01', '6565faa9eb98533ca7dfb137', 'column-id-04'], // Thứ tự sắp xếp / vị trí của các Columns trong 1 boards
+    columnOrderIds: ['column-id-03', 'column-id-01', '6565fa8beb98533ca7dfb136', 'column-id-04'], // Thứ tự sắp xếp / vị trí của các Columns trong 1 boards
     columns: [
       {
         _id: 'column-id-01',
@@ -249,7 +249,7 @@ export const mockData: MockBoardData = {
         ],
       },
       {
-        _id: '6565faa9eb98533ca7dfb137',
+        _id: '6565fa8beb98533ca7dfb136',
         boardId: 'board-id-01',
         title: 'Inprogress Column 02',
         cardOrderIds: ['655497a43b7dba7af3972bd4', 'card-id-09', 'card-id-08'],
@@ -257,7 +257,7 @@ export const mockData: MockBoardData = {
           {
             _id: 'card-id-08',
             boardId: 'board-id-01',
-            columnId: '6565faa9eb98533ca7dfb137',
+            columnId: '6565fa8beb98533ca7dfb136',
             title: 'Title of card 08',
             description: '',
             cover: '',
@@ -268,7 +268,7 @@ export const mockData: MockBoardData = {
           {
             _id: 'card-id-09',
             boardId: 'board-id-01',
-            columnId: '6565faa9eb98533ca7dfb137',
+            columnId: '6565fa8beb98533ca7dfb136',
             title: 'Title of card 09',
             description: '',
             cover: '',
@@ -279,7 +279,7 @@ export const mockData: MockBoardData = {
           {
             _id: '6565f63deb98533ca7dfb133',
             boardId: 'board-id-01',
-            columnId: '6565faa9eb98533ca7dfb137',
+            columnId: '6565fa8beb98533ca7dfb136',
             title: 'Title of card 10',
             description: '',
             cover:
@@ -352,19 +352,25 @@ export const mockData: MockBoardData = {
 1;
 
 export const mockWorkspace: Workspace = {
-  _id: '6549f9c9b62618d8b98db451',
-  name: 'W1',
-  image: undefined,
-  ownerUserId: 'o1',
+  _id: '655499f53b7dba7af3972bd6',
   boards: [
     {
-      _id: '6565cc1d504417a2d00a7a56',
-      title: '123',
-      admin: '1',
+      _id: '6566ed0d4f3cc86fadda52dc',
+      title: 'test create board 222',
+      admin: '655497333b7dba7af3972bd3',
+    },
+    {
+      _id: '6566eca44f3cc86fadda52db',
+      title: '20520224111zzz',
+      admin: '655497333b7dba7af3972bd3',
     },
   ],
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
+  createdAt: '1700043253986',
+  updatedAt: '1700043253986',
+  ownerUserId: '655497333b7dba7af3972bd3',
+  name: '222',
+  image: 'https://img.fruugo.com/product/2/87/557318872_max.jpg',
+  memberIds: ['655497333b7dba7af3972bd3'],
 };
 
 export const mockUser: User = {

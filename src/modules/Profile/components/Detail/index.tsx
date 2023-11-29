@@ -1,6 +1,5 @@
 'use client';
 import { useForm } from 'react-hook-form';
-import Cookies from 'js-cookie';
 import ProfileDetailsView from './view';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { UserProfileFormSchema, UserProfileFormValues } from './validation';
@@ -17,9 +16,7 @@ function ProfileDetails() {
   const methods = useForm({
     resolver: yupResolver(UserProfileFormSchema),
     defaultValues: async () => {
-      const {
-        data: { user },
-      } = await getUser({ accessToken: Cookies.get('token') || '' });
+      const user = await getUser();
       return {
         name: user?.name || '',
         email: user?.email || '',

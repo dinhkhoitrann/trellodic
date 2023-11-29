@@ -24,7 +24,7 @@ const userSlice = createSlice({
       }
     });
     builders.addMatcher(userApi.endpoints.getUser.matchFulfilled, (state, action) => {
-      const { user } = action.payload;
+      const user = action.payload;
       if (user) {
         state.profile = user;
       }

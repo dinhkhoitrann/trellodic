@@ -18,15 +18,8 @@ export const getWorkspaceList = async (data: { userId: string; signal: AbortSign
     mockWorkspace,
     {
       ...mockWorkspace,
-      name: 'W2',
-      boards: [
-        {
-          _id: '2',
-          title: 'aaa',
-          admin: '2',
-        },
-      ],
-      _id: '6535cb2d3a66ba004f83df63',
+      name: 'fff',
+      _id: '655499fe3b7dba7af3972bd7',
     },
   ];
 };

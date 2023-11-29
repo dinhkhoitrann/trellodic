@@ -8,9 +8,12 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ['User'],
   endpoints: (builder) => ({
-    getUser: builder.query<{ user: User }, { accessToken: string }>({
-      queryFn: (args, { signal }) => getUser({ ...args, signal }),
-      providesTags: (result) => [{ type: 'User', id: result?.user._id }],
+    getUser: builder.query<User, void>({
+      queryFn: async (_, { signal }) => {
+        const user = await getUser({ signal });
+        return { data: user };
+      },
+      providesTags: (result) => [{ type: 'User', id: result?._id }],
     }),
     updateAvatar: builder.mutation<{ data: any }, { userId: string; avatarUrl: string }>({
       queryFn: async (args, { signal }) => ({ data: await editAvatar({ avatarUrl: args.avatarUrl, signal }) }),
