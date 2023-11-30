@@ -14,3 +14,7 @@ export const editProfile = ({
 }: Partial<UserProfileFormValues> & { signal: AbortSignal; avatar?: string }) => {
   return externalRequest.patch('/users/me', rest, { signal });
 };
+
+export const changePassword = (data: { currentPassword: string; newPassword: string; confirmNewPassword: string }) => {
+  return externalRequest.patch('/users/me/change-password', data);
+};
