@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { BE_API_ROOT, FE_API_ROOT } from '../utils/constants';
+import { BE_API_ROOT, EXCEPTION_URL_REFRESH_TOKEN, FE_API_ROOT } from '../utils/constants';
 import { refreshToken } from './auth';
 
 export const internalRequest = axios.create({
@@ -31,6 +31,7 @@ externalRequest.interceptors.response.use(
   async function (error) {
     const originalRequest = error.config;
     if ((error.response.status === 403 || error.response.status === 401) && !originalRequest._retry) {
+      if (EXCEPTION_URL_REFRESH_TOKEN.includes(originalRequest.url)) return;
       originalRequest._retry = true;
 
       const newAccessToken = await refreshToken();

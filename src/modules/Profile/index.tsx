@@ -3,6 +3,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import ProfilePhoto from './components/Photo';
 import ProfileDetails from './components/Detail';
+import Account from './components/Account';
 
 function Profile() {
   return (
@@ -14,6 +15,7 @@ function Profile() {
         <Typography sx={{ my: 3 }}>Manage your personal information, and change avatar profile</Typography>
         <ProfilePhoto />
         <ProfileDetails />
+        <Account />
       </Container>
     </Box>
   );

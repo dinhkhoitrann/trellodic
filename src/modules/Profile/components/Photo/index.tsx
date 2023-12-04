@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import ProfilePhotoView from './view';
 import { useMutation } from '@tanstack/react-query';
-import { useUpdateAvatarMutation } from '@/redux/services/user/user';
+import { useUpdateProfileMutation } from '@/redux/services/user/user';
 import { uploadFile } from '@/services/file';
 import { toast } from 'react-toastify';
 import { useAppSelector } from '@/redux/store';
@@ -11,7 +11,7 @@ import { selectUserProfile } from '@/redux/slices/user';
 function ProfilePhoto() {
   const [uploadedImage, setUploadedImage] = useState<string | ArrayBuffer | null>();
   const [avatar, setAvatar] = useState<File>();
-  const [mutate] = useUpdateAvatarMutation();
+  const [updateProfile] = useUpdateProfileMutation();
   const user = useAppSelector(selectUserProfile);
   const {
     mutate: updateAvatar,
@@ -20,7 +20,7 @@ function ProfilePhoto() {
   } = useMutation({
     mutationFn: uploadFile,
     onSuccess: (response) => {
-      mutate({ avatarUrl: response.data.url, userId: user?._id || '' });
+      updateProfile({ avatar: response.data.url, userId: user?._id || '' });
       toast.success('Saved avatar successfully');
     },
     onError: () => {

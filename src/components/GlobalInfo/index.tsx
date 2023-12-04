@@ -1,5 +1,5 @@
-import Cookies from 'js-cookie';
 import { usePrefetch } from '@/redux/services/user/user';
+import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
 type GlobalInfoProps = {
@@ -7,11 +7,13 @@ type GlobalInfoProps = {
 };
 
 function GlobalInfo({ children }: GlobalInfoProps) {
+  const pathname = usePathname();
   const prefetchUser = usePrefetch('getUser');
 
   useEffect(() => {
-    prefetchUser({ accessToken: Cookies.get('token') || '' });
-  }, [prefetchUser]);
+    if (pathname.startsWith('/auth')) return;
+    prefetchUser();
+  }, [pathname, prefetchUser]);
 
   return <>{children}</>;
 }

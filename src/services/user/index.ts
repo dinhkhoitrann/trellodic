@@ -1,18 +1,20 @@
-import { mockUser } from '@/apis/mock-data';
 import { externalRequest } from '../request';
 import { UserProfileFormValues } from '@/modules/Profile/components/Detail/validation';
 
-export const getUser = async (data: { accessToken: string; signal?: AbortSignal }) => {
-  await externalRequest.get('https://jsonplaceholder.typicode.com/posts', {
-    signal: data.signal,
+export const getUser = async (data?: { signal?: AbortSignal }) => {
+  const response = await externalRequest.get('/users/me', {
+    signal: data?.signal,
   });
-  return { data: { user: mockUser } };
+  return response.data;
 };
 
-export const editAvatar = ({ avatarUrl, signal }: { avatarUrl: string; signal: AbortSignal }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', { avatarUrl }, { signal });
+export const editProfile = ({
+  signal,
+  ...rest
+}: Partial<UserProfileFormValues> & { signal: AbortSignal; avatar?: string }) => {
+  return externalRequest.patch('/users/me', rest, { signal });
 };
 
-export const editProfile = ({ signal, ...rest }: Partial<UserProfileFormValues> & { signal: AbortSignal }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', rest, { signal });
+export const changePassword = (data: { currentPassword: string; newPassword: string; confirmNewPassword: string }) => {
+  return externalRequest.patch('/users/me/change-password', data);
 };

@@ -14,7 +14,7 @@ function ChatWithGPTView() {
         return (
           <div key={message.id}>
             {message.role === 'assistant' ? (
-              <h3 className="text-lg font-semibold mt-2">GPT-4</h3>
+              <h3 className="text-lg font-semibold mt-2">GPT-3.5</h3>
             ) : (
               <h3 className="text-lg font-semibold mt-2">User</h3>
             )}

@@ -1,6 +1,5 @@
 'use client';
 import { useForm } from 'react-hook-form';
-import Cookies from 'js-cookie';
 import ProfileDetailsView from './view';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { UserProfileFormSchema, UserProfileFormValues } from './validation';
@@ -11,15 +10,14 @@ import { selectUserProfile } from '@/redux/slices/user';
 import { useUpdateProfileMutation } from '@/redux/services/user/user';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { mapValuesToSubmit } from './service';
 
 function ProfileDetails() {
   const user = useAppSelector(selectUserProfile);
   const methods = useForm({
     resolver: yupResolver(UserProfileFormSchema),
     defaultValues: async () => {
-      const {
-        data: { user },
-      } = await getUser({ accessToken: Cookies.get('token') || '' });
+      const user = await getUser();
       return {
         name: user?.name || '',
         email: user?.email || '',
@@ -28,24 +26,24 @@ function ProfileDetails() {
       };
     },
   });
-  const [updateProfile] = useUpdateProfileMutation();
+  const [updateProfile, { isSuccess }] = useUpdateProfileMutation();
 
   const {
     reset,
     getValues,
-    formState: { isSubmitSuccessful, dirtyFields },
+    formState: { dirtyFields },
   } = methods;
 
   useEffect(() => {
-    if (isSubmitSuccessful) {
+    if (isSuccess) {
       reset(getValues());
       toast.success('Edited profile successfully');
     }
-  }, [isSubmitSuccessful, getValues, reset]);
+  }, [isSuccess, getValues, reset]);
 
   const handleSubmit = (values: UserProfileFormValues) => {
     const changedFormValues = filterChangedFormFields(values, dirtyFields);
-    updateProfile({ ...changedFormValues, userId: user?._id || '' });
+    updateProfile({ ...mapValuesToSubmit(changedFormValues), userId: user?._id || '' });
   };
 
   return <ProfileDetailsView methods={methods} onSubmit={handleSubmit} />;

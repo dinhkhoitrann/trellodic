@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -15,14 +16,17 @@ import { Theme } from '@/common/enums';
 import { useAlert } from '@/hooks';
 
 type AttachmentViewProps = BoardGlobalProps & {
-  onDelete: (_params: string[], _onSuccess: () => void) => void;
+  onDelete: (_params: string[], _onSuccess: () => void, _onError: () => void) => void;
 };
 
 function AttachmentView({ card, cardId, onRefreshCard, onDelete }: AttachmentViewProps) {
   const { handleOpenAlert, renderAlert } = useAlert({
     title: 'Delete this file?',
     content: 'You can not get the file back',
-    onOk: (restParams) => onDelete(restParams, onRefreshCard),
+    onOk: (restParams) =>
+      onDelete(restParams, onRefreshCard, () => {
+        toast.error('Something went wrong, please try again');
+      }),
   });
 
   return (
@@ -52,7 +56,7 @@ function AttachmentView({ card, cardId, onRefreshCard, onDelete }: AttachmentVie
               disablePadding
             >
               <ListItemButton>
-                <ListItemAvatar>
+                <ListItemAvatar sx={{ minWidth: '100px' }}>
                   <Box sx={{ p: 3 }}>
                     <Typography variant="h6">{attachment.extension}</Typography>
                   </Box>
@@ -64,6 +68,10 @@ function AttachmentView({ card, cardId, onRefreshCard, onDelete }: AttachmentVie
                         color: (theme) => (theme.palette.mode === Theme.Dark ? 'white' : 'black'),
                         fontWeight: 'bold',
                         mb: 1,
+                        display: 'inline-block',
+                      }}
+                      onClick={() => {
+                        window.open(attachment.url);
                       }}
                     >
                       {attachment.fileName}

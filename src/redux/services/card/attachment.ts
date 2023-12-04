@@ -7,14 +7,21 @@ export const attachmentApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Attachment'],
   endpoints: (builder) => ({
-    uploadFiles: builder.mutation<{ data: any }, { formData: FormData; cardId: string; onSuccess?: () => void }>({
+    uploadFiles: builder.mutation<
+      { data: any },
+      { formData: FormData; cardId: string; onSuccess?: () => void; onError?: () => void }
+    >({
       queryFn: async ({ cardId, onSuccess, ...rest }, { signal }) => ({
         data: await uploadAttachments({ ...rest, signal }),
       }),
-      onQueryStarted: async ({ cardId, onSuccess }, { queryFulfilled }) => {
+      onQueryStarted: async ({ cardId, onSuccess, onError }, { queryFulfilled }) => {
         const { data } = await queryFulfilled;
-        await addAttachment({ ...data.data, cardId });
-        onSuccess && onSuccess();
+        try {
+          await addAttachment({ ...data.data, cardId });
+          onSuccess && onSuccess();
+        } catch (error) {
+          onError && onError();
+        }
       },
     }),
     deleteAttachment: builder.mutation<
@@ -23,12 +30,17 @@ export const attachmentApi = createApi({
         attachmentId: string;
         cardId: string;
         onSuccess?: () => void;
+        onError?: () => void;
       }
     >({
       queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await deleteAttachment({ ...rest, signal }) }),
-      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
-        await queryFulfilled;
-        onSuccess && onSuccess();
+      onQueryStarted: async ({ onSuccess, onError }, { queryFulfilled }) => {
+        try {
+          await queryFulfilled;
+          onSuccess && onSuccess();
+        } catch (error) {
+          onError && onError();
+        }
       },
     }),
   }),

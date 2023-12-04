@@ -1,14 +1,7 @@
 import { externalRequest } from '../request';
 
 export const addCard = ({ signal, ...rest }: { title: string; columnId: string; signal: AbortSignal }) => {
-  return externalRequest.post(
-    '/cards',
-    {
-      ...rest,
-      columnId: '654c9e7ed187ac099b18a10c',
-    },
-    { signal },
-  );
+  return externalRequest.post('/cards', rest, { signal });
 };
 
 export const fetchCard = async ({ cardId, signal }: { cardId: string; signal: AbortSignal }) => {
