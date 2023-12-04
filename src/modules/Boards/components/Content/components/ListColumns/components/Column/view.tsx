@@ -13,6 +13,7 @@ import { CustomThemeOptions } from '@/common/styles/theme';
 import { Theme } from '@/common/enums';
 import { Column } from '@/types/column.type';
 import { useAlert } from '@/hooks';
+import { DND_ANIMATION_OPACITY } from '@/utils/constants';
 import ListCards from './components/ListCards';
 import ColumnTitle from './components/Title';
 
@@ -36,7 +37,7 @@ function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnView
     transform: CSS.Translate.toString(transform),
     transition,
     height: '100%',
-    opacity: isDragging ? 0.5 : undefined,
+    opacity: isDragging ? DND_ANIMATION_OPACITY : undefined,
   };
 
   const { handleOpenAlert, renderAlert } = useAlert({

@@ -13,6 +13,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Card as CardType } from '@/types/card.type';
 import { isExpired } from '@/utils/card';
+import { DND_ANIMATION_OPACITY } from '@/utils/constants';
 
 type CardViewProps = {
   card: CardType;
@@ -27,7 +28,7 @@ function CardView({ card, onShowDetails }: CardViewProps) {
   const dndKitCardStyles = {
     transform: CSS.Translate.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : undefined,
+    opacity: isDragging ? DND_ANIMATION_OPACITY : undefined,
     border: isDragging ? '1px solid #2980b9' : undefined,
   };
 

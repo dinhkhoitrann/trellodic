@@ -6,6 +6,7 @@ import { Board } from '@/types/board.type';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import CardDetails from '@/modules/CardDetails';
 import SummaryTodos from '@/modules/Summary';
+import { DND_ANIMATION_OPACITY } from '@/utils/constants';
 import ListColumns from './components/ListColumns';
 import Column from './components/ListColumns/components/Column';
 import Card from './components/ListColumns/components/Column/components/ListCards/components/Card';
@@ -26,7 +27,7 @@ function BoardContentView({ board, activeDragItemType, activeDragItemData }: Boa
     sideEffects: defaultDropAnimationSideEffects({
       styles: {
         active: {
-          opacity: '0.5',
+          opacity: DND_ANIMATION_OPACITY,
         },
       },
     }),
