@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { changePassword } from '@/services/user';
 import { ChangePasswordFormSchema, ChangePasswordFormValues } from './validation';
 import AccountView from './view';
+import { AxiosError } from 'axios';
 
 function Account() {
   const methods = useForm({
@@ -23,6 +24,9 @@ function Account() {
     onSuccess: () => {
       reset(getValues());
       toast.success('Changed password successfully');
+    },
+    onError: (error: AxiosError<{ message: string }>) => {
+      toast.error(error.response?.data?.message);
     },
   });
 

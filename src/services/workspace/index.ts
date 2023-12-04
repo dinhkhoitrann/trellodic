@@ -7,8 +7,8 @@ export const createBoard = async ({ signal, ...rest }: { name: string; workspace
 
 export const getWorkspace = async (data: { workspaceId: string; signal: AbortSignal }) => {
   const { workspaceId, signal } = data;
-  await externalRequest.get(`https://jsonplaceholder.typicode.com/posts/${workspaceId}`, { signal });
-  return { ...mockWorkspace, name: `W${workspaceId}`, _id: workspaceId };
+  await externalRequest.get('https://jsonplaceholder.typicode.com/posts', { signal });
+  return mockWorkspace;
 };
 
 export const getWorkspaceList = async (data: { userId: string; signal: AbortSignal }) => {

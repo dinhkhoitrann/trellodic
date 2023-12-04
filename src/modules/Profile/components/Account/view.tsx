@@ -59,7 +59,7 @@ function AccountView({ methods, onSubmit }: AccountViewProps) {
                 </Grid>
               </Grid>
               <Box sx={{ textAlign: 'end' }}>
-                <Button variant="contained" type="submit" disabled={!isDirty || isSubmitting}>
+                <Button variant="contained" type="submit" disabled={isSubmitting || !isDirty}>
                   Save
                 </Button>
               </Box>

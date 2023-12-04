@@ -406,19 +406,13 @@ export const mockNotifs: Notification[] = [
 export const mockSearchResult: SearchResults = {
   cards: [
     {
-      _id: '655497a43b7dba7af3972bd4',
+      _id: '6565f63deb98533ca7dfb133',
       boardId: '1',
       cardTitle: 'Learn ReactJS',
       boardTitle: 'Board learn ReactJS',
       cardCover:
         // eslint-disable-next-line max-len
         'https://res.cloudinary.com/promagnet/image/upload/v1700119194/1700119194031518774/abstract-background-6m6cjbifu3zpfv84.jpg.jpg',
-    },
-    {
-      _id: '655497a43b7dba7af3972bd4',
-      boardId: '1',
-      cardTitle: 'Learn NextJS',
-      boardTitle: 'Board learn NextJS',
     },
   ],
   boards: [

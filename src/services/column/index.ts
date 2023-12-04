@@ -1,7 +1,7 @@
 import { externalRequest } from '../request';
 
 export const addColumn = (data: { title: string; boardId: string }) => {
-  return externalRequest.post(`/columns`, data);
+  return externalRequest.post(`/columns`, { ...data, boardId: '6566eca44f3cc86fadda52db' });
 };
 
 export const deleteColumn = ({ columnId }: { columnId: string }) => {
