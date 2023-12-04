@@ -172,7 +172,7 @@ export const mockData: MockBoardData = {
             ],
             startDate: new Date('2002-09-13').toISOString(),
             endDate: new Date('2023-10-10').toISOString(),
-            isDone: true,
+            isDone: false,
           },
           {
             _id: 'card-id-02',
@@ -197,7 +197,8 @@ export const mockData: MockBoardData = {
             memberIds: [],
             comments: [],
             attachments: [],
-            isDone: true,
+            isDone: false,
+            endDate: new Date('2023-12-5').toISOString(),
           },
           {
             _id: 'card-id-04',
