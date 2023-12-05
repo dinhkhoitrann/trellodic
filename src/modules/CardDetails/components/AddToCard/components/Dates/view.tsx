@@ -38,7 +38,7 @@ function DatesView({ isPending, isSuccess, onSave }: DatesViewProps) {
     <ActionButton
       ref={ref}
       startIcon={<AccessTimeIcon />}
-      child={
+      renderPopover={() => (
         <PopoverWrapper title="Dates" onClose={handleClose}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateRangePicker
@@ -52,7 +52,7 @@ function DatesView({ isPending, isSuccess, onSave }: DatesViewProps) {
             {isPending ? 'Saving...' : 'Save'}
           </Button>
         </PopoverWrapper>
-      }
+      )}
     >
       Dates
     </ActionButton>

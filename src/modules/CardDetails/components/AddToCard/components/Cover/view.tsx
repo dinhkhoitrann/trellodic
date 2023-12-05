@@ -47,7 +47,7 @@ function CoverView({ image, isUploading, isSaveSuccess, onUpload, onSaveCover }:
     <ActionButton
       ref={ref}
       startIcon={<ImageOutlinedIcon />}
-      child={
+      renderPopover={() => (
         <PopoverWrapper title="Cover" onClose={handleClose}>
           <Typography sx={{ mt: 2 }}>Add a cover to your card</Typography>
           <Typography variant="caption" sx={{ color: '#95a5a6' }}>
@@ -60,7 +60,7 @@ function CoverView({ image, isUploading, isSaveSuccess, onUpload, onSaveCover }:
           </Button>
           {renderImage()}
         </PopoverWrapper>
-      }
+      )}
     >
       Cover
     </ActionButton>

@@ -50,7 +50,7 @@ function LabelsView() {
     <ActionButton
       ref={ref}
       startIcon={<LabelOutlinedIcon />}
-      child={
+      renderPopover={() => (
         <PopoverWrapper
           title={content[mode].title}
           canGoBack={mode !== MODES.VIEW}
@@ -66,7 +66,7 @@ function LabelsView() {
             <></>
           )}
         </PopoverWrapper>
-      }
+      )}
     >
       Labels
     </ActionButton>

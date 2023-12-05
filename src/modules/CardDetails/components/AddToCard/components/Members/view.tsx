@@ -45,7 +45,7 @@ function MembersView({ card: { memberIds = [] }, isSaving, onAddMember }: Member
     <ActionButton
       ref={ref}
       startIcon={<PersonOutlineOutlinedIcon />}
-      child={
+      renderPopover={() => (
         <PopoverWrapper title="Members" onClose={handleClose}>
           <Autocomplete
             multiple
@@ -70,7 +70,7 @@ function MembersView({ card: { memberIds = [] }, isSaving, onAddMember }: Member
             {isSaving ? 'Saving' : 'Save'}
           </Button>
         </PopoverWrapper>
-      }
+      )}
     >
       Members
     </ActionButton>
