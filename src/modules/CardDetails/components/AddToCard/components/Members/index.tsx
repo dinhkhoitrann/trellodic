@@ -1,13 +1,11 @@
-import { User } from '@/types/user.type';
-import MembersView from './view';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 import { useAddMembersToCardMutation } from '@/redux/services/card/member';
+import MembersView from './view';
 
 function Members({ cardId, boardId, onRefreshCard }: BoardGlobalProps) {
   const [addMembers, { isLoading }] = useAddMembersToCardMutation();
 
-  const handleAddMember = (members: User[]) => {
-    const memberIds = members.map((mem) => mem._id);
+  const handleAddMember = (memberIds: string[]) => {
     addMembers({
       memberIds,
       cardId,

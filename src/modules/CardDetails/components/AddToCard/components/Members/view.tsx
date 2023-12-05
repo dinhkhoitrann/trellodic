@@ -8,13 +8,14 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
-import PopoverWrapper from '../Popover';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 import { User } from '@/types/user.type';
+import Recommendations from './components/Recommendations';
+import PopoverWrapper from '../Popover';
 
 type MembersViewProps = BoardGlobalProps & {
   isSaving: boolean;
-  onAddMember: (_members: User[]) => void;
+  onAddMember: (_memberIds: string[]) => void;
 };
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
@@ -22,20 +23,38 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 function MembersView({ card: { memberIds = [] }, isSaving, onAddMember }: MembersViewProps) {
   const [isModified, setIsModified] = useState(false);
-  const ref = useRef<ActionButtonRef>(null);
-  const selectedMembers = useRef<User[]>(memberIds);
+  const buttonRef = useRef<ActionButtonRef>(null);
+  const selectedMembersRef = useRef<User[]>(memberIds);
+  const selectedRecommendationIdsRef = useRef<string[]>([]);
 
   const handleClose = () => {
-    ref.current?.handleClose();
+    buttonRef.current?.handleClose();
   };
 
   const handleAddMember = () => {
-    onAddMember(selectedMembers.current);
+    handleClose();
+    const memberIds = [...selectedMembersRef.current.map((mem) => mem._id), ...selectedRecommendationIdsRef.current];
+    onAddMember(memberIds);
   };
 
-  const handleChangeMembers = (members: User[]) => {
-    selectedMembers.current = [...members];
-    const isChanged = !isEqual(selectedMembers.current, memberIds);
+  const handleChangeMembers = ({
+    members,
+    selectedRecommendationIds,
+  }: {
+    members?: User[];
+    selectedRecommendationIds?: string[];
+  }) => {
+    if (members) {
+      selectedMembersRef.current = [...members];
+    }
+
+    if (selectedRecommendationIds) {
+      selectedRecommendationIdsRef.current = [...selectedRecommendationIds];
+    }
+
+    const isChanged =
+      !isEqual(selectedMembersRef.current, memberIds) ||
+      (selectedRecommendationIds !== undefined && selectedRecommendationIds.length > 0);
     if (isChanged !== isModified) {
       setIsModified(isChanged);
     }
@@ -43,7 +62,7 @@ function MembersView({ card: { memberIds = [] }, isSaving, onAddMember }: Member
 
   return (
     <ActionButton
-      ref={ref}
+      ref={buttonRef}
       startIcon={<PersonOutlineOutlinedIcon />}
       renderPopover={() => (
         <PopoverWrapper title="Members" onClose={handleClose}>
@@ -63,9 +82,10 @@ function MembersView({ card: { memberIds = [] }, isSaving, onAddMember }: Member
             style={{ width: '100%', marginTop: 20 }}
             renderInput={(params) => <TextField {...params} label="Add members" placeholder="Members" />}
             onChange={(_event, selectedValues, _reason, _details) => {
-              handleChangeMembers(selectedValues);
+              handleChangeMembers({ members: selectedValues });
             }}
           />
+          <Recommendations onSelectRecommendations={handleChangeMembers} />
           <Button variant="contained" disabled={isSaving || !isModified} sx={{ mt: 2 }} onClick={handleAddMember}>
             {isSaving ? 'Saving' : 'Save'}
           </Button>
