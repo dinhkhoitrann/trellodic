@@ -1,7 +1,7 @@
 import { Board } from '@/types/board.type';
 import { Workspace } from '@/types/workspace.type';
 
-export const getBoardsForSections = (ownerId: string, workspace: Partial<Workspace>) => {
+export const getBoardsForSections = (workspace: Partial<Workspace>, ownerId?: string) => {
   const ownerBoards: Partial<Board>[] = [];
   const otherBoards: Partial<Board>[] = [];
 

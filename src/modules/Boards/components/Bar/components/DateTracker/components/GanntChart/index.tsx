@@ -5,7 +5,7 @@ import GanntChartView from './view';
 
 function GanntChart({ boardId }: BoardGlobalProps) {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['GanntChart'],
+    queryKey: ['GanntChart_Board'],
     queryFn: () => getBoardTimeline({ boardId }),
     staleTime: 5 * 60000,
     gcTime: 5 * 60000,
