@@ -14,6 +14,7 @@ import { Board } from '@/types/board.type';
 import { useColorScheme } from '@mui/material';
 import Invitation from './components/Invitation';
 import Charts from './components/Charts';
+import DateTracker from './components/DateTracker';
 
 const CHIP_STYLES = {
   bgcolor: 'transparent',
@@ -70,6 +71,7 @@ function BoardBarView({ board }: BoardBarViewProps) {
           <Chip icon={<FilterListIcon />} label="Filter" clickable sx={chipStyles} />
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <DateTracker />
           <Charts />
           <Invitation />
           <AvatarGroup
