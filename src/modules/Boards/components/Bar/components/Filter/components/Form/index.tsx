@@ -1,4 +1,7 @@
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import FormView from './view';
+import { FilterDefaultValues, FilterSchema, defaultValues } from './validation';
 
 type FormProps = {
   isOpen: boolean;
@@ -6,7 +9,16 @@ type FormProps = {
 };
 
 function Form(props: FormProps) {
-  return <FormView {...props} />;
+  const methods = useForm({
+    resolver: yupResolver(FilterSchema),
+    defaultValues,
+  });
+
+  const handleSubmit = (values: FilterDefaultValues) => {
+    console.log(values);
+  };
+
+  return <FormView {...props} methods={methods} onSubmit={handleSubmit} />;
 }
 
 export default Form;

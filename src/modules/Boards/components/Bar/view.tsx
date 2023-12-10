@@ -14,8 +14,8 @@ import { useColorScheme } from '@mui/material';
 import Invitation from './components/Invitation';
 import Charts from './components/Charts';
 import DateTracker from './components/DateTracker';
-import { CHIP_STYLES } from './constants';
 import Filter from './components/Filter';
+import { getChipStyles } from './service';
 
 type BoardBarViewProps = {
   board: Board;
@@ -25,13 +25,7 @@ function BoardBarView({ board }: BoardBarViewProps) {
   const theme = useTheme<CustomThemeOptions>();
   const { mode } = useColorScheme();
   const textColor = mode === 'dark' ? '#b6c2cf' : 'white';
-  const chipStyles = {
-    ...CHIP_STYLES,
-    color: textColor,
-    '.MuiSvgIcon-root': {
-      color: textColor,
-    },
-  };
+  const chipStyles = getChipStyles(mode);
 
   return (
     <>
