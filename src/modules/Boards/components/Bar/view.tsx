@@ -7,7 +7,6 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import VpnLockIcon from '@mui/icons-material/VpnLock';
 import AddToDriveIcon from '@mui/icons-material/AddToDrive';
 import BoltIcon from '@mui/icons-material/Bolt';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { useTheme } from '@mui/styles';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import { Board } from '@/types/board.type';
@@ -15,16 +14,8 @@ import { useColorScheme } from '@mui/material';
 import Invitation from './components/Invitation';
 import Charts from './components/Charts';
 import DateTracker from './components/DateTracker';
-
-const CHIP_STYLES = {
-  bgcolor: 'transparent',
-  border: 'none',
-  paddingX: '5px',
-  borderRadius: '4px',
-  '&:hover': {
-    bgcolor: 'primary.50',
-  },
-};
+import { CHIP_STYLES } from './constants';
+import Filter from './components/Filter';
 
 type BoardBarViewProps = {
   board: Board;
@@ -68,7 +59,7 @@ function BoardBarView({ board }: BoardBarViewProps) {
           />
           <Chip icon={<AddToDriveIcon />} label="Add To Google Drive" clickable sx={chipStyles} />
           <Chip icon={<BoltIcon />} label="Automation" clickable sx={chipStyles} />
-          <Chip icon={<FilterListIcon />} label="Filter" clickable sx={chipStyles} />
+          <Filter />
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <DateTracker />
