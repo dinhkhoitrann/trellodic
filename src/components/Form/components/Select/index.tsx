@@ -5,14 +5,17 @@ import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
+import { getOptionLabel } from './service';
 
 type RHFSelectProps = SelectProps & {
   id: string;
   name: string;
   label: string;
-  options: any[];
+  options?: any[];
+  getLabelBy?: string;
+  multiple?: boolean;
   isRequired?: boolean;
+  renderValue?: (_selected: any) => React.ReactNode;
 };
 
 const ITEM_HEIGHT = 48;
@@ -26,7 +29,18 @@ const MenuProps = {
   },
 };
 
-function RHFSelect({ id, name, label, children, isRequired, options, ...rest }: RHFSelectProps) {
+function RHFSelect({
+  id,
+  name,
+  label,
+  children,
+  multiple = false,
+  isRequired,
+  options,
+  getLabelBy,
+  renderValue,
+  ...rest
+}: RHFSelectProps) {
   const { control } = useFormContext();
   return (
     <Controller
@@ -44,28 +58,33 @@ function RHFSelect({ id, name, label, children, isRequired, options, ...rest }: 
           </Typography>
           <Select
             {...rest}
-            multiple
+            multiple={multiple}
             displayEmpty
             value={field.value}
             onChange={field.onChange}
             input={<OutlinedInput />}
-            renderValue={(selected) => (
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                {selected.map((value: any) => (
-                  <Chip key={value} label={value} />
-                ))}
-              </Box>
-            )}
+            renderValue={(selected) => {
+              if (!selected || selected.length === 0) return <Typography sx={{ color: 'gray' }}>{label}</Typography>;
+              if (renderValue) return renderValue(selected);
+
+              if (Array.isArray(selected)) {
+                return (
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    {selected.map((value: any) => (
+                      <Chip key={value} label={getOptionLabel(options, value, getLabelBy)} />
+                    ))}
+                  </Box>
+                );
+              }
+
+              return <Chip label={getOptionLabel(options, selected, getLabelBy)} />;
+            }}
             error={!!error}
             fullWidth
             size="small"
             MenuProps={MenuProps}
           >
-            {options.map((option, index) => (
-              <MenuItem key={index} value={option}>
-                {option}
-              </MenuItem>
-            ))}
+            {children}
           </Select>
           <FormHelperText>{error?.message}</FormHelperText>
         </>

@@ -4,11 +4,13 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import MenuItem from '@mui/material/MenuItem';
 import FormProvider from '@/components/Form/components/FormProvider';
 import RHFSelect from '@/components/Form/components/Select';
+import { BoardGlobalProps, withBoard } from '@/hocs';
 import { FilterDefaultValues } from './validation';
 
-type FormViewProps = {
+type FormViewProps = BoardGlobalProps & {
   isOpen: boolean;
   methods: UseFormReturn<FilterDefaultValues, any, undefined>;
   onClose: () => void;
@@ -17,7 +19,7 @@ type FormViewProps = {
 
 const FORM_ID = 'filter-board';
 
-function FormView({ isOpen, methods, onClose, onSubmit }: FormViewProps) {
+function FormView({ board: { labels }, isOpen, methods, onClose, onSubmit }: FormViewProps) {
   const { handleSubmit } = methods;
 
   return (
@@ -40,16 +42,24 @@ function FormView({ isOpen, methods, onClose, onSubmit }: FormViewProps) {
         </Box>
         <Box sx={{ overflowY: 'auto', flex: 1 }}>
           <FormProvider id={FORM_ID} methods={methods} onSubmit={handleSubmit(onSubmit)}>
-            <RHFSelect id="label" name="label" label="Label" options={['111', '222', '333']} />
+            <RHFSelect
+              id="label"
+              name="label"
+              label="Label"
+              multiple
+              placeholder="Label"
+              options={labels || []}
+              getLabelBy="title"
+            >
+              {labels?.map((label) => (
+                <MenuItem key={label._id} value={label._id}>
+                  {label.title}
+                </MenuItem>
+              ))}
+            </RHFSelect>
           </FormProvider>
         </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            gap: 2,
-            justifyContent: 'end',
-          }}
-        >
+        <Box sx={{ display: 'flex', gap: 2, justifyContent: 'end' }}>
           <Button variant="outlined" onClick={onClose}>
             Cancel
           </Button>
@@ -62,4 +72,4 @@ function FormView({ isOpen, methods, onClose, onSubmit }: FormViewProps) {
   );
 }
 
-export default FormView;
+export default withBoard(FormView);
