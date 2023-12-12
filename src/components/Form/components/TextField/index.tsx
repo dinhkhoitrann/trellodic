@@ -34,7 +34,7 @@ export default function RHFTextField({ id, name, label, isRequired = true, tag, 
               {...field}
               value={field.value}
               error={!!error}
-              sx={{ width: '100%' }}
+              fullWidth
               helperText={error?.message}
               {...other}
             />

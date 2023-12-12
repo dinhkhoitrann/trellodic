@@ -34,8 +34,7 @@ export default function RHFDatePicker({ id, name, label, isRequired = true, ...o
                 {...field}
                 format="DD/MM/YYYY"
                 value={dayjs(field.value)}
-                sx={{ width: '100%' }}
-                slotProps={{ textField: { size: 'small', id } }}
+                slotProps={{ textField: { size: 'small', id, fullWidth: true } }}
                 {...other}
               />
             </LocalizationProvider>

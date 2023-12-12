@@ -12,7 +12,7 @@ type FormProviderProps = {
 export default function FormProvider({ children, id, onSubmit, methods }: FormProviderProps) {
   return (
     <Form {...methods}>
-      <form id={id} onSubmit={onSubmit}>
+      <form id={id} onSubmit={onSubmit} style={{ width: '100%' }}>
         {children}
       </form>
     </Form>
