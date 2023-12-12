@@ -49,7 +49,7 @@ function SignupFormView({ methods, isSigningup, onSubmit }: SignupFormViewProps)
           type="phone"
           size="small"
         />
-        <RHFDatePicker name="birthday" label="Birthday" />
+        <RHFDatePicker id="birthday" name="birthday" label="Birthday" />
         <Button fullWidth variant="contained" type="submit" disabled={isSigningup}>
           {isSigningup ? 'Creating' : 'Create'}
         </Button>

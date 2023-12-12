@@ -1,5 +1,5 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import { Autocomplete, SxProps, TextField, Theme, Typography } from '@mui/material';
+import { Autocomplete, SxProps, TextField, Theme, InputLabel } from '@mui/material';
 
 type RHFAutocompleteProps<T> = {
   id: string;
@@ -14,7 +14,14 @@ type RHFAutocompleteProps<T> = {
   sx?: SxProps<Theme> | undefined;
 };
 
-export default function RHFAutocomplete<T extends {}>({ name, isRequired, ...other }: RHFAutocompleteProps<T>) {
+export default function RHFAutocomplete<T extends {}>({
+  id,
+  name,
+  isRequired,
+  label,
+  onChangeValue,
+  ...other
+}: RHFAutocompleteProps<T>) {
   const { control } = useFormContext();
 
   return (
@@ -29,26 +36,15 @@ export default function RHFAutocomplete<T extends {}>({ name, isRequired, ...oth
             fullWidth
             onChange={(_, value) => {
               field.onChange(value);
-              if (other.onChangeValue) other.onChangeValue();
+              if (onChangeValue) onChangeValue();
             }}
-            placeholder={other.label}
+            placeholder={label}
             renderInput={(params) => (
               <>
-                <Typography component="label" htmlFor={other.id} sx={{ display: 'inline-block', mb: '4px' }}>
-                  {other.label}{' '}
-                  {isRequired && (
-                    <Typography component="span" sx={{ color: 'red' }}>
-                      *
-                    </Typography>
-                  )}
-                </Typography>
-                <TextField
-                  {...params}
-                  // label={other.label}
-                  value={field.value}
-                  error={!!error}
-                  helperText={error?.message}
-                />
+                <InputLabel htmlFor={id} required={isRequired} color="error" sx={{ mb: 1 }}>
+                  {label}
+                </InputLabel>
+                <TextField {...params} id={id} value={field.value} error={!!error} helperText={error?.message} />
               </>
             )}
             {...other}

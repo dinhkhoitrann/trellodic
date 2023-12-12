@@ -4,10 +4,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import InputLabel from '@mui/material/InputLabel';
 import { SxProps, Theme } from '@mui/material';
 
 type RHFDatePickerProps = {
+  id: string;
   name: string;
   text?: string;
   isRequired?: boolean;
@@ -15,7 +16,7 @@ type RHFDatePickerProps = {
   sx?: SxProps<Theme>;
 };
 
-export default function RHFDatePicker({ name, label, isRequired = true, ...other }: RHFDatePickerProps) {
+export default function RHFDatePicker({ id, name, label, isRequired = true, ...other }: RHFDatePickerProps) {
   const { control } = useFormContext();
 
   return (
@@ -26,20 +27,15 @@ export default function RHFDatePicker({ name, label, isRequired = true, ...other
         return (
           <Box sx={{ mb: 2 }}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Typography component="label" sx={{ display: 'inline-block', mb: '4px' }}>
-                {label}{' '}
-                {isRequired && (
-                  <Typography component="span" sx={{ color: 'red' }}>
-                    *
-                  </Typography>
-                )}
-              </Typography>
+              <InputLabel htmlFor={id} required={isRequired} color="error" sx={{ mb: 1 }}>
+                {label}
+              </InputLabel>
               <DesktopDatePicker
                 {...field}
                 format="DD/MM/YYYY"
                 value={dayjs(field.value)}
                 sx={{ width: '100%' }}
-                slotProps={{ textField: { size: 'small' } }}
+                slotProps={{ textField: { size: 'small', id } }}
                 {...other}
               />
             </LocalizationProvider>

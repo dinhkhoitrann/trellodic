@@ -5,7 +5,9 @@ import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
+import InputLabel from '@mui/material/InputLabel';
 import { getOptionLabel } from './service';
+import { MenuProps } from './constants';
 
 type RHFSelectProps = SelectProps & {
   id: string;
@@ -16,17 +18,6 @@ type RHFSelectProps = SelectProps & {
   multiple?: boolean;
   isRequired?: boolean;
   renderValue?: (_selected: any) => React.ReactNode;
-};
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
 };
 
 function RHFSelect({
@@ -47,17 +38,13 @@ function RHFSelect({
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <>
-          <Typography component="label" htmlFor={id} sx={{ display: 'inline-block', mb: '4px' }}>
-            {label}{' '}
-            {isRequired && (
-              <Typography component="span" sx={{ color: 'red' }}>
-                *
-              </Typography>
-            )}
-          </Typography>
+        <Box sx={{ mb: 2 }}>
+          <InputLabel htmlFor={id} required={isRequired} color="error" sx={{ mb: 1 }}>
+            {label}
+          </InputLabel>
           <Select
             {...rest}
+            id={id}
             multiple={multiple}
             displayEmpty
             value={field.value}
@@ -86,8 +73,8 @@ function RHFSelect({
           >
             {children}
           </Select>
-          <FormHelperText>{error?.message}</FormHelperText>
-        </>
+          {error && <FormHelperText error={!!error}>{error.message}</FormHelperText>}
+        </Box>
       )}
     />
   );

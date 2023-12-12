@@ -47,6 +47,7 @@ function FormView({ board: { labels }, isOpen, methods, onClose, onSubmit }: For
               name="label"
               label="Label"
               multiple
+              isRequired={true}
               placeholder="Label"
               options={labels || []}
               getLabelBy="title"

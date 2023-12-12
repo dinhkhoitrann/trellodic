@@ -28,6 +28,7 @@ function ProfileDetailsView({ methods, onSubmit }: ProfileDetailsViewProps) {
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
                 <RHFTextField
+                  id="name"
                   name="name"
                   label="Full name"
                   placeholder="Enter your full name"
@@ -37,6 +38,7 @@ function ProfileDetailsView({ methods, onSubmit }: ProfileDetailsViewProps) {
               </Grid>
               <Grid item xs={12} md={6}>
                 <RHFTextField
+                  id="email"
                   name="email"
                   label="Email"
                   placeholder="Enter your email"
@@ -47,6 +49,7 @@ function ProfileDetailsView({ methods, onSubmit }: ProfileDetailsViewProps) {
               </Grid>
               <Grid item xs={12} md={6}>
                 <RHFTextField
+                  id="phoneNumber"
                   name="phoneNumber"
                   label="Phone number"
                   placeholder="Enter your phone number"
@@ -55,7 +58,7 @@ function ProfileDetailsView({ methods, onSubmit }: ProfileDetailsViewProps) {
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-                <RHFDatePicker name="birthday" label="Birthday" />
+                <RHFDatePicker id="birthday" name="birthday" label="Birthday" />
               </Grid>
             </Grid>
             <Box sx={{ textAlign: 'end' }}>
