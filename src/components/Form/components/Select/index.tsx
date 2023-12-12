@@ -39,7 +39,7 @@ function RHFSelect({
       control={control}
       render={({ field, fieldState: { error } }) => (
         <Box sx={{ mb: 2 }}>
-          <InputLabel htmlFor={id} required={isRequired} color="error" sx={{ mb: 1 }}>
+          <InputLabel htmlFor={id} required={isRequired} sx={{ mb: 1 }}>
             {label}
           </InputLabel>
           <Select

@@ -12,11 +12,10 @@ export type RHFTextFieldProps = TextFieldProps &
     isRequired?: boolean;
     id: string;
     tag?: string;
-    text?: string;
     type?: string;
   };
 
-export default function RHFTextField({ id, name, label, isRequired = true, tag, text, ...other }: RHFTextFieldProps) {
+export default function RHFTextField({ id, name, label, isRequired = true, tag, ...other }: RHFTextFieldProps) {
   const { control } = useFormContext();
 
   return (
@@ -25,15 +24,15 @@ export default function RHFTextField({ id, name, label, isRequired = true, tag, 
       control={control}
       render={({ field, fieldState: { error } }) => (
         <Box sx={{ mb: 2 }}>
-          <InputLabel htmlFor={id} required={isRequired} color="error" sx={{ mb: 1 }}>
+          <InputLabel htmlFor={id} required={isRequired} sx={{ mb: 1 }}>
             {label}
           </InputLabel>
           {tag === 'textarea' ? (
-            <StyledTextarea {...field} value={field.value || text || ''} minRows={3} />
+            <StyledTextarea {...field} value={field.value} minRows={3} />
           ) : (
             <TextField
               {...field}
-              value={field.value || text || ''}
+              value={field.value}
               error={!!error}
               sx={{ width: '100%' }}
               helperText={error?.message}

@@ -32,7 +32,7 @@ export default function RHFAutocomplete<T extends {}>({
         return (
           <Autocomplete
             {...field}
-            value={field.value || ''}
+            value={field.value}
             fullWidth
             onChange={(_, value) => {
               field.onChange(value);
@@ -41,7 +41,7 @@ export default function RHFAutocomplete<T extends {}>({
             placeholder={label}
             renderInput={(params) => (
               <>
-                <InputLabel htmlFor={id} required={isRequired} color="error" sx={{ mb: 1 }}>
+                <InputLabel htmlFor={id} required={isRequired} sx={{ mb: 1 }}>
                   {label}
                 </InputLabel>
                 <TextField {...params} id={id} value={field.value} error={!!error} helperText={error?.message} />
