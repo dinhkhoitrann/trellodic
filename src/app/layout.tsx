@@ -32,7 +32,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <ProviderTree>
         <body>
           {!isLoaded ? (
-            <BackdropLoading />
+            <BackdropLoading open />
           ) : (
             <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
               {pathname.startsWith('/auth') ? <></> : <AppBar />}

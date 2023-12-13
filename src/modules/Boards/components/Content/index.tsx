@@ -26,21 +26,17 @@ import { Board } from '@/types/board.type';
 import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
 import { Column } from '@/types/column.type';
 import { generatePlaceholderCard } from '@/utils/card';
-import { useGetBoardDetailsQuery } from '@/redux/services/board/board';
 import { updateColumn } from '@/services/column';
-import { useAppDispatch } from '@/redux/store';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { save, selectBoardDetails } from '@/redux/slices/board';
 
 type BoardContentProps = {
   boardId: string;
   board: Board;
 };
 
-function BoardContent({ boardId, board: boardProp }: BoardContentProps) {
-  const { data } = useGetBoardDetailsQuery(
-    { boardId },
-    { pollingInterval: 60000 * 5, refetchOnFocus: true, refetchOnReconnect: true },
-  );
-
+function BoardContent({ boardId, board: initBoard }: BoardContentProps) {
+  const currentBoard = useAppSelector(selectBoardDetails);
   const dispatch = useAppDispatch();
   const { mutate: updateCardOrderedIds } = useMutation({
     mutationFn: updateColumn,
@@ -52,7 +48,7 @@ function BoardContent({ boardId, board: boardProp }: BoardContentProps) {
     },
   });
 
-  const [board, setBoard] = useState(data || boardProp);
+  const [board, setBoard] = useState(initBoard);
   const [activeDragItemId, setActiveDragItemId] = useState<string | null>(null);
   const [activeDragItemType, setActiveDragItemType] = useState<string | null>(null);
   const [activeDragItemData, setActiveDragItemData] = useState<any | null>(null);
@@ -107,14 +103,20 @@ function BoardContent({ boardId, board: boardProp }: BoardContentProps) {
   );
 
   useEffect(() => {
+    dispatch(save({ ...initBoard }));
     setBoard((prevBoard) => {
-      const orderedColumns = mapOrder(boardProp?.columns, boardProp?.columnOrderIds, '_id');
+      const orderedColumns = mapOrder(initBoard?.columns, initBoard?.columnOrderIds, '_id');
       return {
         ...prevBoard,
         columns: [...orderedColumns],
       };
     });
-  }, [boardProp?.columnOrderIds, boardProp?.columns]);
+  }, [initBoard, dispatch]);
+
+  useEffect(() => {
+    if (isEmpty(currentBoard)) return;
+    setBoard(currentBoard as Board);
+  }, [currentBoard]);
 
   const findColumnByCardId = (cardId: string) => {
     return board?.columns?.find((column) => column.cards.map((card) => card._id)?.includes(cardId));

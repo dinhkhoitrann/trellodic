@@ -7,6 +7,9 @@ import { CustomThemeOptions } from '@/common/styles/theme';
 import CardDetails from '@/modules/CardDetails';
 import SummaryTodos from '@/modules/Summary';
 import { DND_ANIMATION_OPACITY } from '@/utils/constants';
+import { selectBoardLoading } from '@/redux/slices/board';
+import { useAppSelector } from '@/redux/store';
+import BackdropLoading from '@/components/Loading/Backdrop';
 import ListColumns from './components/ListColumns';
 import Column from './components/ListColumns/components/Column';
 import Card from './components/ListColumns/components/Column/components/ListCards/components/Card';
@@ -21,6 +24,7 @@ type BoardContentViewProps = {
 function BoardContentView({ board, activeDragItemType, activeDragItemData }: BoardContentViewProps) {
   const searchParams = useSearchParams();
   const cardId = searchParams.get('cardId');
+  const loading = useAppSelector(selectBoardLoading);
 
   const theme = useTheme<CustomThemeOptions>();
   const dropAnimation: DropAnimation = {
@@ -35,6 +39,7 @@ function BoardContentView({ board, activeDragItemType, activeDragItemData }: Boa
 
   return (
     <>
+      <BackdropLoading open={loading} />
       <Box
         sx={{
           width: '100%',

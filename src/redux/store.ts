@@ -8,6 +8,7 @@ import { cardApi } from './services/card/card';
 import { checklistApi } from './services/card/checklist';
 import { boardApi } from './services/board/board';
 import { labelApi } from './services/board/label';
+import { boardFilterApi } from './services/board/filter';
 import { memberApi } from './services/card/member';
 import { datesApi } from './services/card/dates';
 import { attachmentApi } from './services/card/attachment';
@@ -22,6 +23,7 @@ export const store = configureStore({
     [cardApi.reducerPath]: cardApi.reducer,
     [checklistApi.reducerPath]: checklistApi.reducer,
     [boardApi.reducerPath]: boardApi.reducer,
+    [boardFilterApi.reducerPath]: boardFilterApi.reducer,
     [labelApi.reducerPath]: labelApi.reducer,
     [memberApi.reducerPath]: memberApi.reducer,
     [datesApi.reducerPath]: datesApi.reducer,
@@ -41,6 +43,7 @@ export const store = configureStore({
       cardApi.middleware,
       checklistApi.middleware,
       boardApi.middleware,
+      boardFilterApi.middleware,
       labelApi.middleware,
       memberApi.middleware,
       datesApi.middleware,

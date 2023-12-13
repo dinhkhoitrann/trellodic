@@ -19,7 +19,7 @@ type FormViewProps = BoardGlobalProps & {
 
 const FORM_ID = 'filter-board';
 
-function FormView({ board: { labels }, isOpen, methods, onClose, onSubmit }: FormViewProps) {
+function FormView({ board: { labels = [] }, isOpen, methods, onClose, onSubmit }: FormViewProps) {
   const { handleSubmit } = methods;
 
   return (
@@ -42,17 +42,8 @@ function FormView({ board: { labels }, isOpen, methods, onClose, onSubmit }: For
         </Box>
         <Box sx={{ overflowY: 'auto', flex: 1 }}>
           <FormProvider id={FORM_ID} methods={methods} onSubmit={handleSubmit(onSubmit)}>
-            <RHFSelect
-              id="label"
-              name="label"
-              label="Label"
-              multiple
-              isRequired={true}
-              placeholder="Label"
-              options={labels || []}
-              getLabelBy="title"
-            >
-              {labels?.map((label) => (
+            <RHFSelect id="labels" name="labels" label="Label" multiple options={labels} getLabelBy="title">
+              {labels.map((label) => (
                 <MenuItem key={label._id} value={label._id}>
                   {label.title}
                 </MenuItem>
