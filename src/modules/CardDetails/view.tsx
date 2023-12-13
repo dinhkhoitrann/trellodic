@@ -1,6 +1,5 @@
 import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { Theme } from '@/common/enums';
 import AddToCard from './components/AddToCard';
@@ -8,18 +7,15 @@ import ActiveSections from './components/ActiveSections';
 import Description from './components/Description';
 import Checklist from './components/Checklist';
 import Comments from './components/Comments';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { SerializedError } from '@reduxjs/toolkit';
 import { useEditCardMutation } from '@/redux/services/card/card';
 import { Card } from '@/types/card.type';
 import Modal from '@/components/Modal';
 import Attachment from './components/Attachment';
+import { useView } from '@/hooks';
 
 type CardDetailsViewProps = {
   card: Card;
-  isPending: boolean;
   isError: boolean;
-  error: FetchBaseQueryError | SerializedError | undefined;
 };
 
 const style = {
@@ -28,11 +24,12 @@ const style = {
   bgcolor: 'background.paper',
 };
 
-export default function CardDetailsView({ card, isError, error }: CardDetailsViewProps) {
+export default function CardDetailsView({ card, isError }: CardDetailsViewProps) {
   const router = useRouter();
   const [, { data }] = useEditCardMutation({
     fixedCacheKey: `shared-edit-cover-${card._id}`,
   });
+  const view = useView({ data: card, isError });
 
   const handleCloseModal = () => {
     router.back();
@@ -71,17 +68,11 @@ export default function CardDetailsView({ card, isError, error }: CardDetailsVie
     </>
   );
 
-  if (isError) {
-    content = (
-      <Box sx={{ p: 3 }}>
-        <Typography>{(error as SerializedError).message}</Typography>
-      </Box>
-    );
-  }
+  if (view) content = view;
 
   return (
     <Modal
-      isVisibleModal={true}
+      isVisibleModal
       onClose={handleCloseModal}
       sx={{
         ...style,

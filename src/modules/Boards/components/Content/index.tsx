@@ -28,7 +28,7 @@ import { Column } from '@/types/column.type';
 import { generatePlaceholderCard } from '@/utils/card';
 import { updateColumn } from '@/services/column';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { save, selectBoardDetails } from '@/redux/slices/board';
+import { save as saveBoardDetails, selectBoardDetails } from '@/redux/slices/board';
 
 type BoardContentProps = {
   boardId: string;
@@ -103,7 +103,7 @@ function BoardContent({ boardId, board: initBoard }: BoardContentProps) {
   );
 
   useEffect(() => {
-    dispatch(save({ ...initBoard }));
+    dispatch(saveBoardDetails({ ...initBoard }));
     setBoard((prevBoard) => {
       const orderedColumns = mapOrder(initBoard?.columns, initBoard?.columnOrderIds, '_id');
       return {
@@ -111,7 +111,8 @@ function BoardContent({ boardId, board: initBoard }: BoardContentProps) {
         columns: [...orderedColumns],
       };
     });
-  }, [initBoard, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (isEmpty(currentBoard)) return;

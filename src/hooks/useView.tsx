@@ -5,8 +5,8 @@ import Typography from '@mui/material/Typography';
 
 type ViewProps = {
   data: any;
-  isLoading: boolean;
-  isError: boolean;
+  isLoading?: boolean;
+  isError?: boolean;
 };
 
 export default function useView({ data, isLoading, isError }: ViewProps) {
