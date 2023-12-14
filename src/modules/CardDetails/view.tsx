@@ -18,12 +18,6 @@ type CardDetailsViewProps = {
   isError: boolean;
 };
 
-const style = {
-  transform: 'translate(-50%, -250px)',
-  width: { xs: '95%', md: '75%' },
-  bgcolor: 'background.paper',
-};
-
 export default function CardDetailsView({ card, isError }: CardDetailsViewProps) {
   const router = useRouter();
   const [, { data }] = useEditCardMutation({
@@ -75,7 +69,8 @@ export default function CardDetailsView({ card, isError }: CardDetailsViewProps)
       isVisibleModal
       onClose={handleCloseModal}
       sx={{
-        ...style,
+        transform: 'translate(-50%, -250px)',
+        width: { xs: '95%', md: '75%' },
         px: 0,
         py: 0,
         bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0'),

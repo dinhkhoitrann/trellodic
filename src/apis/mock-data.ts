@@ -23,18 +23,7 @@ export const mockData: MockBoardData = {
       { _id: '2', title: 'Title 2', color: '#2ecc71' },
       { _id: '3', title: 'Title 3', color: '#3498db' },
     ],
-    admin: {
-      _id: 'mem-1',
-      name: 'Name',
-      email: 'emailaaa@email.com',
-      password: '123',
-      avatar: 'https://i.pravatar.cc/',
-      birthday: '2023-11-02T15:56:37.145Z',
-      gender: 'male',
-      phoneNumber: '0123456789',
-      isVerified: true,
-      type: 'INTERNAL',
-    }, // Những users là Admin của board
+    admin: '655497333b7dba7af3972bd3', // Những users là Admin của board
     memberIds: [
       {
         _id: 'mem-1',
@@ -361,18 +350,7 @@ export const filteredBoard: Board = {
     { _id: '2', title: 'Title 2', color: '#2ecc71' },
     { _id: '3', title: 'Title 3', color: '#3498db' },
   ],
-  admin: {
-    _id: 'mem-1',
-    name: 'Name',
-    email: 'emailaaa@email.com',
-    password: '123',
-    avatar: 'https://i.pravatar.cc/',
-    birthday: '2023-11-02T15:56:37.145Z',
-    gender: 'male',
-    phoneNumber: '0123456789',
-    isVerified: true,
-    type: 'INTERNAL',
-  }, // Những users là Admin của board
+  admin: '655497333b7dba7af3972bd3', // Những users là Admin của board
   memberIds: [
     {
       _id: 'mem-1',

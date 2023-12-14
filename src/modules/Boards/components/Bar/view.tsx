@@ -11,6 +11,7 @@ import { useTheme } from '@mui/styles';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import { Board } from '@/types/board.type';
 import { useColorScheme } from '@mui/material';
+import { useAuthorized } from '@/hooks';
 import Invitation from './components/Invitation';
 import Charts from './components/Charts';
 import DateTracker from './components/DateTracker';
@@ -24,6 +25,7 @@ type BoardBarViewProps = {
 function BoardBarView({ board }: BoardBarViewProps) {
   const theme = useTheme<CustomThemeOptions>();
   const { mode } = useColorScheme();
+  const { isBoardAdmin } = useAuthorized();
   const textColor = mode === 'dark' ? '#b6c2cf' : 'white';
   const chipStyles = getChipStyles(mode);
 
@@ -56,9 +58,13 @@ function BoardBarView({ board }: BoardBarViewProps) {
           <Filter />
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <DateTracker />
-          <Charts />
-          <Invitation />
+          {isBoardAdmin && (
+            <>
+              <DateTracker />
+              <Charts />
+              <Invitation />
+            </>
+          )}
           <AvatarGroup
             max={4}
             sx={{
@@ -73,21 +79,11 @@ function BoardBarView({ board }: BoardBarViewProps) {
               },
             }}
           >
-            <Tooltip title="Tran Dinh Khoi">
-              <Avatar alt="Tran Dinh Khoi" src="https://i.pravatar.cc/" />
-            </Tooltip>
-            <Tooltip title="Tran Dinh Khoi">
-              <Avatar alt="Tran Dinh Khoi" src="https://i.pravatar.cc/" />
-            </Tooltip>
-            <Tooltip title="Tran Dinh Khoi">
-              <Avatar alt="Tran Dinh Khoi" src="https://i.pravatar.cc/" />
-            </Tooltip>
-            <Tooltip title="Tran Dinh Khoi">
-              <Avatar alt="Tran Dinh Khoi" src="https://i.pravatar.cc/" />
-            </Tooltip>
-            <Tooltip title="Tran Dinh Khoi">
-              <Avatar alt="Tran Dinh Khoi" src="https://i.pravatar.cc/" />
-            </Tooltip>
+            {board.memberIds.map((member) => (
+              <Tooltip key={member._id} title={member.name}>
+                <Avatar alt={member.name} src={member.avatar} />
+              </Tooltip>
+            ))}
           </AvatarGroup>
         </Box>
       </Box>
