@@ -2,17 +2,20 @@ import { useRef, useState } from 'react';
 import Button from '@mui/material/Button';
 import LabelOutlinedIcon from '@mui/icons-material/LabelOutlined';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
+import { useAuthorized } from '@/hooks';
+import { Label } from '@/types/board.type';
 import PopoverWrapper from '../Popover';
 import SelectLabels from './components/SelectLabels';
 import CreateLabel from './components/CreateLabel';
 import { MODES } from './constants';
 import EditLabel from './components/EditLabel';
-import { Label } from '@/types/board.type';
 
 function LabelsView() {
   const [mode, setMode] = useState(MODES.VIEW);
   const ref = useRef<ActionButtonRef>(null);
   const labelRef = useRef<Label>();
+  const { isBoardAdmin } = useAuthorized();
+  const canCreate = mode === MODES.VIEW && isBoardAdmin;
 
   const handleClose = () => {
     ref.current?.handleClose();
@@ -58,12 +61,10 @@ function LabelsView() {
           onGoBack={handleBackToViewMode}
         >
           {content[mode].component}
-          {mode === MODES.VIEW ? (
+          {canCreate && (
             <Button sx={{ display: 'block', margin: '0 auto' }} onClick={handleCreateMode}>
               Create a new label
             </Button>
-          ) : (
-            <></>
           )}
         </PopoverWrapper>
       )}

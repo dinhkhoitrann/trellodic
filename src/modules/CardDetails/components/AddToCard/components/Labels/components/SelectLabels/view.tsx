@@ -13,6 +13,7 @@ import { Label } from '@/types/board.type';
 import { useAppSelector } from '@/redux/store';
 import { selectCardDetails } from '@/redux/slices/card';
 import { selectBoardDetails } from '@/redux/slices/board';
+import { useAuthorized } from '@/hooks';
 
 type SelectLabelsViewProps = {
   onSelectedLabelsChange: (_event: ChangeEvent<HTMLInputElement>) => void;
@@ -25,6 +26,7 @@ function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsVi
   const [labels, setLabels] = useState<Label[]>([]);
   const labelsRef = useRef<Label[]>();
   const [search, setSearch] = useState('');
+  const { isBoardAdmin } = useAuthorized();
 
   useEffect(() => {
     if (!search.trim()) {
@@ -89,9 +91,11 @@ function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsVi
                     },
                   }}
                 />
-                <IconButton sx={{ mr: 2 }} onClick={() => onEditMode(label)}>
-                  <EditIcon fontSize="small" />
-                </IconButton>
+                {isBoardAdmin && (
+                  <IconButton sx={{ mr: 2 }} onClick={() => onEditMode(label)}>
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                )}
               </Stack>
             ))
           )}

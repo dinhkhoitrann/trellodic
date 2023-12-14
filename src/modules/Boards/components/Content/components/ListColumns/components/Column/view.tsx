@@ -12,7 +12,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import { Theme } from '@/common/enums';
 import { Column } from '@/types/column.type';
-import { useAlert } from '@/hooks';
+import { useAlert, useAuthorized } from '@/hooks';
 import { DND_ANIMATION_OPACITY } from '@/utils/constants';
 import ListCards from './components/ListCards';
 import ColumnTitle from './components/Title';
@@ -44,11 +44,14 @@ function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnView
     okText: 'Delete',
     title: 'Delete column?',
     content: 'Are you sure? All cards in this column will be deleted',
-    onOk(params) {
+    onOk: (params) => {
       onClose();
       onDelete(params);
     },
   });
+
+  const { isBoardAdmin } = useAuthorized();
+  const canDelete = column.cards.length === 1 && column.cards[0].FE_isPlaceholderCard;
 
   return (
     <>
@@ -75,34 +78,40 @@ function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnView
             }}
           >
             <ColumnTitle columnId={column._id} title={column.title} />
-            <Box>
-              <Tooltip title="More options">
-                <ExpandMoreIcon
-                  id="basic-column-dropdown"
-                  aria-controls={open ? 'basic-menu-column-dropdown' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  sx={{ color: 'text.primary', cursor: 'pointer' }}
-                  onClick={onClick}
-                />
-              </Tooltip>
-              <Menu
-                id="basic-menu-column-dropdown"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={onClose}
-                MenuListProps={{
-                  'aria-labelledby': 'basic-column-dropdown',
-                }}
-              >
-                <MenuItem onClick={() => handleOpenAlert(column._id)}>
-                  <ListItemIcon>
-                    <DeleteIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Delete column</ListItemText>
-                </MenuItem>
-              </Menu>
-            </Box>
+            {isBoardAdmin && (
+              <Box>
+                <Tooltip title="More options">
+                  <ExpandMoreIcon
+                    id="column-options"
+                    aria-controls={open ? 'column-options-dropdown' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    sx={{ color: 'text.primary', cursor: 'pointer' }}
+                    onClick={onClick}
+                  />
+                </Tooltip>
+                <Menu
+                  id="column-options-dropdown"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={onClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'column-options',
+                  }}
+                >
+                  <Tooltip title={!canDelete && 'You can not delete the column containing cards'} arrow placement="top">
+                    <div>
+                      <MenuItem disabled={!canDelete} onClick={() => handleOpenAlert(column._id)}>
+                        <ListItemIcon>
+                          <DeleteIcon fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText>Delete column</ListItemText>
+                      </MenuItem>
+                    </div>
+                  </Tooltip>
+                </Menu>
+              </Box>
+            )}
           </Box>
 
           <ListCards cards={column?.cards} columnId={column._id} cardOrderIds={column?.cardOrderIds} />
