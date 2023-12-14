@@ -45,6 +45,13 @@ const theme = extendTheme({
         },
       },
     },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          color: 'inherit',
+        },
+      },
+    },
     MuiInputLabel: {
       styleOverrides: {
         root: {

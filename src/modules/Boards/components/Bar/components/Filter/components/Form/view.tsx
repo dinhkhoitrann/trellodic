@@ -5,6 +5,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import FormProvider from '@/components/Form/components/FormProvider';
 import RHFSelect from '@/components/Form/components/Select';
 import { BoardGlobalProps, withBoard } from '@/hocs';
@@ -20,7 +23,11 @@ type FormViewProps = BoardGlobalProps & {
 const FORM_ID = 'filter-board';
 
 function FormView({ board: { labels = [] }, isOpen, methods, onClose, onSubmit }: FormViewProps) {
-  const { handleSubmit } = methods;
+  const { handleSubmit, reset } = methods;
+
+  const handleClearAllFilters = () => {
+    reset();
+  };
 
   return (
     <Drawer anchor="right" open={isOpen} onClose={onClose}>
@@ -33,14 +40,30 @@ function FormView({ board: { labels = [] }, isOpen, methods, onClose, onSubmit }
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          gap: 3,
+          gap: 2,
         }}
       >
         <Box>
-          <Typography sx={{ fontSize: '16px !important' }}>Filter</Typography>
+          <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Typography sx={{ fontSize: '16px !important' }}>Filter</Typography>
+            <IconButton onClick={onClose}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </Stack>
           <Divider sx={{ mx: '-24px', mt: 2 }} />
         </Box>
         <Box sx={{ overflowY: 'auto', flex: 1 }}>
+          <Box sx={{ textAlign: 'end', mb: 2 }}>
+            <Button
+              variant="outlined"
+              size="small"
+              startIcon={<CloseIcon />}
+              sx={{ borderRadius: '20px' }}
+              onClick={handleClearAllFilters}
+            >
+              Clear all filters
+            </Button>
+          </Box>
           <FormProvider id={FORM_ID} methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <RHFSelect id="labels" name="labels" label="Label" multiple options={labels} getLabelBy="title">
               {labels.map((label) => (
