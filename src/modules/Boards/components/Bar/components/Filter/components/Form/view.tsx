@@ -12,6 +12,7 @@ import FormProvider from '@/components/Form/components/FormProvider';
 import RHFSelect from '@/components/Form/components/Select';
 import { BoardGlobalProps, withBoard } from '@/hocs';
 import { FilterDefaultValues } from './validation';
+import { FORM_ID } from './constants';
 
 type FormViewProps = BoardGlobalProps & {
   isOpen: boolean;
@@ -19,8 +20,6 @@ type FormViewProps = BoardGlobalProps & {
   onClose: () => void;
   onSubmit: (_values: FilterDefaultValues) => void;
 };
-
-const FORM_ID = 'filter-board';
 
 function FormView({ board: { labels = [] }, isOpen, methods, onClose, onSubmit }: FormViewProps) {
   const { handleSubmit, reset } = methods;
