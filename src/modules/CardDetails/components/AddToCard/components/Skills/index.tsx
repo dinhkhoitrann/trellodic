@@ -1,4 +1,3 @@
-'use client';
 import SkillsView from './view';
 
 function Skills() {
