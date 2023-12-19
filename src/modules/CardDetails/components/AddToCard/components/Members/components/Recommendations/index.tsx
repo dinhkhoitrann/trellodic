@@ -38,7 +38,8 @@ function Recommendations({ cardId, onSelectRecommendations }: RecommendationsPro
   const handleRecommendationVisibility = () => {
     setRecommendVisible(!recommendVisible);
     if (recommendations) return;
-    getRecommendations({ cardId });
+    // TODO: get current skills from card
+    getRecommendations({ cardId, skills: [] });
   };
 
   return (

@@ -5,9 +5,9 @@ import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import { User } from '@/types/user.type';
+import { useView } from '@/hooks';
 
 type RecommendationsViewProps = {
   recommendVisible: boolean;
@@ -26,16 +26,12 @@ function RecommendationsView({
   onRecommendationVisible,
   onChange,
 }: RecommendationsViewProps) {
+  const view = useView({ data: recommendations, isLoading });
+
   const renderRecommendations = () => {
     if (!recommendVisible) return;
 
-    if (isLoading) {
-      return (
-        <Box sx={{ textAlign: 'center', py: 4 }}>
-          <CircularProgress />
-        </Box>
-      );
-    }
+    if (view) return view;
 
     if (recommendations.length === 0) {
       return <Typography sx={{ textAlign: 'center', my: 3 }}>No recommendations found</Typography>;
@@ -44,7 +40,7 @@ function RecommendationsView({
     return (
       <FormControl component="fieldset" variant="standard">
         <FormLabel component="legend" sx={{ my: 2 }}>
-          These members might be good candidates to join to this card
+          From the current skills of the card, these members might be good candidates to join
         </FormLabel>
         <FormGroup>
           {recommendations.map((recommendation) => (

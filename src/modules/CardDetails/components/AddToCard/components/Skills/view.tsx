@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import Box from '@mui/material/Box';
-import ChecklistIcon from '@mui/icons-material/Checklist';
+import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import PopoverWrapper from '../Popover';
 import AddSkills from '@/components/Skills';
@@ -16,7 +16,7 @@ function SkillsView() {
   return (
     <ActionButton
       ref={ref}
-      startIcon={<ChecklistIcon />}
+      startIcon={<BuildOutlinedIcon />}
       renderPopover={() => (
         <PopoverWrapper title="Add skills" onClose={handleClose}>
           <Box sx={{ mt: 2 }}>

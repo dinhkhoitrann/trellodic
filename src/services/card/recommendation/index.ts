@@ -1,6 +1,9 @@
 import { User } from '@/types/user.type';
 
-export const getMemberRecommendations = ({ cardId }: { cardId: string }): Promise<Pick<User, '_id' | 'name'>[]> => {
+export const getMemberRecommendations = (data: {
+  cardId: string;
+  skills: string[];
+}): Promise<Pick<User, '_id' | 'name'>[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
