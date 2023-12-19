@@ -1,8 +1,5 @@
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
-import Tooltip from '@mui/material/Tooltip';
-import Avatar from '@mui/material/Avatar';
-import AvatarGroup from '@mui/material/AvatarGroup';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import VpnLockIcon from '@mui/icons-material/VpnLock';
 import AddToDriveIcon from '@mui/icons-material/AddToDrive';
@@ -17,6 +14,7 @@ import Charts from './components/Charts';
 import DateTracker from './components/DateTracker';
 import Filter from './components/Filter';
 import { getChipStyles } from './service';
+import Members from './components/Members';
 
 type BoardBarViewProps = {
   board: Board;
@@ -26,7 +24,6 @@ function BoardBarView({ board }: BoardBarViewProps) {
   const theme = useTheme<CustomThemeOptions>();
   const { mode } = useColorScheme();
   const { isBoardAdmin } = useAuthorized();
-  const textColor = mode === 'dark' ? '#b6c2cf' : 'white';
   const chipStyles = getChipStyles(mode);
 
   return (
@@ -65,26 +62,7 @@ function BoardBarView({ board }: BoardBarViewProps) {
               <Invitation />
             </>
           )}
-          <AvatarGroup
-            max={4}
-            sx={{
-              '& .MuiAvatar-root': {
-                width: '34px',
-                height: '34px',
-                fontSize: '0.8rem',
-                border: 'none',
-                color: textColor,
-                cursor: 'pointer',
-                '&:first-of-type': { bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#546170' : '#a4b0be') },
-              },
-            }}
-          >
-            {board.memberIds.map((member) => (
-              <Tooltip key={member._id} title={member.name}>
-                <Avatar alt={member.name} src={member.avatar} />
-              </Tooltip>
-            ))}
-          </AvatarGroup>
+          <Members />
         </Box>
       </Box>
     </>

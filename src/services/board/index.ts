@@ -8,7 +8,3 @@ export const fetchBoardDetails = async (data: { boardId: string; signal?: AbortS
 
   return mockData.board;
 };
-
-export const inviteMembers = (data: { memberIds: string[] }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data);
-};

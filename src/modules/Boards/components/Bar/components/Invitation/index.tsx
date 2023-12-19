@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useAppSelector } from '@/redux/store';
 import { selectWorkspaceDetails } from '@/redux/slices/workspace';
 import { getWorkspaceMembers } from '@/services/workspace';
-import { inviteMembers } from '@/services/board';
+import { inviteMembers } from '@/services/board/member';
 import { User } from '@/types/user.type';
 import InvitationView, { InvitationViewRef } from './view';
 
