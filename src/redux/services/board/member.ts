@@ -1,4 +1,4 @@
-import { removeMembers } from '@/services/board/member';
+import { inviteMembers, removeMembers } from '@/services/board/member';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const boardMemberApi = createApi({
@@ -13,7 +13,14 @@ export const boardMemberApi = createApi({
         onSuccess?.();
       },
     }),
+    addMembersToBoard: builder.mutation<{ data: any }, { memberIds: string[]; onSuccess?: () => void }>({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await inviteMembers({ ...rest, signal }) }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess?.();
+      },
+    }),
   }),
 });
 
-export const { useRemoveMemberMutation } = boardMemberApi;
+export const { useRemoveMemberMutation, useAddMembersToBoardMutation } = boardMemberApi;

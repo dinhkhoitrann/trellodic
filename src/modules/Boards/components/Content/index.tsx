@@ -29,6 +29,7 @@ import { generatePlaceholderCard } from '@/utils/card';
 import { updateColumn } from '@/services/column';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { save as saveBoardDetails, selectBoardDetails } from '@/redux/slices/board';
+import { useGetBoardDetailsQuery } from '@/redux/services/board/board';
 
 type BoardContentProps = {
   boardId: string;
@@ -37,6 +38,7 @@ type BoardContentProps = {
 
 function BoardContent({ boardId, board: initBoard }: BoardContentProps) {
   const currentBoard = useAppSelector(selectBoardDetails);
+  const { data } = useGetBoardDetailsQuery({ boardId });
   const dispatch = useAppDispatch();
   const { mutate: updateCardOrderedIds } = useMutation({
     mutationFn: updateColumn,
@@ -48,7 +50,7 @@ function BoardContent({ boardId, board: initBoard }: BoardContentProps) {
     },
   });
 
-  const [board, setBoard] = useState(initBoard);
+  const [board, setBoard] = useState(data || initBoard);
   const [activeDragItemId, setActiveDragItemId] = useState<string | null>(null);
   const [activeDragItemType, setActiveDragItemType] = useState<string | null>(null);
   const [activeDragItemData, setActiveDragItemData] = useState<any | null>(null);

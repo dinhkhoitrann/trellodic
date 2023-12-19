@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import { forwardRef, useImperativeHandle, useState } from 'react';
 import { useColorScheme } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -9,36 +9,34 @@ import TextField from '@mui/material/TextField';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Modal from '@/components/Modal';
-import { User } from '@/types/user.type';
+import { MemberOption } from './type';
 
 type InvitationViewProps = {
-  members: Partial<User>[];
+  members: MemberOption[];
   isFetching: boolean;
   isInviting: boolean;
-  onInvite: (_members: Partial<User>[]) => void;
+  onInvite: (_members: MemberOption[]) => void;
 };
 
 export type InvitationViewRef = {
   onClose: () => void;
+  clearSelections: () => void;
 };
 
 export default forwardRef<InvitationViewRef, InvitationViewProps>(function InvitationView(
   { members, isFetching, isInviting, onInvite },
   ref,
 ) {
-  const [selectedMembers, setSelectedMembers] = useState(members);
+  const [selectedMembers, setSelectedMembers] = useState<MemberOption[]>([]);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const { mode } = useColorScheme();
   const textColor = mode === 'dark' ? '#b6c2cf' : 'white';
 
-  useEffect(() => {
-    return () => {
-      setSelectedMembers([]);
-    };
-  }, []);
-
   useImperativeHandle(ref, () => ({
     onClose: handleModalVisibility,
+    clearSelections: () => {
+      setSelectedMembers([]);
+    },
   }));
 
   const handleModalVisibility = () => {

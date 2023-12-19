@@ -4,8 +4,8 @@ export const getBoardMembers = (boardId: string) => {
   return externalRequest.get(`/boards/${boardId}/members`);
 };
 
-export const inviteMembers = (data: { memberIds: string[] }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data);
+export const inviteMembers = ({ signal, ...rest }: { memberIds: string[]; signal: AbortSignal }) => {
+  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', rest, { signal });
 };
 
 export const removeMembers = ({

@@ -36,17 +36,15 @@ export const getWorkspaceMembers = async (data: { workspaceId: string | undefine
   const { workspaceId } = data;
   await externalRequest.get('https://jsonplaceholder.typicode.com/posts/1');
   return {
-    data: {
-      members: [
-        {
-          _id: '1',
-          name: 'Member 1',
-        },
-        {
-          _id: '2',
-          name: 'Member 2',
-        },
-      ],
-    },
+    members: [
+      {
+        _id: '657ffaa34467ac2c53130b3b',
+        name: 'Member 1',
+      },
+      {
+        _id: '2',
+        name: 'Member 2',
+      },
+    ],
   };
 };
