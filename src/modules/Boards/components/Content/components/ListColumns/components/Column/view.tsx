@@ -43,7 +43,7 @@ function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnView
   const { handleOpenAlert, renderAlert } = useAlert({
     okText: 'Delete',
     title: 'Delete column?',
-    content: 'Are you sure? All cards in this column will be deleted',
+    content: 'Are you sure? You can not get it back',
     onOk: (params) => {
       onClose();
       onDelete(params);

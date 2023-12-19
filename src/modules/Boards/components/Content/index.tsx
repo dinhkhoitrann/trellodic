@@ -111,8 +111,7 @@ function BoardContent({ boardId, board: initBoard }: BoardContentProps) {
         columns: [...orderedColumns],
       };
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch, initBoard]);
 
   useEffect(() => {
     if (isEmpty(currentBoard)) return;

@@ -17,6 +17,7 @@ import { commentApi } from './services/card/comment';
 import { workspaceApi } from './services/workspace/workspace';
 import { authApi } from './services/auth/auth';
 import { userApi } from './services/user/user';
+import { boardMemberApi } from './services/board/member';
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
     [checklistApi.reducerPath]: checklistApi.reducer,
     [boardApi.reducerPath]: boardApi.reducer,
     [boardFilterApi.reducerPath]: boardFilterApi.reducer,
+    [boardMemberApi.reducerPath]: boardMemberApi.reducer,
     [labelApi.reducerPath]: labelApi.reducer,
     [memberApi.reducerPath]: memberApi.reducer,
     [datesApi.reducerPath]: datesApi.reducer,
@@ -44,6 +46,7 @@ export const store = configureStore({
       checklistApi.middleware,
       boardApi.middleware,
       boardFilterApi.middleware,
+      boardMemberApi.middleware,
       labelApi.middleware,
       memberApi.middleware,
       datesApi.middleware,
