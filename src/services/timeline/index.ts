@@ -33,7 +33,7 @@ export const getBoardTimeline = (data: { boardId: string }): Promise<any> => {
   });
 };
 
-export const getWorkspaceTimeline = (data: { workspaceId: string }): Promise<any> => {
+export const getWorkspaceTimeline = (data: { workspaceId: string; time: string }): Promise<any> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [

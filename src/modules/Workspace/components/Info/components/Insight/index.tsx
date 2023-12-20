@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { getWorkspaceTimeline } from '@/services/timeline';
 import { useAppSelector } from '@/redux/store';
 import { selectWorkspaceDetails } from '@/redux/slices/workspace';
@@ -6,14 +6,23 @@ import InsightView from './view';
 
 function Insight() {
   const workspace = useAppSelector(selectWorkspaceDetails);
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['Insight_Workspace'],
-    queryFn: () => getWorkspaceTimeline({ workspaceId: workspace._id! }),
-    staleTime: 5 * 60000,
-    gcTime: 5 * 60000,
-    refetchOnMount: true,
+  const {
+    mutate: getTimelime,
+    data,
+    isPending,
+    isError,
+    isIdle,
+  } = useMutation({
+    mutationFn: getWorkspaceTimeline,
   });
-  return <InsightView data={data} isLoading={isLoading} isError={isError} />;
+
+  const handleTimeChange = (time: string) => {
+    getTimelime({ workspaceId: workspace._id!, time });
+  };
+
+  return (
+    <InsightView data={data} isIdle={isIdle} isLoading={isPending} isError={isError} onTimeChange={handleTimeChange} />
+  );
 }
 
 export default Insight;
