@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import { createContext, useContext, useState } from 'react';
 import { RefetchOptions, useQuery } from '@tanstack/react-query';
 import { getNotifs } from '@/services/notification';

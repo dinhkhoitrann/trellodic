@@ -200,6 +200,7 @@ export const mockData: MockBoardData = {
             comments: [],
             attachments: [],
             isDone: false,
+            endDate: new Date('2023-12-22').toISOString(),
           },
           {
             _id: 'card-id-05',
