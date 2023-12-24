@@ -5,7 +5,7 @@ import {
   createChecklistItem,
   deleteChecklist,
   deleteChecklistItem,
-  editChecklistTitle,
+  editChecklistName,
   editTitleChecklistItem,
   markChecklistItemIsDone,
 } from '@/services/card/checklist';
@@ -32,11 +32,11 @@ export const checklistApi = createApi({
         onSuccess && onSuccess();
       },
     }),
-    updateChecklistTitle: builder.mutation<
+    updateChecklistName: builder.mutation<
       { data: any },
-      { checklistId: string; updatedTitle: string; cardId: string; boardId: string; onSuccess?: () => void }
+      { checklistId: string; name: string; cardId: string; onSuccess?: () => void }
     >({
-      queryFn: async (args, { signal }) => ({ data: await editChecklistTitle({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await editChecklistName({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
@@ -88,7 +88,7 @@ export const checklistApi = createApi({
 export const {
   useCreateChecklistMutation,
   useDeleteChecklistMutation,
-  useUpdateChecklistTitleMutation,
+  useUpdateChecklistNameMutation,
   useMarkChecklistItemDoneMutation,
   useDeleteChecklistItemMutation,
   useUpdateTitleChecklistItemMutation,

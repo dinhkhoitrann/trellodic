@@ -17,16 +17,18 @@ export const deleteChecklist = (data: {
   });
 };
 
-export const editChecklistTitle = (data: {
+export const editChecklistName = ({
+  cardId,
+  checklistId,
+  signal,
+  ...rest
+}: {
   checklistId: string;
-  updatedTitle: string;
+  name: string;
   cardId: string;
-  boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data, {
-    signal: data.signal,
-  });
+  return externalRequest.patch(`/cards/${cardId}/checklists/${checklistId}`, rest, { signal });
 };
 
 export const markChecklistItemIsDone = (data: {

@@ -1,5 +1,5 @@
 import EditCLNameView from './view';
-import { useUpdateChecklistTitleMutation } from '@/redux/services/card/checklist';
+import { useUpdateChecklistNameMutation } from '@/redux/services/card/checklist';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 
 type EditCLNameProps = BoardGlobalProps & {
@@ -9,14 +9,13 @@ type EditCLNameProps = BoardGlobalProps & {
 };
 
 function EditCLName({ checklistId, boardId, cardId, onRefreshCard, ...rest }: EditCLNameProps) {
-  const [updateChecklistTitle] = useUpdateChecklistTitleMutation();
+  const [updateChecklistName] = useUpdateChecklistNameMutation();
 
-  const handleEdit = (newName: string) => {
-    updateChecklistTitle({
+  const handleEdit = (name: string) => {
+    updateChecklistName({
       checklistId,
-      cardId: cardId,
-      boardId: boardId,
-      updatedTitle: newName,
+      cardId,
+      name,
       onSuccess: onRefreshCard,
     });
   };
