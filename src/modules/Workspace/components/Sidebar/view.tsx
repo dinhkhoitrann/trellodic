@@ -4,10 +4,12 @@ import Stack from '@mui/material/Stack';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Divider from '@mui/material/Divider';
 import AddIcon from '@mui/icons-material/Add';
 import WorkspaceItem from './components/WorkspaceItem';
 import { Workspace } from '@/types/workspace.type';
 import CreateWorkspaceModal from './components/CreateWorkspace';
+import Members from './components/Members';
 
 type WorkspaceSidebarViewProps = {
   isFetching: boolean;
@@ -39,6 +41,10 @@ function WorkspaceSidebarView({ isFetching, workspaces }: WorkspaceSidebarViewPr
         ) : (
           workspaces.map((workspace) => <WorkspaceItem key={workspace._id} workspace={workspace} />)
         )}
+        <Divider />
+        <Stack sx={{ my: 2 }} spacing={1}>
+          <Members />
+        </Stack>
       </Box>
       <CreateWorkspaceModal isShowCreateModal={showCreateModal} onClose={handleShowCreateModal} />
     </>
