@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { editDueDates, markCardIsDone, removeDates } from '@/services/card/dates';
+import { editDueDates, removeDates } from '@/services/card/dates';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const datesApi = createApi({
@@ -35,17 +35,7 @@ export const datesApi = createApi({
         onSuccess && onSuccess();
       },
     }),
-    markCardIsDone: builder.mutation<
-      { data: any },
-      { cardId: string; boardId: string; isDone: boolean; onSuccess?: () => void }
-    >({
-      queryFn: async (args, { signal }) => ({ data: await markCardIsDone({ ...args, signal }) }),
-      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
-        await queryFulfilled;
-        onSuccess && onSuccess();
-      },
-    }),
   }),
 });
 
-export const { useEditDueDateMutation, useDeleteDatesMutation, useMarkCardIsDoneMutation } = datesApi;
+export const { useEditDueDateMutation, useDeleteDatesMutation } = datesApi;

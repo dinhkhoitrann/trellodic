@@ -16,7 +16,3 @@ export const editDueDates = ({
 export const removeDates = ({ cardId, signal }: { cardId: string; signal: AbortSignal }) => {
   return externalRequest.delete(`/cards/${cardId}/date`, { signal });
 };
-
-export const markCardIsDone = (data: { cardId: string; boardId: string; isDone: boolean; signal: AbortSignal }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data);
-};

@@ -1,20 +1,19 @@
-import { useMarkCardIsDoneMutation } from '@/redux/services/card/dates';
-import DatesView from './view';
+import { useEditCardMutation } from '@/redux/services/card/card';
 import { withBoard, BoardGlobalProps } from '@/hocs';
+import DatesView from './view';
 
-function Dates({ cardId, boardId, onRefreshCard }: BoardGlobalProps) {
-  const [markCardIsDone] = useMarkCardIsDoneMutation();
+function Dates({ cardId, boardId }: BoardGlobalProps) {
+  const [markCardIsDone, { isLoading }] = useEditCardMutation();
 
   const handleCheckDone = (isDone: boolean) => {
     markCardIsDone({
       cardId,
       boardId,
       isDone,
-      onSuccess: onRefreshCard,
     });
   };
 
-  return <DatesView onCheckDone={handleCheckDone} />;
+  return <DatesView onCheckDone={handleCheckDone} isLoading={isLoading} />;
 }
 
 export default withBoard(Dates);
