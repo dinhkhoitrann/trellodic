@@ -6,8 +6,7 @@ import {
   deleteChecklist,
   deleteChecklistItem,
   editChecklistName,
-  editTitleChecklistItem,
-  markChecklistItemIsDone,
+  editChecklistItem,
 } from '@/services/card/checklist';
 
 export const checklistApi = createApi({
@@ -39,16 +38,6 @@ export const checklistApi = createApi({
         onSuccess && onSuccess();
       },
     }),
-    markChecklistItemDone: builder.mutation<
-      { data: any },
-      { itemId: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
-    >({
-      queryFn: async (args, { signal }) => ({ data: await markChecklistItemIsDone({ ...args, signal }) }),
-      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
-        await queryFulfilled;
-        onSuccess && onSuccess();
-      },
-    }),
     deleteChecklistItem: builder.mutation<
       { data: any },
       { itemId: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
@@ -59,11 +48,20 @@ export const checklistApi = createApi({
         onSuccess && onSuccess();
       },
     }),
-    updateTitleChecklistItem: builder.mutation<
+    updateChecklistItem: builder.mutation<
       { data: any },
-      { itemId: string; title: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
+      {
+        itemId: string;
+        title?: string;
+        isDone?: boolean;
+        checklistId: string;
+        cardId: string;
+        onSuccess?: () => void;
+      }
     >({
-      queryFn: async (args, { signal }) => ({ data: await editTitleChecklistItem({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({
+        data: await editChecklistItem({ ...rest, signal }),
+      }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
@@ -86,8 +84,7 @@ export const {
   useCreateChecklistMutation,
   useDeleteChecklistMutation,
   useUpdateChecklistNameMutation,
-  useMarkChecklistItemDoneMutation,
   useDeleteChecklistItemMutation,
-  useUpdateTitleChecklistItemMutation,
+  useUpdateChecklistItemMutation,
   useAddChecklistItemMutation,
 } = checklistApi;

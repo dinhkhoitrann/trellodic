@@ -32,22 +32,6 @@ export const editChecklistName = ({
   return externalRequest.patch(`/cards/${cardId}/checklists/${checklistId}`, rest, { signal });
 };
 
-export const markChecklistItemIsDone = (data: {
-  itemId: string;
-  checklistId: string;
-  cardId: string;
-  boardId: string;
-  signal: AbortSignal;
-}) => {
-  return externalRequest.post(
-    'https://jsonplaceholder.typicode.com/posts',
-    {},
-    {
-      signal: data.signal,
-    },
-  );
-};
-
 export const deleteChecklistItem = (data: {
   itemId: string;
   checklistId: string;
@@ -60,16 +44,22 @@ export const deleteChecklistItem = (data: {
   });
 };
 
-export const editTitleChecklistItem = (data: {
+export const editChecklistItem = ({
+  cardId,
+  checklistId,
+  itemId,
+  signal,
+  ...rest
+}: {
   itemId: string;
-  title: string;
+  title?: string;
+  isDone?: boolean;
   checklistId: string;
   cardId: string;
-  boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.put('https://jsonplaceholder.typicode.com/posts/1', data, {
-    signal: data.signal,
+  return externalRequest.patch(`/cards/${cardId}/checklists/${checklistId}/items/${itemId}`, rest, {
+    signal,
   });
 };
 

@@ -5,7 +5,7 @@ import {
   useAddChecklistItemMutation,
   useDeleteChecklistMutation,
   useDeleteChecklistItemMutation,
-  useMarkChecklistItemDoneMutation,
+  useUpdateChecklistItemMutation,
 } from '@/redux/services/card/checklist';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 
@@ -16,7 +16,7 @@ type ChecklistProps = BoardGlobalProps & {
 function Checklist({ checklist, boardId, cardId, onRefreshCard }: ChecklistProps) {
   const [progress, setProgress] = useState<number>();
   const [deleteCheckList] = useDeleteChecklistMutation();
-  const [markItemDone] = useMarkChecklistItemDoneMutation();
+  const [markItemDone] = useUpdateChecklistItemMutation();
   const [deleteItem] = useDeleteChecklistItemMutation();
   const [addItem] = useAddChecklistItemMutation();
 
@@ -36,7 +36,7 @@ function Checklist({ checklist, boardId, cardId, onRefreshCard }: ChecklistProps
       itemId: event.target.name,
       checklistId: checklist._id,
       cardId: cardId,
-      boardId: boardId,
+      isDone: event.target.checked,
       onSuccess: onRefreshCard,
     });
   };
