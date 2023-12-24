@@ -32,15 +32,19 @@ export const editChecklistName = ({
   return externalRequest.patch(`/cards/${cardId}/checklists/${checklistId}`, rest, { signal });
 };
 
-export const deleteChecklistItem = (data: {
+export const deleteChecklistItem = ({
+  cardId,
+  checklistId,
+  itemId,
+  signal,
+}: {
   itemId: string;
   checklistId: string;
   cardId: string;
-  boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.delete('https://jsonplaceholder.typicode.com/posts/1', {
-    signal: data.signal,
+  return externalRequest.delete(`/cards/${cardId}/checklists/${checklistId}/items/${itemId}`, {
+    signal,
   });
 };
 

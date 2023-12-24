@@ -13,7 +13,7 @@ type ChecklistProps = BoardGlobalProps & {
   checklist: ChecklistType;
 };
 
-function Checklist({ checklist, boardId, cardId, onRefreshCard }: ChecklistProps) {
+function Checklist({ checklist, cardId, onRefreshCard }: ChecklistProps) {
   const [progress, setProgress] = useState<number>();
   const [deleteCheckList] = useDeleteChecklistMutation();
   const [markItemDone] = useUpdateChecklistItemMutation();
@@ -46,8 +46,7 @@ function Checklist({ checklist, boardId, cardId, onRefreshCard }: ChecklistProps
     deleteItem({
       itemId,
       checklistId: checklist._id,
-      cardId: cardId,
-      boardId: boardId,
+      cardId,
       onSuccess: onRefreshCard,
     });
   };
