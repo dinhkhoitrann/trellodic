@@ -7,7 +7,7 @@ type CreateLabelProps = BoardGlobalProps & {
   onCreateSuccess: () => void;
 };
 
-function CreateLabel({ boardId, onRefreshBoard, onRefreshCard, onCreateSuccess }: CreateLabelProps) {
+function CreateLabel({ boardId, cardId, onRefreshBoard, onRefreshCard, onCreateSuccess }: CreateLabelProps) {
   const [selectedColor, setSelectedColor] = useState('');
   const [createLabel, { isLoading }] = useAddLabelMutation();
 
@@ -16,6 +16,7 @@ function CreateLabel({ boardId, onRefreshBoard, onRefreshCard, onCreateSuccess }
       title,
       color,
       boardId,
+      cardId,
       onSuccess: () => {
         onCreateSuccess();
         onRefreshBoard();

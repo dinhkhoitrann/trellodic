@@ -13,7 +13,7 @@ export const boardMemberApi = createApi({
         onSuccess?.();
       },
     }),
-    addMembersToBoard: builder.mutation<{ data: any }, { memberIds: string[]; onSuccess?: () => void }>({
+    addMembersToBoard: builder.mutation<{ data: any }, { boardId: string; userIds: string[]; onSuccess?: () => void }>({
       queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await inviteMembers({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;

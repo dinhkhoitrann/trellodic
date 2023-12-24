@@ -56,7 +56,7 @@ export const mockData: MockBoardData = {
       {
         _id: 'column-id-01',
         boardId: 'board-id-01',
-        title: 'To Do Column 01',
+        title: 'New',
         cardOrderIds: [
           'card-id-01',
           'card-id-02',
@@ -71,7 +71,7 @@ export const mockData: MockBoardData = {
             _id: 'card-id-01',
             boardId: 'board-id-01',
             columnId: 'column-id-01',
-            title: 'Title of card 01',
+            title: 'Fix production bugs',
             description: 'This is a description',
             cover:
               // eslint-disable-next-line max-len
@@ -167,7 +167,7 @@ export const mockData: MockBoardData = {
             _id: 'card-id-02',
             boardId: 'board-id-01',
             columnId: 'column-id-01',
-            title: 'Title of card 02',
+            title: 'Choose technologies',
             description: '',
             cover: '',
             memberIds: [],
@@ -180,7 +180,7 @@ export const mockData: MockBoardData = {
             _id: 'card-id-03',
             boardId: 'board-id-01',
             columnId: 'column-id-01',
-            title: 'Title of card 03',
+            title: 'Support release',
             description: '',
             cover: '',
             memberIds: [],
@@ -193,7 +193,7 @@ export const mockData: MockBoardData = {
             _id: 'card-id-04',
             boardId: 'board-id-01',
             columnId: 'column-id-01',
-            title: 'Title of card 04',
+            title: 'Guaranteeing product is optimized',
             description: '',
             cover: '',
             memberIds: [],
@@ -206,7 +206,7 @@ export const mockData: MockBoardData = {
             _id: 'card-id-05',
             boardId: 'board-id-01',
             columnId: 'column-id-01',
-            title: 'Title of card 05',
+            title: 'Merge code',
             description: '',
             cover: '',
             memberIds: [],
@@ -218,7 +218,7 @@ export const mockData: MockBoardData = {
             _id: 'card-id-06',
             boardId: 'board-id-01',
             columnId: 'column-id-01',
-            title: 'Title of card 06',
+            title: 'Implement list product feature',
             description: '',
             cover: '',
             memberIds: [],
@@ -230,7 +230,7 @@ export const mockData: MockBoardData = {
             _id: 'card-id-07',
             boardId: 'board-id-01',
             columnId: 'column-id-01',
-            title: 'Title of card 07',
+            title: 'Implement cart feature',
             description: '',
             cover: '',
             memberIds: [],
@@ -242,14 +242,14 @@ export const mockData: MockBoardData = {
       {
         _id: '658015154467ac2c53130b3f',
         boardId: 'board-id-01',
-        title: 'Inprogress Column 02',
+        title: 'In Development',
         cardOrderIds: ['655497a43b7dba7af3972bd4', 'card-id-09', 'card-id-08'],
         cards: [
           {
             _id: 'card-id-08',
             boardId: 'board-id-01',
             columnId: '658015154467ac2c53130b3f',
-            title: 'Title of card 08',
+            title: 'Implement wishlist feature',
             description: '',
             cover: '',
             memberIds: [],
@@ -260,7 +260,7 @@ export const mockData: MockBoardData = {
             _id: 'card-id-09',
             boardId: 'board-id-01',
             columnId: '658015154467ac2c53130b3f',
-            title: 'Title of card 09',
+            title: 'Fix existing bugs',
             description: '',
             cover: '',
             memberIds: [],
@@ -271,7 +271,7 @@ export const mockData: MockBoardData = {
             _id: '65801f6f4467ac2c53130b42',
             boardId: 'board-id-01',
             columnId: '658015154467ac2c53130b3f',
-            title: 'Title of card 10',
+            title: 'Implement payment feature',
             description: '',
             cover:
               // eslint-disable-next-line max-len
@@ -285,14 +285,14 @@ export const mockData: MockBoardData = {
       {
         _id: 'column-id-03',
         boardId: 'board-id-01',
-        title: 'Done Column 03',
+        title: 'In Peer Review',
         cardOrderIds: ['card-id-11', 'card-id-12', 'card-id-13'],
         cards: [
           {
             _id: 'card-id-11',
             boardId: 'board-id-01',
             columnId: 'column-id-03',
-            title: 'Title of card 11',
+            title: 'Implement authentication feature',
             description: '',
             cover: '',
             memberIds: [],
@@ -303,7 +303,7 @@ export const mockData: MockBoardData = {
             _id: 'card-id-12',
             boardId: 'board-id-01',
             columnId: 'column-id-03',
-            title: 'Title of card 12',
+            title: 'Implement discount feature',
             description: '',
             cover: '',
             memberIds: [],
@@ -314,7 +314,7 @@ export const mockData: MockBoardData = {
             _id: 'card-id-13',
             boardId: 'board-id-01',
             columnId: 'column-id-03',
-            title: 'Title of card 13',
+            title: 'Improve performance',
             description: '',
             cover: '',
             memberIds: [],
@@ -326,7 +326,7 @@ export const mockData: MockBoardData = {
       {
         _id: 'column-id-04',
         boardId: 'board-id-01',
-        title: 'Empty Column 04',
+        title: 'Dev Done',
         cardOrderIds: ['column-id-04-placeholder-card'],
         cards: [
           {
@@ -384,14 +384,14 @@ export const filteredBoard: Board = {
     {
       _id: 'column-id-01',
       boardId: 'board-id-01',
-      title: 'To Do Column 01',
+      title: 'New',
       cardOrderIds: ['card-id-01', 'card-id-02', 'card-id-03', 'card-id-04', 'card-id-05', 'card-id-06', 'card-id-07'],
       cards: [
         {
           _id: 'card-id-05',
           boardId: 'board-id-01',
           columnId: 'column-id-01',
-          title: 'Title of card 05',
+          title: 'Merge code',
           description: '',
           cover: '',
           memberIds: [],
@@ -403,7 +403,7 @@ export const filteredBoard: Board = {
           _id: 'card-id-06',
           boardId: 'board-id-01',
           columnId: 'column-id-01',
-          title: 'Title of card 06',
+          title: 'Implement list product feature',
           description: '',
           cover: '',
           memberIds: [],
@@ -415,7 +415,7 @@ export const filteredBoard: Board = {
           _id: 'card-id-07',
           boardId: 'board-id-01',
           columnId: 'column-id-01',
-          title: 'Title of card 07',
+          title: 'Implement cart feature',
           description: '',
           cover: '',
           memberIds: [],
@@ -427,14 +427,14 @@ export const filteredBoard: Board = {
     {
       _id: '658015154467ac2c53130b3f',
       boardId: 'board-id-01',
-      title: 'Inprogress Column 02',
+      title: 'In Development',
       cardOrderIds: ['655497a43b7dba7af3972bd4', 'card-id-09', 'card-id-08'],
       cards: [
         {
           _id: 'card-id-08',
           boardId: 'board-id-01',
           columnId: '658015154467ac2c53130b3f',
-          title: 'Title of card 08',
+          title: 'Implement wishlist feature',
           description: '',
           cover: '',
           memberIds: [],
@@ -445,7 +445,7 @@ export const filteredBoard: Board = {
           _id: 'card-id-09',
           boardId: 'board-id-01',
           columnId: '658015154467ac2c53130b3f',
-          title: 'Title of card 09',
+          title: 'Fix existing bugs',
           description: '',
           cover: '',
           memberIds: [],
@@ -456,7 +456,7 @@ export const filteredBoard: Board = {
           _id: '6565f63deb98533ca7dfb133',
           boardId: 'board-id-01',
           columnId: '658015154467ac2c53130b3f',
-          title: 'Title of card 10',
+          title: 'Implement payment feature',
           description: '',
           cover:
             // eslint-disable-next-line max-len
@@ -470,14 +470,14 @@ export const filteredBoard: Board = {
     {
       _id: 'column-id-03',
       boardId: 'board-id-01',
-      title: 'Done Column 03',
+      title: 'In Peer Review',
       cardOrderIds: ['card-id-11', 'card-id-12', 'card-id-13'],
       cards: [
         {
           _id: 'card-id-11',
           boardId: 'board-id-01',
           columnId: 'column-id-03',
-          title: 'Title of card 11',
+          title: 'Implement authentication feature',
           description: '',
           cover: '',
           memberIds: [],
@@ -488,7 +488,7 @@ export const filteredBoard: Board = {
           _id: 'card-id-12',
           boardId: 'board-id-01',
           columnId: 'column-id-03',
-          title: 'Title of card 12',
+          title: 'Implement discount feature',
           description: '',
           cover: '',
           memberIds: [],
@@ -499,7 +499,7 @@ export const filteredBoard: Board = {
           _id: 'card-id-13',
           boardId: 'board-id-01',
           columnId: 'column-id-03',
-          title: 'Title of card 13',
+          title: 'Improve performance',
           description: '',
           cover: '',
           memberIds: [],
@@ -511,7 +511,7 @@ export const filteredBoard: Board = {
     {
       _id: 'column-id-04',
       boardId: 'board-id-01',
-      title: 'Empty Column 04',
+      title: 'Dev Done',
       cardOrderIds: ['column-id-04-placeholder-card'],
       cards: [
         {
@@ -530,19 +530,19 @@ export const mockWorkspace: Workspace = {
   boards: [
     {
       _id: '657ffe414467ac2c53130b3e',
-      title: 'test create board 222',
+      title: 'Team Marketing',
       admin: '657ffaa34467ac2c53130b3b',
     },
     {
       _id: '65801e154467ac2c53130b40',
-      title: '20520224111zzz',
+      title: 'Team Dev',
       admin: '657ffaa34467ac2c53130b3b',
     },
   ],
   createdAt: '1700043253986',
   updatedAt: '1700043253986',
   ownerUserId: '657ffaa34467ac2c53130b3b',
-  name: '222',
+  name: 'E-commerce website',
   image: 'https://img.fruugo.com/product/2/87/557318872_max.jpg',
   memberIds: ['657ffaa34467ac2c53130b3b'],
 };

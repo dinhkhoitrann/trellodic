@@ -1,22 +1,22 @@
 export const SELECT_OPTIONS = [
   {
     key: 'ONE_WEEK',
-    label: '7 days ago',
+    label: 'Next 7 days',
   },
   {
     key: 'ONE_MONTH',
-    label: 'A month ago',
+    label: 'Next month',
   },
   {
     key: 'THREE_MONTHS',
-    label: '3 months ago',
+    label: 'Next 3 months',
   },
   {
     key: 'SIX_MONTHS',
-    label: '6 months ago',
+    label: 'Next 6 months',
   },
   {
     key: 'ONE_YEAR',
-    label: '1 year ago',
+    label: 'Next year',
   },
 ];

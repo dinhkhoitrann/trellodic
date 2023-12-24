@@ -52,7 +52,7 @@ function AppBarView() {
                 sx={{ fontSize: '1.2rem', fontWeight: 'bold', color: textColor }}
                 color="primary"
               >
-                Trellodic
+                Tasky
               </Typography>
             </Box>
           </Link>

@@ -10,7 +10,7 @@ import { getMemberOptions } from './service';
 import { MemberOption } from './type';
 import { useAddMembersToBoardMutation } from '@/redux/services/board/member';
 
-function Invitation({ onRefreshBoard }: BoardGlobalProps) {
+function Invitation({ boardId, onRefreshBoard }: BoardGlobalProps) {
   const workspace = useAppSelector(selectWorkspaceDetails);
   const { data: workspaceMembersResponse, isLoading } = useQuery({
     queryKey: ['workspaces', workspace._id],
@@ -28,7 +28,7 @@ function Invitation({ onRefreshBoard }: BoardGlobalProps) {
   const memberOptions = getMemberOptions(workspaceMembersResponse?.members, (boardMembersResponse as any)?.data);
 
   const handleInviteMembers = (members: MemberOption[]) => {
-    const memberIds = members.map((member) => member._id);
+    const userIds = members.map((member) => member._id);
     const onSuccess = () => {
       toast.success('Invited members successfully');
       viewRef.current?.onClose();
@@ -36,7 +36,7 @@ function Invitation({ onRefreshBoard }: BoardGlobalProps) {
       onRefreshBoard();
     };
 
-    invite({ memberIds, onSuccess });
+    invite({ userIds, boardId, onSuccess });
   };
 
   return (

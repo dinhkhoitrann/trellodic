@@ -1,9 +1,6 @@
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import VpnLockIcon from '@mui/icons-material/VpnLock';
-import AddToDriveIcon from '@mui/icons-material/AddToDrive';
-import BoltIcon from '@mui/icons-material/Bolt';
 import { useTheme } from '@mui/styles';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import { Board } from '@/types/board.type';
@@ -43,15 +40,6 @@ function BoardBarView({ board }: BoardBarViewProps) {
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Chip icon={<DashboardIcon />} label={board?.title} clickable sx={chipStyles} />
-          <Chip
-            icon={<VpnLockIcon />}
-            label={board?.type}
-            clickable
-            sx={chipStyles}
-            style={{ textTransform: 'capitalize' }}
-          />
-          <Chip icon={<AddToDriveIcon />} label="Add To Google Drive" clickable sx={chipStyles} />
-          <Chip icon={<BoltIcon />} label="Automation" clickable sx={chipStyles} />
           <Filter />
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>

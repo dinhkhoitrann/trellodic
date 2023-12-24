@@ -31,7 +31,7 @@ function WorkspaceItemView({ name, onGetWorkspace }: WorkspaceItemViewProps) {
       }
       onClick={onGetWorkspace}
     >
-      {name}&apos;s workspace
+      {name}
     </Button>
   );
 }

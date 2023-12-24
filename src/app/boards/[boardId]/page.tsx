@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const board = await fetchBoardDetails({ boardId });
 
   return {
-    title: `${board.title} | Trellodic`,
+    title: `${board.title} | Tasky`,
     description: 'See board details in your workspace',
   };
 }

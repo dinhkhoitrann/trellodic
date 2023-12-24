@@ -1,7 +1,13 @@
 import { externalRequest } from '../../request';
 
-export const createLabel = (data: { title: string; color: string; boardId: string; signal: AbortSignal }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data);
+export const createLabel = (data: {
+  title: string;
+  color: string;
+  boardId: string;
+  cardId?: string;
+  signal: AbortSignal;
+}) => {
+  return externalRequest.post('/labels', data);
 };
 
 export const editLabel = (data: { title: string; color: string; boardId: string; signal: AbortSignal }) => {

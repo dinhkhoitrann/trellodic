@@ -18,7 +18,7 @@ export const getWorkspaceList = async (data: { userId: string; signal: AbortSign
     mockWorkspace,
     {
       ...mockWorkspace,
-      name: 'fff',
+      name: 'Ads Project',
       _id: '657ffe184467ac2c53130b3d',
     },
   ];

@@ -45,12 +45,12 @@ function WorkspaceHeaderView({ workspaceName, onEditName }: WorkspaceHeaderViewP
               fontWeight: 'bold',
             }}
           >
-            T
+            {workspaceName[0].toUpperCase()}
           </Box>
           <Box>
             {!editNameMode && (
               <Typography variant="h6">
-                {workspaceName}&apos;s workspace{' '}
+                {workspaceName}
                 <EditIcon sx={{ fontSize: '16px', ml: 1, cursor: 'pointer' }} onClick={handleEditMode} />
               </Typography>
             )}

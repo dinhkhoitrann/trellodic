@@ -9,7 +9,7 @@ export const labelApi = createApi({
   endpoints: (builder) => ({
     addLabel: builder.mutation<
       { data: any },
-      { title: string; color: string; boardId: string; onSuccess?: () => void }
+      { title: string; color: string; boardId: string; cardId?: string; onSuccess?: () => void }
     >({
       queryFn: async (args, { signal }) => ({ data: await createLabel({ ...args, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {

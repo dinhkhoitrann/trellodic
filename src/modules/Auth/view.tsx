@@ -42,7 +42,7 @@ function AuthFormView({ children }: { children: ReactNode }) {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 4 }}>
           <SvgIcon component={TrelloIcon} inheritViewBox fontSize="large" sx={{ color: '#0458d2' }} />
           <Typography variant="caption" sx={{ fontSize: '1.6rem', fontWeight: 'bold' }}>
-            Trellodic
+            Tasky
           </Typography>
         </Box>
         {children}
