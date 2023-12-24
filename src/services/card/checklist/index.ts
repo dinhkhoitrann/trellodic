@@ -6,15 +6,16 @@ export const addChecklist = ({ cardId, signal, ...rest }: { name: string; cardId
   });
 };
 
-export const deleteChecklist = (data: {
+export const deleteChecklist = ({
+  cardId,
+  checklistId,
+  signal,
+}: {
   checklistId: string;
   cardId: string;
-  boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.delete('https://jsonplaceholder.typicode.com/posts/1', {
-    signal: data.signal,
-  });
+  return externalRequest.delete(`/cards/${cardId}/checklists/${checklistId}`, { signal });
 };
 
 export const editChecklistName = ({

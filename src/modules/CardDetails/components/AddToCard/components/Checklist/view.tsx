@@ -37,9 +37,7 @@ function ChecklistView({ title, isPending, isSuccess, onAddChecklist, onTitleCha
       renderPopover={() => (
         <PopoverWrapper title="Add checklist" onClose={handleClose}>
           <TextField
-            value={title || ''}
-            error={title === ''}
-            helperText={title === '' && '* Please enter checklist title'}
+            value={title}
             fullWidth
             size="small"
             placeholder="Title"

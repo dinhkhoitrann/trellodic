@@ -22,11 +22,8 @@ export const checklistApi = createApi({
         onSuccess && onSuccess();
       },
     }),
-    deleteChecklist: builder.mutation<
-      { data: any },
-      { checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
-    >({
-      queryFn: async (args, { signal }) => ({ data: await deleteChecklist({ ...args, signal }) }),
+    deleteChecklist: builder.mutation<{ data: any }, { checklistId: string; cardId: string; onSuccess?: () => void }>({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await deleteChecklist({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
