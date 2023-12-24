@@ -71,9 +71,9 @@ export const checklistApi = createApi({
     }),
     addChecklistItem: builder.mutation<
       { data: any },
-      { title: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
+      { title: string; checklistId: string; cardId: string; onSuccess?: () => void }
     >({
-      queryFn: async (args, { signal }) => ({ data: await createChecklistItem({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await createChecklistItem({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

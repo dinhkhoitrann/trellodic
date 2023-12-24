@@ -73,14 +73,18 @@ export const editTitleChecklistItem = (data: {
   });
 };
 
-export const createChecklistItem = (data: {
+export const createChecklistItem = ({
+  cardId,
+  checklistId,
+  signal,
+  ...rest
+}: {
   title: string;
   checklistId: string;
   cardId: string;
-  boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data, {
-    signal: data.signal,
+  return externalRequest.post(`/cards/${cardId}/checklists/${checklistId}/items`, rest, {
+    signal: signal,
   });
 };

@@ -53,11 +53,11 @@ function Checklist({ checklist, boardId, cardId, onRefreshCard }: ChecklistProps
   };
 
   const handleDeleteChecklist = (checklistId: string) => {
-    deleteCheckList({ checklistId, cardId: cardId, boardId: boardId, onSuccess: onRefreshCard });
+    deleteCheckList({ checklistId, cardId, onSuccess: onRefreshCard });
   };
 
   const handleAddItem = (title: string) => {
-    addItem({ title, checklistId: checklist._id, cardId: cardId, boardId: boardId, onSuccess: onRefreshCard });
+    addItem({ title, checklistId: checklist._id, cardId, onSuccess: onRefreshCard });
   };
 
   return (
