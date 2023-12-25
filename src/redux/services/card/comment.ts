@@ -24,11 +24,8 @@ export const commentApi = createApi({
         onSuccess && onSuccess();
       },
     }),
-    deleteComment: builder.mutation<
-      { data: any },
-      { commentId: string; boardId: string; cardId: string; onSuccess?: () => void }
-    >({
-      queryFn: async (args, { signal }) => ({ data: await deleteComment({ ...args, signal }) }),
+    deleteComment: builder.mutation<{ data: any }, { commentId: string; cardId: string; onSuccess?: () => void }>({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await deleteComment({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

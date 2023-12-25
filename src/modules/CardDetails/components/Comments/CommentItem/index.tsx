@@ -7,7 +7,7 @@ type CommentItemProps = BoardGlobalProps & {
   comment: Comment;
 };
 
-function CommentItem({ comment, boardId, cardId, onRefreshCard }: CommentItemProps) {
+function CommentItem({ comment, cardId, onRefreshCard }: CommentItemProps) {
   const [editComment, { isLoading }] = useEditCommentMutation();
   const [deleteComment] = useDeleteCommentMutation();
 
@@ -26,7 +26,6 @@ function CommentItem({ comment, boardId, cardId, onRefreshCard }: CommentItemPro
   const handleDelete = (commentId: string) => {
     deleteComment({
       commentId,
-      boardId,
       cardId,
       onSuccess: onRefreshCard,
     });

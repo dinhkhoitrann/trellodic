@@ -18,6 +18,14 @@ export const editComment = ({
   return externalRequest.patch(`/cards/${cardId}/comments/${commentId}`, rest, { signal });
 };
 
-export const deleteComment = (data: { commentId: string; boardId: string; cardId: string; signal: AbortSignal }) => {
-  return externalRequest.delete('https://jsonplaceholder.typicode.com/posts/1', { signal: data.signal });
+export const deleteComment = ({
+  cardId,
+  commentId,
+  signal,
+}: {
+  commentId: string;
+  cardId: string;
+  signal: AbortSignal;
+}) => {
+  return externalRequest.delete(`/cards/${cardId}/comments/${commentId}`, { signal });
 };
