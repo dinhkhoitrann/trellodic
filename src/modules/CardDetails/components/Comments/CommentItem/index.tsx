@@ -15,7 +15,6 @@ function CommentItem({ comment, boardId, cardId, onRefreshCard }: CommentItemPro
     editComment({
       content,
       commentId,
-      boardId,
       cardId,
       onSuccess: () => {
         onEditSuccess();

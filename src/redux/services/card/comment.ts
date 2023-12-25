@@ -16,9 +16,9 @@ export const commentApi = createApi({
     }),
     editComment: builder.mutation<
       { data: any },
-      { content: string; commentId: string; boardId: string; cardId: string; onSuccess?: () => void }
+      { content: string; commentId: string; cardId: string; onSuccess?: () => void }
     >({
-      queryFn: async (args, { signal }) => ({ data: await editComment({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await editComment({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

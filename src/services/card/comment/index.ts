@@ -5,16 +5,17 @@ export const addComment = ({ cardId, signal, ...rest }: { content: string; cardI
 };
 
 export const editComment = ({
+  cardId,
+  commentId,
   signal,
   ...rest
 }: {
   content: string;
   commentId: string;
-  boardId: string;
   cardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', rest, { signal });
+  return externalRequest.patch(`/cards/${cardId}/comments/${commentId}`, rest, { signal });
 };
 
 export const deleteComment = (data: { commentId: string; boardId: string; cardId: string; signal: AbortSignal }) => {
