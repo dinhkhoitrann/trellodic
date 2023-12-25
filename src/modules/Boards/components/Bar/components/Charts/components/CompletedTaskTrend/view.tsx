@@ -15,13 +15,13 @@ function CompletedTaskTrendView({ data, isLoading, isError }: CompletedTaskTrend
   const view = useView({ data, isLoading, isError });
   if (view) return view;
 
-  const { xAxis, completedTasksByMonth } = data!;
+  const { datetime, completedTasksByDate } = data!;
   return (
     <LineChart
-      xAxis={[{ data: xAxis, label: 'Date', valueFormatter }]}
+      xAxis={[{ data: datetime, label: 'Date', valueFormatter }]}
       series={[
         {
-          data: completedTasksByMonth,
+          data: completedTasksByDate,
           label: 'Number of tasks completed',
           area: true,
         },
