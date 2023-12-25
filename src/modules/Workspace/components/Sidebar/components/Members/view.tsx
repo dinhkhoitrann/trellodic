@@ -64,6 +64,7 @@ function MembersView({
             value={selectedUsers}
             options={options}
             getOptionLabel={(option) => option.name}
+            isOptionEqualToValue={(option, value) => option._id === value._id}
             filterSelectedOptions
             filterOptions={(x) => x}
             loading={isSearching}
