@@ -1,30 +1,32 @@
 import { useRef, useState } from 'react';
-import { isEqual } from 'lodash';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import CircularProgress from '@mui/material/CircularProgress';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import { withBoard, BoardGlobalProps } from '@/hocs';
-import { User } from '@/types/user.type';
 import Recommendations from './components/Recommendations';
 import PopoverWrapper from '../Popover';
+import { UserOption } from './type';
 
 type MembersViewProps = BoardGlobalProps & {
+  options: UserOption[];
+  isLoading: boolean;
   isSaving: boolean;
-  onAddMember: (_memberIds: string[]) => void;
+  onAddMember: (_userIds: string[]) => void;
 };
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-function MembersView({ card: { memberIds = [] }, isSaving, onAddMember }: MembersViewProps) {
+function MembersView({ options, isSaving, isLoading, onAddMember }: MembersViewProps) {
   const [isModified, setIsModified] = useState(false);
   const buttonRef = useRef<ActionButtonRef>(null);
-  const selectedMembersRef = useRef<User[]>(memberIds);
+  const selectedMembersRef = useRef<UserOption[]>([]);
   const selectedRecommendationIdsRef = useRef<string[]>([]);
 
   const handleClose = () => {
@@ -41,7 +43,7 @@ function MembersView({ card: { memberIds = [] }, isSaving, onAddMember }: Member
     members,
     selectedRecommendationIds,
   }: {
-    members?: User[];
+    members?: UserOption[];
     selectedRecommendationIds?: string[];
   }) => {
     if (members) {
@@ -53,7 +55,7 @@ function MembersView({ card: { memberIds = [] }, isSaving, onAddMember }: Member
     }
 
     const isChanged =
-      !isEqual(selectedMembersRef.current, memberIds) ||
+      selectedMembersRef.current.length > 0 ||
       (selectedRecommendationIds !== undefined && selectedRecommendationIds.length > 0);
     if (isChanged !== isModified) {
       setIsModified(isChanged);
@@ -69,9 +71,8 @@ function MembersView({ card: { memberIds = [] }, isSaving, onAddMember }: Member
           <Autocomplete
             multiple
             size="small"
-            options={memberIds}
+            options={options}
             disableCloseOnSelect
-            defaultValue={memberIds}
             getOptionLabel={(option) => option.name}
             renderOption={(props, option, { selected }) => (
               <li {...props}>
@@ -80,7 +81,22 @@ function MembersView({ card: { memberIds = [] }, isSaving, onAddMember }: Member
               </li>
             )}
             style={{ width: '100%', marginTop: 20 }}
-            renderInput={(params) => <TextField {...params} label="Add members" placeholder="Members" />}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Add members"
+                placeholder="Members"
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <>
+                      {isLoading && <CircularProgress color="inherit" size={20} />}
+                      {params.InputProps.endAdornment}
+                    </>
+                  ),
+                }}
+              />
+            )}
             onChange={(_event, selectedValues, _reason, _details) => {
               handleChangeMembers({ members: selectedValues });
             }}

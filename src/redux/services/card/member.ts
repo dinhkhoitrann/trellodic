@@ -11,12 +11,11 @@ export const memberApi = createApi({
       { data: any },
       {
         cardId: string;
-        boardId: string;
-        memberIds: string[];
+        userIds: string[];
         onSuccess?: () => void;
       }
     >({
-      queryFn: async (args, { signal }) => ({ data: await addMembers({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await addMembers({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
