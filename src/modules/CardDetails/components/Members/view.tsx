@@ -12,7 +12,7 @@ type MembersViewProps = BoardGlobalProps & {
 };
 
 function MembersView({ card, onRemoveMember }: MembersViewProps) {
-  const members = card.memberIds;
+  const { members } = card;
   const { renderAlert, handleOpenAlert } = useAlert({
     title: 'Delete member?',
     okText: 'Delete',
@@ -22,7 +22,7 @@ function MembersView({ card, onRemoveMember }: MembersViewProps) {
     },
   });
 
-  if (!members) {
+  if (!members || members.length === 0) {
     return <></>;
   }
 
@@ -31,18 +31,7 @@ function MembersView({ card, onRemoveMember }: MembersViewProps) {
       <Box>
         <Typography sx={{ mb: 1, fontWeight: 500 }}>Members</Typography>
         <Stack direction="row" spacing={1}>
-          {[
-            {
-              _id: '1',
-              name: '111',
-              avatar: '',
-            },
-            {
-              _id: '2',
-              name: '222',
-              avatar: '',
-            },
-          ].map((mem) => (
+          {members.map((mem) => (
             <Box key={mem._id} sx={{ position: 'relative', ':hover #members-close-icon': { display: 'block' } }}>
               <Avatar alt={mem.name} src={mem.avatar} />
               <IconButton

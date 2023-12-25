@@ -34,7 +34,7 @@ function ActiveSectionsView({ card }: BoardGlobalProps) {
         )}
       </Stack>
       <Grid container spacing={4} sx={{ mt: 1 }}>
-        {!!card.memberIds?.length && (
+        {!!card.members?.length && (
           <Grid item>
             <Members />
           </Grid>

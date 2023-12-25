@@ -8,7 +8,7 @@ export interface Card {
   title?: string;
   description?: string;
   cover?: string;
-  memberIds?: User[];
+  members?: User[];
   comments?: Comment[];
   checklists?: Checklist[];
   attachments?: Attachment[];
