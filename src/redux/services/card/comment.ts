@@ -7,11 +7,8 @@ export const commentApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Comment'],
   endpoints: (builder) => ({
-    createComment: builder.mutation<
-      { data: any },
-      { content: string; boardId: string; cardId: string; onSuccess?: () => void }
-    >({
-      queryFn: async (args, { signal }) => ({ data: await addComment({ ...args, signal }) }),
+    createComment: builder.mutation<{ data: any }, { content: string; cardId: string; onSuccess?: () => void }>({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await addComment({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

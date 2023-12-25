@@ -1,15 +1,7 @@
 import { externalRequest } from '@/services/request';
 
-export const addComment = ({
-  signal,
-  ...rest
-}: {
-  content: string;
-  boardId: string;
-  cardId: string;
-  signal: AbortSignal;
-}) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', rest, { signal });
+export const addComment = ({ cardId, signal, ...rest }: { content: string; cardId: string; signal: AbortSignal }) => {
+  return externalRequest.post(`/cards/${cardId}/comments`, rest, { signal });
 };
 
 export const editComment = ({

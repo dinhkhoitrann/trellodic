@@ -35,8 +35,11 @@ export interface Checklist {
 
 export interface Comment {
   readonly _id: string;
-  avatarUrl?: string;
-  username: string;
+  author: {
+    readonly _id: string;
+    name: string;
+    avatar: string;
+  };
   createdAt: string;
   updatedAt?: string;
   content: string;

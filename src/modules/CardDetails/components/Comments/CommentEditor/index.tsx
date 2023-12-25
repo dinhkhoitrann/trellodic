@@ -2,13 +2,12 @@ import { BoardGlobalProps, withBoard } from '@/hocs';
 import { useCreateCommentMutation } from '@/redux/services/card/comment';
 import CommentEditorView from './view';
 
-function CommentEditor({ boardId, cardId, onRefreshCard }: BoardGlobalProps) {
+function CommentEditor({ cardId, onRefreshCard }: BoardGlobalProps) {
   const [addComment, { isLoading }] = useCreateCommentMutation();
 
   const handleSave = (content: string, onSaveSuccess: () => void) => {
     addComment({
       content,
-      boardId,
       cardId,
       onSuccess: () => {
         onSaveSuccess();
