@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import { searchUsersBy } from '@/services/search';
-import { inviteUsers } from '@/services/workspace';
+import { getUsersToAddToWorkspace, inviteUsers } from '@/services/workspace';
 import { useDebounce } from '@/hooks';
+import { useAppSelector } from '@/redux/store';
+import { selectWorkspaceDetails } from '@/redux/slices/workspace';
 import MembersView from './view';
 import { UserOption } from './type';
 
@@ -11,9 +12,10 @@ function Members() {
   const [options, setOptions] = useState<UserOption[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<UserOption[]>([]);
   const [query, setQuery] = useState('');
+  const workspace = useAppSelector(selectWorkspaceDetails);
 
   const { mutate: searchUsers, isPending: isSearching } = useMutation({
-    mutationFn: searchUsersBy,
+    mutationFn: getUsersToAddToWorkspace,
     onSuccess: (data) => {
       setOptions(data);
     },
@@ -29,8 +31,8 @@ function Members() {
   const debouncedQuery = useDebounce(query, 500);
   useEffect(() => {
     if (!debouncedQuery.trim()) return;
-    searchUsers({ email: debouncedQuery });
-  }, [debouncedQuery, searchUsers]);
+    searchUsers({ workspaceId: workspace._id!, email: debouncedQuery });
+  }, [debouncedQuery, workspace._id, searchUsers]);
 
   const handleQueryChange = (enteredQuery: string) => {
     setQuery(enteredQuery);
