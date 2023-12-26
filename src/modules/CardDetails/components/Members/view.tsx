@@ -16,7 +16,7 @@ function MembersView({ card, onRemoveMember }: MembersViewProps) {
   const { renderAlert, handleOpenAlert } = useAlert({
     title: 'Delete member?',
     okText: 'Delete',
-    content: 'Are sure you would like to remove member',
+    content: 'Are you sure you would like to remove member?',
     onOk: (params) => {
       onRemoveMember(params[0]);
     },
