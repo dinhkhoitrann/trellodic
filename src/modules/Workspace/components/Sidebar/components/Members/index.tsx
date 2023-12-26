@@ -45,7 +45,7 @@ function Members() {
   const handleInviteUsers = (onSuccess: () => void) => {
     const userIds = selectedUsers.map((user) => user._id);
     invite(
-      { userIds },
+      { workspaceId: workspace._id!, userIds },
       {
         onSuccess: () => {
           onSuccess();

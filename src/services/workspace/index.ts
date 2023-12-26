@@ -49,8 +49,8 @@ export const getWorkspaceMembers = async (data: { workspaceId: string | undefine
   };
 };
 
-export const inviteUsers = async (data: { userIds: string[] }) => {
-  await externalRequest.post('https://jsonplaceholder.typicode.com/posts', data);
+export const inviteUsers = ({ workspaceId, ...rest }: { workspaceId: string; userIds: string[] }) => {
+  return externalRequest.post(`/workspaces/${workspaceId}/members`, rest);
 };
 
 export const getUsersToAddToWorkspace = async ({ workspaceId, email }: { workspaceId: string; email: string }) => {
