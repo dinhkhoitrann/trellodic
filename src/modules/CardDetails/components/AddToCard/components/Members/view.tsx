@@ -1,29 +1,18 @@
 import { useRef, useState } from 'react';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import CircularProgress from '@mui/material/CircularProgress';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
-import { withBoard, BoardGlobalProps } from '@/hocs';
 import Recommendations from './components/Recommendations';
+import SelectMembers from './components/SelectMembers';
 import PopoverWrapper from '../Popover';
 import { UserOption } from './type';
 
-type MembersViewProps = BoardGlobalProps & {
-  options: UserOption[];
-  isLoading: boolean;
+type MembersViewProps = {
   isSaving: boolean;
   onAddMember: (_userIds: string[]) => void;
 };
 
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-const checkedIcon = <CheckBoxIcon fontSize="small" />;
-
-function MembersView({ options, isSaving, isLoading, onAddMember }: MembersViewProps) {
+function MembersView({ isSaving, onAddMember }: MembersViewProps) {
   const [isModified, setIsModified] = useState(false);
   const buttonRef = useRef<ActionButtonRef>(null);
   const selectedMembersRef = useRef<UserOption[]>([]);
@@ -68,39 +57,7 @@ function MembersView({ options, isSaving, isLoading, onAddMember }: MembersViewP
       startIcon={<PersonOutlineOutlinedIcon />}
       renderPopover={() => (
         <PopoverWrapper title="Members" onClose={handleClose}>
-          <Autocomplete
-            multiple
-            size="small"
-            options={options}
-            disableCloseOnSelect
-            getOptionLabel={(option) => option.name}
-            renderOption={(props, option, { selected }) => (
-              <li {...props}>
-                <Checkbox icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 8 }} checked={selected} />
-                {option.name}
-              </li>
-            )}
-            style={{ width: '100%', marginTop: 20 }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Add members"
-                placeholder="Members"
-                InputProps={{
-                  ...params.InputProps,
-                  endAdornment: (
-                    <>
-                      {isLoading && <CircularProgress color="inherit" size={20} />}
-                      {params.InputProps.endAdornment}
-                    </>
-                  ),
-                }}
-              />
-            )}
-            onChange={(_event, selectedValues, _reason, _details) => {
-              handleChangeMembers({ members: selectedValues });
-            }}
-          />
+          <SelectMembers onChangeMembers={handleChangeMembers} />
           <Recommendations onSelectRecommendations={handleChangeMembers} />
           <Button variant="contained" disabled={isSaving || !isModified} sx={{ mt: 2 }} onClick={handleAddMember}>
             {isSaving ? 'Saving' : 'Save'}
@@ -113,4 +70,4 @@ function MembersView({ options, isSaving, isLoading, onAddMember }: MembersViewP
   );
 }
 
-export default withBoard(MembersView);
+export default MembersView;
