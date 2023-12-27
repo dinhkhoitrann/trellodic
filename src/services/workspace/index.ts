@@ -23,8 +23,16 @@ export const getWorkspaceList = async (data: { userId: string; signal: AbortSign
   ];
 };
 
-export const editWorkspaceName = ({ signal, ...rest }: { workspaceId: string; name: string; signal: AbortSignal }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', rest, { signal });
+export const editWorkspace = ({
+  workspaceId,
+  signal,
+  ...rest
+}: {
+  workspaceId: string;
+  name?: string;
+  signal: AbortSignal;
+}) => {
+  return externalRequest.patch(`/workspaces/${workspaceId}`, rest, { signal });
 };
 
 export const createWorkspace = ({ signal, ...rest }: { name: string; signal: AbortSignal }) => {

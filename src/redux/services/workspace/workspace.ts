@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   createBoard,
   createWorkspace,
-  editWorkspaceName,
+  editWorkspace,
   getWorkspace,
   getWorkspaceList,
   inviteUsers,
@@ -60,15 +60,9 @@ export const workspaceApi = createApi({
       },
       invalidatesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
     }),
-    editWorkspaceName: builder.mutation<{ data: any }, { workspaceId: string; name: string }>({
-      queryFn: async (args, { signal }) => ({ data: await editWorkspaceName({ ...args, signal }) }),
-      onQueryStarted: async ({ workspaceId }, { queryFulfilled, dispatch }) => {
-        await queryFulfilled;
-        dispatch({
-          type: 'workspaceApi/invalidateTags',
-          payload: [{ type: 'Workspace', id: workspaceId }],
-        });
-      },
+    editWorkspace: builder.mutation<{ data: any }, { workspaceId: string; name?: string }>({
+      queryFn: async (args, { signal }) => ({ data: await editWorkspace({ ...args, signal }) }),
+      invalidatesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
     }),
     createWorkspace: builder.mutation<{ data: any }, { name: string; onSuccess?: () => void }>({
       queryFn: async (args, { signal }) => ({ data: await createWorkspace({ ...args, signal }) }),
@@ -101,7 +95,7 @@ export const {
   useCreateBoardMutation,
   useLazyGetWorkspaceQuery,
   useGetWorkspaceListQuery,
-  useEditWorkspaceNameMutation,
+  useEditWorkspaceMutation,
   useCreateWorkspaceMutation,
   useInviteUsersMutation,
   useRemoveMemberMutation,
