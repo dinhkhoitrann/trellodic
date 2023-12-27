@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import { getUsersToAddToWorkspace, inviteUsers } from '@/services/workspace';
+import { getUsersToAddToWorkspace } from '@/services/workspace';
 import { useDebounce } from '@/hooks';
 import { useAppSelector } from '@/redux/store';
 import { selectWorkspaceDetails } from '@/redux/slices/workspace';
 import MembersView from './view';
 import { UserOption } from './type';
+import { useInviteUsersMutation } from '@/redux/services/workspace/workspace';
 
 function Members() {
   const [options, setOptions] = useState<UserOption[]>([]);
@@ -24,9 +25,7 @@ function Members() {
     },
   });
 
-  const { mutate: invite, isPending: isInviting } = useMutation({
-    mutationFn: inviteUsers,
-  });
+  const [inviteUsers, { isLoading: isInviting }] = useInviteUsersMutation();
 
   const debouncedQuery = useDebounce(query, 500);
   useEffect(() => {
@@ -44,16 +43,15 @@ function Members() {
 
   const handleInviteUsers = (onSuccess: () => void) => {
     const userIds = selectedUsers.map((user) => user._id);
-    invite(
-      { workspaceId: workspace._id!, userIds },
-      {
-        onSuccess: () => {
-          onSuccess();
-          setSelectedUsers([]);
-          toast.success('Invited users successfully');
-        },
+    inviteUsers({
+      workspaceId: workspace._id!,
+      userIds,
+      onSuccess: () => {
+        onSuccess();
+        setSelectedUsers([]);
+        toast.success('Invited users successfully');
       },
-    );
+    });
   };
 
   return (

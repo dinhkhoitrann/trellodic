@@ -5,10 +5,12 @@ import Typography from '@mui/material/Typography';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import Modal from '@/components/Modal';
+import List from './components/List';
 import { UserOption } from './type';
 
 type MembersViewProps = {
@@ -30,24 +32,37 @@ function MembersView({
   onQueryChange,
   onInvite,
 }: MembersViewProps) {
-  const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [isVisibleInviteModal, setIsVisibleInviteModal] = useState(false);
+  const [isVisibleListModal, setIsVisibleListModal] = useState(false);
 
-  const handleModalVisibility = () => {
-    setIsVisibleModal(!isVisibleModal);
+  const handleInviteModalVisibility = () => {
+    setIsVisibleInviteModal(!isVisibleInviteModal);
+  };
+
+  const handleListModalVisibility = () => {
+    setIsVisibleListModal(!isVisibleListModal);
   };
 
   return (
     <>
-      <Button fullWidth sx={{ justifyContent: 'space-between', height: 40, px: 2 }} onClick={handleModalVisibility}>
-        <Stack direction="row" alignItems="center" spacing={2}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={2}
+          sx={{ cursor: 'pointer' }}
+          onClick={handleListModalVisibility}
+        >
           <PeopleAltOutlinedIcon fontSize="small" />
           <span>Members</span>
         </Stack>
-        <AddOutlinedIcon />
-      </Button>
+        <IconButton onClick={handleInviteModalVisibility}>
+          <AddOutlinedIcon />
+        </IconButton>
+      </Stack>
       <Modal
-        isVisibleModal={isVisibleModal}
-        onClose={handleModalVisibility}
+        isVisibleModal={isVisibleInviteModal}
+        onClose={handleInviteModalVisibility}
         sx={{
           transform: 'translate(-50%, -250px)',
           width: { xs: '95%', md: '550px' },
@@ -92,11 +107,23 @@ function MembersView({
             fullWidth
             sx={{ mt: 2 }}
             disabled={selectedUsers.length === 0 || isInviting}
-            onClick={() => onInvite(handleModalVisibility)}
+            onClick={() => onInvite(handleInviteModalVisibility)}
           >
             Invite
           </Button>
         </Stack>
+      </Modal>
+      <Modal
+        isVisibleModal={isVisibleListModal}
+        sx={{
+          transform: 'translate(-50%, -250px)',
+          width: { xs: '95%', md: '600px' },
+          bgcolor: 'background.paper',
+          border: (theme) => (theme.palette.mode === 'dark' ? '1px solid #716e6e' : 'unset'),
+        }}
+        onClose={handleListModalVisibility}
+      >
+        <List />
       </Modal>
     </>
   );

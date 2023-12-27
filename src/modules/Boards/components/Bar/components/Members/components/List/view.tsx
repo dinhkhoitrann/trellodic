@@ -10,8 +10,8 @@ import { User } from '@/types/user.type';
 import { useAlert, useAuthorized } from '@/hooks';
 import { useAppSelector } from '@/redux/store';
 import { selectUserProfile } from '@/redux/slices/user';
-import { getMemberRole } from './service';
 import { selectBoardDetails } from '@/redux/slices/board';
+import { getMemberRole } from '@/utils/helpers';
 
 type ListViewProps = {
   members: Pick<User, '_id' | 'name' | 'avatar'>[];

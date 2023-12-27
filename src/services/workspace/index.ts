@@ -49,11 +49,31 @@ export const getWorkspaceMembers = async (data: { workspaceId: string | undefine
   };
 };
 
-export const inviteUsers = ({ workspaceId, ...rest }: { workspaceId: string; userIds: string[] }) => {
-  return externalRequest.post(`/workspaces/${workspaceId}/members`, rest);
+export const inviteUsers = ({
+  workspaceId,
+  signal,
+  ...rest
+}: {
+  workspaceId: string;
+  userIds: string[];
+  signal: AbortSignal;
+}) => {
+  return externalRequest.post(`/workspaces/${workspaceId}/members`, rest, { signal });
 };
 
 export const getUsersToAddToWorkspace = async ({ workspaceId, email }: { workspaceId: string; email: string }) => {
   const response = await externalRequest.get(`/users/to-add-to-workspace?workspaceId=${workspaceId}&emailQ=${email}`);
   return response.data;
+};
+
+export const removeMember = ({
+  workspaceId,
+  memberId,
+  signal,
+}: {
+  workspaceId: string;
+  memberId: string;
+  signal: AbortSignal;
+}) => {
+  return externalRequest.delete(`/workspaces/${workspaceId}/members/${memberId}`, { signal });
 };

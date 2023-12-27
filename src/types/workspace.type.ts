@@ -5,7 +5,7 @@ export interface Workspace {
   readonly _id: string;
   name: string;
   image?: string;
-  memberIds?: Partial<User>[] | string[];
+  members?: Partial<User>[] | string[];
   boards?: Partial<Board>[];
   ownerUserId: string;
   createdAt?: string;

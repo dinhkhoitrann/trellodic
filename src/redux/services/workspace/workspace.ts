@@ -1,6 +1,14 @@
 /* eslint-disable indent */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { createBoard, createWorkspace, editWorkspaceName, getWorkspace, getWorkspaceList } from '@/services/workspace';
+import {
+  createBoard,
+  createWorkspace,
+  editWorkspaceName,
+  getWorkspace,
+  getWorkspaceList,
+  inviteUsers,
+  removeMember,
+} from '@/services/workspace';
 import { save as saveBoard } from '@/redux/slices/board';
 import { save as saveWorkspace } from '@/redux/slices/workspace';
 import { Workspace } from '@/types/workspace.type';
@@ -70,6 +78,22 @@ export const workspaceApi = createApi({
       },
       invalidatesTags: [{ type: 'Workspace', id: 'LIST' }],
     }),
+    inviteUsers: builder.mutation<{ data: any }, { workspaceId: string; userIds: string[]; onSuccess?: () => void }>({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await inviteUsers({ ...rest, signal }) }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
+      },
+      invalidatesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
+    }),
+    removeMember: builder.mutation<{ data: any }, { workspaceId: string; memberId: string; onSuccess?: () => void }>({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await removeMember({ ...rest, signal }) }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
+      },
+      invalidatesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
+    }),
   }),
 });
 
@@ -79,4 +103,6 @@ export const {
   useGetWorkspaceListQuery,
   useEditWorkspaceNameMutation,
   useCreateWorkspaceMutation,
+  useInviteUsersMutation,
+  useRemoveMemberMutation,
 } = workspaceApi;
