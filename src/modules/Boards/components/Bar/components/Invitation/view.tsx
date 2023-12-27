@@ -4,7 +4,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -13,7 +12,6 @@ import { MemberOption } from './type';
 
 type InvitationViewProps = {
   members: MemberOption[];
-  isFetching: boolean;
   isInviting: boolean;
   onInvite: (_members: MemberOption[]) => void;
 };
@@ -24,7 +22,7 @@ export type InvitationViewRef = {
 };
 
 export default forwardRef<InvitationViewRef, InvitationViewProps>(function InvitationView(
-  { members, isFetching, isInviting, onInvite },
+  { members, isInviting, onInvite },
   ref,
 ) {
   const [selectedMembers, setSelectedMembers] = useState<MemberOption[]>([]);
@@ -74,27 +72,13 @@ export default forwardRef<InvitationViewRef, InvitationViewProps>(function Invit
             fullWidth
             multiple
             onChange={(_, value) => setSelectedMembers(value)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Select members"
-                InputProps={{
-                  ...params.InputProps,
-                  endAdornment: (
-                    <>
-                      {isFetching && <CircularProgress color="inherit" size={20} />}
-                      {params.InputProps.endAdornment}
-                    </>
-                  ),
-                }}
-              />
-            )}
+            renderInput={(params) => <TextField {...params} label="Select members" />}
           />
           <Button
             variant="contained"
             fullWidth
             sx={{ mt: 2 }}
-            disabled={selectedMembers.length === 0 || isFetching || isInviting}
+            disabled={selectedMembers.length === 0 || isInviting}
             onClick={() => onInvite(selectedMembers)}
           >
             Invite

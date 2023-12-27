@@ -3,6 +3,7 @@ import { User } from './user.type';
 
 export interface Board {
   readonly _id: string;
+  workspaceId: string;
   title: string;
   description: string;
   type?: string;

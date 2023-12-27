@@ -15,6 +15,7 @@ interface MockBoardData {
 export const mockData: MockBoardData = {
   board: {
     _id: 'board-id-01',
+    workspaceId: '658bf4e3189ef377faa92867',
     title: 'Khoi Board',
     description: 'Pro MERN stack Course',
     type: 'public', // 'private'
@@ -342,6 +343,7 @@ export const mockData: MockBoardData = {
 
 export const filteredBoard: Board = {
   _id: 'board-id-01',
+  workspaceId: '658bf4e3189ef377faa92867',
   title: 'Khoi Board',
   description: 'Pro MERN stack Course',
   type: 'public', // 'private'

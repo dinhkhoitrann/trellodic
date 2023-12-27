@@ -39,23 +39,6 @@ export const createWorkspace = ({ signal, ...rest }: { name: string; signal: Abo
   return externalRequest.post('/workspaces', rest, { signal });
 };
 
-export const getWorkspaceMembers = async (data: { workspaceId: string | undefined }) => {
-  const { workspaceId } = data;
-  await externalRequest.get('https://jsonplaceholder.typicode.com/posts/1');
-  return {
-    members: [
-      {
-        _id: '657ffaa34467ac2c53130b3b',
-        name: 'Member 1',
-      },
-      {
-        _id: '2',
-        name: 'Member 2',
-      },
-    ],
-  };
-};
-
 export const inviteUsers = ({
   workspaceId,
   signal,

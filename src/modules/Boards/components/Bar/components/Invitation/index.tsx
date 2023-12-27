@@ -3,20 +3,15 @@ import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useAppSelector } from '@/redux/store';
 import { selectWorkspaceDetails } from '@/redux/slices/workspace';
-import { getWorkspaceMembers } from '@/services/workspace';
 import { BoardGlobalProps, withBoard } from '@/hocs';
 import InvitationView, { InvitationViewRef } from './view';
 import { getMemberOptions } from './service';
 import { MemberOption } from './type';
 import { useAddMembersToBoardMutation } from '@/redux/services/board/member';
+import { User } from '@/types/user.type';
 
 function Invitation({ boardId, onRefreshBoard }: BoardGlobalProps) {
   const workspace = useAppSelector(selectWorkspaceDetails);
-  const { data: workspaceMembersResponse, isLoading } = useQuery({
-    queryKey: ['workspaces', workspace._id],
-    queryFn: () => getWorkspaceMembers({ workspaceId: workspace._id }),
-    staleTime: 3000,
-  });
 
   const { data: boardMembersResponse } = useQuery({
     queryKey: ['Board_Members'],
@@ -25,7 +20,7 @@ function Invitation({ boardId, onRefreshBoard }: BoardGlobalProps) {
   const [invite, { isLoading: isInviting }] = useAddMembersToBoardMutation();
 
   const viewRef = useRef<InvitationViewRef>(null);
-  const memberOptions = getMemberOptions(workspaceMembersResponse?.members, (boardMembersResponse as any)?.data);
+  const memberOptions = getMemberOptions(workspace.members as User[], (boardMembersResponse as any)?.data);
 
   const handleInviteMembers = (members: MemberOption[]) => {
     const userIds = members.map((member) => member._id);
@@ -40,13 +35,7 @@ function Invitation({ boardId, onRefreshBoard }: BoardGlobalProps) {
   };
 
   return (
-    <InvitationView
-      ref={viewRef}
-      isFetching={isLoading}
-      isInviting={isInviting}
-      members={memberOptions}
-      onInvite={handleInviteMembers}
-    />
+    <InvitationView ref={viewRef} isInviting={isInviting} members={memberOptions} onInvite={handleInviteMembers} />
   );
 }
 
