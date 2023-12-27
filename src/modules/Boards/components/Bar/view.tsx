@@ -12,6 +12,7 @@ import DateTracker from './components/DateTracker';
 import Filter from './components/Filter';
 import { getChipStyles } from './service';
 import Members from './components/Members';
+import Menus from './components/Menus';
 
 type BoardBarViewProps = {
   board: Board;
@@ -41,6 +42,7 @@ function BoardBarView({ board }: BoardBarViewProps) {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Chip icon={<DashboardIcon />} label={board?.title} clickable sx={chipStyles} />
           <Filter />
+          <Menus />
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           {isBoardAdmin && (

@@ -7,14 +7,14 @@ type DrawerProps = {
 
 type DrawerComponent = (_props: DrawerProps) => React.ReactElement;
 
-function useDrawer(Drawer: DrawerComponent) {
+function useDrawer(Drawer: DrawerComponent, props?: { [key: string]: any }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleDrawerVisibility = () => {
     setIsOpen(!isOpen);
   };
 
-  const render = (props?: { [key: string]: any }) => {
+  const render = () => {
     return <Drawer isOpen={isOpen} onClose={handleDrawerVisibility} {...props} />;
   };
 
