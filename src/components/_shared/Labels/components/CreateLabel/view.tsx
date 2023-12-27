@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { colors } from '../../constants';
+import { colors } from '../../../../../modules/CardDetails/components/AddToCard/components/Labels/constants';
 import Colors from '@/components/Colors';
 
 type CreateLabelViewProps = {

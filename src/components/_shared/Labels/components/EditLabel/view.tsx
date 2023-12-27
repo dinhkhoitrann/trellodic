@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Label } from '@/types/board.type';
 import Colors from '@/components/Colors';
-import { colors } from '../../constants';
+import { colors } from '../../../../../modules/CardDetails/components/AddToCard/components/Labels/constants';
 
 type EditLabelViewProps = {
   label?: Label;

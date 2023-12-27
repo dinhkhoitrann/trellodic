@@ -8,3 +8,9 @@ export const TAGS_CACHE = {
 export const EXCEPTION_URL_REFRESH_TOKEN = ['/users/me'];
 
 export const DND_ANIMATION_OPACITY = '0.3';
+
+export const MODES = {
+  VIEW: 'view',
+  CREATE: 'create',
+  EDIT: 'edit',
+};
