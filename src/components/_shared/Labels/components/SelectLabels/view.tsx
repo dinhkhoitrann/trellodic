@@ -1,3 +1,4 @@
+import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, ChangeEvent, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -8,6 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
 import EditIcon from '@mui/icons-material/Edit';
 import { Label } from '@/types/board.type';
 import { useAppSelector } from '@/redux/store';
@@ -20,6 +22,13 @@ type SelectLabelsViewProps = {
   onEditMode: (_label: Label) => void;
 };
 
+const makeStyle = (label: Label) => ({
+  flex: 1,
+  backgroundColor: label.color,
+  p: '12px',
+  borderRadius: '4px',
+});
+
 function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsViewProps) {
   const board = useAppSelector(selectBoardDetails);
   const card = useAppSelector(selectCardDetails);
@@ -27,6 +36,9 @@ function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsVi
   const labelsRef = useRef<Label[]>();
   const [search, setSearch] = useState('');
   const { isBoardAdmin } = useAuthorized();
+
+  const searchParams = useSearchParams();
+  const isInCard = !!searchParams.get('cardId');
 
   useEffect(() => {
     if (!search.trim()) {
@@ -57,6 +69,34 @@ function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsVi
     setSearch(event.target.value);
   };
 
+  const renderLabel = (label: Label) => {
+    if (isInCard) {
+      return (
+        <FormControlLabel
+          control={<Checkbox name={label._id} defaultChecked={label.isSelected} onChange={onSelectedLabelsChange} />}
+          label={label.title}
+          sx={{
+            my: '4px',
+            flex: 1,
+            '.MuiFormControlLabel-label': makeStyle(label),
+          }}
+        />
+      );
+    }
+
+    return (
+      <Box
+        sx={{
+          my: '4px',
+          mr: 1,
+          ...makeStyle(label),
+        }}
+      >
+        {label.title}
+      </Box>
+    );
+  };
+
   return (
     <>
       <TextField
@@ -75,22 +115,7 @@ function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsVi
           ) : (
             labels!.map((label) => (
               <Stack key={label._id} direction="row" sx={{ alignItems: 'center' }}>
-                <FormControlLabel
-                  control={
-                    <Checkbox name={label._id} defaultChecked={label.isSelected} onChange={onSelectedLabelsChange} />
-                  }
-                  label={label.title}
-                  sx={{
-                    my: '4px',
-                    flex: 1,
-                    '.MuiFormControlLabel-label': {
-                      flex: 1,
-                      backgroundColor: label.color,
-                      p: '12px',
-                      borderRadius: '4px',
-                    },
-                  }}
-                />
+                {renderLabel(label)}
                 {isBoardAdmin && (
                   <IconButton sx={{ mr: 2 }} onClick={() => onEditMode(label)}>
                     <EditIcon fontSize="small" />
