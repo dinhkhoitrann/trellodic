@@ -19,9 +19,9 @@ export const labelApi = createApi({
     }),
     editLabel: builder.mutation<
       { data: any },
-      { title: string; color: string; boardId: string; onSuccess?: () => void }
+      { title: string; color: string; labelId: string; onSuccess?: () => void }
     >({
-      queryFn: async (args, { signal }) => ({ data: await editLabel({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await editLabel({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

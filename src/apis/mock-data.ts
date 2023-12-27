@@ -20,9 +20,9 @@ export const mockData: MockBoardData = {
     description: 'Pro MERN stack Course',
     type: 'public', // 'private'
     labels: [
-      { _id: '1', title: 'Title 1', color: '#164b35' },
-      { _id: '2', title: 'Title 2', color: '#2ecc71' },
-      { _id: '3', title: 'Title 3', color: '#3498db' },
+      { _id: '658c4cc52b7fb2f7fc25290a', title: 'Title 1', color: '#164b35' },
+      { _id: '658c4dc12b7fb2f7fc25290b', title: 'Title 2', color: '#2ecc71' },
+      { _id: '658c4dcb2b7fb2f7fc25290c', title: 'Title 3', color: '#3498db' },
     ],
     admin: '657ffaa34467ac2c53130b3b', // Những users là Admin của board
     memberIds: [

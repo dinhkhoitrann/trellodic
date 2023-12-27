@@ -10,8 +10,17 @@ export const createLabel = (data: {
   return externalRequest.post('/labels', data);
 };
 
-export const editLabel = (data: { title: string; color: string; boardId: string; signal: AbortSignal }) => {
-  return externalRequest.put('https://jsonplaceholder.typicode.com/posts/1', data);
+export const editLabel = ({
+  labelId,
+  signal,
+  ...rest
+}: {
+  title: string;
+  color: string;
+  labelId: string;
+  signal: AbortSignal;
+}) => {
+  return externalRequest.patch(`/labels/${labelId}`, rest, { signal });
 };
 
 export const addLabelToCard = (data: { labelId: string; cardId: string; signal: AbortSignal }) => {
