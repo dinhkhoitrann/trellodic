@@ -525,7 +525,7 @@ export const filteredBoard: Board = {
 };
 
 export const mockWorkspace: Workspace = {
-  _id: '657ffb884467ac2c53130b3c',
+  _id: '658bf4e3189ef377faa92867',
   boards: [
     {
       _id: '657ffe414467ac2c53130b3e',
