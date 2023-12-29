@@ -20,7 +20,7 @@ function CreateLabel({ boardId, cardId, onRefreshBoard, onRefreshCard, onCreateS
       onSuccess: () => {
         onCreateSuccess();
         onRefreshBoard();
-        onRefreshCard();
+        if (cardId) onRefreshCard();
       },
     });
   };

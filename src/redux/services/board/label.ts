@@ -27,7 +27,7 @@ export const labelApi = createApi({
         onSuccess && onSuccess();
       },
     }),
-    removeLabel: builder.mutation<{ data: any }, { labelId: string; onSuccess?: () => void }>({
+    removeLabel: builder.mutation<{ data: any }, { labelId: string; cardId?: string; onSuccess?: () => void }>({
       queryFn: async ({ onSuccess, ...rest }, { signal }) => ({
         data: await deleteLabel({ ...rest, signal }),
       }),
@@ -41,11 +41,10 @@ export const labelApi = createApi({
       {
         labelId: string;
         cardId: string;
-        isAdded: boolean;
         onSuccess?: () => void;
       }
     >({
-      queryFn: async (args, { signal }) => ({ data: await addLabelToCard({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await addLabelToCard({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

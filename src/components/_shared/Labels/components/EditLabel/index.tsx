@@ -9,7 +9,7 @@ type EditLabelProps = BoardGlobalProps & {
   onEditSuccess: () => void;
 };
 
-function EditLabel({ label, onRefreshBoard, onRefreshCard, onEditSuccess }: EditLabelProps) {
+function EditLabel({ label, cardId, onRefreshBoard, onRefreshCard, onEditSuccess }: EditLabelProps) {
   const [selectedColor, setSelectedColor] = useState(label?.color || '');
   const [editLabel, { isLoading }] = useEditLabelMutation();
 
@@ -25,7 +25,7 @@ function EditLabel({ label, onRefreshBoard, onRefreshCard, onEditSuccess }: Edit
       onSuccess: () => {
         onEditSuccess();
         onRefreshBoard();
-        onRefreshCard();
+        if (cardId) onRefreshCard();
       },
     });
   };
