@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { addLabelToCard, createLabel, editLabel } from '@/services/board/label';
+import { addLabelToCard, createLabel, deleteLabel, editLabel } from '@/services/board/label';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const labelApi = createApi({
@@ -27,6 +27,15 @@ export const labelApi = createApi({
         onSuccess && onSuccess();
       },
     }),
+    removeLabel: builder.mutation<{ data: any }, { labelId: string; onSuccess?: () => void }>({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({
+        data: await deleteLabel({ ...rest, signal }),
+      }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
+      },
+    }),
     addLabelToCard: builder.mutation<
       { data: any },
       {
@@ -45,4 +54,5 @@ export const labelApi = createApi({
   }),
 });
 
-export const { useAddLabelMutation, useEditLabelMutation, useAddLabelToCardMutation } = labelApi;
+export const { useAddLabelMutation, useEditLabelMutation, useRemoveLabelMutation, useAddLabelToCardMutation } =
+  labelApi;

@@ -23,6 +23,10 @@ export const editLabel = ({
   return externalRequest.patch(`/labels/${labelId}`, rest, { signal });
 };
 
+export const deleteLabel = ({ labelId, signal }: { labelId: string; signal: AbortSignal }) => {
+  return externalRequest.delete(`/labels/${labelId}`, { signal });
+};
+
 export const addLabelToCard = (data: { labelId: string; cardId: string; signal: AbortSignal }) => {
   return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data);
 };

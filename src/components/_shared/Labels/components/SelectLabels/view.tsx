@@ -8,14 +8,13 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
-import EditIcon from '@mui/icons-material/Edit';
 import { Label } from '@/types/board.type';
 import { useAppSelector } from '@/redux/store';
 import { selectCardDetails } from '@/redux/slices/card';
 import { selectBoardDetails } from '@/redux/slices/board';
 import { useAuthorized } from '@/hooks';
+import MoreOptions from './components/MoreOptions';
 
 type SelectLabelsViewProps = {
   onSelectedLabelsChange: (_event: ChangeEvent<HTMLInputElement>) => void;
@@ -50,8 +49,7 @@ function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsVi
 
     const filteredLabels = labels!.filter((label) => label.title.toLowerCase().includes(search.toLowerCase()));
     setLabels(filteredLabels);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [board.labels, search, setLabels]);
+  }, [board.labels, labels, search, setLabels]);
 
   useEffect(() => {
     const updatedLabels = board.labels!.map((label) => {
@@ -75,26 +73,12 @@ function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsVi
         <FormControlLabel
           control={<Checkbox name={label._id} defaultChecked={label.isSelected} onChange={onSelectedLabelsChange} />}
           label={label.title}
-          sx={{
-            my: '4px',
-            flex: 1,
-            '.MuiFormControlLabel-label': makeStyle(label),
-          }}
+          sx={{ my: '4px', flex: 1, '.MuiFormControlLabel-label': makeStyle(label) }}
         />
       );
     }
 
-    return (
-      <Box
-        sx={{
-          my: '4px',
-          mr: 1,
-          ...makeStyle(label),
-        }}
-      >
-        {label.title}
-      </Box>
-    );
+    return <Box sx={{ my: '4px', mr: 1, ...makeStyle(label) }}>{label.title}</Box>;
   };
 
   return (
@@ -107,8 +91,10 @@ function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsVi
         placeholder="Search label"
         sx={{ marginTop: '20px' }}
       />
-      <FormControl sx={{ my: 3, mx: 2 }} fullWidth component="fieldset" variant="standard">
-        <FormLabel component="legend">Labels</FormLabel>
+      <FormControl sx={{ my: 3 }} fullWidth component="fieldset" variant="standard">
+        <FormLabel component="legend" sx={{ mb: 2 }}>
+          Labels
+        </FormLabel>
         <FormGroup>
           {labels!.length === 0 ? (
             <Typography sx={{ textAlign: 'center', mt: 2 }}>No labels found</Typography>
@@ -116,11 +102,7 @@ function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsVi
             labels!.map((label) => (
               <Stack key={label._id} direction="row" sx={{ alignItems: 'center' }}>
                 {renderLabel(label)}
-                {isBoardAdmin && (
-                  <IconButton sx={{ mr: 2 }} onClick={() => onEditMode(label)}>
-                    <EditIcon fontSize="small" />
-                  </IconButton>
-                )}
+                {isBoardAdmin && <MoreOptions label={label} onEditMode={() => onEditMode(label)} />}
               </Stack>
             ))
           )}
