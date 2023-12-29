@@ -11,7 +11,7 @@ export const labelApi = createApi({
       { data: any },
       { title: string; color: string; boardId: string; cardId?: string; onSuccess?: () => void }
     >({
-      queryFn: async (args, { signal }) => ({ data: await createLabel({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await createLabel({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

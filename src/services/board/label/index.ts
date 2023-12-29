@@ -1,13 +1,16 @@
 import { externalRequest } from '../../request';
 
-export const createLabel = (data: {
+export const createLabel = ({
+  signal,
+  ...rest
+}: {
   title: string;
   color: string;
   boardId: string;
   cardId?: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('/labels', data);
+  return externalRequest.post('/labels', rest, { signal });
 };
 
 export const editLabel = ({
