@@ -8,11 +8,18 @@ type MoreOptionsProps = BoardGlobalProps & {
   onEditMode: () => void;
 };
 
-function MoreOptions({ label, onEditMode, onRefreshBoard }: MoreOptionsProps) {
+function MoreOptions({ label, cardId, onEditMode, onRefreshBoard, onRefreshCard }: MoreOptionsProps) {
   const [deleteLabel] = useRemoveLabelMutation();
 
   const handleDeleteLabel = () => {
-    deleteLabel({ labelId: label._id, onSuccess: onRefreshBoard });
+    deleteLabel({
+      labelId: label._id,
+      cardId,
+      onSuccess: () => {
+        onRefreshBoard();
+        if (cardId) onRefreshCard();
+      },
+    });
   };
 
   return <MoreOptionsView onEditMode={onEditMode} onDeleteLabel={handleDeleteLabel} />;

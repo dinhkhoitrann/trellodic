@@ -53,7 +53,7 @@ function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsVi
 
   useEffect(() => {
     const updatedLabels = board.labels!.map((label) => {
-      if (card.labels?.findIndex((item) => item._id === label._id) !== -1) {
+      if (card.labels?.find((item) => item._id === label._id)) {
         return { ...label, isSelected: true };
       }
       return { ...label };
@@ -61,7 +61,7 @@ function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsVi
 
     labelsRef.current = [...updatedLabels];
     setLabels(updatedLabels);
-  }, [board.labels, card]);
+  }, [board.labels, card.labels]);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -71,7 +71,7 @@ function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsVi
     if (isInCard) {
       return (
         <FormControlLabel
-          control={<Checkbox name={label._id} defaultChecked={label.isSelected} onChange={onSelectedLabelsChange} />}
+          control={<Checkbox name={label._id} checked={!!label.isSelected} onChange={onSelectedLabelsChange} />}
           label={label.title}
           sx={{ my: '4px', flex: 1, '.MuiFormControlLabel-label': makeStyle(label) }}
         />
