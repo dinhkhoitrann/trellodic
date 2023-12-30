@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import StyledModal from '@/components/Modal/components/StyledModal';
 import FormProvider from '@/components/Form/components/FormProvider';
 import RHFTextField from '@/components/Form/components/TextField';
+import { StyledChip, getStyledIcon } from '@/components/_shared/Board/components/Chip';
 import { Board } from '@/types/board.type';
-import { StyledDashboardIcon, StyledTitle } from './styled';
 import { TitleDefaultValues } from './validation';
 
 type TitleViewProps = {
@@ -20,13 +21,15 @@ function TitleView({ board, methods, isEditing, onSubmit }: TitleViewProps) {
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const { handleSubmit } = methods;
 
+  const StyledDashboardIcon = getStyledIcon(DashboardIcon);
+
   const handleModalVisibility = () => {
     setIsVisibleModal(!isVisibleModal);
   };
 
   return (
     <>
-      <StyledTitle icon={<StyledDashboardIcon />} label={board?.name} clickable onClick={handleModalVisibility} />
+      <StyledChip icon={<StyledDashboardIcon />} label={board?.name} clickable onClick={handleModalVisibility} />
       <StyledModal isVisibleModal={isVisibleModal} onClose={handleModalVisibility}>
         <Typography fontWeight="bold" sx={{ mb: 3 }}>
           Edit board
