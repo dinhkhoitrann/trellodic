@@ -12,7 +12,6 @@ import { boardFilterApi } from './services/board/filter';
 import { memberApi } from './services/card/member';
 import { datesApi } from './services/card/dates';
 import { attachmentApi } from './services/card/attachment';
-import { descriptionApi } from './services/card/description';
 import { commentApi } from './services/card/comment';
 import { workspaceApi } from './services/workspace/workspace';
 import { authApi } from './services/auth/auth';
@@ -30,7 +29,6 @@ export const store = configureStore({
     [memberApi.reducerPath]: memberApi.reducer,
     [datesApi.reducerPath]: datesApi.reducer,
     [attachmentApi.reducerPath]: attachmentApi.reducer,
-    [descriptionApi.reducerPath]: descriptionApi.reducer,
     [commentApi.reducerPath]: commentApi.reducer,
     [workspaceApi.reducerPath]: workspaceApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
@@ -51,7 +49,6 @@ export const store = configureStore({
       memberApi.middleware,
       datesApi.middleware,
       attachmentApi.middleware,
-      descriptionApi.middleware,
       commentApi.middleware,
       workspaceApi.middleware,
       authApi.middleware,
