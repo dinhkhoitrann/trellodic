@@ -13,14 +13,16 @@ function Title({ board }: BoardGlobalProps) {
     },
   });
 
-  const [editBoardName, { isLoading }] = useEditBoardMutation();
+  const [editBoardName, { isLoading, isSuccess }] = useEditBoardMutation();
 
   const handleEditTitle = (values: TitleDefaultValues) => {
     const { title } = values;
     editBoardName({ boardId: board._id, name: title });
   };
 
-  return <TitleView board={board} methods={methods} isEditing={isLoading} onSubmit={handleEditTitle} />;
+  return (
+    <TitleView board={board} methods={methods} isEditing={isLoading} isSuccess={isSuccess} onSubmit={handleEditTitle} />
+  );
 }
 
 export default withBoard(Title);
