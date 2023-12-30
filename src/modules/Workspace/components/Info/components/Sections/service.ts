@@ -6,7 +6,7 @@ export const getBoardsForSections = (workspace: Partial<Workspace>, ownerId?: st
   const otherBoards: Partial<Board>[] = [];
 
   workspace?.boards?.forEach((board) => {
-    if (board.admin === ownerId) {
+    if (board.adminId === ownerId) {
       ownerBoards.push(board);
     } else {
       otherBoards.push(board);

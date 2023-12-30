@@ -52,7 +52,7 @@ function SectionsView({ ownerBoards, otherBoards, workspace }: SectionsViewProps
                   color: 'white',
                 }}
               >
-                {board.title}
+                {board.name}
               </BoardItem>
             </Link>
           </Grid>

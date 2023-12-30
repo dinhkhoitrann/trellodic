@@ -27,7 +27,7 @@ function TitleView({ board, methods, isEditing, onSubmit }: TitleViewProps) {
 
   return (
     <>
-      <StyledTitle icon={<DashboardIcon />} label={board?.title} clickable onClick={handleModalVisibility} />
+      <StyledTitle icon={<DashboardIcon />} label={board?.name} clickable onClick={handleModalVisibility} />
       <StyledModal isVisibleModal={isVisibleModal} onClose={handleModalVisibility}>
         <Typography fontWeight="bold" sx={{ mb: 3 }}>
           Edit board

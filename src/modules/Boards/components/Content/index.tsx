@@ -90,7 +90,8 @@ function BoardContent({ boardId, board: initBoard }: BoardContentProps) {
           overId = closestCorners({
             ...args,
             droppableContainers: args.droppableContainers.filter(
-              (container) => container.id !== overId && existingColumn?.cardOrderIds?.includes(container.id.toString()),
+              (container) =>
+                container.id !== overId && existingColumn?.orderedCardIds?.includes(container.id.toString()),
             ),
           })[0]?.id;
         }
@@ -107,7 +108,7 @@ function BoardContent({ boardId, board: initBoard }: BoardContentProps) {
   useEffect(() => {
     dispatch(saveBoardDetails({ ...initBoard }));
     setBoard((prevBoard) => {
-      const orderedColumns = mapOrder(initBoard?.columns, initBoard?.columnOrderIds, '_id');
+      const orderedColumns = mapOrder(initBoard?.columns, initBoard?.orderedColumnIds, '_id');
       return {
         ...prevBoard,
         columns: [...orderedColumns],
@@ -152,7 +153,7 @@ function BoardContent({ boardId, board: initBoard }: BoardContentProps) {
           nextActiveColumn.cards = [generatePlaceholderCard(nextActiveColumn)];
         }
 
-        nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map((card) => card._id);
+        nextActiveColumn.orderedCardIds = nextActiveColumn.cards.map((card) => card._id);
       }
 
       if (nextOverColumn) {
@@ -166,7 +167,7 @@ function BoardContent({ boardId, board: initBoard }: BoardContentProps) {
         nextOverColumn.cards = [...clonedNextOverCards];
         nextOverColumn.cards = nextOverColumn.cards.filter((card) => !card.FE_isPlaceholderCard);
 
-        nextOverColumn.cardOrderIds = nextOverColumn.cards.map((card) => card._id);
+        nextOverColumn.orderedCardIds = nextOverColumn.cards.map((card) => card._id);
       }
 
       // TODO:  Then, store nextColumns to DB
@@ -253,8 +254,8 @@ function BoardContent({ boardId, board: initBoard }: BoardContentProps) {
         const targetColumn = nextColumns.find((column) => column._id === overColumn._id);
         if (targetColumn) {
           targetColumn.cards = dndOrderedCards;
-          targetColumn.cardOrderIds = dndOrderedCards.map((card) => card._id);
-          updateCardOrderedIds({ columnId: targetColumn._id, orderedCardIds: targetColumn.cardOrderIds });
+          targetColumn.orderedCardIds = dndOrderedCards.map((card) => card._id);
+          updateCardOrderedIds({ columnId: targetColumn._id, orderedCardIds: targetColumn.orderedCardIds });
         }
         setBoard({ ...board, columns: [...nextColumns] });
       }
@@ -284,7 +285,13 @@ function BoardContent({ boardId, board: initBoard }: BoardContentProps) {
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <BoardContentView board={board} activeDragItemType={activeDragItemType} activeDragItemData={activeDragItemData} />
+      {board && (
+        <BoardContentView
+          board={board}
+          activeDragItemType={activeDragItemType}
+          activeDragItemData={activeDragItemData}
+        />
+      )}
     </DndContext>
   );
 }

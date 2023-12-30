@@ -18,7 +18,7 @@ export default function useAuthorized() {
   const workspace = useAppSelector(selectWorkspaceDetails);
   const user = useAppSelector(selectUserProfile);
 
-  const isBoardAdmin = checkBoardAdmin(board.admin as string, user?._id);
+  const isBoardAdmin = checkBoardAdmin(board?.adminId, user?._id);
   const isWorkspaceAdmin = checkWorkspaceAdmin(workspace.ownerUserId, user?._id);
 
   return {

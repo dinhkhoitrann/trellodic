@@ -4,7 +4,7 @@ export interface Column {
   readonly _id: string;
   boardId: string;
   title: string;
-  cardOrderIds: string[];
+  orderedCardIds: string[];
   cards: Card[]; // add new interface CardInColumn
 }
 

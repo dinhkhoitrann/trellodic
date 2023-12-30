@@ -54,7 +54,7 @@ function ListView({ members, onDelete }: ListViewProps) {
             </ListItemAvatar>
             <ListItemText
               primary={<Typography sx={{ fontSize: '1rem !important', fontWeight: 600 }}>{member.name}</Typography>}
-              secondary={getMemberRole(member._id, user?._id || '', board.admin as string)}
+              secondary={getMemberRole(member._id, user?._id || '', board.adminId!)}
             />
           </ListItem>
         ))}

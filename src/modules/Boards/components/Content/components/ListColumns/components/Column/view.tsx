@@ -51,7 +51,7 @@ function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnView
   });
 
   const { isBoardAdmin } = useAuthorized();
-  const canDelete = column.cards.length === 1 && column.cards[0].FE_isPlaceholderCard;
+  const canDelete = column.cards?.length === 1 && column.cards?.[0]?.FE_isPlaceholderCard;
 
   return (
     <>
@@ -114,7 +114,7 @@ function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnView
             )}
           </Box>
 
-          <ListCards cards={column?.cards} columnId={column._id} cardOrderIds={column?.cardOrderIds} />
+          <ListCards cards={column?.cards} columnId={column._id} cardOrderIds={column?.orderedCardIds} />
         </Box>
       </div>
       {renderAlert()}

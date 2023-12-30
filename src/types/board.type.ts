@@ -4,12 +4,12 @@ import { User } from './user.type';
 export interface Board {
   readonly _id: string;
   workspaceId: string;
-  title: string;
+  name: string;
   description: string;
   type?: string;
-  admin: User | string; // admin
+  adminId: string; // admin
   memberIds: User[]; //members: [{_id, name, avatar}] consists of admin
-  columnOrderIds: string[];
+  orderedColumnIds: string[];
   columns: Column[];
   labels?: Label[];
 }
