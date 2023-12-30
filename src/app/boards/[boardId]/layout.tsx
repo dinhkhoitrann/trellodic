@@ -17,7 +17,7 @@ function BoardDetailsLayout({ children }: BoardDetailsLayoutProps) {
 
   return (
     <>
-      <BoardBar board={mockData.board} />
+      <BoardBar />
       {children}
     </>
   );

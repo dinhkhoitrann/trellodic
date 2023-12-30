@@ -8,3 +8,7 @@ export const fetchBoardDetails = async (data: { boardId: string; signal?: AbortS
 
   return mockData.board;
 };
+
+export const updateBoard = ({ boardId, signal, ...rest }: { boardId: string; name?: string; signal: AbortSignal }) => {
+  return externalRequest.patch(`/boards/${boardId}`, rest, { signal });
+};

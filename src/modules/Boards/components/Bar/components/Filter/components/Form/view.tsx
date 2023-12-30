@@ -65,7 +65,7 @@ function FormView({ board: { labels = [] }, isOpen, methods, onClose, onSubmit }
           </Box>
           <FormProvider id={FORM_ID} methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <RHFSelect id="labels" name="labels" label="Label" multiple options={labels} getLabelBy="title">
-              {labels.map((label) => (
+              {labels?.map((label) => (
                 <MenuItem key={label._id} value={label._id}>
                   {label.title}
                 </MenuItem>
