@@ -1,13 +1,22 @@
 import Cookies from 'js-cookie';
+import { BE_API_ROOT } from '@/utils/constants';
 import { externalRequest } from '../request';
 
-export const fetchBoardDetails = async ({ boardId, signal }: { boardId: string; signal?: AbortSignal }) => {
-  const response = await fetch(`http://localhost:8080/api/v1/boards/${boardId}`, {
+export const fetchBoardDetails = async ({
+  boardId,
+  token,
+  signal,
+}: {
+  boardId: string;
+  token?: string;
+  signal?: AbortSignal;
+}) => {
+  const response = await fetch(`${BE_API_ROOT}boards/${boardId}`, {
     method: 'GET',
     signal,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${Cookies.get('token')}`,
+      Authorization: `Bearer ${token || Cookies.get('token')}`,
     },
   });
   const data = await response.json();

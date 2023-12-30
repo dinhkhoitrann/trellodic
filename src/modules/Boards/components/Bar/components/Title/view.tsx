@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import Typography from '@mui/material/Typography';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import Button from '@mui/material/Button';
 import StyledModal from '@/components/Modal/components/StyledModal';
 import FormProvider from '@/components/Form/components/FormProvider';
 import RHFTextField from '@/components/Form/components/TextField';
 import { Board } from '@/types/board.type';
-import StyledTitle from './styled';
+import { StyledDashboardIcon, StyledTitle } from './styled';
 import { TitleDefaultValues } from './validation';
 
 type TitleViewProps = {
@@ -27,7 +26,7 @@ function TitleView({ board, methods, isEditing, onSubmit }: TitleViewProps) {
 
   return (
     <>
-      <StyledTitle icon={<DashboardIcon />} label={board?.name} clickable onClick={handleModalVisibility} />
+      <StyledTitle icon={<StyledDashboardIcon />} label={board?.name} clickable onClick={handleModalVisibility} />
       <StyledModal isVisibleModal={isVisibleModal} onClose={handleModalVisibility}>
         <Typography fontWeight="bold" sx={{ mb: 3 }}>
           Edit board

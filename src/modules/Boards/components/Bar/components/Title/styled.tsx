@@ -1,7 +1,8 @@
 import { styled } from '@mui/system';
 import Chip from '@mui/material/Chip';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
-const StyledTitle = styled(Chip)(({ theme }) => {
+export const StyledTitle = styled(Chip)(({ theme }) => {
   const textColor = theme.palette.mode === 'dark' ? '#b6c2cf' : 'white';
   return `
     background-color: transparent;
@@ -19,4 +20,8 @@ const StyledTitle = styled(Chip)(({ theme }) => {
 `;
 });
 
-export default StyledTitle;
+export const StyledDashboardIcon = styled(DashboardIcon)(({ theme }) => {
+  return `
+    color: ${theme.palette.mode === 'dark' ? '#b6c2cf !important' : 'white !important'}
+    `;
+});
