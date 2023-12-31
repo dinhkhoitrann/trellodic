@@ -1,5 +1,6 @@
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect, ChangeEvent, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { isEmpty } from 'lodash';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import FormLabel from '@mui/material/FormLabel';
@@ -10,12 +11,12 @@ import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import { Label } from '@/types/board.type';
-import { useAuthorized } from '@/hooks';
+import { useAuthorized, useDebounce } from '@/hooks';
 import { BoardGlobalProps, withBoard } from '@/hocs';
 import MoreOptions from './components/MoreOptions';
 
 type SelectLabelsViewProps = BoardGlobalProps & {
-  onSelectedLabelsChange: (_event: ChangeEvent<HTMLInputElement>) => void;
+  onSelectedLabelsChange: (_event: React.ChangeEvent<HTMLInputElement>) => void;
   onEditMode: (_label: Label) => void;
 };
 
@@ -28,24 +29,27 @@ const makeStyle = (label: Label) => ({
 
 function SelectLabelsView({ board, card, onSelectedLabelsChange, onEditMode }: SelectLabelsViewProps) {
   const [labels, setLabels] = useState<Label[]>([]);
-  const labelsRef = useRef<Label[]>();
   const [search, setSearch] = useState('');
   const { isBoardAdmin } = useAuthorized();
 
   const searchParams = useSearchParams();
   const isInCard = !!searchParams.get('cardId');
 
+  const debouncedSearch = useDebounce(search);
   useEffect(() => {
-    if (!search.trim()) {
-      if (labelsRef.current) {
-        setLabels(labelsRef.current);
-      }
+    const boardLabels = board.labels || [];
+    if (isEmpty(boardLabels)) return;
+
+    if (!debouncedSearch.trim()) {
+      setLabels(boardLabels);
       return;
     }
 
-    const filteredLabels = labels!.filter((label) => label.title.toLowerCase().includes(search.toLowerCase()));
+    const filteredLabels = boardLabels.filter((label) =>
+      label.title.toLowerCase().includes(debouncedSearch.toLowerCase()),
+    );
     setLabels(filteredLabels);
-  }, [board.labels, labels, search, setLabels]);
+  }, [board.labels, debouncedSearch]);
 
   useEffect(() => {
     if (!board.labels) setLabels([]);
@@ -56,12 +60,10 @@ function SelectLabelsView({ board, card, onSelectedLabelsChange, onEditMode }: S
       }
       return { ...label };
     });
-
-    labelsRef.current = [...updatedLabels];
     setLabels(updatedLabels);
   }, [board.labels, card.labels]);
 
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
 
