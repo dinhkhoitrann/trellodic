@@ -13,7 +13,7 @@ export const boardApi = createApi({
         return { data: board };
       },
       providesTags: (_result, _error, { boardId }) => [{ type: 'Board', id: boardId }],
-      keepUnusedDataFor: 5,
+      keepUnusedDataFor: 0,
     }),
     editBoard: builder.mutation<
       { data: any },

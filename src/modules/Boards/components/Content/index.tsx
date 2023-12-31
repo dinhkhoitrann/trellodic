@@ -28,7 +28,7 @@ import { Column } from '@/types/column.type';
 import { generatePlaceholderCard } from '@/utils/card';
 import { updateColumn } from '@/services/column';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { save as saveBoardDetails, selectBoardDetails } from '@/redux/slices/board';
+import { selectBoardDetails } from '@/redux/slices/board';
 import { useGetBoardDetailsQuery } from '@/redux/services/board/board';
 
 type BoardContentProps = {
@@ -106,7 +106,6 @@ function BoardContent({ boardId, board: initBoard }: BoardContentProps) {
   );
 
   useEffect(() => {
-    dispatch(saveBoardDetails({ ...initBoard }));
     setBoard((prevBoard) => {
       const orderedColumns = mapOrder(initBoard?.columns, initBoard?.orderedColumnIds, '_id');
       return {

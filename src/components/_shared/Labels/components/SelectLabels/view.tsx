@@ -10,13 +10,11 @@ import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import { Label } from '@/types/board.type';
-import { useAppSelector } from '@/redux/store';
-import { selectCardDetails } from '@/redux/slices/card';
-import { selectBoardDetails } from '@/redux/slices/board';
 import { useAuthorized } from '@/hooks';
+import { BoardGlobalProps, withBoard } from '@/hocs';
 import MoreOptions from './components/MoreOptions';
 
-type SelectLabelsViewProps = {
+type SelectLabelsViewProps = BoardGlobalProps & {
   onSelectedLabelsChange: (_event: ChangeEvent<HTMLInputElement>) => void;
   onEditMode: (_label: Label) => void;
 };
@@ -28,9 +26,7 @@ const makeStyle = (label: Label) => ({
   borderRadius: '4px',
 });
 
-function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsViewProps) {
-  const board = useAppSelector(selectBoardDetails);
-  const card = useAppSelector(selectCardDetails);
+function SelectLabelsView({ board, card, onSelectedLabelsChange, onEditMode }: SelectLabelsViewProps) {
   const [labels, setLabels] = useState<Label[]>([]);
   const labelsRef = useRef<Label[]>();
   const [search, setSearch] = useState('');
@@ -112,4 +108,4 @@ function SelectLabelsView({ onSelectedLabelsChange, onEditMode }: SelectLabelsVi
   );
 }
 
-export default SelectLabelsView;
+export default withBoard(SelectLabelsView);

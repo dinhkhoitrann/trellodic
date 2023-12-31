@@ -27,9 +27,9 @@ export const editLabel = ({
 };
 
 export const deleteLabel = ({ labelId, cardId, signal }: { labelId: string; cardId?: string; signal: AbortSignal }) => {
-  const path = `/labels/${labelId}`;
+  let path = `/labels/${labelId}`;
   if (cardId) {
-    path.concat(`?cardId=${cardId}`);
+    path = path + `?cardId=${cardId}`;
   }
   return externalRequest.delete(path, { signal });
 };
