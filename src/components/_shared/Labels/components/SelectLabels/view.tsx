@@ -48,6 +48,8 @@ function SelectLabelsView({ board, card, onSelectedLabelsChange, onEditMode }: S
   }, [board.labels, labels, search, setLabels]);
 
   useEffect(() => {
+    if (!board.labels) setLabels([]);
+
     const updatedLabels = board.labels!.map((label) => {
       if (card.labels?.find((item) => item._id === label._id)) {
         return { ...label, isSelected: true };

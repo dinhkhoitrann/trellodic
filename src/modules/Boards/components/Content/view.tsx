@@ -61,7 +61,7 @@ function BoardContentView({ board, activeDragItemType, activeDragItemData }: Boa
             },
           }}
         >
-          <ListColumns columns={board?.columns} />
+          <ListColumns columns={board?.columns || []} />
           <DragOverlay dropAnimation={dropAnimation}>
             {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && <Column column={activeDragItemData} />}
             {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD && <Card card={activeDragItemData} />}
