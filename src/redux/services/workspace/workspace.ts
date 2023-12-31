@@ -10,7 +10,6 @@ import {
   removeMember,
 } from '@/services/workspace';
 import { save as saveBoard } from '@/redux/slices/board';
-import { save as saveWorkspace } from '@/redux/slices/workspace';
 import { Workspace } from '@/types/workspace.type';
 import { Board } from '@/types/board.type';
 
@@ -25,21 +24,11 @@ export const workspaceApi = createApi({
         return { data };
       },
       providesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
-      onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
-        const { data } = await queryFulfilled;
-        dispatch(saveWorkspace({ detail: data }));
-      },
     }),
-    getWorkspaceList: builder.query<Workspace[], { userId: string }>({
+    getWorkspaceList: builder.query<Workspace[], void>({
       queryFn: async (args, { signal }) => {
-        const data = await getWorkspaceList({ ...args, signal });
+        const data = await getWorkspaceList({ signal });
         return { data };
-      },
-      onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
-        const { data } = await queryFulfilled;
-        if (data.length > 0) {
-          dispatch(saveWorkspace({ detail: data[0], list: data }));
-        }
       },
       providesTags: (result) =>
         result

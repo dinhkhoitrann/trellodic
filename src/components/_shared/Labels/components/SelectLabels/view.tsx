@@ -52,7 +52,10 @@ function SelectLabelsView({ board, card, onSelectedLabelsChange, onEditMode }: S
   }, [board.labels, debouncedSearch]);
 
   useEffect(() => {
-    if (!board.labels) setLabels([]);
+    if (!board.labels) {
+      setLabels([]);
+      return;
+    }
 
     const updatedLabels = board.labels!.map((label) => {
       if (card.labels?.find((item) => item._id === label._id)) {
