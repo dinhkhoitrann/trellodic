@@ -3,6 +3,7 @@ import { Board } from '@/types/board.type';
 import { RootState } from '../store';
 import { boardApi } from '../services/board/board';
 import { boardFilterApi } from '../services/board/filter';
+import { resetStates } from '../actions';
 
 const initialState: { detail: Partial<Board>; loading: boolean } = {
   detail: {},
@@ -18,6 +19,7 @@ const boardSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(resetStates, () => initialState);
     builder.addMatcher(boardApi.endpoints.getBoardDetails.matchFulfilled, (state, action) => {
       state.detail = action.payload;
     });

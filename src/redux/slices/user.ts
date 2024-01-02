@@ -3,6 +3,7 @@ import { authApi } from '../services/auth/auth';
 import { User } from '@/types/user.type';
 import { RootState } from '../store';
 import { userApi } from '../services/user/user';
+import { resetStates } from '../actions';
 
 const initialState: {
   profile: User | null;
@@ -15,6 +16,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builders) => {
+    builders.addCase(resetStates, () => initialState);
     builders.addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
       const {
         data: { user },

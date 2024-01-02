@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Card } from '@/types/card.type';
 import { cardApi } from '../services/card/card';
 import { RootState } from '../store';
+import { resetStates } from '../actions';
 
 const initialState: { detail: Partial<Card> } = {
   detail: {},
@@ -12,6 +13,7 @@ const cardSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(resetStates, () => initialState);
     builder.addMatcher(cardApi.endpoints.getCardDetails.matchFulfilled, (state, action) => {
       state.detail = action.payload;
     });
