@@ -30,6 +30,7 @@ export const workspaceApi = createApi({
         const data = await getWorkspaceList({ signal });
         return { data };
       },
+      keepUnusedDataFor: 0,
       providesTags: (result) =>
         result
           ? [...result.map(({ _id }) => ({ type: 'Workspace', id: _id } as const)), { type: 'Workspace', id: 'LIST' }]
