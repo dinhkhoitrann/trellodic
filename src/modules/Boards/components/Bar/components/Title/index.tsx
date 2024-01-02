@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { BoardGlobalProps, withBoard } from '@/hocs';
@@ -12,8 +13,13 @@ function Title({ board }: BoardGlobalProps) {
       title: board?.name,
     },
   });
+  const { setValue } = methods;
 
   const [editBoardName, { isLoading, isSuccess }] = useEditBoardMutation();
+
+  useEffect(() => {
+    setValue('title', board.name);
+  }, [board.name, setValue]);
 
   const handleEditTitle = (values: TitleDefaultValues) => {
     const { title } = values;
