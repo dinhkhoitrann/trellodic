@@ -3,7 +3,7 @@ import { withBoard, BoardGlobalProps } from '@/hocs';
 import { useDeleteDatesMutation, useEditDueDateMutation } from '@/redux/services/card/dates';
 import DatesView from './view';
 
-function Dates({ card, cardId, onRefreshCard }: BoardGlobalProps) {
+function Dates({ card, cardId, onRefreshCard, onRefreshBoard }: BoardGlobalProps) {
   const [editDueDates, { isLoading, isSuccess }] = useEditDueDateMutation();
   const [removeDates] = useDeleteDatesMutation();
 
@@ -12,12 +12,21 @@ function Dates({ card, cardId, onRefreshCard }: BoardGlobalProps) {
       startDate: startDate.toDate().toISOString(),
       endDate: endDate.toDate().toISOString(),
       cardId,
-      onSuccess: onRefreshCard,
+      onSuccess: () => {
+        onRefreshCard();
+        onRefreshBoard();
+      },
     });
   };
 
   const handleRemoveDates = () => {
-    removeDates({ cardId, onSuccess: onRefreshCard });
+    removeDates({
+      cardId,
+      onSuccess: () => {
+        onRefreshCard();
+        onRefreshBoard();
+      },
+    });
   };
 
   return (

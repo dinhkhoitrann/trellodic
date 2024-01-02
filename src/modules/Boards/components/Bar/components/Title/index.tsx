@@ -9,7 +9,7 @@ function Title({ board }: BoardGlobalProps) {
   const methods = useForm({
     resolver: yupResolver(BoardTitleSchema),
     defaultValues: {
-      title: board.name,
+      title: board?.name,
     },
   });
 
