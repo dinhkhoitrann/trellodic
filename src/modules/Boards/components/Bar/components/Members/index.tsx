@@ -1,16 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
-import { getBoardMembers } from '@/services/board/member';
 import { BoardGlobalProps, withBoard } from '@/hocs';
 import MembersView from './view';
+import { useGetMembersQuery } from '@/redux/services/board/member';
 
 function Members({ boardId }: BoardGlobalProps) {
-  const { data } = useQuery({
-    queryKey: ['Board_Members'],
-    queryFn: () => getBoardMembers(boardId),
-    refetchOnWindowFocus: false,
-  });
+  const { data } = useGetMembersQuery({ boardId });
 
-  return <MembersView members={data?.data} />;
+  return <MembersView members={data || []} />;
 }
 
 export default withBoard(Members);

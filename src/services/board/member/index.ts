@@ -1,7 +1,8 @@
 import { externalRequest } from '@/services/request';
 
-export const getBoardMembers = (boardId: string) => {
-  return externalRequest.get(`/boards/${boardId}/members`);
+export const getBoardMembers = async ({ boardId, signal }: { boardId: string; signal: AbortSignal }) => {
+  const { data } = await externalRequest.get(`/boards/${boardId}/members`, { signal });
+  return data;
 };
 
 export const inviteMembers = ({
@@ -13,7 +14,7 @@ export const inviteMembers = ({
   boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post(`/boards/${boardId}/members`, rest, { signal });
+  return externalRequest.patch(`/boards/${boardId}/members`, rest, { signal });
 };
 
 export const removeMembers = ({
