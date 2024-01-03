@@ -1,11 +1,3 @@
-export const addSkillsToProfile = (data: { skills: string[] }) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(data.skills);
-    }, 500);
-  });
-};
-
 export const addSkillsToCard = (data: { skills: string[] }) => {
   return new Promise((resolve) => {
     setTimeout(() => {

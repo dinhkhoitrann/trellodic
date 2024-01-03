@@ -6,6 +6,7 @@ import { useDebounce } from '@/hooks';
 import SkillsView from './view';
 
 type SkillsProps = {
+  defaultSkills: string[];
   state: {
     isAdding: boolean;
     isDeleting: boolean;
@@ -14,9 +15,9 @@ type SkillsProps = {
   onSuccess?: () => void;
 };
 
-function Skills({ state, onSaveSkills }: SkillsProps) {
+function Skills({ defaultSkills, state, onSaveSkills }: SkillsProps) {
   const [options, setOptions] = useState<string[]>([]);
-  const [selectedSkills, setSelectedSkills] = useState<string[]>([]); // TODO: handle the default skills of user
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [query, setQuery] = useState('');
 
   const { mutate: searchOptions, isPending: isSearching } = useMutation({
@@ -34,6 +35,10 @@ function Skills({ state, onSaveSkills }: SkillsProps) {
     if (!debouncedQuery.trim()) return;
     searchOptions(debouncedQuery);
   }, [debouncedQuery, searchOptions]);
+
+  useEffect(() => {
+    setSelectedSkills(defaultSkills);
+  }, [defaultSkills]);
 
   const handleQueryChange = (enteredQuery: string) => {
     setQuery(enteredQuery);
