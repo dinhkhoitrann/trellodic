@@ -1,17 +1,20 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import { useMutation } from '@tanstack/react-query';
 import { searchSkills } from '@/services/skills';
 import { useDebounce } from '@/hooks';
 import SkillsView from './view';
 
 type SkillsProps = {
-  onSaveSkills: (_data: { skills: string[] }) => Promise<any>;
+  state: {
+    isAdding: boolean;
+    isDeleting: boolean;
+  };
+  onSaveSkills: (_skills: string[]) => void;
   onSuccess?: () => void;
 };
 
-function Skills({ onSaveSkills, onSuccess }: SkillsProps) {
+function Skills({ state, onSaveSkills }: SkillsProps) {
   const [options, setOptions] = useState<string[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]); // TODO: handle the default skills of user
   const [query, setQuery] = useState('');
@@ -23,14 +26,6 @@ function Skills({ onSaveSkills, onSuccess }: SkillsProps) {
     },
     onError: () => {
       setOptions([]);
-    },
-  });
-
-  const { mutate: editSkills, isPending: isAdding } = useMutation({
-    mutationFn: onSaveSkills,
-    onSuccess: () => {
-      onSuccess?.();
-      toast.success('Saved skills successfully');
     },
   });
 
@@ -49,15 +44,14 @@ function Skills({ onSaveSkills, onSuccess }: SkillsProps) {
   };
 
   const handleSaveSkills = () => {
-    editSkills({ skills: selectedSkills });
+    onSaveSkills(selectedSkills);
   };
 
   return (
     <SkillsView
       options={options}
       selectedSkills={selectedSkills}
-      searching={isSearching}
-      adding={isAdding}
+      state={{ ...state, isSearching }}
       onQueryChange={handleQueryChange}
       onSelectSkills={handleSelectSkills}
       onSaveSkills={handleSaveSkills}

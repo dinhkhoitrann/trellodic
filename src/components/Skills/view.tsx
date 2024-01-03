@@ -7,22 +7,18 @@ import CircularProgress from '@mui/material/CircularProgress';
 type SkillsViewProps = {
   options: string[];
   selectedSkills: string[];
-  searching: boolean;
-  adding: boolean;
+  state: {
+    isSearching: boolean;
+    isAdding: boolean;
+    isDeleting: boolean;
+  };
   onQueryChange: (_query: string) => void;
   onSelectSkills: (_skills: string[]) => void;
   onSaveSkills: () => void;
 };
 
-function SkillsView({
-  options,
-  selectedSkills,
-  searching,
-  adding,
-  onQueryChange,
-  onSelectSkills,
-  onSaveSkills,
-}: SkillsViewProps) {
+function SkillsView({ options, selectedSkills, state, onQueryChange, onSelectSkills, onSaveSkills }: SkillsViewProps) {
+  const { isSearching, isAdding } = state;
   return (
     <>
       <Autocomplete
@@ -32,7 +28,7 @@ function SkillsView({
         getOptionLabel={(option) => option}
         filterSelectedOptions
         filterOptions={(x) => x}
-        loading={searching}
+        loading={isSearching}
         onChange={(e, value) => onSelectSkills(value)}
         renderInput={(params) => (
           <TextField
@@ -44,7 +40,7 @@ function SkillsView({
               ...params.InputProps,
               endAdornment: (
                 <>
-                  {searching && <CircularProgress color="inherit" size={20} />}
+                  {isSearching && <CircularProgress color="inherit" size={20} />}
                   {params.InputProps.endAdornment}
                 </>
               ),
@@ -53,7 +49,7 @@ function SkillsView({
         )}
       />
       <Box sx={{ textAlign: 'end', mt: 2 }}>
-        <Button variant="contained" disabled={adding} onClick={onSaveSkills}>
+        <Button variant="contained" disabled={isAdding} onClick={onSaveSkills}>
           Save
         </Button>
       </Box>

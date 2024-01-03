@@ -5,9 +5,13 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddSkills from '@/components/Skills';
-import { addSkillsToProfile } from '@/services/skills';
 
-function SkillsView() {
+type SkillsViewProps = {
+  isAdding: boolean;
+  onAddSkills: (_skills: string[]) => void;
+};
+
+function SkillsView({ isAdding, onAddSkills }: SkillsViewProps) {
   return (
     <>
       <Typography sx={{ mt: 4, fontSize: '1rem !important', fontWeight: '600' }}>Skills</Typography>
@@ -17,7 +21,7 @@ function SkillsView() {
             <Typography>Add skills</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <AddSkills onSaveSkills={addSkillsToProfile} />
+            <AddSkills state={{ isAdding, isDeleting: false }} onSaveSkills={onAddSkills} />
           </AccordionDetails>
         </Accordion>
       </Card>
