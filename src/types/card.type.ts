@@ -18,7 +18,7 @@ export interface Card {
   isDone?: boolean;
   createdAt?: string;
   updatedAt?: string;
-  FE_isPlaceholderCard?: true;
+  FE_isPlaceholderCard?: boolean;
 }
 
 export interface ChecklistItem {

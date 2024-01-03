@@ -29,6 +29,7 @@ import { updateColumn } from '@/services/column';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { selectBoardDetails } from '@/redux/slices/board';
 import { useGetBoardDetailsQuery } from '@/redux/services/board/board';
+import { addPlaceholderCard, findColumnByCardId } from './service';
 
 type BoardContentProps = {
   boardId: string;
@@ -106,12 +107,9 @@ function BoardContent({ boardId }: BoardContentProps) {
   useEffect(() => {
     if (isEmpty(currentBoard)) return;
     const orderedColumns = mapOrder(currentBoard?.columns || [], currentBoard?.orderedColumnIds || [], '_id');
-    setColumns(orderedColumns);
+    const columnsWithPlaceholderCard = addPlaceholderCard(orderedColumns);
+    setColumns(columnsWithPlaceholderCard);
   }, [currentBoard]);
-
-  const findColumnByCardId = (cardId: string) => {
-    return columns?.find((column) => column.cards.map((card) => card._id)?.includes(cardId));
-  };
 
   const moveCardBetweenDifferentColumns = (
     overColumn: Column,
@@ -170,7 +168,7 @@ function BoardContent({ boardId }: BoardContentProps) {
     setActiveDragItemData(event?.active?.data?.current);
 
     if (event?.active?.data?.current?.columnId) {
-      setOldColumnWhenDraggingCard(findColumnByCardId(event?.active?.id.toString()));
+      setOldColumnWhenDraggingCard(findColumnByCardId(columns, event?.active?.id.toString()));
     }
   };
 
@@ -186,8 +184,8 @@ function BoardContent({ boardId }: BoardContentProps) {
     } = active;
     const { id: overCardId } = over;
 
-    const activeColumn = findColumnByCardId(activeDraggingCardId.toString());
-    const overColumn = findColumnByCardId(overCardId.toString());
+    const activeColumn = findColumnByCardId(columns, activeDraggingCardId.toString());
+    const overColumn = findColumnByCardId(columns, overCardId.toString());
 
     if (!activeColumn || !overColumn) return;
 
@@ -215,8 +213,8 @@ function BoardContent({ boardId }: BoardContentProps) {
       } = active;
       const { id: overCardId } = over;
 
-      const activeColumn = findColumnByCardId(activeDraggingCardId.toString());
-      const overColumn = findColumnByCardId(overCardId.toString());
+      const activeColumn = findColumnByCardId(columns, activeDraggingCardId.toString());
+      const overColumn = findColumnByCardId(columns, overCardId.toString());
 
       if (!activeColumn || !overColumn) return;
 
