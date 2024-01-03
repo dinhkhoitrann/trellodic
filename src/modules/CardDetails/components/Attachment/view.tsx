@@ -19,14 +19,21 @@ type AttachmentViewProps = BoardGlobalProps & {
   onDelete: (_params: string[], _onSuccess: () => void, _onError: () => void) => void;
 };
 
-function AttachmentView({ card, cardId, onRefreshCard, onDelete }: AttachmentViewProps) {
+function AttachmentView({ card, cardId, onRefreshCard, onRefreshBoard, onDelete }: AttachmentViewProps) {
   const { handleOpenAlert, renderAlert } = useAlert({
     title: 'Delete this file?',
     content: 'You can not get the file back',
     onOk: (restParams) =>
-      onDelete(restParams, onRefreshCard, () => {
-        toast.error('Something went wrong, please try again');
-      }),
+      onDelete(
+        restParams,
+        () => {
+          onRefreshCard();
+          onRefreshBoard();
+        },
+        () => {
+          toast.error('Something went wrong, please try again');
+        },
+      ),
   });
 
   return (

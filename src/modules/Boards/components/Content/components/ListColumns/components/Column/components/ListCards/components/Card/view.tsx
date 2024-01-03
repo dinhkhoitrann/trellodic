@@ -33,7 +33,7 @@ function CardView({ card, onShowDetails }: CardViewProps) {
   };
 
   const shouldShowCardActions = () => {
-    return !!card?.members?.length || !!card?.comments?.length || !!card?.attachments?.length;
+    return !!card?.memberCount || !!card?.commentCount || !!card?.attachmentCount;
   };
 
   const shouldShowCardExpiredStyle = () => {
@@ -86,19 +86,19 @@ function CardView({ card, onShowDetails }: CardViewProps) {
       </CardContent>
       {shouldShowCardActions() && (
         <CardActions sx={{ p: '0 4px 8px' }}>
-          {!!card?.members?.length && (
+          {!!card?.memberCount && (
             <Button size="small" startIcon={<GroupIcon />}>
-              {card?.members?.length}
+              {card?.memberCount}
             </Button>
           )}
-          {!!card?.comments?.length && (
+          {!!card?.commentCount && (
             <Button size="small" startIcon={<CommentIcon />}>
-              {card?.comments?.length}
+              {card?.commentCount}
             </Button>
           )}
-          {!!card?.attachments?.length && (
+          {!!card?.attachmentCount && (
             <Button size="small" startIcon={<AttachmentIcon />}>
-              {card?.attachments?.length}
+              {card?.attachmentCount}
             </Button>
           )}
         </CardActions>

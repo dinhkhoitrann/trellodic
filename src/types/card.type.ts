@@ -16,6 +16,9 @@ export interface Card {
   startDate?: string;
   endDate?: string;
   isDone?: boolean;
+  commentCount?: number;
+  attachmentCount?: number;
+  memberCount?: number;
   createdAt?: string;
   updatedAt?: string;
   FE_isPlaceholderCard?: boolean;
