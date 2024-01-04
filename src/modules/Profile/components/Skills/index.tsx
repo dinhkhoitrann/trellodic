@@ -1,4 +1,5 @@
 'use client';
+import { toast } from 'react-toastify';
 import { useAppSelector } from '@/redux/store';
 import { selectUserProfile } from '@/redux/slices/user';
 import { useUpdateSkillsMutation } from '@/redux/services/user/user';
@@ -10,7 +11,13 @@ function Skills() {
 
   const handleUpdateSkills = (skills: string[]) => {
     if (!user) return;
-    updateSkillsInProfile({ userId: user._id, skills });
+    updateSkillsInProfile({
+      userId: user._id,
+      skills,
+      onSuccess: () => {
+        toast.success('Updated skills successfully');
+      },
+    });
   };
 
   return <SkillsView isUpdating={isLoading} isSuccess={isSuccess} onUpdateSkills={handleUpdateSkills} />;

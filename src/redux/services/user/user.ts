@@ -25,8 +25,14 @@ export const userApi = createApi({
       },
       invalidatesTags: (_result, _error, { userId }) => [{ type: 'User', id: userId }],
     }),
-    updateSkills: builder.mutation<{ data: any }, { userId: string; skills: string[] }>({
-      queryFn: async ({ userId, ...rest }, { signal }) => ({ data: await updateSkills({ ...rest, signal }) }),
+    updateSkills: builder.mutation<{ data: any }, { userId: string; skills: string[]; onSuccess: () => void }>({
+      queryFn: async ({ userId, onSuccess, ...rest }, { signal }) => ({
+        data: await updateSkills({ ...rest, signal }),
+      }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess();
+      },
       invalidatesTags: (_result, _error, { userId }) => [{ type: 'User', id: userId }],
     }),
   }),
