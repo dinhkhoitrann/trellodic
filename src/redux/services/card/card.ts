@@ -14,7 +14,7 @@ export const cardApi = createApi({
         return { data: card };
       },
       providesTags: (_result, _error, { cardId }) => [{ type: 'Card', id: cardId }],
-      keepUnusedDataFor: 5,
+      keepUnusedDataFor: 0,
     }),
     createCard: builder.mutation<
       { data: any },

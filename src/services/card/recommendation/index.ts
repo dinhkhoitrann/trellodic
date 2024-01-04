@@ -1,21 +1,6 @@
-import { User } from '@/types/user.type';
+import { externalRequest } from '@/services/request';
 
-export const getMemberRecommendations = (data: {
-  cardId: string;
-  skills: string[];
-}): Promise<Pick<User, '_id' | 'name'>[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        {
-          _id: '657ffaa34467ac2c53130b3b',
-          name: 'Khôi Trần 111 222',
-        },
-        {
-          _id: '655497333b7dba7af3972bd2',
-          name: 'Khôi Trần aaa zzz',
-        },
-      ]);
-    }, 500);
-  });
+export const getMemberRecommendations = async ({ cardId }: { cardId: string }) => {
+  const { data } = await externalRequest.get(`/cards/${cardId}/recommended-users`);
+  return data;
 };
