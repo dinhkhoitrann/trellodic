@@ -9,8 +9,7 @@ type SkillsViewProps = {
   selectedSkills: string[];
   state: {
     isSearching: boolean;
-    isAdding: boolean;
-    isDeleting: boolean;
+    isUpdating: boolean;
   };
   onQueryChange: (_query: string) => void;
   onSelectSkills: (_skills: string[]) => void;
@@ -18,7 +17,7 @@ type SkillsViewProps = {
 };
 
 function SkillsView({ options, selectedSkills, state, onQueryChange, onSelectSkills, onSaveSkills }: SkillsViewProps) {
-  const { isSearching, isAdding } = state;
+  const { isSearching, isUpdating } = state;
   return (
     <>
       <Autocomplete
@@ -49,7 +48,7 @@ function SkillsView({ options, selectedSkills, state, onQueryChange, onSelectSki
         )}
       />
       <Box sx={{ textAlign: 'end', mt: 2 }}>
-        <Button variant="contained" disabled={isAdding} onClick={onSaveSkills}>
+        <Button variant="contained" disabled={isUpdating} onClick={onSaveSkills}>
           Save
         </Button>
       </Box>

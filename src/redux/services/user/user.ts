@@ -1,5 +1,5 @@
 import { UserProfileFormValues } from './../../../modules/Profile/components/Detail/validation';
-import { addSkills, editProfile, getUser, removeSkill } from '@/services/user';
+import { editProfile, getUser, updateSkills } from '@/services/user';
 import { User } from '@/types/user.type';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
@@ -25,15 +25,11 @@ export const userApi = createApi({
       },
       invalidatesTags: (_result, _error, { userId }) => [{ type: 'User', id: userId }],
     }),
-    addSkills: builder.mutation<{ data: any }, { userId: string; skills: string[] }>({
-      queryFn: async ({ userId, ...rest }, { signal }) => ({ data: await addSkills({ ...rest, signal }) }),
-      invalidatesTags: (_result, _error, { userId }) => [{ type: 'User', id: userId }],
-    }),
-    removeSkill: builder.mutation<{ data: any }, { userId: string; skill: string }>({
-      queryFn: async ({ userId, ...rest }, { signal }) => ({ data: await removeSkill({ ...rest, signal }) }),
+    updateSkills: builder.mutation<{ data: any }, { userId: string; skills: string[] }>({
+      queryFn: async ({ userId, ...rest }, { signal }) => ({ data: await updateSkills({ ...rest, signal }) }),
       invalidatesTags: (_result, _error, { userId }) => [{ type: 'User', id: userId }],
     }),
   }),
 });
 
-export const { usePrefetch, useUpdateProfileMutation, useAddSkillsMutation, useRemoveSkillMutation } = userApi;
+export const { usePrefetch, useUpdateProfileMutation, useUpdateSkillsMutation } = userApi;

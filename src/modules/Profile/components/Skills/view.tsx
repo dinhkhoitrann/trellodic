@@ -4,16 +4,17 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import AddSkills from '@/components/Skills';
+import UpdateSkills from '@/components/Skills';
 import { useAppSelector } from '@/redux/store';
 import { selectUserProfile } from '@/redux/slices/user';
 
 type SkillsViewProps = {
-  isAdding: boolean;
-  onAddSkills: (_skills: string[]) => void;
+  isUpdating: boolean;
+  isSuccess: boolean;
+  onUpdateSkills: (_skills: string[]) => void;
 };
 
-function SkillsView({ isAdding, onAddSkills }: SkillsViewProps) {
+function SkillsView({ isUpdating, isSuccess, onUpdateSkills }: SkillsViewProps) {
   const user = useAppSelector(selectUserProfile);
   const skills = user ? user.skills : [];
 
@@ -26,7 +27,7 @@ function SkillsView({ isAdding, onAddSkills }: SkillsViewProps) {
             <Typography>Add skills</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <AddSkills defaultSkills={skills} state={{ isAdding, isDeleting: false }} onSaveSkills={onAddSkills} />
+            <UpdateSkills defaultSkills={skills} state={{ isUpdating, isSuccess }} onSaveSkills={onUpdateSkills} />
           </AccordionDetails>
         </Accordion>
       </Card>
