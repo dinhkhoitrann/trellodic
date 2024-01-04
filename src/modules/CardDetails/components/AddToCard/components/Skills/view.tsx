@@ -1,13 +1,26 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Box from '@mui/material/Box';
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import PopoverWrapper from '../Popover';
-import AddSkills from '@/components/_shared/Skills';
-import { addSkillsToCard } from '@/services/skills';
+import UpdateSkills from '@/components/_shared/Skills';
+import { useAppSelector } from '@/redux/store';
+import { selectCardDetails } from '@/redux/slices/card';
 
-function SkillsView() {
+type SkillsViewProps = {
+  isUpdating: boolean;
+  isSuccess: boolean;
+  onUpdateSkills: (_skills: string[]) => void;
+};
+
+function SkillsView({ isUpdating, isSuccess, onUpdateSkills }: SkillsViewProps) {
   const ref = useRef<ActionButtonRef>(null);
+  const card = useAppSelector(selectCardDetails);
+  const skills = card?.skills || [];
+
+  useEffect(() => {
+    if (isSuccess) handleClose();
+  }, [isSuccess]);
 
   const handleClose = () => {
     ref.current?.handleClose();
@@ -20,7 +33,7 @@ function SkillsView() {
       renderPopover={() => (
         <PopoverWrapper title="Add skills" onClose={handleClose}>
           <Box sx={{ mt: 2 }}>
-            <AddSkills onSaveSkills={addSkillsToCard} onSuccess={handleClose} />
+            <UpdateSkills defaultSkills={skills} state={{ isUpdating, isSuccess }} onSaveSkills={onUpdateSkills} />
           </Box>
         </PopoverWrapper>
       )}

@@ -13,6 +13,7 @@ export interface Card {
   checklists?: Checklist[];
   attachments?: Attachment[];
   labels?: Label[];
+  skills?: string[];
   startDate?: string;
   endDate?: string;
   isDone?: boolean;

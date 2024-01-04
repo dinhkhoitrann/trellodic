@@ -17,6 +17,7 @@ import { workspaceApi } from './services/workspace/workspace';
 import { authApi } from './services/auth/auth';
 import { userApi } from './services/user/user';
 import { boardMemberApi } from './services/board/member';
+import { skillsApi } from './services/card/skills';
 
 export const store = configureStore({
   reducer: {
@@ -30,6 +31,7 @@ export const store = configureStore({
     [datesApi.reducerPath]: datesApi.reducer,
     [attachmentApi.reducerPath]: attachmentApi.reducer,
     [commentApi.reducerPath]: commentApi.reducer,
+    [skillsApi.reducerPath]: skillsApi.reducer,
     [workspaceApi.reducerPath]: workspaceApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
@@ -50,6 +52,7 @@ export const store = configureStore({
       datesApi.middleware,
       attachmentApi.middleware,
       commentApi.middleware,
+      skillsApi.middleware,
       workspaceApi.middleware,
       authApi.middleware,
       userApi.middleware,
