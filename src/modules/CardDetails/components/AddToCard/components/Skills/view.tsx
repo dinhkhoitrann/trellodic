@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import PopoverWrapper from '../Popover';
-import AddSkills from '@/components/Skills';
+import AddSkills from '@/components/_shared/Skills';
 import { addSkillsToCard } from '@/services/skills';
 
 function SkillsView() {
