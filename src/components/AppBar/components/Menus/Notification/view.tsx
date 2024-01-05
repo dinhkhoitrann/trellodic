@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useColorScheme } from '@mui/material';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -19,12 +18,6 @@ function NotificationView() {
   const { notifs } = useNotiContext();
   const unreadNotifs = getUnreadNotifs(notifs);
 
-  const { mode } = useColorScheme();
-  const textColor = mode === 'dark' ? '#b6c2cf' : 'white';
-
-  const canBeOpen = open && Boolean(anchorEl);
-  const id = canBeOpen ? 'transition-popper' : undefined;
-
   const handleOpen = (event: React.MouseEvent<SVGSVGElement>) => {
     setAnchorEl(event.currentTarget);
     setOpen((previousOpen) => !previousOpen);
@@ -39,10 +32,13 @@ function NotificationView() {
           invisible={unreadNotifs.length === 0}
           sx={{ cursor: 'pointer' }}
         >
-          <NotificationsNoneIcon sx={{ color: textColor }} onClick={handleOpen} />
+          <NotificationsNoneIcon
+            sx={{ color: (theme) => (theme.palette.mode === 'dark' ? '#b6c2cf' : 'white') }}
+            onClick={handleOpen}
+          />
         </Badge>
       </Tooltip>
-      <Popper id={id} open={open} anchorEl={anchorEl} transition>
+      <Popper open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Card
