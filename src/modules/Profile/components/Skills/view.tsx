@@ -16,7 +16,7 @@ type SkillsViewProps = {
 
 function SkillsView({ isUpdating, isSuccess, onUpdateSkills }: SkillsViewProps) {
   const user = useAppSelector(selectUserProfile);
-  const skills = user ? user.skills : [];
+  const skills = user?.skills || [];
 
   return (
     <>

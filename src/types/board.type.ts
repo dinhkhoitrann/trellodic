@@ -8,7 +8,7 @@ export interface Board {
   description: string;
   type?: string;
   adminId: string; // admin
-  memberIds: User[]; //members: [{_id, name, avatar}] consists of admin
+  members?: User[]; //members: [{_id, name, avatar}] consists of admin
   orderedColumnIds: string[];
   columns: Column[];
   labels?: Label[];
