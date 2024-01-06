@@ -1,10 +1,10 @@
 import { useRouter } from 'next/navigation';
 import { useLazyGetWorkspaceQuery } from '@/redux/services/workspace/workspace';
-import { WorkspaceResult } from '@/types/search.type';
+import { Workspace } from '@/types/workspace.type';
 import WorkspacesView from './view';
 
 type WorkspacesProps = {
-  workspaces: WorkspaceResult[] | undefined;
+  workspaces: Workspace[] | undefined;
   onCloseResult: () => void;
 };
 

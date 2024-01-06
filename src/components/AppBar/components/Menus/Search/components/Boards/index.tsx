@@ -1,9 +1,9 @@
 import { useRouter } from 'next/navigation';
-import { BoardResult } from '@/types/search.type';
+import { Board } from '@/types/board.type';
 import BoardsView from './view';
 
 type BoardsProps = {
-  boards: BoardResult[] | undefined;
+  boards: Board[] | undefined;
   onCloseResult: () => void;
 };
 
