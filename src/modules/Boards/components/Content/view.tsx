@@ -1,12 +1,23 @@
 import { useSearchParams } from 'next/navigation';
 import { useTheme } from '@mui/styles';
 import Box from '@mui/material/Box';
-import { DragOverlay, DropAnimation, defaultDropAnimationSideEffects } from '@dnd-kit/core';
+import {
+  CollisionDetection,
+  DndContext,
+  DragEndEvent,
+  DragOverEvent,
+  DragOverlay,
+  DragStartEvent,
+  DropAnimation,
+  SensorDescriptor,
+  defaultDropAnimationSideEffects,
+} from '@dnd-kit/core';
+import { isEmpty } from 'lodash';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import CardDetails from '@/modules/CardDetails';
 import SummaryTodos from '@/modules/Summary';
 import { DND_ANIMATION_OPACITY } from '@/utils/constants';
-import { selectBoardLoading } from '@/redux/slices/board';
+import { selectBoardFilter, selectBoardLoading } from '@/redux/slices/board';
 import { useAppSelector } from '@/redux/store';
 import BackdropLoading from '@/components/Loading/Backdrop';
 import { Column as ColumnType } from '@/types/column.type';
@@ -14,17 +25,24 @@ import ListColumns from './components/ListColumns';
 import Column from './components/ListColumns/components/Column';
 import Card from './components/ListColumns/components/Column/components/ListCards/components/Card';
 import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
+import Alert from './components/Alert';
 
 type BoardContentViewProps = {
   columns: ColumnType[];
   activeDragItemType: string | null;
   activeDragItemData: any | null;
+  sensors: SensorDescriptor<any>[] | undefined;
+  collisionDetection: CollisionDetection | undefined;
+  onDragStart: (_event: DragStartEvent) => void;
+  onDragOver: (_event: DragOverEvent) => void;
+  onDragEnd: (_event: DragEndEvent) => void;
 };
 
-function BoardContentView({ columns, activeDragItemType, activeDragItemData }: BoardContentViewProps) {
+function BoardContentView({ columns, activeDragItemType, activeDragItemData, ...rest }: BoardContentViewProps) {
   const searchParams = useSearchParams();
   const cardId = searchParams.get('cardId');
   const loading = useAppSelector(selectBoardLoading);
+  const filter = useAppSelector(selectBoardFilter);
 
   const theme = useTheme<CustomThemeOptions>();
   const dropAnimation: DropAnimation = {
@@ -37,7 +55,7 @@ function BoardContentView({ columns, activeDragItemType, activeDragItemData }: B
     }),
   };
 
-  return (
+  const content = (
     <>
       <BackdropLoading open={loading} />
       <Box
@@ -72,6 +90,15 @@ function BoardContentView({ columns, activeDragItemType, activeDragItemData }: B
       {cardId && <CardDetails cardId={cardId} />}
     </>
   );
+
+  if (!isEmpty(filter))
+    return (
+      <>
+        {content}
+        <Alert />
+      </>
+    );
+  return <DndContext {...rest}>{content}</DndContext>;
 }
 
 export default BoardContentView;

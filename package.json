@@ -42,6 +42,7 @@
     "next": "latest",
     "openai": "^4.14.2",
     "postcss": "8.4.28",
+    "qs": "^6.11.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-google-charts": "^4.0.1",
@@ -58,6 +59,7 @@
     "@tanstack/eslint-plugin-query": "^4.34.1",
     "@types/js-cookie": "^3.0.5",
     "@types/lodash": "^4.14.197",
+    "@types/qs": "^6.9.11",
     "@types/react": "^18.2.21"
   }
 }

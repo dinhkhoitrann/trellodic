@@ -1,5 +1,6 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { isEmpty } from 'lodash';
 import { useTheme } from '@mui/styles';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
@@ -9,6 +10,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useAppSelector } from '@/redux/store';
+import { selectBoardFilter } from '@/redux/slices/board';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import { Theme } from '@/common/enums';
 import { Column } from '@/types/column.type';
@@ -27,7 +30,7 @@ type ColumnViewProps = {
 
 function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnViewProps) {
   const theme = useTheme<CustomThemeOptions>();
-  const open = Boolean(anchorEl);
+  const open = !!anchorEl;
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column._id,
@@ -51,7 +54,9 @@ function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnView
   });
 
   const { isBoardAdmin } = useAuthorized();
+  const filter = useAppSelector(selectBoardFilter);
   const canDelete = column.cards?.length === 1 && column.cards?.[0]?.FE_isPlaceholderCard;
+  const canViewColumnOptions = isBoardAdmin && isEmpty(filter);
 
   return (
     <>
@@ -63,6 +68,8 @@ function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnView
             maxWidth: '300px',
             bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0'),
             ml: 2,
+            px: '10px',
+            pb: 1,
             borderRadius: '6px',
             height: 'fit-content',
             maxHeight: `calc(${theme.customProps.boardContentHeight} - 40px)`,
@@ -71,14 +78,13 @@ function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnView
           <Box
             sx={{
               height: theme.customProps.columnHeaderHeight,
-              p: 2,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
             }}
           >
             <ColumnTitle columnId={column._id} title={column.title} />
-            {isBoardAdmin && (
+            {canViewColumnOptions && (
               <Box>
                 <Tooltip title="More options">
                   <ExpandMoreIcon

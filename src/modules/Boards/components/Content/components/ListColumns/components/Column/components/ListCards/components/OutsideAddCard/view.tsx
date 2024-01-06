@@ -17,7 +17,6 @@ function OutsideAddCardView({ onShowTextField }: OutsideAddCardViewProps) {
     <Box
       sx={{
         height: theme.customProps.columnFooterHeight,
-        p: 1,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',

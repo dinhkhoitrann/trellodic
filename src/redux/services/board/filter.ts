@@ -7,7 +7,7 @@ export const boardFilterApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Board_Filter'],
   endpoints: (builder) => ({
-    filterBoard: builder.query<Board, { boardId: string; labels?: string[] }>({
+    filterBoard: builder.query<Board, { boardId: string; labelIds?: string[] }>({
       queryFn: async (args, { signal }) => {
         const board = await filterBoard({ ...args, signal });
         return { data: board };

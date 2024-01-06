@@ -1,10 +1,16 @@
-import { filteredBoard } from '@/apis/mock-data';
-import { Board } from '@/types/board.type';
+import qs from 'qs';
+import { externalRequest } from '@/services/request';
 
-export const filterBoard = (data: { boardId: string; labels?: string[]; signal: AbortSignal }): Promise<Board> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(filteredBoard);
-    }, 500);
-  });
+export const filterBoard = async ({
+  boardId,
+  labelIds,
+  signal,
+}: {
+  boardId: string;
+  labelIds?: string[];
+  signal: AbortSignal;
+}) => {
+  const labelsQuery = qs.stringify({ labelIds }, { indices: false });
+  const { data } = await externalRequest.get(`/boards/${boardId}?${labelsQuery}`, { signal });
+  return data;
 };

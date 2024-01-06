@@ -1,6 +1,9 @@
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/styles';
+import { isEmpty } from 'lodash';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { useAppSelector } from '@/redux/store';
+import { selectBoardFilter } from '@/redux/slices/board';
 import { CustomThemeOptions } from '@/common/styles/theme';
 import Card from './components/Card';
 import { Card as CardType } from '@/types/card.type';
@@ -17,6 +20,8 @@ type ListCardsViewProps = {
 
 function ListCardsView({ cards, columnId, isAddingMode, onAddingMode, onCancelAddingMode }: ListCardsViewProps) {
   const theme = useTheme<CustomThemeOptions>();
+  const filter = useAppSelector(selectBoardFilter);
+  const canViewAddCardBtn = !isAddingMode && isEmpty(filter);
 
   return (
     <SortableContext items={cards?.map((card) => card._id)} strategy={verticalListSortingStrategy}>
@@ -25,8 +30,6 @@ function ListCardsView({ cards, columnId, isAddingMode, onAddingMode, onCancelAd
           display: 'flex',
           flexDirection: 'column',
           gap: 1,
-          p: '0 5px',
-          m: '0 5px',
           overflowX: 'hidden',
           overflowY: 'auto',
           maxHeight: `calc(${theme.customProps.boardContentHeight} -
@@ -44,7 +47,7 @@ function ListCardsView({ cards, columnId, isAddingMode, onAddingMode, onCancelAd
         ))}
         {isAddingMode && <AddCardSection columnId={columnId} onHideTextField={onCancelAddingMode} />}
       </Box>
-      {!isAddingMode && (
+      {canViewAddCardBtn && (
         <Box sx={{ px: 1, pt: 1 }}>
           <OutsideAddCard onShowTextField={onAddingMode} />
         </Box>

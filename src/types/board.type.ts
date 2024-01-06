@@ -12,6 +12,7 @@ export interface Board {
   orderedColumnIds: string[];
   columns: Column[];
   labels?: Label[];
+  filteredLabelIds?: string[];
 }
 
 export interface Label {

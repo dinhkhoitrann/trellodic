@@ -4,7 +4,6 @@ import { useMutation } from '@tanstack/react-query';
 import {
   Active,
   CollisionDetection,
-  DndContext,
   DragEndEvent,
   DragOverEvent,
   DragStartEvent,
@@ -262,21 +261,20 @@ function BoardContent({ boardId }: BoardContentProps) {
   };
 
   return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={collisionDetectionStrategy}
-      onDragStart={handleDragStart}
-      onDragOver={handleDragOver}
-      onDragEnd={handleDragEnd}
-    >
+    <>
       {columns && (
         <BoardContentView
           columns={columns}
           activeDragItemType={activeDragItemType}
           activeDragItemData={activeDragItemData}
+          sensors={sensors}
+          collisionDetection={collisionDetectionStrategy}
+          onDragStart={handleDragStart}
+          onDragOver={handleDragOver}
+          onDragEnd={handleDragEnd}
         />
       )}
-    </DndContext>
+    </>
   );
 }
 
