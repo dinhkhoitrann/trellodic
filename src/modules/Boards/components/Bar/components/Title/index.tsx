@@ -19,7 +19,7 @@ function Title({ board }: BoardGlobalProps) {
 
   useEffect(() => {
     setValue('title', board.name);
-  }, [board.name, setValue]);
+  }, [board?.name, setValue]);
 
   const handleEditTitle = (values: TitleDefaultValues) => {
     const { title } = values;

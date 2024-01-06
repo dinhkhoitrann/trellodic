@@ -7,6 +7,7 @@ import { withBoard, BoardGlobalProps } from '@/hocs';
 import Members from '../Members';
 import Labels from '../Labels';
 import Dates from '../Dates';
+import Skills from '../Skills';
 import EditCardTitle from './components/EditCardTitle';
 
 function ActiveSectionsView({ card }: BoardGlobalProps) {
@@ -47,6 +48,11 @@ function ActiveSectionsView({ card }: BoardGlobalProps) {
         {card.endDate && (
           <Grid item>
             <Dates />
+          </Grid>
+        )}
+        {!!card.skills?.length && (
+          <Grid item>
+            <Skills />
           </Grid>
         )}
       </Grid>
