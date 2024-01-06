@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import Recommendations from './components/Recommendations';
@@ -57,6 +58,9 @@ function MembersView({ isSaving, onAddMember }: MembersViewProps) {
       startIcon={<PersonOutlineOutlinedIcon />}
       renderPopover={() => (
         <PopoverWrapper title="Members" onClose={handleClose}>
+          <Alert variant="outlined" severity="info" sx={{ mt: 2, mb: 4 }}>
+            You can select members from either select input, recommendations or both.
+          </Alert>
           <SelectMembers onChangeMembers={handleChangeMembers} />
           <Recommendations onSelectRecommendations={handleChangeMembers} />
           <Button variant="contained" disabled={isSaving || !isModified} sx={{ mt: 2 }} onClick={handleAddMember}>

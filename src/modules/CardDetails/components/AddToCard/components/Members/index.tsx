@@ -1,3 +1,4 @@
+import { uniq } from 'lodash';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 import { useAddMembersToCardMutation } from '@/redux/services/card/member';
 import MembersView from './view';
@@ -7,7 +8,7 @@ function Members({ cardId, onRefreshCard, onRefreshBoard }: BoardGlobalProps) {
 
   const handleAddMember = (userIds: string[]) => {
     addMembers({
-      userIds,
+      userIds: uniq(userIds),
       cardId,
       onSuccess: () => {
         onRefreshCard();
