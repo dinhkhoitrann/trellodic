@@ -11,21 +11,17 @@ type CreateWorkspaceModalViewProps = {
   onClose: () => void;
 };
 
-const style = {
-  minHeight: '630px',
-  transform: 'translate(-50%, -50%)',
-  width: '90%',
-  px: 0,
-  py: 0,
-};
-
 function CreateWorkspaceModalView({ isShowCreateModal, onClose }: CreateWorkspaceModalViewProps) {
   return (
     <Modal
       isVisibleModal={isShowCreateModal}
       onClose={onClose}
       sx={{
-        ...style,
+        minHeight: '630px',
+        transform: 'translate(-50%, -50%)',
+        width: '90%',
+        px: 0,
+        py: 0,
         bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#22272b' : 'white'),
         overflow: 'hidden',
       }}

@@ -86,6 +86,7 @@ export const {
   useCreateBoardMutation,
   useLazyGetWorkspaceQuery,
   useGetWorkspaceListQuery,
+  useLazyGetWorkspaceListQuery,
   useEditWorkspaceMutation,
   useCreateWorkspaceMutation,
   useInviteUsersMutation,
