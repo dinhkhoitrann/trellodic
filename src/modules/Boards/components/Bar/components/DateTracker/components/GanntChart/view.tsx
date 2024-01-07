@@ -3,6 +3,7 @@ import { useColorScheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useView } from '@/hooks';
+import { EXTRA_PADDING, TRACK_HEIGHT } from './constants';
 import './styles.css';
 
 type GanntChartViewProps = {
@@ -30,13 +31,12 @@ export default function GanntChartView({ data, isLoading, isError }: GanntChartV
       <Chart
         chartType="Gantt"
         width="100%"
-        height="50%"
+        height={data.length * TRACK_HEIGHT + EXTRA_PADDING}
         data={data}
         options={{
-          height: 400,
           theme: 'material',
           gantt: {
-            trackHeight: 30,
+            trackHeight: TRACK_HEIGHT,
             labelStyle: {
               fontName: '"Roboto","Helvetica","Arial",sans-serif',
             },

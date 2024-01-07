@@ -1,15 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { getPercentageTaskStatus } from '@/services/chart';
+import { BoardGlobalProps, withBoard } from '@/hocs';
 import PercentageTaskStatusView from './view';
 
-function PercentageTaskStatus() {
+function PercentageTaskStatus({ boardId }: BoardGlobalProps) {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['PercentageTaskStatus'],
-    queryFn: getPercentageTaskStatus,
+    queryFn: ({ signal }) => getPercentageTaskStatus({ boardId, signal }),
     staleTime: 60000,
   });
 
   return <PercentageTaskStatusView data={data} isLoading={isLoading} isError={isError} />;
 }
 
-export default PercentageTaskStatus;
+export default withBoard(PercentageTaskStatus);

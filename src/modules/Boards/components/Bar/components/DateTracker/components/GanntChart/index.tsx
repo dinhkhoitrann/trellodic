@@ -7,8 +7,8 @@ function GanntChart({ boardId }: BoardGlobalProps) {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['GanntChart_Board'],
     queryFn: () => getBoardTimeline({ boardId }),
-    staleTime: 5 * 60000,
-    gcTime: 5 * 60000,
+    staleTime: 0,
+    gcTime: 0,
     refetchOnMount: true,
   });
 

@@ -13,6 +13,7 @@ function PercentageTaskStatusView({ data, isLoading, isError }: PercentageTaskSt
 
   return (
     <PieChart
+      colors={['#2980b9', '#e74c3c', '#2ecc71']}
       series={[
         {
           data: data!,
