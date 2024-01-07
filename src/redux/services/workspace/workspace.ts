@@ -82,6 +82,7 @@ export const workspaceApi = createApi({
 });
 
 export const {
+  usePrefetch,
   useCreateBoardMutation,
   useLazyGetWorkspaceQuery,
   useGetWorkspaceListQuery,

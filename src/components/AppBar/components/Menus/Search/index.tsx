@@ -75,7 +75,7 @@ function Search() {
         <Card
           sx={{
             bgcolor: (theme) =>
-              theme.palette.mode === 'dark' ? customTheme.colors.bgCarkDark : theme.palette.common.white,
+              theme.palette.mode === 'dark' ? customTheme.colors.bgCardDark : theme.palette.common.white,
             minWidth: '500px',
           }}
         >
