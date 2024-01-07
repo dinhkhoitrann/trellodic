@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Tabs from '@/components/Tab';
 import { selectWorkspaceDetails, selectWorkspaceList } from '@/redux/slices/workspace';
+import { useGetWorkspaceListQuery } from '@/redux/services/workspace/workspace';
 import { useAuthorized, useCreateWorkspace } from '@/hooks';
 import WorkspaceHeader from './components/Header';
 import Sections from './components/Sections';
@@ -15,10 +16,11 @@ import Insight from './components/Insight';
 function WorkspaceInfoView() {
   const workspace = useAppSelector(selectWorkspaceDetails);
   const workspaceList = useAppSelector(selectWorkspaceList);
+  const { isLoading } = useGetWorkspaceListQuery();
   const { renderCreateWorkspaceModal, handleShowCreateModal } = useCreateWorkspace();
   const { isWorkspaceAdmin } = useAuthorized();
 
-  if (isEmpty(workspaceList)) {
+  if (isEmpty(workspaceList) && !isLoading) {
     return (
       <>
         <Box sx={{ textAlign: 'center', my: 6, px: 3 }}>
