@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/styles';
-import { CustomThemeOptions } from '@/common/styles/theme';
+import { useCustomTheme } from '@/common/styles/theme';
 import { useAuthorized } from '@/hooks';
 import Invitation from './components/Invitation';
 import Charts from './components/Charts';
@@ -11,7 +10,7 @@ import Menus from './components/Menus';
 import Title from './components/Title';
 
 function BoardBarView() {
-  const theme = useTheme<CustomThemeOptions>();
+  const customTheme = useCustomTheme();
   const { isBoardAdmin } = useAuthorized();
 
   return (
@@ -19,14 +18,15 @@ function BoardBarView() {
       <Box
         sx={{
           width: '100%',
-          height: theme.customProps.boardBarHeight,
+          height: customTheme.customProps.boardBarHeight,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           paddingX: 2,
           gap: 2,
           overflowX: 'auto',
-          bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#24272b' : '#1976d2'),
+          bgcolor: (theme) =>
+            theme.palette.mode === 'dark' ? customTheme.colors.bgDark : customTheme.colors.bgBlueLight,
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>

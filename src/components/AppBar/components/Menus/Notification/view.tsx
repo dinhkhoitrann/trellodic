@@ -7,6 +7,7 @@ import Popper from '@mui/material/Popper';
 import Fade from '@mui/material/Fade';
 import Divider from '@mui/material/Divider';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import { useCustomTheme } from '@/common/styles/theme';
 import Header from './components/Header';
 import List from './components/List';
 import { useNotiContext } from '.';
@@ -17,6 +18,7 @@ function NotificationView() {
   const [anchorEl, setAnchorEl] = useState<null | SVGSVGElement>(null);
   const { notifs } = useNotiContext();
   const unreadNotifs = getUnreadNotifs(notifs);
+  const customTheme = useCustomTheme();
 
   const handleOpen = (event: React.MouseEvent<SVGSVGElement>) => {
     setAnchorEl(event.currentTarget);
@@ -33,7 +35,10 @@ function NotificationView() {
           sx={{ cursor: 'pointer' }}
         >
           <NotificationsNoneIcon
-            sx={{ color: (theme) => (theme.palette.mode === 'dark' ? '#b6c2cf' : 'white') }}
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === 'dark' ? customTheme.colors.textInDarkMode : theme.palette.common.white,
+            }}
             onClick={handleOpen}
           />
         </Badge>
@@ -43,7 +48,8 @@ function NotificationView() {
           <Fade {...TransitionProps} timeout={350}>
             <Card
               sx={{
-                bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#282e33' : 'white'),
+                bgcolor: (theme) =>
+                  theme.palette.mode === 'dark' ? customTheme.colors.bgCardDark : theme.palette.common.white,
                 minWidth: '500px',
                 mr: 2,
               }}

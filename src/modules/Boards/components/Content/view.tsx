@@ -1,5 +1,4 @@
 import { useSearchParams } from 'next/navigation';
-import { useTheme } from '@mui/styles';
 import Box from '@mui/material/Box';
 import {
   CollisionDetection,
@@ -13,7 +12,7 @@ import {
   defaultDropAnimationSideEffects,
 } from '@dnd-kit/core';
 import { isEmpty } from 'lodash';
-import { CustomThemeOptions } from '@/common/styles/theme';
+import { useCustomTheme } from '@/common/styles/theme';
 import CardDetails from '@/modules/CardDetails';
 import SummaryTodos from '@/modules/Summary';
 import { DND_ANIMATION_OPACITY } from '@/utils/constants';
@@ -44,7 +43,7 @@ function BoardContentView({ columns, activeDragItemType, activeDragItemData, ...
   const loading = useAppSelector(selectBoardLoading);
   const filter = useAppSelector(selectBoardFilter);
 
-  const theme = useTheme<CustomThemeOptions>();
+  const customTheme = useCustomTheme();
   const dropAnimation: DropAnimation = {
     sideEffects: defaultDropAnimationSideEffects({
       styles: {
@@ -61,8 +60,9 @@ function BoardContentView({ columns, activeDragItemType, activeDragItemData, ...
       <Box
         sx={{
           width: '100%',
-          height: theme.customProps.boardContentHeight,
-          bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#24272b' : '#1976d2'),
+          height: customTheme.customProps.boardContentHeight,
+          bgcolor: (theme) =>
+            theme.palette.mode === 'dark' ? customTheme.colors.bgDark : customTheme.colors.bgBlueLight,
           p: '10px 0',
         }}
       >

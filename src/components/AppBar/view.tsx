@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useTheme } from '@mui/styles';
 import Link from 'next/link';
 import Box from '@mui/material/Box';
 import AppsIcon from '@mui/icons-material/Apps';
@@ -10,7 +9,7 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import { useColorScheme } from '@mui/material';
 import CreateWorkspaceModal from '@/modules/Workspace/components/Sidebar/components/CreateWorkspace';
 import TrelloIcon from '@/common/assets/icons/trello.svg';
-import { CustomThemeOptions } from '@/common/styles/theme';
+import { useCustomTheme } from '@/common/styles/theme';
 import Workspaces from './components/Menus/Workspaces';
 import ModeSelect from './components/Menus/ModeSelect';
 import Profiles from './components/Menus/Profiles';
@@ -19,9 +18,9 @@ import Search from './components/Menus/Search';
 
 function AppBarView() {
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const theme = useTheme<CustomThemeOptions>();
+  const customTheme = useCustomTheme();
   const { mode } = useColorScheme();
-  const textColor = mode === 'dark' ? '#b6c2cf' : 'white';
+  const textColor = mode === 'dark' ? customTheme.colorSchemes?.dark?.palette?.text?.primary : 'white';
 
   const handleShowCreateModal = () => {
     setShowCreateModal((prevState) => !prevState);
@@ -32,14 +31,15 @@ function AppBarView() {
       <Box
         sx={{
           width: '100%',
-          height: theme.customProps.appBarHeight,
+          height: customTheme.customProps.appBarHeight,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           paddingX: 2,
           gap: 2,
           overflowX: 'auto',
-          bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#24272b' : '#1565c0'),
+          bgcolor: (theme) =>
+            theme.palette.mode === 'dark' ? customTheme.colors.bgDark : customTheme.colors.bgBlueDark,
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>

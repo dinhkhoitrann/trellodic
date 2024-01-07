@@ -1,9 +1,11 @@
 import { styled } from '@mui/system';
 import Chip from '@mui/material/Chip';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import { useCustomTheme } from '@/common/styles/theme';
 
 export const StyledTitle = styled(Chip)(({ theme }) => {
-  const textColor = theme.palette.mode === 'dark' ? '#b6c2cf' : 'white';
+  const customTheme = useCustomTheme();
+  const textColor = theme.palette.mode === 'dark' ? customTheme.colors.textInDarkMode : theme.palette.common.white;
   return `
     background-color: transparent;
     border: none;
@@ -21,7 +23,12 @@ export const StyledTitle = styled(Chip)(({ theme }) => {
 });
 
 export const StyledDashboardIcon = styled(DashboardIcon)(({ theme }) => {
+  const customTheme = useCustomTheme();
   return `
-    color: ${theme.palette.mode === 'dark' ? '#b6c2cf !important' : 'white !important'}
+    color: ${
+      theme.palette.mode === 'dark'
+        ? `${customTheme.colors.textInDarkMode} !important`
+        : `${theme.palette.common.white} !important`
+    }
     `;
 });

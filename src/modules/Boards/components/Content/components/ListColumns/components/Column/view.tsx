@@ -1,7 +1,6 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { isEmpty } from 'lodash';
-import { useTheme } from '@mui/styles';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,7 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useAppSelector } from '@/redux/store';
 import { selectBoardFilter } from '@/redux/slices/board';
-import { CustomThemeOptions } from '@/common/styles/theme';
+import { useCustomTheme } from '@/common/styles/theme';
 import { Theme } from '@/common/enums';
 import { Column } from '@/types/column.type';
 import { useAlert, useAuthorized } from '@/hooks';
@@ -29,7 +28,7 @@ type ColumnViewProps = {
 };
 
 function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnViewProps) {
-  const theme = useTheme<CustomThemeOptions>();
+  const theme = useCustomTheme();
   const open = !!anchorEl;
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({

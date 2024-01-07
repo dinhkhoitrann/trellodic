@@ -9,6 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import Typography from '@mui/material/Typography';
 import Select from '@mui/material/Select';
 import { useView } from '@/hooks';
+import { useCustomTheme } from '@/common/styles/theme';
 import { SELECT_OPTIONS } from './constants';
 
 type GanntChartViewProps = {
@@ -21,8 +22,9 @@ type GanntChartViewProps = {
 
 function InsightView({ data, isIdle, isLoading, isError, onTimeChange }: GanntChartViewProps) {
   const { mode } = useColorScheme();
+  const customTheme = useCustomTheme();
   const textColor = mode === 'dark' ? 'white' : '#121212';
-  const backgroundColor = mode === 'dark' ? '#24272b' : 'white';
+  const backgroundColor = mode === 'dark' ? customTheme.colors.bgDark : 'white';
 
   const view = useView({ data, isLoading, isError });
 

@@ -73,14 +73,16 @@ function CardView({ card, onShowDetails }: CardViewProps) {
         boxShadow: '0 1px 1px rgba(0, 0, 0, 0.2)',
         overflow: 'unset',
         display: card?.FE_isPlaceholderCard ? 'none' : 'block',
-        border: shouldShowCardExpiredStyle() ? '1px solid #ed483d' : 'unset',
+        border: (theme) => (shouldShowCardExpiredStyle() ? `1px solid ${theme.palette.error.light}` : 'unset'),
       }}
       onClick={onShowDetails}
     >
       {card?.cover && <CardMedia sx={{ height: 140 }} image={card?.cover} />}
       <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
         <Stack direction="row" alignItems="center" spacing={3}>
-          <Typography sx={{ color: shouldShowCardExpiredStyle() ? '#ed483d' : '' }}>{card?.title}</Typography>
+          <Typography sx={{ color: (theme) => (shouldShowCardExpiredStyle() ? theme.palette.error.light : '') }}>
+            {card?.title}
+          </Typography>
           {renderStatusIcon()}
         </Stack>
       </CardContent>

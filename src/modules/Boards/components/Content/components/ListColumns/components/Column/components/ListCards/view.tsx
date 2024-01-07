@@ -1,10 +1,9 @@
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/styles';
 import { isEmpty } from 'lodash';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useAppSelector } from '@/redux/store';
 import { selectBoardFilter } from '@/redux/slices/board';
-import { CustomThemeOptions } from '@/common/styles/theme';
+import { useCustomTheme } from '@/common/styles/theme';
 import Card from './components/Card';
 import { Card as CardType } from '@/types/card.type';
 import AddCardSection from './components/AddCardSection';
@@ -19,7 +18,7 @@ type ListCardsViewProps = {
 };
 
 function ListCardsView({ cards, columnId, isAddingMode, onAddingMode, onCancelAddingMode }: ListCardsViewProps) {
-  const theme = useTheme<CustomThemeOptions>();
+  const theme = useCustomTheme();
   const filter = useAppSelector(selectBoardFilter);
   const canViewAddCardBtn = !isAddingMode && isEmpty(filter);
 

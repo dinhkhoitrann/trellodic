@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Modal from '@/components/Modal';
+import { useCustomTheme } from '@/common/styles/theme';
 import { MemberOption } from './type';
 
 type InvitationViewProps = {
@@ -28,7 +29,8 @@ export default forwardRef<InvitationViewRef, InvitationViewProps>(function Invit
   const [selectedMembers, setSelectedMembers] = useState<MemberOption[]>([]);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const { mode } = useColorScheme();
-  const textColor = mode === 'dark' ? '#b6c2cf' : 'white';
+  const customTheme = useCustomTheme();
+  const textColor = mode === 'dark' ? customTheme.colors.textInDarkMode : customTheme.colors.textInLightMode;
 
   useImperativeHandle(ref, () => ({
     onClose: handleModalVisibility,
