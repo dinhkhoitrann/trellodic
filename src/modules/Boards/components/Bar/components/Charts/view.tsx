@@ -11,13 +11,13 @@ import Modal from '@/components/Modal';
 import TaskStatusChart from './components/TaskStatus';
 import NoSelectedChart from './components/NoSelectedChart';
 import TasksCount from './components/TasksCount';
-import PercentageTaskStatus from './components/PercentageTaskStatus';
+// import PercentageTaskStatus from './components/PercentageTaskStatus';
 
 const chartMap = {
   '': NoSelectedChart,
   taskStatus: TaskStatusChart,
   tasksCount: TasksCount,
-  percentageTaskStatus: PercentageTaskStatus,
+  // percentageTaskStatus: PercentageTaskStatus,
 };
 
 function ChartsView() {
@@ -69,7 +69,7 @@ function ChartsView() {
             >
               <MenuItem value="taskStatus">Task status by assignee</MenuItem>
               <MenuItem value="tasksCount">Tasks count by column</MenuItem>
-              <MenuItem value="percentageTaskStatus">Percentage of task status</MenuItem>
+              {/* <MenuItem value="percentageTaskStatus">Percentage of task status</MenuItem> */}
             </Select>
           </FormControl>
         </Stack>

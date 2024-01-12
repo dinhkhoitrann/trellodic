@@ -7,7 +7,8 @@ function PercentageTaskStatus({ boardId }: BoardGlobalProps) {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['PercentageTaskStatus'],
     queryFn: ({ signal }) => getPercentageTaskStatus({ boardId, signal }),
-    staleTime: 60000,
+    staleTime: 0,
+    gcTime: 0,
   });
 
   return <PercentageTaskStatusView data={data} isLoading={isLoading} isError={isError} />;

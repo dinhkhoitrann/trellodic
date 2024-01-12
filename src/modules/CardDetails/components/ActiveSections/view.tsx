@@ -10,7 +10,7 @@ import Dates from '../Dates';
 import Skills from '../Skills';
 import EditCardTitle from './components/EditCardTitle';
 
-function ActiveSectionsView({ card }: BoardGlobalProps) {
+function ActiveSectionsView({ card, boardId }: BoardGlobalProps) {
   const [editMode, setEditMode] = useState(false);
 
   const handleEditMode = () => {
@@ -22,7 +22,7 @@ function ActiveSectionsView({ card }: BoardGlobalProps) {
       <Stack direction="row" alignItems="center" spacing={1}>
         <LaptopIcon />
         {editMode ? (
-          <EditCardTitle currentTitle={card.title || ''} cardId={card._id} onClose={handleEditMode} />
+          <EditCardTitle currentTitle={card.title || ''} cardId={card._id} boardId={boardId} onClose={handleEditMode} />
         ) : (
           <Typography
             variant="h6"

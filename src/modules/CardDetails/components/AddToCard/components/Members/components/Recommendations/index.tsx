@@ -10,7 +10,7 @@ type RecommendationsProps = BoardGlobalProps & {
   onSelectRecommendations: (_params: { members?: undefined; selectedRecommendationIds?: string[] }) => void;
 };
 
-function Recommendations({ cardId, onSelectRecommendations }: RecommendationsProps) {
+function Recommendations({ cardId, card, onSelectRecommendations }: RecommendationsProps) {
   const [recommendations, setRecommendations] = useState<Pick<User, '_id' | 'name'>[]>();
   const [recommendVisible, setRecommendVisible] = useState(false);
   const [data, setData] = useState(mapRecommendationsToState(recommendations || []));
@@ -47,6 +47,7 @@ function Recommendations({ cardId, onSelectRecommendations }: RecommendationsPro
       recommendations={recommendations}
       isLoading={isPending}
       data={data}
+      card={card}
       onRecommendationVisible={handleRecommendationVisibility}
       onChange={handleSelectRecommendations}
     />

@@ -6,13 +6,16 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
+import Tooltip from '@mui/material/Tooltip';
 import { User } from '@/types/user.type';
+import { Card } from '@/types/card.type';
 import { useView } from '@/hooks';
 
 type RecommendationsViewProps = {
   recommendVisible: boolean;
   recommendations: Pick<User, '_id' | 'name'>[] | undefined;
   data: {};
+  card: Card;
   isLoading: boolean;
   onRecommendationVisible: () => void;
   onChange: (_event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -23,6 +26,7 @@ function RecommendationsView({
   recommendations = [],
   isLoading,
   data,
+  card,
   onRecommendationVisible,
   onChange,
 }: RecommendationsViewProps) {
@@ -63,9 +67,14 @@ function RecommendationsView({
 
   return (
     <Box sx={{ my: 1 }}>
-      <Button sx={{ mb: 2 }} onClick={onRecommendationVisible}>
-        {recommendVisible ? 'Hide recommend' : 'Recommend'}
-      </Button>
+      <Tooltip title={card.isDone && 'You can not recommend for completed card'} arrow placement="top">
+        <div style={{ display: 'inline-block' }}>
+          <Button sx={{ mb: 2 }} onClick={onRecommendationVisible} disabled={card.isDone}>
+            {recommendVisible ? 'Hide recommend' : 'Recommend'}
+          </Button>
+        </div>
+      </Tooltip>
+
       {renderRecommendations()}
     </Box>
   );

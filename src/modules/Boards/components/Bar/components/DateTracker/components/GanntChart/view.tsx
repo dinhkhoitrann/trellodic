@@ -5,14 +5,17 @@ import Typography from '@mui/material/Typography';
 import { useView } from '@/hooks';
 import { EXTRA_PADDING, TRACK_HEIGHT } from './constants';
 import './styles.css';
+import { isEmpty } from 'lodash';
+import Image from 'next/image';
 
 type GanntChartViewProps = {
-  data: [];
+  data: any[];
+  originData: any;
   isLoading: boolean;
   isError: boolean;
 };
 
-export default function GanntChartView({ data, isLoading, isError }: GanntChartViewProps) {
+export default function GanntChartView({ data, originData, isLoading, isError }: GanntChartViewProps) {
   const { mode } = useColorScheme();
   const trackColor = mode === 'dark' ? '#121212' : 'white';
   const backgroundColor = mode === 'dark' ? '#bdc5cd' : 'white';
@@ -28,26 +31,35 @@ export default function GanntChartView({ data, isLoading, isError }: GanntChartV
         </Typography>
         <Typography>Follow your work in details with Gannt chart</Typography>
       </Box>
-      <Chart
-        chartType="Gantt"
-        width="100%"
-        height={data.length * TRACK_HEIGHT + EXTRA_PADDING}
-        data={data}
-        options={{
-          theme: 'material',
-          gantt: {
-            trackHeight: TRACK_HEIGHT,
-            labelStyle: {
-              fontName: '"Roboto","Helvetica","Arial",sans-serif',
+      {isEmpty(originData) ? (
+        <Box sx={{ textAlign: 'center', my: 6 }}>
+          <Image src="/no-statistic.png" width={200} height={200} alt="No statistic found" />
+          <Typography variant="h6" sx={{ fontWeight: 600, mt: 2 }}>
+            No statistic found
+          </Typography>
+        </Box>
+      ) : (
+        <Chart
+          chartType="Gantt"
+          width="100%"
+          height={data.length * TRACK_HEIGHT + EXTRA_PADDING}
+          data={data}
+          options={{
+            theme: 'material',
+            gantt: {
+              trackHeight: TRACK_HEIGHT,
+              labelStyle: {
+                fontName: '"Roboto","Helvetica","Arial",sans-serif',
+              },
+              innerGridTrack: { fill: trackColor },
+              innerGridDarkTrack: { fill: trackColor },
             },
-            innerGridTrack: { fill: trackColor },
-            innerGridDarkTrack: { fill: trackColor },
-          },
-          backgroundColor: {
-            fill: backgroundColor,
-          } as any,
-        }}
-      />
+            backgroundColor: {
+              fill: backgroundColor,
+            } as any,
+          }}
+        />
+      )}
     </Box>
   );
 }
