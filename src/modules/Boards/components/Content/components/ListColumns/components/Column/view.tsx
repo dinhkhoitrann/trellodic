@@ -22,7 +22,7 @@ import ColumnTitle from './components/Title';
 type ColumnViewProps = {
   column: Column;
   anchorEl: SVGSVGElement | null;
-  onClick: (_event: React.MouseEvent<SVGSVGElement>) => void;
+  onClick: React.ComponentProps<'svg'>['onClick'];
   onClose: () => void;
   onDelete: (_params: string[]) => void;
 };
