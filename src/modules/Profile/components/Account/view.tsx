@@ -28,7 +28,7 @@ function AccountView({ methods, onSubmit }: AccountViewProps) {
       <Typography sx={{ mt: 4, fontSize: '1rem !important', fontWeight: '600' }}>Account</Typography>
       <Card sx={{ mt: 2 }}>
         <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography>Change password</Typography>
           </AccordionSummary>
           <AccordionDetails>

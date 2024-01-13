@@ -86,24 +86,9 @@ function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnView
             {canViewColumnOptions && (
               <Box>
                 <Tooltip title="More options">
-                  <ExpandMoreIcon
-                    id="column-options"
-                    aria-controls={open ? 'column-options-dropdown' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                    sx={{ color: 'text.primary', cursor: 'pointer' }}
-                    onClick={onClick}
-                  />
+                  <ExpandMoreIcon sx={{ color: 'text.primary', cursor: 'pointer' }} onClick={onClick} />
                 </Tooltip>
-                <Menu
-                  id="column-options-dropdown"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={onClose}
-                  MenuListProps={{
-                    'aria-labelledby': 'column-options',
-                  }}
-                >
+                <Menu anchorEl={anchorEl} open={open} onClose={onClose}>
                   <Tooltip title={!canDelete && 'You can not delete the column containing cards'} arrow placement="top">
                     <div>
                       <MenuItem disabled={!canDelete} onClick={() => handleOpenAlert(column._id)}>

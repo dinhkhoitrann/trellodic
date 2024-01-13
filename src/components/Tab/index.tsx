@@ -1,12 +1,12 @@
 import { HTMLAttributes, createContext, useContext, useState } from 'react';
+import { TabsProps } from '@mui/material';
 import MUITabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { a11yProps } from './service';
 
-const TabContext = createContext({
+const TabContext = createContext<{ value: number; onChange: TabsProps['onChange'] }>({
   value: 0,
-  onChange: (_event: React.SyntheticEvent, _newValue: number) => {},
+  onChange: () => {},
 });
 
 function Tabs({ children }: { children: React.ReactNode }) {
@@ -25,18 +25,18 @@ function TabHeader({ items }: { items: string[] }) {
   return (
     <MUITabs value={value} onChange={onChange}>
       {items.map((item, index) => (
-        <Tab key={index} label={item} {...a11yProps(index)} />
+        <Tab key={index} label={item} />
       ))}
     </MUITabs>
   );
 }
 
-function TabPanel(props: { children: React.ReactNode; index: number } & HTMLAttributes<HTMLDivElement>) {
+function TabPanel(props: { index: number } & HTMLAttributes<HTMLDivElement>) {
   const { children, index, ...other } = props;
   const { value } = useContext(TabContext);
 
   return (
-    <div role="tabpanel" hidden={value !== index} id={`tabpanel-${index}`} aria-labelledby={`tab-${index}`} {...other}>
+    <div role="tabpanel" hidden={value !== index} {...other}>
       {value === index && <Box>{children}</Box>}
     </div>
   );

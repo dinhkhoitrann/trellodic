@@ -56,7 +56,7 @@ function AttachmentView({ card, cardId, onRefreshCard, onRefreshBoard, onDelete 
             <ListItem
               key={attachment._id}
               secondaryAction={
-                <IconButton edge="end" aria-label="delete" onClick={() => handleOpenAlert(attachment._id, cardId)}>
+                <IconButton edge="end" onClick={() => handleOpenAlert(attachment._id, cardId)}>
                   <DeleteIcon />
                 </IconButton>
               }

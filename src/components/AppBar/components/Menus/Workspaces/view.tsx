@@ -25,25 +25,13 @@ function WorkspacesView() {
   return (
     <Box>
       <Button
-        id="basic-button-workspaces"
-        aria-controls={open ? 'basic-menu-workspaces' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
         endIcon={<ExpandMoreIcon />}
         sx={{ color: (theme) => (theme.palette.mode === 'dark' ? customTheme.colors.textInDarkMode : 'white') }}
         onClick={handleClick}
       >
         Workspaces
       </Button>
-      <Menu
-        id="basic-menu-workspaces"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button-workspaces',
-        }}
-      >
+      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <WorkspaceSections workspaces={workspaceList} />
       </Menu>
     </Box>

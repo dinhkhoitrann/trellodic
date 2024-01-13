@@ -15,7 +15,7 @@ const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters
 export default function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography sx={{ fontWeight: 'bold' }}>{title}</Typography>
       </AccordionSummary>
       <AccordionDetails>{children}</AccordionDetails>
