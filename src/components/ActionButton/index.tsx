@@ -21,6 +21,7 @@ export type ActionButtonRef = {
 
 export default forwardRef<ActionButtonRef, ActionButtonProps>(function ActionButton(props, ref) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const open = !!anchorEl;
 
   useImperativeHandle(ref, () => ({
     handleClose,
@@ -34,14 +35,10 @@ export default forwardRef<ActionButtonRef, ActionButtonProps>(function ActionBut
     setAnchorEl(null);
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
-
   return (
     <>
       <StyledButton {...props} onClick={handleOpen} />
       <Popover
-        id={id}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}

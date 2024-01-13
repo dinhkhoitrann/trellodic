@@ -12,7 +12,7 @@ function WorkspacesView() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const workspaceList = useAppSelector(selectWorkspaceList);
   const customTheme = useCustomTheme();
-  const open = Boolean(anchorEl);
+  const open = !!anchorEl;
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

@@ -18,7 +18,7 @@ type ProfilesViewProps = {
 
 function ProfilesView({ onLogout }: ProfilesViewProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const open = !!anchorEl;
   const user = useAppSelector(selectUserProfile);
   const router = useRouter();
 

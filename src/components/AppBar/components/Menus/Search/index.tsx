@@ -14,13 +14,11 @@ import Results from './components/Results';
 function Search() {
   const [search, setSearch] = useState('');
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = !!anchorEl;
 
   const { mode } = useColorScheme();
   const customTheme = useCustomTheme();
   const textColor = mode === 'dark' ? customTheme.colors.textInDarkMode : customTheme.colors.textInLightMode;
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'search-popper' : undefined;
 
   const handleCloseResults = (e: React.FocusEvent<HTMLInputElement>) => {
     if (!e.relatedTarget) {
@@ -31,7 +29,6 @@ function Search() {
   return (
     <>
       <TextField
-        id={id}
         placeholder="Search..."
         type="text"
         size="small"
@@ -71,7 +68,7 @@ function Search() {
           ),
         }}
       />
-      <Popper id={id} open={open} anchorEl={anchorEl} placement="bottom">
+      <Popper open={open} anchorEl={anchorEl} placement="bottom">
         <Card
           sx={{
             bgcolor: (theme) =>
