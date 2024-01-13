@@ -1,13 +1,14 @@
 import { useState } from 'react';
+import { DrawerProps as DrawerPropsMUI } from '@mui/material';
 
 type DrawerProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-type DrawerComponent = (_props: DrawerProps) => React.ReactElement;
+type DrawerComponent = React.ComponentType<DrawerProps>;
 
-function useDrawer(Drawer: DrawerComponent, props?: { [key: string]: any }) {
+function useDrawer(Drawer: DrawerComponent, props?: DrawerPropsMUI) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleDrawerVisibility = () => {
@@ -15,7 +16,7 @@ function useDrawer(Drawer: DrawerComponent, props?: { [key: string]: any }) {
   };
 
   const render = () => {
-    return <Drawer isOpen={isOpen} onClose={handleDrawerVisibility} {...props} />;
+    return <Drawer {...props} isOpen={isOpen} onClose={handleDrawerVisibility} />;
   };
 
   return {
