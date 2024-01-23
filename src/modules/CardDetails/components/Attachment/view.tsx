@@ -12,7 +12,6 @@ import IconButton from '@mui/material/IconButton';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { BoardGlobalProps, withBoard } from '@/hocs';
-import { Theme } from '@/common/enums';
 import { useAlert } from '@/hooks';
 
 type AttachmentViewProps = BoardGlobalProps & {
@@ -72,7 +71,7 @@ function AttachmentView({ card, cardId, onRefreshCard, onRefreshBoard, onDelete 
                   primary={
                     <Typography
                       sx={{
-                        color: (theme) => (theme.palette.mode === Theme.Dark ? 'white' : 'black'),
+                        color: (theme) => (theme.palette.mode === 'dark' ? 'white' : 'black'),
                         fontWeight: 'bold',
                         mb: 1,
                         display: 'inline-block',

@@ -1,7 +1,6 @@
 import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Theme } from '@/common/enums';
 import AddToCard from './components/AddToCard';
 import ActiveSections from './components/ActiveSections';
 import Description from './components/Description';
@@ -73,7 +72,7 @@ export default function CardDetailsView({ card, isError }: CardDetailsViewProps)
         width: { xs: '95%', md: '75%' },
         px: 0,
         py: 0,
-        bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0'),
+        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#333643' : '#ebecf0'),
       }}
     >
       {content}

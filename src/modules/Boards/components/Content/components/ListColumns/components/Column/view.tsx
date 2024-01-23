@@ -12,7 +12,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useAppSelector } from '@/redux/store';
 import { selectBoardFilter } from '@/redux/slices/board';
 import { useCustomTheme } from '@/common/styles/theme';
-import { Theme } from '@/common/enums';
 import { Column } from '@/types/column.type';
 import { useAlert, useAuthorized } from '@/hooks';
 import { DND_ANIMATION_OPACITY } from '@/utils/constants';
@@ -65,7 +64,7 @@ function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnView
           sx={{
             minWidth: '300px',
             maxWidth: '300px',
-            bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0'),
+            bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#333643' : '#ebecf0'),
             ml: 2,
             px: '10px',
             pb: 1,

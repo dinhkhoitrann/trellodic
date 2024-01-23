@@ -4,7 +4,6 @@ import Image from 'next/image';
 import CreateForm from './components/Form';
 import Grid from '@mui/material/Grid';
 import Modal from '@/components/Modal';
-import { Theme } from '@/common/enums';
 
 type CreateWorkspaceModalViewProps = {
   isShowCreateModal: boolean;
@@ -22,7 +21,7 @@ function CreateWorkspaceModalView({ isShowCreateModal, onClose }: CreateWorkspac
         width: '90%',
         px: 0,
         py: 0,
-        bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#22272b' : 'white'),
+        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#22272b' : 'white'),
         overflow: 'hidden',
       }}
     >

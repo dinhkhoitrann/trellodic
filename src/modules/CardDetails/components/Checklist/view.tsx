@@ -10,7 +10,6 @@ import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Theme } from '@/common/enums';
 import { Checklist, ChecklistItem } from '@/types/card.type';
 import LinearProgressWithLabel from './components/LinearProgress';
 import { useAlert } from '@/hooks';
@@ -111,7 +110,7 @@ function ChecklistView({
                     px: 2,
                     borderRadius: '8px',
                     '&:hover': {
-                      bgcolor: (theme) => (theme.palette.mode === Theme.Light ? theme.palette.grey[300] : '#A1BDD914'),
+                      bgcolor: (theme) => (theme.palette.mode === 'light' ? theme.palette.grey[300] : '#A1BDD914'),
                     },
                   }}
                 >
@@ -135,7 +134,7 @@ function ChecklistView({
                 </Button>
                 <Button
                   sx={{
-                    color: (theme) => (theme.palette.mode === Theme.Dark ? '#B6C2CF' : 'grey'),
+                    color: (theme) => (theme.palette.mode === 'dark' ? '#B6C2CF' : 'grey'),
                   }}
                   onClick={handleShowHideTextField}
                 >

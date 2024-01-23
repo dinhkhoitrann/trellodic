@@ -9,7 +9,6 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Styles from './styles.module.css';
-import { Theme as AppTheme } from '@/common/enums';
 import Editor from '@/components/Editor';
 import { Card as CardType } from '@/types/card.type';
 
@@ -57,7 +56,7 @@ function DescriptionView({ editorVisible, isLoading, card, onSave, onShowHideEdi
             </Button>
             <Button
               sx={{
-                color: (theme) => (theme.palette.mode === AppTheme.Dark ? '#B6C2CF' : 'grey'),
+                color: (theme) => (theme.palette.mode === 'dark' ? '#B6C2CF' : 'grey'),
                 ml: 1,
               }}
               onClick={onShowHideEditor}
@@ -108,8 +107,7 @@ function DescriptionView({ editorVisible, isLoading, card, onSave, onShowHideEdi
           elevation={0}
           sx={{
             cursor: 'pointer',
-            bgcolor: (theme) =>
-              theme.palette.mode === AppTheme.Light ? theme.palette.grey[300] : theme.palette.grey.A700,
+            bgcolor: (theme) => (theme.palette.mode === 'light' ? theme.palette.grey[300] : theme.palette.grey.A700),
           }}
           onClick={onShowHideEditor}
         >
