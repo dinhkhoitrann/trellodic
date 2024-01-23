@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
-import CreateFormView from './view';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CreateWorkspaceSchema, defaultValues } from './validations';
 import { useCreateWorkspaceMutation } from '@/redux/services/workspace/workspace';
+import { CreateWorkspaceSchema, defaultValues } from './validations';
+import CreateFormView from './view';
 
 type CreateFormProps = {
   onCreateSuccess: () => void;

@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import Tooltip from '@mui/material/Tooltip';
-import Avatar from '@mui/material/Avatar';
-import AvatarGroup from '@mui/material/AvatarGroup';
+import { Avatar, Tooltip, AvatarGroup } from '@/components/UIElements';
 import { User } from '@/types/user.type';
 import Modal from '@/components/Modal';
 import List from './components/List';

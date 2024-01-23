@@ -1,11 +1,7 @@
 import { useColorScheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@/components/UIElements';
 import { Theme } from '@/common/enums';
 import { useCustomTheme } from '@/common/styles/theme';
 

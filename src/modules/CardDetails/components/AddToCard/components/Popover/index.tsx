@@ -1,9 +1,7 @@
 import { ReactNode } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import { Box, IconButton, Typography } from '@/components/UIElements';
 
 type PopoverWrapperProps = {
   title: string;

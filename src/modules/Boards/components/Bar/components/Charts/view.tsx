@@ -1,11 +1,14 @@
 import { useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Tooltip from '@mui/material/Tooltip';
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  Tooltip,
+  Typography,
+} from '@/components/UIElements';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import Modal from '@/components/Modal';
 import TaskStatusChart from './components/TaskStatus';

@@ -1,8 +1,4 @@
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Autocomplete, Box, Button, CircularProgress, TextField } from '@/components/UIElements';
 
 type SkillsViewProps = {
   options: string[];

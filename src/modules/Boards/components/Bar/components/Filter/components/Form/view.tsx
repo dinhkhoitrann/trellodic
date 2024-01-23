@@ -1,13 +1,6 @@
 import { UseFormReturn } from 'react-hook-form';
-import Drawer from '@mui/material/Drawer';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import MenuItem from '@mui/material/MenuItem';
-import Stack from '@mui/material/Stack';
-import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { Box, Button, Divider, Drawer, IconButton, MenuItem, Stack, Typography } from '@/components/UIElements';
 import FormProvider from '@/components/Form/components/FormProvider';
 import RHFSelect from '@/components/Form/components/Select';
 import { BoardGlobalProps, withBoard } from '@/hocs';

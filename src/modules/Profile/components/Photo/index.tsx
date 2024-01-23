@@ -1,12 +1,12 @@
 'use client';
 import { useState } from 'react';
-import ProfilePhotoView from './view';
 import { useMutation } from '@tanstack/react-query';
-import { useUpdateProfileMutation } from '@/redux/services/user/user';
-import { uploadFile } from '@/services/file';
 import { toast } from 'react-toastify';
+import { useUpdateProfileMutation } from '@/redux/services/user/user';
 import { useAppSelector } from '@/redux/store';
 import { selectUserProfile } from '@/redux/slices/user';
+import { uploadFile } from '@/services/file';
+import ProfilePhotoView from './view';
 
 function ProfilePhoto() {
   const [uploadedImage, setUploadedImage] = useState<string | ArrayBuffer | null>();

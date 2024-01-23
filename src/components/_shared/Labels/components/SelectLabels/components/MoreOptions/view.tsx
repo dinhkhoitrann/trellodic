@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Menu, MenuItem, IconButton, ListItem } from '@/components/UIElements';
 import { useAlert } from '@/hooks';
 
 type MoreOptionsViewProps = {
@@ -47,15 +44,15 @@ function MoreOptionsView({ onEditMode, onDeleteLabel }: MoreOptionsViewProps) {
       </IconButton>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <MenuItem onClick={handleEditMode}>
-          <ListItemIcon>
+          <ListItem.Icon>
             <EditIcon fontSize="small" />
-          </ListItemIcon>
+          </ListItem.Icon>
           Edit
         </MenuItem>
         <MenuItem onClick={() => handleOpenAlert()}>
-          <ListItemIcon>
+          <ListItem.Icon>
             <DeleteIcon fontSize="small" />
-          </ListItemIcon>
+          </ListItem.Icon>
           Delete
         </MenuItem>
       </Menu>

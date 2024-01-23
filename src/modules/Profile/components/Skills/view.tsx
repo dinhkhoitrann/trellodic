@@ -1,9 +1,5 @@
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Accordion, Card, Typography } from '@/components/UIElements';
 import UpdateSkills from '@/components/_shared/Skills';
 import { useAppSelector } from '@/redux/store';
 import { selectUserProfile } from '@/redux/slices/user';
@@ -23,12 +19,12 @@ function SkillsView({ isUpdating, isSuccess, onUpdateSkills }: SkillsViewProps) 
       <Typography sx={{ mt: 4, fontSize: '1rem !important', fontWeight: '600' }}>Skills</Typography>
       <Card sx={{ mt: 2 }}>
         <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Accordion.Summary expandIcon={<ExpandMoreIcon />}>
             <Typography>Add skills</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
+          </Accordion.Summary>
+          <Accordion.Details>
             <UpdateSkills defaultSkills={skills} state={{ isUpdating, isSuccess }} onSaveSkills={onUpdateSkills} />
-          </AccordionDetails>
+          </Accordion.Details>
         </Accordion>
       </Card>
     </>

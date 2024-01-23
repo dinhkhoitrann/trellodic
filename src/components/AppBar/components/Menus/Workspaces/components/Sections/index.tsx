@@ -1,5 +1,4 @@
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
+import { Box, Divider } from '@/components/UIElements';
 import { useAppSelector } from '@/redux/store';
 import { selectUserProfile } from '@/redux/slices/user';
 import { Workspace } from '@/types/workspace.type';

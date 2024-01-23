@@ -1,5 +1,4 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import { Box, Button } from '@/components/UIElements';
 import { useCustomTheme } from '@/common/styles/theme';
 
 type WorkspaceItemViewProps = {

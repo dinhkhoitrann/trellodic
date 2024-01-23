@@ -1,16 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import Styles from './styles.module.css';
+import { Box, Button, Card, Stack, Typography } from '@/components/UIElements';
 import Editor from '@/components/Editor';
 import { Card as CardType } from '@/types/card.type';
+import Styles from './styles.module.css';
 
 type DescriptionViewProps = {
   editorVisible: boolean;
@@ -111,7 +106,7 @@ function DescriptionView({ editorVisible, isLoading, card, onSave, onShowHideEdi
           }}
           onClick={onShowHideEditor}
         >
-          <CardContent>Add a more detailed description…</CardContent>
+          <Card.Content>Add a more detailed description…</Card.Content>
         </Card>
       );
     }

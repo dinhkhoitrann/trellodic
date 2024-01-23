@@ -1,11 +1,9 @@
 'use client';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
+import { useEffect } from 'react';
+import { Box, Container, Grid } from '@/components/UIElements';
+import { useLazyGetWorkspaceListQuery } from '@/redux/services/workspace/workspace';
 import WorkspaceSidebar from './components/Sidebar';
 import WorkspaceInfo from './components/Info';
-import { useLazyGetWorkspaceListQuery } from '@/redux/services/workspace/workspace';
-import { useEffect } from 'react';
 
 function Workspace() {
   const [getWorkspaceList] = useLazyGetWorkspaceListQuery();

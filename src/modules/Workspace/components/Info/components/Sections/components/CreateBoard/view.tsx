@@ -1,7 +1,6 @@
 'use client';
 import { MouseEvent, useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Popover from '@mui/material/Popover';
+import { Popover, Typography } from '@/components/UIElements';
 import BoardItem from '../BoardItem';
 import CreateForm from './components/Form';
 

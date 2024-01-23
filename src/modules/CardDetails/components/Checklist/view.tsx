@@ -1,18 +1,20 @@
 import { useState, useRef, ChangeEvent } from 'react';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
-import IconButton from '@mui/material/IconButton';
-import Checkbox from '@mui/material/Checkbox';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import DeleteIcon from '@mui/icons-material/Delete';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  FormGroup,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from '@/components/UIElements';
+import { useAlert } from '@/hooks';
 import { Checklist, ChecklistItem } from '@/types/card.type';
 import LinearProgressWithLabel from './components/LinearProgress';
-import { useAlert } from '@/hooks';
 import EditCLName from './components/EditCLName';
 import ChecklistItemLabel from './components/ChecklistItemLabel';
 

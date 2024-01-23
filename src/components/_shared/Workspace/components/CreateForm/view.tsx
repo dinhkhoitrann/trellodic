@@ -1,9 +1,7 @@
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import Image from 'next/image';
-import CreateForm from './components/Form';
-import Grid from '@mui/material/Grid';
 import Modal from '@/components/Modal';
+import { Container, Grid, Typography } from '@/components/UIElements';
+import CreateForm from './components/Form';
 
 type CreateWorkspaceModalViewProps = {
   isShowCreateModal: boolean;

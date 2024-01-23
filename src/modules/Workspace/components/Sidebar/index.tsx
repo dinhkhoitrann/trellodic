@@ -1,7 +1,7 @@
 'use client';
+import { useEffect } from 'react';
 import { useGetWorkspaceListQuery, useLazyGetWorkspaceQuery } from '@/redux/services/workspace/workspace';
 import WorkspaceSidebarView from './view';
-import { useEffect } from 'react';
 
 function WorkspaceSidebar() {
   const { data, isFetching, isSuccess } = useGetWorkspaceListQuery();

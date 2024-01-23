@@ -1,16 +1,10 @@
 import Image from 'next/image';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Stack from '@mui/material/Stack';
 import CommentIcon from '@mui/icons-material/Comment';
 import GroupIcon from '@mui/icons-material/Group';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { Button, Card, Stack, Typography } from '@/components/UIElements';
 import { Card as CardType } from '@/types/card.type';
 import { isExpired } from '@/utils/card';
 import { DND_ANIMATION_OPACITY } from '@/utils/constants';
@@ -77,17 +71,17 @@ function CardView({ card, onShowDetails }: CardViewProps) {
       }}
       onClick={onShowDetails}
     >
-      {card?.cover && <CardMedia sx={{ height: 140 }} image={card?.cover} />}
-      <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
+      {card?.cover && <Card.Media sx={{ height: 140 }} image={card?.cover} />}
+      <Card.Content sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
         <Stack direction="row" alignItems="center" spacing={3}>
           <Typography sx={{ color: (theme) => (shouldShowCardExpiredStyle() ? theme.palette.error.light : '') }}>
             {card?.title}
           </Typography>
           {renderStatusIcon()}
         </Stack>
-      </CardContent>
+      </Card.Content>
       {shouldShowCardActions() && (
-        <CardActions sx={{ p: '0 4px 8px' }}>
+        <Card.Actions sx={{ p: '0 4px 8px' }}>
           {!!card?.memberCount && (
             <Button size="small" startIcon={<GroupIcon />}>
               {card?.memberCount}
@@ -103,7 +97,7 @@ function CardView({ card, onShowDetails }: CardViewProps) {
               {card?.attachmentCount}
             </Button>
           )}
-        </CardActions>
+        </Card.Actions>
       )}
     </Card>
   );

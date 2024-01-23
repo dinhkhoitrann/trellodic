@@ -1,15 +1,17 @@
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { isEmpty } from 'lodash';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import FormLabel from '@mui/material/FormLabel';
-import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Stack from '@mui/material/Stack';
-import Checkbox from '@mui/material/Checkbox';
-import Box from '@mui/material/Box';
+import {
+  TextField,
+  Typography,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  FormGroup,
+  Box,
+  Checkbox,
+  Stack,
+} from '@/components/UIElements';
 import { Label } from '@/types/board.type';
 import { useAuthorized, useDebounce } from '@/hooks';
 import { BoardGlobalProps, withBoard } from '@/hocs';

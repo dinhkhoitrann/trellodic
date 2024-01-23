@@ -1,13 +1,8 @@
 import { useState } from 'react';
 import Image from 'next/image';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import Popper from '@mui/material/Popper';
-import Typography from '@mui/material/Typography';
-import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import { useColorScheme } from '@mui/material';
+import { TextField, Box, Card, InputAdornment, Popper, Typography } from '@/components/UIElements';
 import { useCustomTheme } from '@/common/styles/theme';
 import Results from './components/Results';
 

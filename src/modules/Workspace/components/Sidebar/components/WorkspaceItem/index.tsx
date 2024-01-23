@@ -1,6 +1,6 @@
 import { useLazyGetWorkspaceQuery } from '@/redux/services/workspace/workspace';
-import WorkspaceItemView from './view';
 import { Workspace } from '@/types/workspace.type';
+import WorkspaceItemView from './view';
 
 type WorkspaceItemProps = {
   workspace: Workspace;

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import { Button, Typography } from '@/components/UIElements';
 import StyledModal from '@/components/Modal/components/StyledModal';
 import FormProvider from '@/components/Form/components/FormProvider';
 import RHFTextField from '@/components/Form/components/TextField';

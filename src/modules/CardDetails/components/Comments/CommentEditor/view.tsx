@@ -1,12 +1,6 @@
 import { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
+import { Avatar, Box, Button, Card, Stack, Typography } from '@/components/UIElements';
 import Editor from '@/components/Editor';
 import { useAlert } from '@/hooks';
 
@@ -80,9 +74,9 @@ function CommentEditorView({ isLoading, onSave }: CommentEditorViewProps) {
               </>
             ) : (
               <Card sx={{ cursor: 'pointer' }} onClick={handleShowHideEditor}>
-                <CardContent>
+                <Card.Content>
                   <Typography>Write a comment...</Typography>
-                </CardContent>
+                </Card.Content>
               </Card>
             )}
           </Box>

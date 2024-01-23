@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import Button from '@mui/material/Button';
+import { Button } from '@/components/UIElements';
 import SelectLabels from '@/components/_shared/Labels/components/SelectLabels';
 import EditLabel from '@/components/_shared/Labels/components/EditLabel';
 import CreateLabel from '@/components/_shared/Labels/components/CreateLabel';

@@ -1,7 +1,7 @@
+import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { usePrefetch as usePrefetchUser } from '@/redux/services/user/user';
 import { usePrefetch as usePrefetchWorkspaceList } from '@/redux/services/workspace/workspace';
-import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
 
 type GlobalInfoProps = {
   children: React.ReactNode;

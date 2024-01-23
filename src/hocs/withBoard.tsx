@@ -2,9 +2,9 @@ import { ComponentType } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { selectBoardDetails } from '@/redux/slices/board';
+import { selectCardDetails } from '@/redux/slices/card';
 import { Board } from '@/types/board.type';
 import { Card } from '@/types/card.type';
-import { selectCardDetails } from '@/redux/slices/card';
 
 export type BoardGlobalProps = {
   boardId: string;

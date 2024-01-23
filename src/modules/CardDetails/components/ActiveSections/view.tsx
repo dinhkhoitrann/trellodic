@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import Grid from '@mui/material/Grid';
 import LaptopIcon from '@mui/icons-material/Laptop';
+import { Grid, Stack, Typography } from '@/components/UIElements';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 import Members from '../Members';
 import Labels from '../Labels';

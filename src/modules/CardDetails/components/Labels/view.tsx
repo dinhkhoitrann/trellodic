@@ -1,6 +1,4 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
+import { Box, Stack, Typography } from '@/components/UIElements';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 
 function LabelItem({ color }: { color: string }) {

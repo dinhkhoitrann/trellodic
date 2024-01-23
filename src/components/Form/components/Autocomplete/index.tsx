@@ -1,5 +1,6 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import { Autocomplete, SxProps, TextField, Theme, InputLabel, Box } from '@mui/material';
+import { SxProps, Theme } from '@mui/material';
+import { Box, Autocomplete, InputLabel, TextField } from '@/components/UIElements';
 
 type RHFAutocompleteProps<T> = {
   id: string;

@@ -5,9 +5,9 @@ import { getUsersToAddToWorkspace } from '@/services/workspace';
 import { useDebounce } from '@/hooks';
 import { useAppSelector } from '@/redux/store';
 import { selectWorkspaceDetails } from '@/redux/slices/workspace';
+import { useInviteUsersMutation } from '@/redux/services/workspace/workspace';
 import MembersView from './view';
 import { UserOption } from './type';
-import { useInviteUsersMutation } from '@/redux/services/workspace/workspace';
 
 function Members() {
   const [options, setOptions] = useState<UserOption[]>([]);

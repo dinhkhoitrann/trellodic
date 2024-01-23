@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import Fab from '@mui/material/Fab';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import AssistantIcon from '@mui/icons-material/Assistant';
+import { Box, Fab, Typography } from '@/components/UIElements';
 import Modal from '@/components/Modal';
 import Section from '@/components/Accordion';
 import ChatWithGPT from './components/Chat';

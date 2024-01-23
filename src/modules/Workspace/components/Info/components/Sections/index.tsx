@@ -1,8 +1,8 @@
-import SectionsView from './view';
-import { getBoardsForSections } from './service';
 import { useAppSelector } from '@/redux/store';
 import { selectWorkspaceDetails } from '@/redux/slices/workspace';
 import { selectUserProfile } from '@/redux/slices/user';
+import SectionsView from './view';
+import { getBoardsForSections } from './service';
 
 function Sections() {
   const workspace = useAppSelector(selectWorkspaceDetails);

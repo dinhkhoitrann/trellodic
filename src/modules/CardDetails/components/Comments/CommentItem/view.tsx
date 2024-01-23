@@ -1,12 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import dayjs from 'dayjs';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import { Avatar, Box, Button, Card, Stack, Typography } from '@/components/UIElements';
 import Editor from '@/components/Editor';
 import { Comment } from '@/types/card.type';
 import { useAlert } from '@/hooks';
@@ -94,9 +88,9 @@ function CommentItemView({ comment, isLoading, onEdit, onDelete }: CommentItemVi
             },
           }}
         >
-          <CardContent>
+          <Card.Content>
             <Box ref={editorDataRef} />
-          </CardContent>
+          </Card.Content>
         </Card>
         <Stack direction="row" alignItems="center" spacing={1}>
           <Button onClick={() => setEditMode(true)}>Edit</Button>

@@ -1,6 +1,6 @@
-import Box from '@mui/material/Box';
-import CommentEditor from './CommentEditor';
+import { Box } from '@/components/UIElements';
 import { BoardGlobalProps, withBoard } from '@/hocs';
+import CommentEditor from './CommentEditor';
 import CommentItem from './CommentItem';
 
 function CommentsView({ card }: BoardGlobalProps) {

@@ -1,16 +1,16 @@
 'use client';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import ProfileDetailsView from './view';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { UserProfileFormSchema, UserProfileFormValues } from './validation';
 import { getUser } from '@/services/user';
-import { filterChangedFormFields } from '@/utils/form';
 import { useAppSelector } from '@/redux/store';
 import { selectUserProfile } from '@/redux/slices/user';
 import { useUpdateProfileMutation } from '@/redux/services/user/user';
-import { useEffect } from 'react';
-import { toast } from 'react-toastify';
+import { filterChangedFormFields } from '@/utils/form';
 import { mapValuesToSubmit } from './service';
+import { UserProfileFormSchema, UserProfileFormValues } from './validation';
+import ProfileDetailsView from './view';
 
 function ProfileDetails() {
   const user = useAppSelector(selectUserProfile);

@@ -3,9 +3,8 @@ import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import { SxProps, Theme } from '@mui/material';
+import { Box, InputLabel } from '@/components/UIElements';
 
 type RHFDatePickerProps = {
   id: string;

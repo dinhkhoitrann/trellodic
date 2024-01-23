@@ -1,12 +1,4 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
+import { Avatar, Box, Button, Card, IconButton, Stack, Typography } from '@/components/UIElements';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { useAppSelector } from '@/redux/store';
 import { selectUserProfile } from '@/redux/slices/user';
@@ -36,12 +28,12 @@ function ProfilePhotoView({ uploadedImage, isLoading, onSaveAvatar, onUpload }: 
         Profile photo and header image
       </Typography>
       <Card sx={{ mt: 2 }}>
-        <CardMedia
+        <Card.Media
           sx={{ height: 120 }}
           image="https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/gradients/5.svg"
           title="green iguana"
         />
-        <CardContent sx={{ mt: '-60px' }}>
+        <Card.Content sx={{ mt: '-60px' }}>
           <Stack justifyContent="center" alignItems="center">
             <Box sx={{ position: 'relative' }}>
               <Avatar
@@ -72,7 +64,7 @@ function ProfilePhotoView({ uploadedImage, isLoading, onSaveAvatar, onUpload }: 
             </Box>
             {renderUploadButton()}
           </Stack>
-        </CardContent>
+        </Card.Content>
       </Card>
     </>
   );

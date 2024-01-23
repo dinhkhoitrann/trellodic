@@ -1,6 +1,6 @@
-import Box from '@mui/material/Box';
 import { isEmpty } from 'lodash';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { Box } from '@/components/UIElements';
 import { useAppSelector } from '@/redux/store';
 import { selectBoardFilter } from '@/redux/slices/board';
 import { useCustomTheme } from '@/common/styles/theme';

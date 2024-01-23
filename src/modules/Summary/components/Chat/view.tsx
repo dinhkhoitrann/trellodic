@@ -1,8 +1,5 @@
 import { useChat, Message } from 'ai/react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
+import { Box, Button, TextField, Typography } from '@/components/UIElements';
 
 function ChatWithGPTView() {
   const { input, handleInputChange, handleSubmit, isLoading, messages } = useChat();

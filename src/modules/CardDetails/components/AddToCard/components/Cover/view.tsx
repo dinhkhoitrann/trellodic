@@ -1,12 +1,10 @@
 import { useEffect, useRef } from 'react';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import Image from 'next/image';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import { Box, Button, Typography } from '@/components/UIElements';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import PopoverWrapper from '../Popover';
-import Image from 'next/image';
 
 type CoverViewProps = {
   image: string | ArrayBuffer | null | undefined;

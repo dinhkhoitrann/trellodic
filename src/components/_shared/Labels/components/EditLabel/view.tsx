@@ -1,7 +1,5 @@
 import { useRef } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
+import { TextField, Typography, Button } from '@/components/UIElements';
 import { Label } from '@/types/board.type';
 import Colors from '@/components/Colors';
 import { colors } from '../../../../../modules/CardDetails/components/AddToCard/components/Labels/constants';

@@ -1,12 +1,6 @@
 import { useState } from 'react';
-import Badge from '@mui/material/Badge';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import Tooltip from '@mui/material/Tooltip';
-import Popper from '@mui/material/Popper';
-import Fade from '@mui/material/Fade';
-import Divider from '@mui/material/Divider';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import { Badge, Box, Card, Divider, Fade, Tooltip, Popper } from '@/components/UIElements';
 import { useCustomTheme } from '@/common/styles/theme';
 import Header from './components/Header';
 import List from './components/List';

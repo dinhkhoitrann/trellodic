@@ -1,13 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Box from '@mui/material/Box';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Divider from '@mui/material/Divider';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
-import Avatar from '@mui/material/Avatar';
+import { Avatar, Box, Divider, IconButton, Menu, MenuItem, Tooltip, ListItem } from '@/components/UIElements';
 import Logout from '@mui/icons-material/Logout';
 import { useAppSelector } from '@/redux/store';
 import { selectUserProfile } from '@/redux/slices/user';
@@ -43,9 +36,9 @@ function ProfilesView({ onLogout }: ProfilesViewProps) {
         </MenuItem>
         <Divider />
         <MenuItem onClick={onLogout}>
-          <ListItemIcon>
+          <ListItem.Icon>
             <Logout fontSize="small" />
-          </ListItemIcon>
+          </ListItem.Icon>
           Logout
         </MenuItem>
       </Menu>

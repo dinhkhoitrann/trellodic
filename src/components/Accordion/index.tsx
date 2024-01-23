@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { AccordionProps, Accordion as MuiAccordion, Typography } from '@/components/UIElements';
+
+const { Summary, Details } = MuiAccordion;
 
 const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
   ({ theme }) => ({
@@ -15,10 +14,10 @@ const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters
 export default function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+      <Summary expandIcon={<ExpandMoreIcon />}>
         <Typography sx={{ fontWeight: 'bold' }}>{title}</Typography>
-      </AccordionSummary>
-      <AccordionDetails>{children}</AccordionDetails>
+      </Summary>
+      <Details>{children}</Details>
     </Accordion>
   );
 }

@@ -1,7 +1,4 @@
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import { ListItem } from '@/components/UIElements';
 
 type ResultItemProps = {
   startIcon: React.ReactNode;
@@ -12,10 +9,10 @@ type ResultItemProps = {
 function ResultItem({ startIcon, primaryText, onClick }: ResultItemProps) {
   return (
     <ListItem alignItems="flex-start" disablePadding disableGutters onClick={onClick}>
-      <ListItemButton>
-        <ListItemIcon sx={{ minWidth: '48px' }}>{startIcon}</ListItemIcon>
-        <ListItemText primary={primaryText} />
-      </ListItemButton>
+      <ListItem.Button>
+        <ListItem.Icon sx={{ minWidth: '48px' }}>{startIcon}</ListItem.Icon>
+        <ListItem.Text primary={primaryText} />
+      </ListItem.Button>
     </ListItem>
   );
 }

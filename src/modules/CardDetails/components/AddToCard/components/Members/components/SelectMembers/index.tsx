@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import SelectMembersView from './view';
 import { getUsersToAddToCard } from '@/services/card/member';
-import { UserOption } from '../../type';
 import { BoardGlobalProps, withBoard } from '@/hocs';
+import SelectMembersView from './view';
+import { UserOption } from '../../type';
 
 type SelectMembersProps = BoardGlobalProps & {
   onChangeMembers: (_params: {

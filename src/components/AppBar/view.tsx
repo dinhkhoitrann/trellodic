@@ -1,13 +1,10 @@
 import Link from 'next/link';
-import Box from '@mui/material/Box';
 import AppsIcon from '@mui/icons-material/Apps';
-import SvgIcon from '@mui/material/SvgIcon';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import { useColorScheme } from '@mui/material';
 import { useCreateWorkspace } from '@/hooks';
 import TrelloIcon from '@/common/assets/icons/trello.svg';
+import { Button, Box, SvgIcon, Typography } from '@/components/UIElements';
 import { useCustomTheme } from '@/common/styles/theme';
 import Workspaces from './components/Menus/Workspaces';
 import ModeSelect from './components/Menus/ModeSelect';

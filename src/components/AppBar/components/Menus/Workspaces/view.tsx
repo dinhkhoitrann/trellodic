@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box, Button, Menu } from '@/components/UIElements';
 import { useAppSelector } from '@/redux/store';
 import { selectWorkspaceList } from '@/redux/slices/workspace';
 import { useCustomTheme } from '@/common/styles/theme';

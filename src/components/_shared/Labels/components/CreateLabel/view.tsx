@@ -1,9 +1,7 @@
 import { useRef } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import { colors } from '../../../../../modules/CardDetails/components/AddToCard/components/Labels/constants';
+import { TextField, Typography, Button } from '@/components/UIElements';
 import Colors from '@/components/Colors';
+import { colors } from '../../../../../modules/CardDetails/components/AddToCard/components/Labels/constants';
 
 type CreateLabelViewProps = {
   selectedColor: string;

@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Chip from '@mui/material/Chip';
-import Grid from '@mui/material/Grid';
+import { Box, Chip, Grid, Typography } from '@/components/UIElements';
 import { BoardGlobalProps, withBoard } from '@/hocs';
 import { MAX_NO_SKILLS } from './constants';
 

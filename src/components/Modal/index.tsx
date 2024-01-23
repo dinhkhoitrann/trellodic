@@ -1,5 +1,6 @@
 import React from 'react';
-import { Backdrop, Box, Fade, Modal as MUIModal, SxProps, Theme } from '@mui/material';
+import { SxProps, Theme } from '@mui/material';
+import { Backdrop, Box, Fade, Modal as MUIModal } from '@/components/UIElements';
 
 export type ModalProps = {
   children: React.ReactNode;

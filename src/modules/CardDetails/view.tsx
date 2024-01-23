@@ -1,16 +1,15 @@
 import { useRouter } from 'next/navigation';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import { Box, Grid } from '@/components/UIElements';
+import Modal from '@/components/Modal';
+import { useEditCardMutation } from '@/redux/services/card/card';
+import { useView } from '@/hooks';
+import { Card } from '@/types/card.type';
 import AddToCard from './components/AddToCard';
 import ActiveSections from './components/ActiveSections';
 import Description from './components/Description';
 import Checklist from './components/Checklist';
 import Comments from './components/Comments';
-import { useEditCardMutation } from '@/redux/services/card/card';
-import { Card } from '@/types/card.type';
-import Modal from '@/components/Modal';
 import Attachment from './components/Attachment';
-import { useView } from '@/hooks';
 
 type CardDetailsViewProps = {
   card: Card;

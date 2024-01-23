@@ -1,6 +1,6 @@
 import { BoardGlobalProps, withBoard } from '@/hocs';
-import MembersView from './view';
 import { useGetMembersQuery } from '@/redux/services/board/member';
+import MembersView from './view';
 
 function Members({ boardId }: BoardGlobalProps) {
   const { data } = useGetMembersQuery({ boardId });

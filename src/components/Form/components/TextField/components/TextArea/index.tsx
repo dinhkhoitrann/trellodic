@@ -1,5 +1,5 @@
-import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { styled } from '@mui/system';
+import { TextareaAutosize } from '@/components/UIElements';
 
 const blue = {
   200: '#b6daff',

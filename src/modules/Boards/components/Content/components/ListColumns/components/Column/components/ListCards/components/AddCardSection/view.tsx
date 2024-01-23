@@ -1,9 +1,6 @@
 import { useRef } from 'react';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
+import { Box, Button, Stack, TextField } from '@/components/UIElements';
 
 type AddCardSectionViewProps = {
   isPending: boolean;

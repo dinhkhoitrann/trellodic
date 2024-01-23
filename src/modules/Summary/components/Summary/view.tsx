@@ -1,7 +1,5 @@
 import { useRef } from 'react';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { Box, Button, Typography } from '@/components/UIElements';
 
 type SummaryViewProps = {
   completion: string;

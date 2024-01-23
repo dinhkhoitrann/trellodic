@@ -1,8 +1,5 @@
 import { HTMLAttributes, createContext, useContext, useState } from 'react';
-import { TabsProps } from '@mui/material';
-import MUITabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+import { Tabs as MUITabs, Tab, Box, TabsProps } from '@/components/UIElements';
 
 const TabContext = createContext<{ value: number; onChange: TabsProps['onChange'] }>({
   value: 0,

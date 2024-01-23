@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
+import { IconButton, InputAdornment } from '@/components/UIElements';
 import RHFTextField, { RHFTextFieldProps } from '../TextField';
 
 function PasswordField(props: RHFTextFieldProps) {

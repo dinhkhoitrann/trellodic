@@ -1,7 +1,5 @@
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
 import WorkspacesIcon from '@mui/icons-material/Workspaces';
+import { Box, List, Typography } from '@/components/UIElements';
 import { Workspace } from '@/types/workspace.type';
 import ResultItem from '../ResultItem';
 

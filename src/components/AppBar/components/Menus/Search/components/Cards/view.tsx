@@ -1,7 +1,5 @@
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
 import LaptopIcon from '@mui/icons-material/Laptop';
+import { Box, List, Typography } from '@/components/UIElements';
 import { Card } from '@/types/card.type';
 import ResultItem from '../ResultItem';
 

@@ -1,6 +1,6 @@
 import { styled } from '@mui/system';
-import Chip from '@mui/material/Chip';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import { Chip } from '@/components/UIElements';
 import { useCustomTheme } from '@/common/styles/theme';
 
 export const StyledTitle = styled(Chip)(({ theme }) => {
