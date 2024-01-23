@@ -38,7 +38,7 @@ function WorkspaceList({ title, workspaces }: WorkspaceListProps) {
               width: '30px',
               height: '30px',
               lineHeight: '30px',
-              bgcolor: customTheme.colors.workspaceAvatar,
+              background: customTheme.colors.workspaceAvatar,
               borderRadius: '4px',
               color: 'black',
               textAlign: 'center',

@@ -18,6 +18,7 @@ function BoardItem({ children, sx, onClick }: BoardItemProps) {
         cursor: 'pointer',
         fontSize: '0.875rem',
         '&:hover': { opacity: 0.8 },
+        backgroundImage: "url('/board-item.jpg')",
         ...sx,
       }}
       onClick={onClick}

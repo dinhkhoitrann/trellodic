@@ -18,7 +18,7 @@ function WorkspaceItemView({ name, onGetWorkspace }: WorkspaceItemViewProps) {
             width: '30px',
             height: '30px',
             lineHeight: '30px',
-            bgcolor: customTheme.colors.workspaceAvatar,
+            background: customTheme.colors.workspaceAvatar,
             borderRadius: '4px',
             color: 'black',
             textAlign: 'center',
@@ -27,7 +27,7 @@ function WorkspaceItemView({ name, onGetWorkspace }: WorkspaceItemViewProps) {
             mx: 1,
           }}
         >
-          {name[0]}
+          {name[0].toUpperCase()}
         </Box>
       }
       onClick={onGetWorkspace}

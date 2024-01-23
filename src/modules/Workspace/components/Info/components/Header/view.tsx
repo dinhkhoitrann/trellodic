@@ -34,7 +34,7 @@ function WorkspaceHeaderView({ workspaceName, onEditName }: WorkspaceHeaderViewP
               width: '60px',
               height: '60px',
               lineHeight: '60px',
-              bgcolor: customTheme.colors.workspaceAvatar,
+              background: customTheme.colors.workspaceAvatar,
               borderRadius: '4px',
               color: 'black',
               textAlign: 'center',

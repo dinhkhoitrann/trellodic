@@ -57,7 +57,8 @@ function SectionsView({ ownerBoards, otherBoards, workspace }: SectionsViewProps
               <div>
                 <BoardItem
                   sx={{
-                    bgcolor: '#ae4d7b',
+                    backgroundSize: 'cover',
+                    backgroundPosition: '50%',
                     padding: 1,
                     fontWeight: 'bold',
                     color: 'white',
