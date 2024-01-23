@@ -1,4 +1,14 @@
-import { Avatar, Box, Button, Card, IconButton, Stack, Typography } from '@/components/UIElements';
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  IconButton,
+  Stack,
+  Typography,
+} from '@/components/UIElements';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { useAppSelector } from '@/redux/store';
 import { selectUserProfile } from '@/redux/slices/user';
@@ -28,12 +38,12 @@ function ProfilePhotoView({ uploadedImage, isLoading, onSaveAvatar, onUpload }: 
         Profile photo and header image
       </Typography>
       <Card sx={{ mt: 2 }}>
-        <Card.Media
+        <CardMedia
           sx={{ height: 120 }}
           image="https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/gradients/5.svg"
           title="green iguana"
         />
-        <Card.Content sx={{ mt: '-60px' }}>
+        <CardContent sx={{ mt: '-60px' }}>
           <Stack justifyContent="center" alignItems="center">
             <Box sx={{ position: 'relative' }}>
               <Avatar
@@ -64,7 +74,7 @@ function ProfilePhotoView({ uploadedImage, isLoading, onSaveAvatar, onUpload }: 
             </Box>
             {renderUploadButton()}
           </Stack>
-        </Card.Content>
+        </CardContent>
       </Card>
     </>
   );

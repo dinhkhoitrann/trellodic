@@ -8,6 +8,9 @@ import Box from './Box';
 import Button from './Button';
 import Backdrop from './Backdrop';
 import Card from './Card';
+import CardContent from './CardContent';
+import CardMedia from './CardMedia';
+import CardActions from './CardActions';
 import Checkbox from './Checkbox';
 import Chip from './Chip';
 import CircularProgress from './CircularProgress';
@@ -59,6 +62,9 @@ export {
   Button,
   Backdrop,
   Card,
+  CardContent,
+  CardMedia,
+  CardActions,
   Checkbox,
   Chip,
   CircularProgress,

@@ -1,5 +1,5 @@
 import { UseFormReturn } from 'react-hook-form';
-import { Box, Button, Card, Grid, Typography } from '@/components/UIElements';
+import { Box, Button, Card, CardContent, Grid, Typography } from '@/components/UIElements';
 import FormProvider from '@/components/Form/components/FormProvider';
 import RHFTextField from '@/components/Form/components/TextField';
 import RHFDatePicker from '@/components/Form/components/DatePicker';
@@ -20,7 +20,7 @@ function ProfileDetailsView({ methods, onSubmit }: ProfileDetailsViewProps) {
     <>
       <Typography sx={{ mt: 4, fontSize: '1rem !important', fontWeight: '600' }}>About you</Typography>
       <Card sx={{ mt: 2 }}>
-        <Card.Content>
+        <CardContent>
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
@@ -64,7 +64,7 @@ function ProfileDetailsView({ methods, onSubmit }: ProfileDetailsViewProps) {
               </Button>
             </Box>
           </FormProvider>
-        </Card.Content>
+        </CardContent>
       </Card>
     </>
   );

@@ -4,7 +4,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Button, Card, Stack, Typography } from '@/components/UIElements';
+import { Button, Card, CardActions, CardContent, CardMedia, Stack, Typography } from '@/components/UIElements';
 import { Card as CardType } from '@/types/card.type';
 import { isExpired } from '@/utils/card';
 import { DND_ANIMATION_OPACITY } from '@/utils/constants';
@@ -71,17 +71,17 @@ function CardView({ card, onShowDetails }: CardViewProps) {
       }}
       onClick={onShowDetails}
     >
-      {card?.cover && <Card.Media sx={{ height: 140 }} image={card?.cover} />}
-      <Card.Content sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
+      {card?.cover && <CardMedia sx={{ height: 140 }} image={card?.cover} />}
+      <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
         <Stack direction="row" alignItems="center" spacing={3}>
           <Typography sx={{ color: (theme) => (shouldShowCardExpiredStyle() ? theme.palette.error.light : '') }}>
             {card?.title}
           </Typography>
           {renderStatusIcon()}
         </Stack>
-      </Card.Content>
+      </CardContent>
       {shouldShowCardActions() && (
-        <Card.Actions sx={{ p: '0 4px 8px' }}>
+        <CardActions sx={{ p: '0 4px 8px' }}>
           {!!card?.memberCount && (
             <Button size="small" startIcon={<GroupIcon />}>
               {card?.memberCount}
@@ -97,7 +97,7 @@ function CardView({ card, onShowDetails }: CardViewProps) {
               {card?.attachmentCount}
             </Button>
           )}
-        </Card.Actions>
+        </CardActions>
       )}
     </Card>
   );
