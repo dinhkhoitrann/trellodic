@@ -8,26 +8,30 @@ import { cardApi } from './services/card/card';
 import { checklistApi } from './services/card/checklist';
 import { boardApi } from './services/board/board';
 import { labelApi } from './services/board/label';
+import { boardFilterApi } from './services/board/filter';
 import { memberApi } from './services/card/member';
 import { datesApi } from './services/card/dates';
 import { attachmentApi } from './services/card/attachment';
-import { descriptionApi } from './services/card/description';
 import { commentApi } from './services/card/comment';
 import { workspaceApi } from './services/workspace/workspace';
 import { authApi } from './services/auth/auth';
 import { userApi } from './services/user/user';
+import { boardMemberApi } from './services/board/member';
+import { skillsApi } from './services/card/skills';
 
 export const store = configureStore({
   reducer: {
     [cardApi.reducerPath]: cardApi.reducer,
     [checklistApi.reducerPath]: checklistApi.reducer,
     [boardApi.reducerPath]: boardApi.reducer,
+    [boardFilterApi.reducerPath]: boardFilterApi.reducer,
+    [boardMemberApi.reducerPath]: boardMemberApi.reducer,
     [labelApi.reducerPath]: labelApi.reducer,
     [memberApi.reducerPath]: memberApi.reducer,
     [datesApi.reducerPath]: datesApi.reducer,
     [attachmentApi.reducerPath]: attachmentApi.reducer,
-    [descriptionApi.reducerPath]: descriptionApi.reducer,
     [commentApi.reducerPath]: commentApi.reducer,
+    [skillsApi.reducerPath]: skillsApi.reducer,
     [workspaceApi.reducerPath]: workspaceApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
@@ -41,12 +45,14 @@ export const store = configureStore({
       cardApi.middleware,
       checklistApi.middleware,
       boardApi.middleware,
+      boardFilterApi.middleware,
+      boardMemberApi.middleware,
       labelApi.middleware,
       memberApi.middleware,
       datesApi.middleware,
       attachmentApi.middleware,
-      descriptionApi.middleware,
       commentApi.middleware,
+      skillsApi.middleware,
       workspaceApi.middleware,
       authApi.middleware,
       userApi.middleware,

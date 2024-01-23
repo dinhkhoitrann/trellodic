@@ -14,13 +14,14 @@ const StyledButton = styled(Button)(({ theme }) => ({
   boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14)',
 }));
 
-type ActionButtonProps = ButtonProps & { child: ReactNode };
+type ActionButtonProps = ButtonProps & { renderPopover: () => ReactNode };
 export type ActionButtonRef = {
   handleClose: () => void;
 };
 
 export default forwardRef<ActionButtonRef, ActionButtonProps>(function ActionButton(props, ref) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const open = !!anchorEl;
 
   useImperativeHandle(ref, () => ({
     handleClose,
@@ -34,14 +35,10 @@ export default forwardRef<ActionButtonRef, ActionButtonProps>(function ActionBut
     setAnchorEl(null);
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
-
   return (
     <>
       <StyledButton {...props} onClick={handleOpen} />
       <Popover
-        id={id}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
@@ -50,7 +47,7 @@ export default forwardRef<ActionButtonRef, ActionButtonProps>(function ActionBut
           horizontal: 'left',
         }}
       >
-        {props.child}
+        {props.renderPopover()}
       </Popover>
     </>
   );

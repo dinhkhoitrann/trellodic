@@ -1,8 +1,9 @@
-/* eslint-disable indent */
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import openSocket from 'socket.io-client';
 import { RefetchOptions, useQuery } from '@tanstack/react-query';
 import { getNotifs } from '@/services/notification';
 import { Notification as NotificationType } from '@/types/noti.type';
+import { BE_API_ROOT } from '@/utils/constants';
 import NotificationView from './view';
 
 const NotificationViewModeContext = createContext({
@@ -17,11 +18,18 @@ function Notification() {
   const { data, refetch } = useQuery({
     queryKey: ['Notifs'],
     queryFn: () => getNotifs(),
-    staleTime: 3000,
+    staleTime: 60 * 1000,
     refetchOnMount: true,
     refetchInterval: 60 * 1000,
     notifyOnChangeProps: ['data'],
   });
+
+  useEffect(() => {
+    const socket = openSocket(BE_API_ROOT, { retries: 1, reconnectionAttempts: 1 });
+    socket.on('notifs', () => {
+      refetch();
+    });
+  }, [refetch]);
 
   return (
     <NotificationViewModeContext.Provider value={{ notifs: data || [], isUnreadMode, setIsUnreadMode, refetch }}>

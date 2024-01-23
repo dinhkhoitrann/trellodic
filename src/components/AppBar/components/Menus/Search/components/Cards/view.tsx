@@ -2,11 +2,11 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import LaptopIcon from '@mui/icons-material/Laptop';
-import { CardResult } from '@/types/search.type';
+import { Card } from '@/types/card.type';
 import ResultItem from '../ResultItem';
 
 type CardsViewProps = {
-  cards: CardResult[] | undefined;
+  cards: Card[] | undefined;
   onViewCard: (_boardId: string, _cardId: string) => void;
 };
 
@@ -23,8 +23,7 @@ function CardsView({ cards, onViewCard }: CardsViewProps) {
           <ResultItem
             key={card._id}
             startIcon={<LaptopIcon />}
-            primaryText={card.cardTitle}
-            secondaryText={card.boardTitle}
+            primaryText={card.title}
             onClick={() => onViewCard(card.boardId, card._id)}
           />
         ))}

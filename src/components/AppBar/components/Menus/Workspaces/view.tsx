@@ -5,12 +5,14 @@ import Menu from '@mui/material/Menu';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useAppSelector } from '@/redux/store';
 import { selectWorkspaceList } from '@/redux/slices/workspace';
+import { useCustomTheme } from '@/common/styles/theme';
 import WorkspaceSections from './components/Sections';
 
 function WorkspacesView() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const workspaceList = useAppSelector(selectWorkspaceList);
-  const open = Boolean(anchorEl);
+  const customTheme = useCustomTheme();
+  const open = !!anchorEl;
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -23,25 +25,13 @@ function WorkspacesView() {
   return (
     <Box>
       <Button
-        id="basic-button-workspaces"
-        aria-controls={open ? 'basic-menu-workspaces' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
         endIcon={<ExpandMoreIcon />}
-        sx={{ color: (theme) => (theme.palette.mode === 'dark' ? '#b6c2cf' : 'white') }}
+        sx={{ color: (theme) => (theme.palette.mode === 'dark' ? customTheme.colors.textInDarkMode : 'white') }}
         onClick={handleClick}
       >
         Workspaces
       </Button>
-      <Menu
-        id="basic-menu-workspaces"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button-workspaces',
-        }}
-      >
+      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <WorkspaceSections workspaces={workspaceList} />
       </Menu>
     </Box>

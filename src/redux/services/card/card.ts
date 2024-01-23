@@ -14,7 +14,7 @@ export const cardApi = createApi({
         return { data: card };
       },
       providesTags: (_result, _error, { cardId }) => [{ type: 'Card', id: cardId }],
-      keepUnusedDataFor: 5,
+      keepUnusedDataFor: 0,
     }),
     createCard: builder.mutation<
       { data: any },
@@ -35,14 +35,22 @@ export const cardApi = createApi({
     }),
     editCard: builder.mutation<
       { data: any },
-      { cardId: string; boardId?: string; title?: string; description?: string; cover?: string; onSuccess?: () => void }
+      {
+        cardId: string;
+        boardId?: string;
+        title?: string;
+        description?: string;
+        cover?: string;
+        isDone?: boolean;
+        onSuccess?: () => void;
+      }
     >({
       queryFn: async ({ boardId, onSuccess, ...rest }, { signal }) => ({ data: await editCard({ ...rest, signal }) }),
-      onQueryStarted: async ({ boardId, cover, onSuccess }, { queryFulfilled, dispatch }) => {
+      onQueryStarted: async ({ boardId, onSuccess }, { queryFulfilled, dispatch }) => {
         await queryFulfilled;
         onSuccess?.();
 
-        if (cover && boardId) {
+        if (boardId) {
           dispatch({
             type: 'boardApi/invalidateTags',
             payload: [{ type: 'Board', id: boardId }],

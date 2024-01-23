@@ -1,7 +1,6 @@
-import { mockSearchResult } from '@/apis/mock-data';
 import { externalRequest } from '../request';
 
-export const searchGlobal = async (data: { search: string }) => {
-  await externalRequest.post('https://jsonplaceholder.typicode.com/posts', data);
-  return mockSearchResult;
+export const searchGlobal = async ({ search }: { search: string }) => {
+  const { data } = await externalRequest.get(`/search?q=${search}`);
+  return data;
 };

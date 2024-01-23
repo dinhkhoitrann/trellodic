@@ -5,7 +5,7 @@ import { BoardGlobalProps, withBoard } from '@/hocs';
 import { isValidFile } from '@/utils/card';
 import AttachmentView from './view';
 
-function Attachment({ cardId, onRefreshCard }: BoardGlobalProps) {
+function Attachment({ cardId, onRefreshCard, onRefreshBoard }: BoardGlobalProps) {
   const [file, setFile] = useState<File | null>(null);
   const [uploadFiles, { isLoading }] = useUploadFilesMutation();
 
@@ -29,6 +29,7 @@ function Attachment({ cardId, onRefreshCard }: BoardGlobalProps) {
         onSuccess();
         handleClearFile();
         onRefreshCard();
+        onRefreshBoard();
       },
       onError: () => {
         toast.error('Something went wrong, please try again');

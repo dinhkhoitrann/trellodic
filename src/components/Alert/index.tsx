@@ -23,17 +23,10 @@ function Alert({ title, content, isOpen, okText, cancelText, onOk, onClose }: Al
   };
 
   return (
-    <Dialog
-      open={isOpen}
-      onClose={onClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+    <Dialog open={isOpen} onClose={onClose}>
+      <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description" sx={{ minWidth: '350px' }}>
-          {content}
-        </DialogContentText>
+        <DialogContentText sx={{ minWidth: '350px' }}>{content}</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" onClick={onClose}>

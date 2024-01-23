@@ -29,7 +29,7 @@ function AttachmentView({ file, loading, onUpload, onSave, onClearFile }: Attach
     <ActionButton
       ref={ref}
       startIcon={<AttachmentIcon />}
-      child={
+      renderPopover={() => (
         <PopoverWrapper title="Attach" onClose={handleClose}>
           <Typography sx={{ mt: 2 }}>Attach a file from your computer</Typography>
           <Typography variant="caption" sx={{ color: '#95a5a6' }}>
@@ -72,7 +72,7 @@ function AttachmentView({ file, loading, onUpload, onSave, onClearFile }: Attach
             <input type="file" accept=".pdf,.doc,.docx" hidden onChange={onUpload} />
           </Button>
         </PopoverWrapper>
-      }
+      )}
     >
       Attachment
     </ActionButton>

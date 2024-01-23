@@ -1,44 +1,42 @@
-import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import { forwardRef, useImperativeHandle, useState } from 'react';
 import { useColorScheme } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Modal from '@/components/Modal';
-import { User } from '@/types/user.type';
+import { useCustomTheme } from '@/common/styles/theme';
+import { MemberOption } from './type';
 
 type InvitationViewProps = {
-  members: Partial<User>[];
-  isFetching: boolean;
+  members: MemberOption[];
   isInviting: boolean;
-  onInvite: (_members: Partial<User>[]) => void;
+  onInvite: (_members: MemberOption[]) => void;
 };
 
 export type InvitationViewRef = {
   onClose: () => void;
+  clearSelections: () => void;
 };
 
 export default forwardRef<InvitationViewRef, InvitationViewProps>(function InvitationView(
-  { members, isFetching, isInviting, onInvite },
+  { members, isInviting, onInvite },
   ref,
 ) {
-  const [selectedMembers, setSelectedMembers] = useState(members);
+  const [selectedMembers, setSelectedMembers] = useState<MemberOption[]>([]);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const { mode } = useColorScheme();
-  const textColor = mode === 'dark' ? '#b6c2cf' : 'white';
-
-  useEffect(() => {
-    return () => {
-      setSelectedMembers([]);
-    };
-  }, []);
+  const customTheme = useCustomTheme();
+  const textColor = mode === 'dark' ? customTheme.colors.textInDarkMode : customTheme.colors.textInLightMode;
 
   useImperativeHandle(ref, () => ({
     onClose: handleModalVisibility,
+    clearSelections: () => {
+      setSelectedMembers([]);
+    },
   }));
 
   const handleModalVisibility = () => {
@@ -76,27 +74,13 @@ export default forwardRef<InvitationViewRef, InvitationViewProps>(function Invit
             fullWidth
             multiple
             onChange={(_, value) => setSelectedMembers(value)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Select members"
-                InputProps={{
-                  ...params.InputProps,
-                  endAdornment: (
-                    <>
-                      {isFetching && <CircularProgress color="inherit" size={20} />}
-                      {params.InputProps.endAdornment}
-                    </>
-                  ),
-                }}
-              />
-            )}
+            renderInput={(params) => <TextField {...params} label="Select members" />}
           />
           <Button
             variant="contained"
             fullWidth
             sx={{ mt: 2 }}
-            disabled={selectedMembers.length === 0 || isFetching || isInviting}
+            disabled={selectedMembers.length === 0 || isInviting}
             onClick={() => onInvite(selectedMembers)}
           >
             Invite

@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     messages: [
       {
         role: 'system',
-        content: 'When responding, welcome the user always as User and say welcome to the Trellodic app',
+        content: 'When responding, welcome the user always as User and say welcome to the Tasky app',
       },
       ...messages,
     ],

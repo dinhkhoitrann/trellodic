@@ -1,4 +1,3 @@
-'use client';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -15,17 +14,14 @@ import { selectUserProfile } from '@/redux/slices/user';
 type ProfilePhotoViewProps = {
   uploadedImage: string | ArrayBuffer | null | undefined;
   isLoading: boolean;
-  isSuccess: boolean;
   onSaveAvatar: () => void;
   onUpload: (_event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-function ProfilePhotoView({ uploadedImage, isLoading, isSuccess, onSaveAvatar, onUpload }: ProfilePhotoViewProps) {
+function ProfilePhotoView({ uploadedImage, isLoading, onSaveAvatar, onUpload }: ProfilePhotoViewProps) {
   const user = useAppSelector(selectUserProfile);
 
   const renderUploadButton = () => {
-    if (isSuccess) return <></>;
-
     if (uploadedImage)
       return (
         <Button variant="contained" sx={{ minWidth: '200px', mt: 2 }} disabled={isLoading} onClick={onSaveAvatar}>

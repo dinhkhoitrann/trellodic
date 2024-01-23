@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { addMembers } from '@/services/card/member';
+import { addMembers, removeMember } from '@/services/card/member';
 
 export const memberApi = createApi({
   reducerPath: 'memberApi',
@@ -11,12 +11,25 @@ export const memberApi = createApi({
       { data: any },
       {
         cardId: string;
-        boardId: string;
-        memberIds: string[];
+        userIds: string[];
         onSuccess?: () => void;
       }
     >({
-      queryFn: async (args, { signal }) => ({ data: await addMembers({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await addMembers({ ...rest, signal }) }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
+      },
+    }),
+    removeMemberFromCard: builder.mutation<
+      { data: any },
+      {
+        cardId: string;
+        memberId: string;
+        onSuccess?: () => void;
+      }
+    >({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await removeMember({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
@@ -25,4 +38,4 @@ export const memberApi = createApi({
   }),
 });
 
-export const { useAddMembersToCardMutation } = memberApi;
+export const { useAddMembersToCardMutation, useRemoveMemberFromCardMutation } = memberApi;

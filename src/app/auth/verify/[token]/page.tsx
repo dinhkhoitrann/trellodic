@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const metadata: Metadata = {
-  title: 'Verify email | Trellodic',
+  title: 'Verify email | Tasky',
   description: 'Verify your email to sign in to our application',
 };
 

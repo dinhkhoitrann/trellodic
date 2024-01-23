@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { useCustomTheme } from '@/common/styles/theme';
 
 type WorkspaceItemViewProps = {
   name: string;
@@ -7,6 +8,7 @@ type WorkspaceItemViewProps = {
 };
 
 function WorkspaceItemView({ name, onGetWorkspace }: WorkspaceItemViewProps) {
+  const customTheme = useCustomTheme();
   return (
     <Button
       fullWidth
@@ -17,7 +19,7 @@ function WorkspaceItemView({ name, onGetWorkspace }: WorkspaceItemViewProps) {
             width: '30px',
             height: '30px',
             lineHeight: '30px',
-            bgcolor: '#4bce97',
+            bgcolor: customTheme.colors.workspaceAvatar,
             borderRadius: '4px',
             color: 'black',
             textAlign: 'center',
@@ -31,7 +33,7 @@ function WorkspaceItemView({ name, onGetWorkspace }: WorkspaceItemViewProps) {
       }
       onClick={onGetWorkspace}
     >
-      {name}&apos;s workspace
+      {name}
     </Button>
   );
 }

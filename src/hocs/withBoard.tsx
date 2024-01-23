@@ -45,7 +45,7 @@ export default function withBoard<T>(Component: ComponentType<T>) {
         {...(props as T)}
         boardId={boardId.toString()}
         board={board}
-        cardId={cardId!}
+        cardId={cardId}
         card={card}
         onRefreshCard={handleRefreshCard}
         onRefreshBoard={handleRefreshBoard}

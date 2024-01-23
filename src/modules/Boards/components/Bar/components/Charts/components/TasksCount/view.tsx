@@ -19,6 +19,7 @@ function TasksCountView({ dataset, isLoading, isError }: TasksCountViewProps) {
   return (
     <BarChart
       dataset={dataset}
+      colors={['#2980b9', '#e74c3c', '#2ecc71']}
       yAxis={[
         {
           scaleType: 'band',

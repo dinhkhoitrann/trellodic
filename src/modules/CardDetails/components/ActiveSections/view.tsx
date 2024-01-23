@@ -7,9 +7,10 @@ import { withBoard, BoardGlobalProps } from '@/hocs';
 import Members from '../Members';
 import Labels from '../Labels';
 import Dates from '../Dates';
+import Skills from '../Skills';
 import EditCardTitle from './components/EditCardTitle';
 
-function ActiveSectionsView({ card }: BoardGlobalProps) {
+function ActiveSectionsView({ card, boardId }: BoardGlobalProps) {
   const [editMode, setEditMode] = useState(false);
 
   const handleEditMode = () => {
@@ -21,7 +22,7 @@ function ActiveSectionsView({ card }: BoardGlobalProps) {
       <Stack direction="row" alignItems="center" spacing={1}>
         <LaptopIcon />
         {editMode ? (
-          <EditCardTitle currentTitle={card.title || ''} cardId={card._id} onClose={handleEditMode} />
+          <EditCardTitle currentTitle={card.title || ''} cardId={card._id} boardId={boardId} onClose={handleEditMode} />
         ) : (
           <Typography
             variant="h6"
@@ -34,7 +35,7 @@ function ActiveSectionsView({ card }: BoardGlobalProps) {
         )}
       </Stack>
       <Grid container spacing={4} sx={{ mt: 1 }}>
-        {!!card.memberIds?.length && (
+        {!!card.members?.length && (
           <Grid item>
             <Members />
           </Grid>
@@ -47,6 +48,11 @@ function ActiveSectionsView({ card }: BoardGlobalProps) {
         {card.endDate && (
           <Grid item>
             <Dates />
+          </Grid>
+        )}
+        {!!card.skills?.length && (
+          <Grid item>
+            <Skills />
           </Grid>
         )}
       </Grid>

@@ -4,6 +4,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { styled } from '@mui/material/styles';
 import { useLazyGetWorkspaceQuery } from '@/redux/services/workspace/workspace';
+import { useCustomTheme } from '@/common/styles/theme';
 import { Workspace } from '@/types/workspace.type';
 
 const StyledMenuItem = styled(MenuItem)(() => ({
@@ -21,6 +22,7 @@ function WorkspaceList({ workspaces }: WorkspaceListProps) {
     refetchOnReconnect: true,
   });
   const router = useRouter();
+  const customTheme = useCustomTheme();
 
   const handleSelectWorkspace = (workspaceId: string) => {
     router.push('/');
@@ -36,7 +38,7 @@ function WorkspaceList({ workspaces }: WorkspaceListProps) {
               width: '30px',
               height: '30px',
               lineHeight: '30px',
-              bgcolor: '#4bce97',
+              bgcolor: customTheme.colors.workspaceAvatar,
               borderRadius: '4px',
               color: 'black',
               textAlign: 'center',

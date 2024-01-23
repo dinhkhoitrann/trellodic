@@ -18,7 +18,7 @@ type ProfilesViewProps = {
 
 function ProfilesView({ onLogout }: ProfilesViewProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const open = !!anchorEl;
   const user = useAppSelector(selectUserProfile);
   const router = useRouter();
 
@@ -33,26 +33,11 @@ function ProfilesView({ onLogout }: ProfilesViewProps) {
   return (
     <Box>
       <Tooltip title="Account settings">
-        <IconButton
-          onClick={handleClick}
-          size="small"
-          sx={{ padding: 0 }}
-          aria-controls={open ? 'basic-menu-profiles' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-        >
+        <IconButton onClick={handleClick} size="small" sx={{ padding: 0 }}>
           <Avatar sx={{ width: '36px', height: '36px' }}>{user?.name?.[0].toUpperCase() || ''}</Avatar>
         </IconButton>
       </Tooltip>
-      <Menu
-        id="basic-menu-profiles"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'user-profiles',
-        }}
-      >
+      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <MenuItem onClick={() => router.push('/profile')}>
           <Avatar sx={{ width: 28, height: 28, mr: 2 }} /> Profile
         </MenuItem>

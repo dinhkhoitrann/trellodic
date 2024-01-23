@@ -1,5 +1,6 @@
 import { experimental_extendTheme as extendTheme } from '@mui/material/styles';
 import { CssVarsThemeOptions } from '@mui/material/styles';
+import { useTheme } from '@mui/styles';
 
 export type CustomThemeOptions = CssVarsThemeOptions & {
   customProps: {
@@ -9,6 +10,7 @@ export type CustomThemeOptions = CssVarsThemeOptions & {
     columnHeaderHeight: string;
     columnFooterHeight: string;
   };
+  colors: { [key: string]: string };
 };
 
 const APP_BAR_HEIGHT = '58px';
@@ -45,6 +47,13 @@ const theme = extendTheme({
         },
       },
     },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          color: 'inherit',
+        },
+      },
+    },
     MuiInputLabel: {
       styleOverrides: {
         root: {
@@ -71,6 +80,16 @@ const theme = extendTheme({
         },
       },
     },
+    MuiFormLabel: {
+      styleOverrides: {
+        asterisk: {
+          color: '#db3131',
+          '&$error': {
+            color: '#db3131',
+          },
+        },
+      },
+    },
   },
   customProps: {
     appBarHeight: APP_BAR_HEIGHT,
@@ -79,6 +98,19 @@ const theme = extendTheme({
     columnHeaderHeight: '50px',
     columnFooterHeight: '56px',
   },
+  colors: {
+    bgDark: '#24272b',
+    bgBlueDark: '#1565c0',
+    bgBlueLight: '#1976d2',
+    bgCardDark: '#282e33',
+    workspaceAvatar: '#4bce97',
+    textInLightMode: 'white',
+    textInDarkMode: '#b6c2cf',
+  },
 } as CustomThemeOptions);
+
+export const useCustomTheme = () => {
+  return useTheme<CustomThemeOptions>();
+};
 
 export default theme;

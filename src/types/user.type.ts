@@ -9,6 +9,7 @@ export interface User {
   gender?: string;
   isVerified: boolean;
   type: string;
+  skills: string[];
   createdAt?: string;
   updatedAt?: string;
 }

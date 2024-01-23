@@ -1,48 +1,39 @@
 import { useRef } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useAppSelector } from '@/redux/store';
 import { selectWorkspaceDetails } from '@/redux/slices/workspace';
-import { getWorkspaceMembers } from '@/services/workspace';
-import { inviteMembers } from '@/services/board';
-import { User } from '@/types/user.type';
+import { BoardGlobalProps, withBoard } from '@/hocs';
 import InvitationView, { InvitationViewRef } from './view';
+import { getMemberOptions } from './service';
+import { MemberOption } from './type';
+import { useAddMembersToBoardMutation, useGetMembersQuery } from '@/redux/services/board/member';
+import { User } from '@/types/user.type';
 
-function Invitation() {
+function Invitation({ boardId, onRefreshBoard }: BoardGlobalProps) {
   const workspace = useAppSelector(selectWorkspaceDetails);
-  const { data: response, isLoading } = useQuery({
-    queryKey: ['workspaces', workspace._id],
-    queryFn: () => getWorkspaceMembers({ workspaceId: workspace._id }),
-    staleTime: 3000,
-  });
 
-  const { mutate: invite, isPending: isInviting } = useMutation({
-    mutationFn: inviteMembers,
-    onSuccess: () => {
-      toast.success('Invited members successfully');
-      viewRef.current?.onClose();
-    },
-    onError: () => {
-      toast.error('Failed to invite members');
-    },
-  });
+  const { data: members } = useGetMembersQuery({ boardId });
+
+  const [invite, { isLoading: isInviting }] = useAddMembersToBoardMutation();
 
   const viewRef = useRef<InvitationViewRef>(null);
+  const memberOptions = getMemberOptions(workspace.members as User[], members);
 
-  const handleInviteMembers = (members: Partial<User>[]) => {
-    const memberIds = members.map((member) => member._id || '');
-    invite({ memberIds });
+  const handleInviteMembers = (members: MemberOption[]) => {
+    const userIds = members.map((member) => member._id);
+    const onSuccess = () => {
+      toast.success('Invited members successfully');
+      viewRef.current?.onClose();
+      viewRef.current?.clearSelections();
+      onRefreshBoard();
+    };
+
+    invite({ userIds, boardId, onSuccess });
   };
 
   return (
-    <InvitationView
-      ref={viewRef}
-      isFetching={isLoading}
-      isInviting={isInviting}
-      members={response?.data.members || []}
-      onInvite={handleInviteMembers}
-    />
+    <InvitationView ref={viewRef} isInviting={isInviting} members={memberOptions} onInvite={handleInviteMembers} />
   );
 }
 
-export default Invitation;
+export default withBoard(Invitation);

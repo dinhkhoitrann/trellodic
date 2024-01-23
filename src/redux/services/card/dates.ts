@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { editDueDates, markCardIsDone } from '@/services/card/dates';
+import { editDueDates, removeDates } from '@/services/card/dates';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const datesApi = createApi({
@@ -10,24 +10,26 @@ export const datesApi = createApi({
     editDueDate: builder.mutation<
       { data: any },
       {
-        startDate: Date;
-        endDate: Date;
+        startDate: string;
+        endDate: string;
         cardId: string;
-        boardId: string;
         onSuccess?: () => void;
       }
     >({
-      queryFn: async (args, { signal }) => ({ data: await editDueDates({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await editDueDates({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
       },
     }),
-    markCardIsDone: builder.mutation<
+    deleteDates: builder.mutation<
       { data: any },
-      { cardId: string; boardId: string; isDone: boolean; onSuccess?: () => void }
+      {
+        cardId: string;
+        onSuccess?: () => void;
+      }
     >({
-      queryFn: async (args, { signal }) => ({ data: await markCardIsDone({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await removeDates({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
@@ -36,4 +38,4 @@ export const datesApi = createApi({
   }),
 });
 
-export const { useEditDueDateMutation, useMarkCardIsDoneMutation } = datesApi;
+export const { useEditDueDateMutation, useDeleteDatesMutation } = datesApi;

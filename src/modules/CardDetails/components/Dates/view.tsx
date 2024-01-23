@@ -9,10 +9,11 @@ import { withBoard, BoardGlobalProps } from '@/hocs';
 import { isExpired } from '@/utils/card';
 
 type DatesViewProps = BoardGlobalProps & {
+  isLoading: boolean;
   onCheckDone: (_isDone: boolean) => void;
 };
 
-function DatesView({ card, onCheckDone }: DatesViewProps) {
+function DatesView({ card, isLoading, onCheckDone }: DatesViewProps) {
   const isDone = card.isDone;
 
   const handleCheckDone = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +39,7 @@ function DatesView({ card, onCheckDone }: DatesViewProps) {
     <Box>
       <Typography sx={{ mb: 1, fontWeight: 500 }}>Due date</Typography>
       <Stack direction="row" alignItems="center" spacing={1}>
-        <Checkbox defaultChecked={isDone} onChange={handleCheckDone} />
+        <Checkbox defaultChecked={isDone} disabled={isLoading} onChange={handleCheckDone} />
         <Card
           sx={{
             display: 'flex',

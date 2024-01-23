@@ -5,9 +5,8 @@ import {
   createChecklistItem,
   deleteChecklist,
   deleteChecklistItem,
-  editChecklistTitle,
-  editTitleChecklistItem,
-  markChecklistItemIsDone,
+  editChecklistName,
+  editChecklistItem,
 } from '@/services/card/checklist';
 
 export const checklistApi = createApi({
@@ -22,31 +21,18 @@ export const checklistApi = createApi({
         onSuccess && onSuccess();
       },
     }),
-    deleteChecklist: builder.mutation<
-      { data: any },
-      { checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
-    >({
-      queryFn: async (args, { signal }) => ({ data: await deleteChecklist({ ...args, signal }) }),
+    deleteChecklist: builder.mutation<{ data: any }, { checklistId: string; cardId: string; onSuccess?: () => void }>({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await deleteChecklist({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
       },
     }),
-    updateChecklistTitle: builder.mutation<
+    updateChecklistName: builder.mutation<
       { data: any },
-      { checklistId: string; updatedTitle: string; cardId: string; boardId: string; onSuccess?: () => void }
+      { checklistId: string; name: string; cardId: string; onSuccess?: () => void }
     >({
-      queryFn: async (args, { signal }) => ({ data: await editChecklistTitle({ ...args, signal }) }),
-      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
-        await queryFulfilled;
-        onSuccess && onSuccess();
-      },
-    }),
-    markChecklistItemDone: builder.mutation<
-      { data: any },
-      { itemId: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
-    >({
-      queryFn: async (args, { signal }) => ({ data: await markChecklistItemIsDone({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await editChecklistName({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
@@ -54,19 +40,28 @@ export const checklistApi = createApi({
     }),
     deleteChecklistItem: builder.mutation<
       { data: any },
-      { itemId: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
+      { itemId: string; checklistId: string; cardId: string; onSuccess?: () => void }
     >({
-      queryFn: async (args, { signal }) => ({ data: await deleteChecklistItem({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await deleteChecklistItem({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
       },
     }),
-    updateTitleChecklistItem: builder.mutation<
+    updateChecklistItem: builder.mutation<
       { data: any },
-      { itemId: string; title: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
+      {
+        itemId: string;
+        title?: string;
+        isDone?: boolean;
+        checklistId: string;
+        cardId: string;
+        onSuccess?: () => void;
+      }
     >({
-      queryFn: async (args, { signal }) => ({ data: await editTitleChecklistItem({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({
+        data: await editChecklistItem({ ...rest, signal }),
+      }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
@@ -74,9 +69,9 @@ export const checklistApi = createApi({
     }),
     addChecklistItem: builder.mutation<
       { data: any },
-      { title: string; checklistId: string; cardId: string; boardId: string; onSuccess?: () => void }
+      { title: string; checklistId: string; cardId: string; onSuccess?: () => void }
     >({
-      queryFn: async (args, { signal }) => ({ data: await createChecklistItem({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await createChecklistItem({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
@@ -88,9 +83,8 @@ export const checklistApi = createApi({
 export const {
   useCreateChecklistMutation,
   useDeleteChecklistMutation,
-  useUpdateChecklistTitleMutation,
-  useMarkChecklistItemDoneMutation,
+  useUpdateChecklistNameMutation,
   useDeleteChecklistItemMutation,
-  useUpdateTitleChecklistItemMutation,
+  useUpdateChecklistItemMutation,
   useAddChecklistItemMutation,
 } = checklistApi;

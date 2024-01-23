@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import ForgotPasswordForm from '@/modules/Auth/components/ForgotPassword';
 
 export const metadata: Metadata = {
-  title: 'Forgot Password Page | Trellodic',
+  title: 'Forgot Password Page | Tasky',
   description: 'We are going to help to reset your password',
 };
 

@@ -1,9 +1,9 @@
 import { useRouter } from 'next/navigation';
-import { CardResult } from '@/types/search.type';
+import { Card } from '@/types/card.type';
 import CardsView from './view';
 
 type CardsProps = {
-  cards: CardResult[] | undefined;
+  cards: Card[] | undefined;
   onCloseResult: () => void;
 };
 

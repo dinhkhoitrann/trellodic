@@ -1,19 +1,26 @@
 'use client';
-import { ReactNode } from 'react';
-import { mockData } from '@/apis/mock-data';
+import { ReactNode, useEffect } from 'react';
 import BoardBar from '@/modules/Boards/components/Bar';
+import { useLazyGetWorkspaceQuery } from '@/redux/services/workspace/workspace';
+import { BoardGlobalProps, withBoard } from '@/hocs';
 
-type BoardDetailsLayoutProps = {
+type BoardDetailsLayoutProps = BoardGlobalProps & {
   children: ReactNode;
 };
 
-function BoardDetailsLayout({ children }: BoardDetailsLayoutProps) {
+function BoardDetailsLayout({ board, children }: BoardDetailsLayoutProps) {
+  const [getWorkspace] = useLazyGetWorkspaceQuery();
+
+  useEffect(() => {
+    getWorkspace({ workspaceId: board.workspaceId });
+  }, [board.workspaceId, getWorkspace]);
+
   return (
     <>
-      <BoardBar board={mockData.board} />
+      <BoardBar />
       {children}
     </>
   );
 }
 
-export default BoardDetailsLayout;
+export default withBoard(BoardDetailsLayout);

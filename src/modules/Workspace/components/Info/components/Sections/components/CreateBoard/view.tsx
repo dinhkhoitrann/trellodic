@@ -8,6 +8,7 @@ import CreateForm from './components/Form';
 
 function CreateBoardView() {
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+  const open = !!anchorEl;
 
   const handleOpen = (event: MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
@@ -16,9 +17,6 @@ function CreateBoardView() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
 
   return (
     <>
@@ -29,7 +27,6 @@ function CreateBoardView() {
         <Typography sx={{ textAlign: 'center', lineHeight: '96px' }}>Create new board</Typography>
       </BoardItem>
       <Popover
-        id={id}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}

@@ -1,15 +1,18 @@
 import { externalRequest } from '../../request';
 
-export const editDueDates = (data: {
-  startDate: Date;
-  endDate: Date;
+export const editDueDates = ({
+  cardId,
+  signal,
+  ...rest
+}: {
+  startDate: string;
+  endDate: string;
   cardId: string;
-  boardId: string;
   signal: AbortSignal;
 }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data);
+  return externalRequest.patch(`/cards/${cardId}/date`, rest, { signal });
 };
 
-export const markCardIsDone = (data: { cardId: string; boardId: string; isDone: boolean; signal: AbortSignal }) => {
-  return externalRequest.post('https://jsonplaceholder.typicode.com/posts', data);
+export const removeDates = ({ cardId, signal }: { cardId: string; signal: AbortSignal }) => {
+  return externalRequest.delete(`/cards/${cardId}/date`, { signal });
 };

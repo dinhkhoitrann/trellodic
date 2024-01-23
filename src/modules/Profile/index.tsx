@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import ProfilePhoto from './components/Photo';
 import ProfileDetails from './components/Detail';
 import Account from './components/Account';
+import Skills from './components/Skills';
 
 function Profile() {
   return (
@@ -16,6 +17,7 @@ function Profile() {
         <ProfilePhoto />
         <ProfileDetails />
         <Account />
+        <Skills />
       </Container>
     </Box>
   );

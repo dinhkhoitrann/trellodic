@@ -6,14 +6,14 @@ type CardDetailsProps = {
 };
 
 function CardDetails({ cardId }: CardDetailsProps) {
-  const { data, error, isFetching, isError } = useGetCardDetailsQuery(
+  const { data, isError } = useGetCardDetailsQuery(
     { cardId },
     { pollingInterval: 60000 * 5, refetchOnFocus: true, refetchOnReconnect: true },
   );
 
   if (!data) return <></>;
 
-  return <CardDetailsView card={data} isPending={isFetching} isError={isError} error={error} />;
+  return <CardDetailsView card={data} isError={isError} />;
 }
 
 export default CardDetails;

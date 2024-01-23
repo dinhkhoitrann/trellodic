@@ -1,4 +1,4 @@
-import { useEditWorkspaceNameMutation } from '@/redux/services/workspace/workspace';
+import { useEditWorkspaceMutation } from '@/redux/services/workspace/workspace';
 import WorkspaceHeaderView from './view';
 
 type WorkspaceHeaderProps = {
@@ -7,7 +7,7 @@ type WorkspaceHeaderProps = {
 };
 
 function WorkspaceHeader({ workspaceId, workspaceName }: WorkspaceHeaderProps) {
-  const [editWorkspaceName] = useEditWorkspaceNameMutation();
+  const [editWorkspaceName] = useEditWorkspaceMutation();
 
   const handleEditWorkspaceName = (editedName: string) => {
     editWorkspaceName({ workspaceId, name: editedName });

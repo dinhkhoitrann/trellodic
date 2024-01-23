@@ -2,11 +2,12 @@ import SectionsView from './view';
 import { getBoardsForSections } from './service';
 import { useAppSelector } from '@/redux/store';
 import { selectWorkspaceDetails } from '@/redux/slices/workspace';
+import { selectUserProfile } from '@/redux/slices/user';
 
 function Sections() {
-  // TODO: get user id from somewhere and replace '1' to that id
   const workspace = useAppSelector(selectWorkspaceDetails);
-  const { ownerBoards, otherBoards } = getBoardsForSections('1', workspace);
+  const user = useAppSelector(selectUserProfile);
+  const { ownerBoards, otherBoards } = getBoardsForSections(workspace, user?._id);
 
   return <SectionsView ownerBoards={ownerBoards} otherBoards={otherBoards} workspace={workspace} />;
 }

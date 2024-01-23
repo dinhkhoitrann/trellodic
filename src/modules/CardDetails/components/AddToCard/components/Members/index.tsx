@@ -1,22 +1,23 @@
-import { User } from '@/types/user.type';
-import MembersView from './view';
+import { uniq } from 'lodash';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 import { useAddMembersToCardMutation } from '@/redux/services/card/member';
+import MembersView from './view';
 
-function Members({ cardId, boardId, onRefreshCard }: BoardGlobalProps) {
-  const [addMembers, { isLoading }] = useAddMembersToCardMutation();
+function Members({ cardId, onRefreshCard, onRefreshBoard }: BoardGlobalProps) {
+  const [addMembers, { isLoading: isSaving }] = useAddMembersToCardMutation();
 
-  const handleAddMember = (members: User[]) => {
-    const memberIds = members.map((mem) => mem._id);
+  const handleAddMember = (userIds: string[]) => {
     addMembers({
-      memberIds,
+      userIds: uniq(userIds),
       cardId,
-      boardId,
-      onSuccess: onRefreshCard,
+      onSuccess: () => {
+        onRefreshCard();
+        onRefreshBoard();
+      },
     });
   };
 
-  return <MembersView isSaving={isLoading} onAddMember={handleAddMember} />;
+  return <MembersView isSaving={isSaving} onAddMember={handleAddMember} />;
 }
 
 export default withBoard(Members);

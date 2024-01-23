@@ -18,3 +18,7 @@ export const editProfile = ({
 export const changePassword = (data: { currentPassword: string; newPassword: string; confirmNewPassword: string }) => {
   return externalRequest.patch('/users/me/change-password', data);
 };
+
+export const updateSkills = ({ skills, signal }: { skills: string[]; signal: AbortSignal }) => {
+  return externalRequest.patch('/users/me/skills', { skills }, { signal });
+};

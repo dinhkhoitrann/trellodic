@@ -62,55 +62,63 @@ function CommentItemView({ comment, isLoading, onEdit, onDelete }: CommentItemVi
     },
   });
 
+  const renderCommentInEditMode = () => {
+    return (
+      <>
+        <Box sx={{ my: 1 }}>
+          <Editor data={enteredComment} onDataChange={handleCommentChange} />
+        </Box>
+        <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 2 }}>
+          <Button
+            variant="contained"
+            disabled={enteredComment === '' || isLoading}
+            sx={{ mt: 2 }}
+            onClick={() => onEdit(comment._id, enteredComment, () => setEditMode(false))}
+          >
+            {isLoading ? 'Saving' : 'Save'}
+          </Button>
+          <Button onClick={handleCloseEditor}>Cancel</Button>
+        </Stack>
+      </>
+    );
+  };
+
+  const renderCommentInViewMode = () => {
+    return (
+      <>
+        <Card
+          sx={{
+            my: 1,
+            '.MuiCardContent-root:last-child': {
+              pb: 2,
+            },
+          }}
+        >
+          <CardContent>
+            <Box ref={editorDataRef} />
+          </CardContent>
+        </Card>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <Button onClick={() => setEditMode(true)}>Edit</Button>
+          <Button color="error" onClick={handleOpenDeleteAlert}>
+            Delete
+          </Button>
+        </Stack>
+      </>
+    );
+  };
+
   return (
     <>
       <Box sx={{ mt: 2 }}>
         <Stack direction="row" alignItems="flex-start" spacing={1}>
-          <Avatar src={comment.avatarUrl} alt={comment.username} />
+          <Avatar src={comment.author.avatar} alt={comment.author.name} />
           <Box sx={{ flex: 1 }}>
             <Stack direction="row" alignItems="center" spacing={1}>
-              <Typography sx={{ fontWeight: 'bold' }}>{comment.username}</Typography>
+              <Typography sx={{ fontWeight: 'bold' }}>{comment.author.name}</Typography>
               <Typography variant="caption">{dayjs(comment.createdAt).format('DD-MM-YYYY HH:mm')}</Typography>
             </Stack>
-            {editMode ? (
-              <>
-                <Box sx={{ my: 1 }}>
-                  <Editor data={enteredComment} onDataChange={handleCommentChange} />
-                </Box>
-                <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 2 }}>
-                  <Button
-                    variant="contained"
-                    disabled={enteredComment === '' || isLoading}
-                    sx={{ mt: 2 }}
-                    onClick={() => onEdit(comment._id, enteredComment, () => setEditMode(false))}
-                  >
-                    {isLoading ? 'Saving' : 'Save'}
-                  </Button>
-                  <Button onClick={handleCloseEditor}>Cancel</Button>
-                </Stack>
-              </>
-            ) : (
-              <>
-                <Card
-                  sx={{
-                    my: 1,
-                    '.MuiCardContent-root:last-child': {
-                      pb: 2,
-                    },
-                  }}
-                >
-                  <CardContent>
-                    <Box ref={editorDataRef} />
-                  </CardContent>
-                </Card>
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <Button onClick={() => setEditMode(true)}>Edit</Button>
-                  <Button color="error" onClick={handleOpenDeleteAlert}>
-                    Delete
-                  </Button>
-                </Stack>
-              </>
-            )}
+            {editMode ? renderCommentInEditMode() : renderCommentInViewMode()}
           </Box>
         </Stack>
       </Box>

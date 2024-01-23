@@ -7,10 +7,12 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import { Theme } from '@/common/enums';
+import { useCustomTheme } from '@/common/styles/theme';
 
 function ModeSelect() {
   const { mode, setMode } = useColorScheme();
-  const textColor = mode === 'dark' ? '#b6c2cf' : 'white';
+  const customTheme = useCustomTheme();
+  const textColor = mode === 'dark' ? customTheme.colors.textInDarkMode : 'white';
 
   const handleChange = (event: SelectChangeEvent) => {
     const selectedMode = event.target.value as Theme;

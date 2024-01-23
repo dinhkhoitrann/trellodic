@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { useTheme } from '@mui/styles';
 import Link from 'next/link';
 import Box from '@mui/material/Box';
 import AppsIcon from '@mui/icons-material/Apps';
@@ -8,9 +6,9 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import { useColorScheme } from '@mui/material';
-import CreateWorkspaceModal from '@/modules/Workspace/components/Sidebar/components/CreateWorkspace';
+import { useCreateWorkspace } from '@/hooks';
 import TrelloIcon from '@/common/assets/icons/trello.svg';
-import { CustomThemeOptions } from '@/common/styles/theme';
+import { useCustomTheme } from '@/common/styles/theme';
 import Workspaces from './components/Menus/Workspaces';
 import ModeSelect from './components/Menus/ModeSelect';
 import Profiles from './components/Menus/Profiles';
@@ -18,28 +16,25 @@ import Notification from './components/Menus/Notification';
 import Search from './components/Menus/Search';
 
 function AppBarView() {
-  const [showCreateModal, setShowCreateModal] = useState(false);
-  const theme = useTheme<CustomThemeOptions>();
+  const { renderCreateWorkspaceModal, handleShowCreateModal } = useCreateWorkspace();
+  const customTheme = useCustomTheme();
   const { mode } = useColorScheme();
-  const textColor = mode === 'dark' ? '#b6c2cf' : 'white';
-
-  const handleShowCreateModal = () => {
-    setShowCreateModal((prevState) => !prevState);
-  };
+  const textColor = mode === 'dark' ? customTheme.colorSchemes?.dark?.palette?.text?.primary : 'white';
 
   return (
     <>
       <Box
         sx={{
           width: '100%',
-          height: theme.customProps.appBarHeight,
+          height: customTheme.customProps.appBarHeight,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           paddingX: 2,
           gap: 2,
           overflowX: 'auto',
-          bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#24272b' : '#1565c0'),
+          bgcolor: (theme) =>
+            theme.palette.mode === 'dark' ? customTheme.colors.bgDark : customTheme.colors.bgBlueDark,
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -52,7 +47,7 @@ function AppBarView() {
                 sx={{ fontSize: '1.2rem', fontWeight: 'bold', color: textColor }}
                 color="primary"
               >
-                Trellodic
+                Tasky
               </Typography>
             </Box>
           </Link>
@@ -70,7 +65,7 @@ function AppBarView() {
           <Profiles />
         </Box>
       </Box>
-      <CreateWorkspaceModal isShowCreateModal={showCreateModal} onClose={handleShowCreateModal} />
+      {renderCreateWorkspaceModal()}
     </>
   );
 }

@@ -3,21 +3,19 @@ import Button from '@mui/material/Button';
 import AddCardIcon from '@mui/icons-material/AddCard';
 import Tooltip from '@mui/material/Tooltip';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
-import { useTheme } from '@mui/styles';
-import { CustomThemeOptions } from '@/common/styles/theme';
+import { useCustomTheme } from '@/common/styles/theme';
 
 type OutsideAddCardViewProps = {
   onShowTextField: () => void;
 };
 
 function OutsideAddCardView({ onShowTextField }: OutsideAddCardViewProps) {
-  const theme = useTheme<CustomThemeOptions>();
+  const theme = useCustomTheme();
 
   return (
     <Box
       sx={{
         height: theme.customProps.columnFooterHeight,
-        p: 1,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',

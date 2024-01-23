@@ -7,11 +7,8 @@ export const commentApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ['Comment'],
   endpoints: (builder) => ({
-    createComment: builder.mutation<
-      { data: any },
-      { content: string; boardId: string; cardId: string; onSuccess?: () => void }
-    >({
-      queryFn: async (args, { signal }) => ({ data: await addComment({ ...args, signal }) }),
+    createComment: builder.mutation<{ data: any }, { content: string; cardId: string; onSuccess?: () => void }>({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await addComment({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
@@ -19,19 +16,16 @@ export const commentApi = createApi({
     }),
     editComment: builder.mutation<
       { data: any },
-      { content: string; commentId: string; boardId: string; cardId: string; onSuccess?: () => void }
+      { content: string; commentId: string; cardId: string; onSuccess?: () => void }
     >({
-      queryFn: async (args, { signal }) => ({ data: await editComment({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await editComment({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
       },
     }),
-    deleteComment: builder.mutation<
-      { data: any },
-      { commentId: string; boardId: string; cardId: string; onSuccess?: () => void }
-    >({
-      queryFn: async (args, { signal }) => ({ data: await deleteComment({ ...args, signal }) }),
+    deleteComment: builder.mutation<{ data: any }, { commentId: string; cardId: string; onSuccess?: () => void }>({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await deleteComment({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();

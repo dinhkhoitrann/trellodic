@@ -1,5 +1,5 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import { Autocomplete, SxProps, TextField, Theme, Typography } from '@mui/material';
+import { Autocomplete, SxProps, TextField, Theme, InputLabel, Box } from '@mui/material';
 
 type RHFAutocompleteProps<T> = {
   id: string;
@@ -14,7 +14,14 @@ type RHFAutocompleteProps<T> = {
   sx?: SxProps<Theme> | undefined;
 };
 
-export default function RHFAutocomplete<T extends {}>({ name, isRequired, ...other }: RHFAutocompleteProps<T>) {
+export default function RHFAutocomplete<T extends {}>({
+  id,
+  name,
+  isRequired,
+  label,
+  onChangeValue,
+  ...other
+}: RHFAutocompleteProps<T>) {
   const { control } = useFormContext();
 
   return (
@@ -23,36 +30,27 @@ export default function RHFAutocomplete<T extends {}>({ name, isRequired, ...oth
       control={control}
       render={({ field, fieldState: { error } }) => {
         return (
-          <Autocomplete
-            {...field}
-            value={field.value || ''}
-            fullWidth
-            onChange={(_, value) => {
-              field.onChange(value);
-              if (other.onChangeValue) other.onChangeValue();
-            }}
-            placeholder={other.label}
-            renderInput={(params) => (
-              <>
-                <Typography component="label" htmlFor={other.id} sx={{ display: 'inline-block', mb: '4px' }}>
-                  {other.label}{' '}
-                  {isRequired && (
-                    <Typography component="span" sx={{ color: 'red' }}>
-                      *
-                    </Typography>
-                  )}
-                </Typography>
-                <TextField
-                  {...params}
-                  // label={other.label}
-                  value={field.value}
-                  error={!!error}
-                  helperText={error?.message}
-                />
-              </>
-            )}
-            {...other}
-          />
+          <Box sx={{ mb: 2 }}>
+            <Autocomplete
+              {...field}
+              value={field.value}
+              fullWidth
+              onChange={(_, value) => {
+                field.onChange(value);
+                if (onChangeValue) onChangeValue();
+              }}
+              placeholder={label}
+              renderInput={(params) => (
+                <>
+                  <InputLabel htmlFor={id} required={isRequired} sx={{ mb: 1 }}>
+                    {label}
+                  </InputLabel>
+                  <TextField {...params} id={id} value={field.value} error={!!error} helperText={error?.message} />
+                </>
+              )}
+              {...other}
+            />
+          </Box>
         );
       }}
     />

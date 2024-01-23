@@ -1,13 +1,15 @@
-import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Divider from '@mui/material/Divider';
 import AddIcon from '@mui/icons-material/Add';
 import WorkspaceItem from './components/WorkspaceItem';
 import { Workspace } from '@/types/workspace.type';
-import CreateWorkspaceModal from './components/CreateWorkspace';
+import Members from './components/Members';
+import { useCreateWorkspace } from '@/hooks';
+import { isEmpty } from 'lodash';
 
 type WorkspaceSidebarViewProps = {
   isFetching: boolean;
@@ -15,10 +17,14 @@ type WorkspaceSidebarViewProps = {
 };
 
 function WorkspaceSidebarView({ isFetching, workspaces }: WorkspaceSidebarViewProps) {
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const { renderCreateWorkspaceModal, handleShowCreateModal } = useCreateWorkspace();
 
-  const handleShowCreateModal = () => {
-    setShowCreateModal((prevState) => !prevState);
+  const renderWorkspaces = () => {
+    if (isEmpty(workspaces)) {
+      return <Typography sx={{ my: 3, textAlign: 'center' }}>No workspaces found</Typography>;
+    }
+
+    return workspaces.map((workspace) => <WorkspaceItem key={workspace._id} workspace={workspace} />);
   };
 
   return (
@@ -37,10 +43,16 @@ function WorkspaceSidebarView({ isFetching, workspaces }: WorkspaceSidebarViewPr
             ))}
           </Stack>
         ) : (
-          workspaces.map((workspace) => <WorkspaceItem key={workspace._id} workspace={workspace} />)
+          renderWorkspaces()
+        )}
+        <Divider />
+        {!isEmpty(workspaces) && (
+          <Stack sx={{ my: 2 }} spacing={1}>
+            <Members />
+          </Stack>
         )}
       </Box>
-      <CreateWorkspaceModal isShowCreateModal={showCreateModal} onClose={handleShowCreateModal} />
+      {renderCreateWorkspaceModal()}
     </>
   );
 }

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Workspace } from '@/types/workspace.type';
 import { RootState } from '../store';
 import { workspaceApi } from '../services/workspace/workspace';
+import { resetStates } from '../actions';
 
 const initialState: { detail: Partial<Workspace>; list: Partial<Workspace>[] } = {
   detail: {},
@@ -19,8 +20,14 @@ const workspaceSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(resetStates, () => initialState);
     builder.addMatcher(workspaceApi.endpoints.getWorkspace.matchFulfilled, (state, action) => {
       state.detail = action.payload;
+    });
+    builder.addMatcher(workspaceApi.endpoints.getWorkspaceList.matchFulfilled, (state, action) => {
+      const list = action.payload;
+      console.log('here');
+      state.list = list;
     });
   },
 });

@@ -5,7 +5,7 @@ import {
   useAddChecklistItemMutation,
   useDeleteChecklistMutation,
   useDeleteChecklistItemMutation,
-  useMarkChecklistItemDoneMutation,
+  useUpdateChecklistItemMutation,
 } from '@/redux/services/card/checklist';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 
@@ -13,10 +13,10 @@ type ChecklistProps = BoardGlobalProps & {
   checklist: ChecklistType;
 };
 
-function Checklist({ checklist, boardId, cardId, onRefreshCard }: ChecklistProps) {
+function Checklist({ checklist, cardId, onRefreshCard }: ChecklistProps) {
   const [progress, setProgress] = useState<number>();
   const [deleteCheckList] = useDeleteChecklistMutation();
-  const [markItemDone] = useMarkChecklistItemDoneMutation();
+  const [markItemDone] = useUpdateChecklistItemMutation();
   const [deleteItem] = useDeleteChecklistItemMutation();
   const [addItem] = useAddChecklistItemMutation();
 
@@ -36,7 +36,7 @@ function Checklist({ checklist, boardId, cardId, onRefreshCard }: ChecklistProps
       itemId: event.target.name,
       checklistId: checklist._id,
       cardId: cardId,
-      boardId: boardId,
+      isDone: event.target.checked,
       onSuccess: onRefreshCard,
     });
   };
@@ -46,18 +46,17 @@ function Checklist({ checklist, boardId, cardId, onRefreshCard }: ChecklistProps
     deleteItem({
       itemId,
       checklistId: checklist._id,
-      cardId: cardId,
-      boardId: boardId,
+      cardId,
       onSuccess: onRefreshCard,
     });
   };
 
   const handleDeleteChecklist = (checklistId: string) => {
-    deleteCheckList({ checklistId, cardId: cardId, boardId: boardId, onSuccess: onRefreshCard });
+    deleteCheckList({ checklistId, cardId, onSuccess: onRefreshCard });
   };
 
   const handleAddItem = (title: string) => {
-    addItem({ title, checklistId: checklist._id, cardId: cardId, boardId: boardId, onSuccess: onRefreshCard });
+    addItem({ title, checklistId: checklist._id, cardId, onSuccess: onRefreshCard });
   };
 
   return (

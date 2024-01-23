@@ -13,14 +13,11 @@ function ProfilePhoto() {
   const [avatar, setAvatar] = useState<File>();
   const [updateProfile] = useUpdateProfileMutation();
   const user = useAppSelector(selectUserProfile);
-  const {
-    mutate: updateAvatar,
-    isPending,
-    isSuccess,
-  } = useMutation({
+  const { mutate: updateAvatar, isPending } = useMutation({
     mutationFn: uploadFile,
     onSuccess: (response) => {
       updateProfile({ avatar: response.data.url, userId: user?._id || '' });
+      setUploadedImage(null);
       toast.success('Saved avatar successfully');
     },
     onError: () => {
@@ -52,7 +49,6 @@ function ProfilePhoto() {
     <ProfilePhotoView
       uploadedImage={uploadedImage}
       isLoading={isPending}
-      isSuccess={isSuccess}
       onUpload={handleFileUpload}
       onSaveAvatar={handleSaveAvatar}
     />

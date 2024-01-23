@@ -1,6 +1,6 @@
 import { ChecklistItem } from '@/types/card.type';
 import ChecklistItemLabelView from './view';
-import { useUpdateTitleChecklistItemMutation } from '@/redux/services/card/checklist';
+import { useUpdateChecklistItemMutation } from '@/redux/services/card/checklist';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 
 type ChecklistItemLabelProps = BoardGlobalProps & {
@@ -8,21 +8,20 @@ type ChecklistItemLabelProps = BoardGlobalProps & {
   checklistId: string;
 };
 
-function ChecklistItemLabel({ checklistId, boardId, cardId, onRefreshCard, ...rest }: ChecklistItemLabelProps) {
-  const [editTitleItem] = useUpdateTitleChecklistItemMutation();
+function ChecklistItemLabel({ item, checklistId, cardId, onRefreshCard }: ChecklistItemLabelProps) {
+  const [editTitleItem] = useUpdateChecklistItemMutation();
 
-  const handleEditItem = (newTitle: string) => {
+  const handleEditItem = (title: string) => {
     editTitleItem({
-      itemId: rest.item._id,
-      title: newTitle,
-      boardId: boardId,
-      cardId: cardId,
-      checklistId: checklistId,
+      itemId: item._id,
+      title,
+      cardId,
+      checklistId,
       onSuccess: onRefreshCard,
     });
   };
 
-  return <ChecklistItemLabelView {...rest} onEdit={handleEditItem} />;
+  return <ChecklistItemLabelView item={item} onEdit={handleEditItem} />;
 }
 
 export default withBoard(ChecklistItemLabel);

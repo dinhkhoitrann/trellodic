@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { addLabelToCard, createLabel, editLabel } from '@/services/board/label';
+import { addLabelToCard, createLabel, deleteLabel, editLabel } from '@/services/board/label';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const labelApi = createApi({
@@ -9,9 +9,9 @@ export const labelApi = createApi({
   endpoints: (builder) => ({
     addLabel: builder.mutation<
       { data: any },
-      { title: string; color: string; boardId: string; onSuccess?: () => void }
+      { title: string; color: string; boardId: string; cardId?: string; onSuccess?: () => void }
     >({
-      queryFn: async (args, { signal }) => ({ data: await createLabel({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await createLabel({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
@@ -19,9 +19,18 @@ export const labelApi = createApi({
     }),
     editLabel: builder.mutation<
       { data: any },
-      { title: string; color: string; boardId: string; onSuccess?: () => void }
+      { title: string; color: string; labelId: string; onSuccess?: () => void }
     >({
-      queryFn: async (args, { signal }) => ({ data: await editLabel({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await editLabel({ ...rest, signal }) }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
+      },
+    }),
+    removeLabel: builder.mutation<{ data: any }, { labelId: string; cardId?: string; onSuccess?: () => void }>({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({
+        data: await deleteLabel({ ...rest, signal }),
+      }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
@@ -32,11 +41,10 @@ export const labelApi = createApi({
       {
         labelId: string;
         cardId: string;
-        isAdded: boolean;
         onSuccess?: () => void;
       }
     >({
-      queryFn: async (args, { signal }) => ({ data: await addLabelToCard({ ...args, signal }) }),
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await addLabelToCard({ ...rest, signal }) }),
       onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
         await queryFulfilled;
         onSuccess && onSuccess();
@@ -45,4 +53,5 @@ export const labelApi = createApi({
   }),
 });
 
-export const { useAddLabelMutation, useEditLabelMutation, useAddLabelToCardMutation } = labelApi;
+export const { useAddLabelMutation, useEditLabelMutation, useRemoveLabelMutation, useAddLabelToCardMutation } =
+  labelApi;

@@ -7,6 +7,7 @@ import Skeleton from '@mui/material/Skeleton';
 import Divider from '@mui/material/Divider';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import EditIcon from '@mui/icons-material/Edit';
+import { useCustomTheme } from '@/common/styles/theme';
 
 type WorkspaceHeaderViewProps = {
   workspaceName: string;
@@ -16,6 +17,7 @@ type WorkspaceHeaderViewProps = {
 function WorkspaceHeaderView({ workspaceName, onEditName }: WorkspaceHeaderViewProps) {
   const [editNameMode, setEditNameMode] = useState(false);
   const workspaceNameRef = useRef<HTMLInputElement>();
+  const customTheme = useCustomTheme();
 
   const handleEditMode = () => {
     setEditNameMode((prevMode) => !prevMode);
@@ -37,7 +39,7 @@ function WorkspaceHeaderView({ workspaceName, onEditName }: WorkspaceHeaderViewP
               width: '60px',
               height: '60px',
               lineHeight: '60px',
-              bgcolor: '#4bce97',
+              bgcolor: customTheme.colors.workspaceAvatar,
               borderRadius: '4px',
               color: 'black',
               textAlign: 'center',
@@ -45,12 +47,12 @@ function WorkspaceHeaderView({ workspaceName, onEditName }: WorkspaceHeaderViewP
               fontWeight: 'bold',
             }}
           >
-            T
+            {workspaceName[0].toUpperCase()}
           </Box>
           <Box>
             {!editNameMode && (
               <Typography variant="h6">
-                {workspaceName}&apos;s workspace{' '}
+                {workspaceName}
                 <EditIcon sx={{ fontSize: '16px', ml: 1, cursor: 'pointer' }} onClick={handleEditMode} />
               </Typography>
             )}

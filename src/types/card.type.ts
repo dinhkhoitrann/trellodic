@@ -8,17 +8,21 @@ export interface Card {
   title?: string;
   description?: string;
   cover?: string;
-  memberIds?: User[];
+  members?: User[];
   comments?: Comment[];
   checklists?: Checklist[];
   attachments?: Attachment[];
   labels?: Label[];
+  skills?: string[];
   startDate?: string;
   endDate?: string;
   isDone?: boolean;
+  commentCount?: number;
+  attachmentCount?: number;
+  memberCount?: number;
   createdAt?: string;
   updatedAt?: string;
-  FE_isPlaceholderCard?: true;
+  FE_isPlaceholderCard?: boolean;
 }
 
 export interface ChecklistItem {
@@ -35,8 +39,11 @@ export interface Checklist {
 
 export interface Comment {
   readonly _id: string;
-  avatarUrl?: string;
-  username: string;
+  author: {
+    readonly _id: string;
+    name: string;
+    avatar: string;
+  };
   createdAt: string;
   updatedAt?: string;
   content: string;

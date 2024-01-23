@@ -1,8 +1,15 @@
 /* eslint-disable indent */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { createBoard, createWorkspace, editWorkspaceName, getWorkspace, getWorkspaceList } from '@/services/workspace';
+import {
+  createBoard,
+  createWorkspace,
+  editWorkspace,
+  getWorkspace,
+  getWorkspaceList,
+  inviteUsers,
+  removeMember,
+} from '@/services/workspace';
 import { save as saveBoard } from '@/redux/slices/board';
-import { save as saveWorkspace } from '@/redux/slices/workspace';
 import { Workspace } from '@/types/workspace.type';
 import { Board } from '@/types/board.type';
 
@@ -17,22 +24,13 @@ export const workspaceApi = createApi({
         return { data };
       },
       providesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
-      onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
-        const { data } = await queryFulfilled;
-        dispatch(saveWorkspace({ detail: data }));
-      },
     }),
-    getWorkspaceList: builder.query<Workspace[], { userId: string }>({
+    getWorkspaceList: builder.query<Workspace[], void>({
       queryFn: async (args, { signal }) => {
-        const data = await getWorkspaceList({ ...args, signal });
+        const data = await getWorkspaceList({ signal });
         return { data };
       },
-      onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
-        const { data } = await queryFulfilled;
-        if (data.length > 0) {
-          dispatch(saveWorkspace({ detail: data[0], list: data }));
-        }
-      },
+      keepUnusedDataFor: 0,
       providesTags: (result) =>
         result
           ? [...result.map(({ _id }) => ({ type: 'Workspace', id: _id } as const)), { type: 'Workspace', id: 'LIST' }]
@@ -52,15 +50,9 @@ export const workspaceApi = createApi({
       },
       invalidatesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
     }),
-    editWorkspaceName: builder.mutation<{ data: any }, { workspaceId: string; name: string }>({
-      queryFn: async (args, { signal }) => ({ data: await editWorkspaceName({ ...args, signal }) }),
-      onQueryStarted: async ({ workspaceId }, { queryFulfilled, dispatch }) => {
-        await queryFulfilled;
-        dispatch({
-          type: 'workspaceApi/invalidateTags',
-          payload: [{ type: 'Workspace', id: workspaceId }],
-        });
-      },
+    editWorkspace: builder.mutation<{ data: any }, { workspaceId: string; name?: string }>({
+      queryFn: async (args, { signal }) => ({ data: await editWorkspace({ ...args, signal }) }),
+      invalidatesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
     }),
     createWorkspace: builder.mutation<{ data: any }, { name: string; onSuccess?: () => void }>({
       queryFn: async (args, { signal }) => ({ data: await createWorkspace({ ...args, signal }) }),
@@ -70,13 +62,33 @@ export const workspaceApi = createApi({
       },
       invalidatesTags: [{ type: 'Workspace', id: 'LIST' }],
     }),
+    inviteUsers: builder.mutation<{ data: any }, { workspaceId: string; userIds: string[]; onSuccess?: () => void }>({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await inviteUsers({ ...rest, signal }) }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
+      },
+      invalidatesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
+    }),
+    removeMember: builder.mutation<{ data: any }, { workspaceId: string; memberId: string; onSuccess?: () => void }>({
+      queryFn: async ({ onSuccess, ...rest }, { signal }) => ({ data: await removeMember({ ...rest, signal }) }),
+      onQueryStarted: async ({ onSuccess }, { queryFulfilled }) => {
+        await queryFulfilled;
+        onSuccess && onSuccess();
+      },
+      invalidatesTags: (_result, _error, { workspaceId }) => [{ type: 'Workspace', id: workspaceId }],
+    }),
   }),
 });
 
 export const {
+  usePrefetch,
   useCreateBoardMutation,
   useLazyGetWorkspaceQuery,
   useGetWorkspaceListQuery,
-  useEditWorkspaceNameMutation,
+  useLazyGetWorkspaceListQuery,
+  useEditWorkspaceMutation,
   useCreateWorkspaceMutation,
+  useInviteUsersMutation,
+  useRemoveMemberMutation,
 } = workspaceApi;

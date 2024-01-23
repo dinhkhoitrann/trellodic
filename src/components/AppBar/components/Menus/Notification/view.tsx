@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useColorScheme } from '@mui/material';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -8,6 +7,7 @@ import Popper from '@mui/material/Popper';
 import Fade from '@mui/material/Fade';
 import Divider from '@mui/material/Divider';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import { useCustomTheme } from '@/common/styles/theme';
 import Header from './components/Header';
 import List from './components/List';
 import { useNotiContext } from '.';
@@ -18,12 +18,7 @@ function NotificationView() {
   const [anchorEl, setAnchorEl] = useState<null | SVGSVGElement>(null);
   const { notifs } = useNotiContext();
   const unreadNotifs = getUnreadNotifs(notifs);
-
-  const { mode } = useColorScheme();
-  const textColor = mode === 'dark' ? '#b6c2cf' : 'white';
-
-  const canBeOpen = open && Boolean(anchorEl);
-  const id = canBeOpen ? 'transition-popper' : undefined;
+  const customTheme = useCustomTheme();
 
   const handleOpen = (event: React.MouseEvent<SVGSVGElement>) => {
     setAnchorEl(event.currentTarget);
@@ -39,15 +34,22 @@ function NotificationView() {
           invisible={unreadNotifs.length === 0}
           sx={{ cursor: 'pointer' }}
         >
-          <NotificationsNoneIcon sx={{ color: textColor }} onClick={handleOpen} />
+          <NotificationsNoneIcon
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === 'dark' ? customTheme.colors.textInDarkMode : theme.palette.common.white,
+            }}
+            onClick={handleOpen}
+          />
         </Badge>
       </Tooltip>
-      <Popper id={id} open={open} anchorEl={anchorEl} transition>
+      <Popper open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Card
               sx={{
-                bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#282e33' : 'white'),
+                bgcolor: (theme) =>
+                  theme.palette.mode === 'dark' ? customTheme.colors.bgCardDark : theme.palette.common.white,
                 minWidth: '500px',
                 mr: 2,
               }}
