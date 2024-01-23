@@ -1,4 +1,5 @@
 import { useRouter } from 'next/navigation';
+import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -12,10 +13,11 @@ const StyledMenuItem = styled(MenuItem)(() => ({
 }));
 
 type WorkspaceListProps = {
+  title: string;
   workspaces: Partial<Workspace>[];
 };
 
-function WorkspaceList({ workspaces }: WorkspaceListProps) {
+function WorkspaceList({ title, workspaces }: WorkspaceListProps) {
   const [getWorkspace] = useLazyGetWorkspaceQuery({
     pollingInterval: 60000 * 5,
     refetchOnFocus: true,
@@ -31,6 +33,7 @@ function WorkspaceList({ workspaces }: WorkspaceListProps) {
 
   return (
     <>
+      {workspaces.length > 0 && <Typography sx={{ ml: 2, mb: 1 }}>{title}</Typography>}
       {workspaces.map((workspace) => (
         <StyledMenuItem key={workspace._id} onClick={() => handleSelectWorkspace(workspace._id || '')}>
           <ListItemIcon
