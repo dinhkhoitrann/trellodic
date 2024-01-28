@@ -108,6 +108,7 @@ export {
 
 export type { AccordionProps } from './Accordion';
 export type { ButtonProps } from './Button';
+export type { BoxProps } from './Box';
 export type { SelectChangeEvent } from './Select';
 export type { TabsProps } from './Tabs';
 export type { DrawerProps } from './Drawer';

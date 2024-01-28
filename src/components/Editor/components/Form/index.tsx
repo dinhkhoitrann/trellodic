@@ -5,7 +5,7 @@ import { Theme } from '@mui/material/styles';
 import Styles from './styles.module.css';
 
 type EditorProps = {
-  data?: string;
+  data: string | null | undefined;
   onDataChange: (_data: string) => void;
 };
 
@@ -53,21 +53,9 @@ function Editor({ data, onDataChange }: EditorProps) {
             shouldNotGroupWhenFull: true,
           },
         }}
-        onReady={(editor) => {
-          // You can store the "editor" and use when it is needed.
-          console.log('Editor is ready to use!', editor);
-        }}
         onChange={(event, editor) => {
           const data = editor.getData();
           onDataChange(data);
-          console.log({ event, editor, data });
-        }}
-        onBlur={(event, editor) => {
-          console.log('Blur.', editor);
-        }}
-        onFocus={(event, editor) => {
-          console.log('Event.', event);
-          console.log('Focus.', editor);
         }}
       />
     </div>

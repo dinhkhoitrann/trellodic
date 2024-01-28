@@ -1,3 +1,4 @@
-import Box from '@mui/material/Box';
+import Box, { BoxProps } from '@mui/material/Box';
 
 export default Box;
+export type { BoxProps };

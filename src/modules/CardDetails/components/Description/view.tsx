@@ -3,9 +3,9 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { Box, Button, Card, CardContent, Stack, Typography } from '@/components/UIElements';
-import Editor from '@/components/Editor';
+import EditorForm from '@/components/Editor/components/Form';
+import EditorView from '@/components/Editor/components/View';
 import { Card as CardType } from '@/types/card.type';
-import Styles from './styles.module.css';
 
 type DescriptionViewProps = {
   editorVisible: boolean;
@@ -44,7 +44,7 @@ function DescriptionView({ editorVisible, isLoading, card, onSave, onShowHideEdi
     if (editorVisible) {
       return (
         <>
-          <Editor data={editorData} onDataChange={handleEditorDataChange} />
+          <EditorForm data={editorData} onDataChange={handleEditorDataChange} />
           <Box sx={{ mt: 2 }}>
             <Button variant="contained" disabled={isLoading} onClick={() => onSave(editorData)}>
               {isLoading ? 'Saving' : 'Save'}
@@ -85,12 +85,12 @@ function DescriptionView({ editorVisible, isLoading, card, onSave, onShowHideEdi
   const renderEditorData = () => {
     if (!editorVisible) {
       return (
-        <div className={Styles.data}>
+        <>
           <Box sx={{ maxHeight: showMore ? '200px' : 'unset', overflowY: 'hidden' }}>
-            <Box ref={editorDataRef} sx={{ ml: 2, cursor: 'pointer' }} onClick={onShowHideEditor} />
+            <EditorView ref={editorDataRef} sx={{ ml: 2, cursor: 'pointer' }} onClick={onShowHideEditor} />
           </Box>
           <Box sx={{ mt: 2 }}>{renderButtons()}</Box>
-        </div>
+        </>
       );
     }
   };
