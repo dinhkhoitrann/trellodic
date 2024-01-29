@@ -1,17 +1,16 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { Box, IconButton, Typography } from '@/components/UIElements';
 
 type PopoverWrapperProps = {
   title: string;
-  children: ReactNode[] | ReactNode;
   canGoBack?: boolean;
   onClose: () => void;
   onGoBack?: () => void;
 };
 
-function PopoverWrapper({ title, children, canGoBack, onClose, onGoBack }: PopoverWrapperProps) {
+function PopoverWrapper({ title, children, canGoBack, onClose, onGoBack }: PropsWithChildren<PopoverWrapperProps>) {
   return (
     <Box sx={{ p: 2, width: 350 }}>
       <Box sx={{ width: '100%', display: 'grid', gridTemplateColumns: '32px 1fr 32px', alignItems: 'center' }}>

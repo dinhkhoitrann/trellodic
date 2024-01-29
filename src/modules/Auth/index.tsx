@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import AuthFormView from './view';
 
-function AuthForm({ children }: { children: ReactNode }) {
+function AuthForm({ children }: PropsWithChildren) {
   return <AuthFormView>{children}</AuthFormView>;
 }
 

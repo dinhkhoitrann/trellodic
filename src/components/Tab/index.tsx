@@ -1,4 +1,4 @@
-import { HTMLAttributes, createContext, useContext, useState } from 'react';
+import { HTMLAttributes, PropsWithChildren, createContext, useContext, useState } from 'react';
 import { Tabs as MUITabs, Tab, Box, TabsProps } from '@/components/UIElements';
 
 const TabContext = createContext<{ value: number; onChange: TabsProps['onChange'] }>({
@@ -6,7 +6,7 @@ const TabContext = createContext<{ value: number; onChange: TabsProps['onChange'
   onChange: () => {},
 });
 
-function Tabs({ children }: { children: React.ReactNode }) {
+function Tabs({ children }: PropsWithChildren) {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {

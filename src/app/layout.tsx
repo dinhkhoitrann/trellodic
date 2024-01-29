@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, PropsWithChildren } from 'react';
 import { usePathname } from 'next/navigation';
 import { Lexend } from 'next/font/google';
 import Container from '@mui/material/Container';
@@ -19,7 +19,7 @@ const roboto = Lexend({
   display: 'swap',
 });
 
-function RootLayout({ children }: { children: React.ReactNode }) {
+function RootLayout({ children }: PropsWithChildren) {
   const [isLoaded, setIsLoaded] = useState(false);
   const pathname = usePathname();
 

@@ -1,14 +1,13 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import { SxProps, Theme } from '@mui/material';
 import { Box } from '@/components/UIElements';
 
 type BoardItemProps = {
-  children: ReactNode;
   sx?: SxProps<Theme> | undefined;
   onClick?: (..._allParams: any[]) => void;
 };
 
-function BoardItem({ children, sx, onClick }: BoardItemProps) {
+function BoardItem({ children, sx, onClick }: PropsWithChildren<BoardItemProps>) {
   return (
     <Box
       sx={{

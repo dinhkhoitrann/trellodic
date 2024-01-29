@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { FormHelperText, SelectProps } from '@mui/material';
 import { Chip, OutlinedInput, Select, Typography, InputLabel, Box } from '@/components/UIElements';
@@ -26,7 +27,7 @@ function RHFSelect({
   getLabelBy,
   renderValue,
   ...rest
-}: RHFSelectProps) {
+}: PropsWithChildren<RHFSelectProps>) {
   const { control } = useFormContext();
   return (
     <Controller

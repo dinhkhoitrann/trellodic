@@ -1,6 +1,7 @@
+import { PropsWithChildren } from 'react';
 import Modal, { ModalProps } from '../..';
 
-function StyledModal({ children, sx, ...rest }: ModalProps) {
+function StyledModal({ children, sx, ...rest }: PropsWithChildren<ModalProps>) {
   return (
     <Modal
       {...rest}

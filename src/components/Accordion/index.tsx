@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { PropsWithChildren } from 'react';
 import { styled } from '@mui/material/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AccordionProps, Accordion as MuiAccordion, Typography } from '@/components/UIElements';
@@ -11,7 +11,7 @@ const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters
   }),
 );
 
-export default function Section({ title, children }: { title: string; children: React.ReactNode }) {
+export default function Section({ title, children }: PropsWithChildren<{ title: string }>) {
   return (
     <Accordion>
       <Summary expandIcon={<ExpandMoreIcon />}>

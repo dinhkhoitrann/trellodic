@@ -4,9 +4,7 @@ import BoardBar from '@/modules/Boards/components/Bar';
 import { useAppDispatch } from '@/redux/store';
 import { clear } from '@/redux/slices/board';
 
-type BoardDetailsLayoutProps = {};
-
-function BoardDetailsLayout({ children }: PropsWithChildren<BoardDetailsLayoutProps>) {
+function BoardDetailsLayout({ children }: PropsWithChildren) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {

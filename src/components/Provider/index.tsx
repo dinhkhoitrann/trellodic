@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react';
 import { Provider } from 'react-redux';
 import { Experimental_CssVarsProvider as CssVarsProvider, StyledEngineProvider } from '@mui/material/styles';
 import { CacheProvider } from '@emotion/react';
@@ -11,7 +12,7 @@ import { buildProviderTree } from './service';
 const clientSideEmotionCache = createEmotionCache();
 const queryClient = new QueryClient();
 
-function ProviderTree({ children }: { children: React.ReactNode }) {
+function ProviderTree({ children }: PropsWithChildren) {
   const ProviderTree = buildProviderTree([
     [Provider, { store }],
     [StyledEngineProvider, { injectFirst: true }],

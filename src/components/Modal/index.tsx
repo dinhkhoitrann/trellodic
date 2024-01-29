@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { SxProps, Theme } from '@mui/material';
 import { Backdrop, Box, Fade, Modal as MUIModal } from '@/components/UIElements';
 
 export type ModalProps = {
-  children: React.ReactNode;
   isVisibleModal: boolean;
   sx?: SxProps<Theme> | undefined;
   onClose: () => void;
 };
 
-function Modal({ children, isVisibleModal, sx, onClose }: ModalProps) {
+function Modal({ children, isVisibleModal, sx, onClose }: PropsWithChildren<ModalProps>) {
   return (
     <MUIModal
       open={isVisibleModal}
