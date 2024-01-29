@@ -3,6 +3,8 @@ import dayjs from 'dayjs';
 import { Avatar, Box, Button, Stack, Typography } from '@/components/UIElements';
 import EditorForm from '@/components/Editor/components/Form';
 import EditorView from '@/components/Editor/components/View';
+import { useAppSelector } from '@/redux/store';
+import { selectUserProfile } from '@/redux/slices/user';
 import { Comment } from '@/types/card.type';
 import { useAlert } from '@/hooks';
 
@@ -17,6 +19,9 @@ function CommentItemView({ comment, isLoading, onEdit, onDelete }: CommentItemVi
   const [editMode, setEditMode] = useState(false);
   const [enteredComment, setEnteredComment] = useState(comment.content);
   const editorDataRef = useRef<HTMLDivElement>(null);
+
+  const user = useAppSelector(selectUserProfile);
+  const isCommentAuthor = user?._id === comment.author._id;
 
   useEffect(() => {
     if (!editMode && editorDataRef.current) {
@@ -85,19 +90,21 @@ function CommentItemView({ comment, isLoading, onEdit, onDelete }: CommentItemVi
         <Box sx={{ marginTop: '12px', marginLeft: '12px', marginBottom: '8px' }}>
           <EditorView ref={editorDataRef} />
         </Box>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <Button onClick={() => setEditMode(true)}>Edit</Button>
-          <Button color="error" onClick={handleOpenDeleteAlert}>
-            Delete
-          </Button>
-        </Stack>
+        {isCommentAuthor && (
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Button onClick={() => setEditMode(true)}>Edit</Button>
+            <Button color="error" onClick={handleOpenDeleteAlert}>
+              Delete
+            </Button>
+          </Stack>
+        )}
       </>
     );
   };
 
   return (
     <>
-      <Box sx={{ mt: 2 }}>
+      <Box sx={{ my: '20px' }}>
         <Stack direction="row" alignItems="center" spacing={1}>
           <Avatar src={comment.author.avatar} alt={comment.author.name} sx={{ width: 32, height: 32 }} />
           <Box sx={{ flex: 1 }}>
