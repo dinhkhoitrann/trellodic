@@ -67,7 +67,7 @@ export default function CardDetailsView({ card, isError }: CardDetailsViewProps)
       isVisibleModal
       onClose={handleCloseModal}
       sx={{
-        transform: 'translate(-50%, -250px)',
+        transform: 'translate(-50%, -300px)',
         width: { xs: '95%', md: '75%' },
         px: 0,
         py: 0,

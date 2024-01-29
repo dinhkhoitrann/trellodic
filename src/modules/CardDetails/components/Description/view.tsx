@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { Box, Button, Card, CardContent, Stack, Typography } from '@/components/UIElements';
+import { Box, Button, Stack, Typography } from '@/components/UIElements';
 import EditorForm from '@/components/Editor/components/Form';
 import EditorView from '@/components/Editor/components/View';
 import { Card as CardType } from '@/types/card.type';
@@ -46,8 +46,8 @@ function DescriptionView({ editorVisible, isLoading, card, onSave, onShowHideEdi
         <>
           <EditorForm data={editorData} onDataChange={handleEditorDataChange} />
           <Box sx={{ mt: 2 }}>
-            <Button variant="contained" disabled={isLoading} onClick={() => onSave(editorData)}>
-              {isLoading ? 'Saving' : 'Save'}
+            <Button variant="contained" loading={isLoading} onClick={() => onSave(editorData)}>
+              Save
             </Button>
             <Button
               sx={{
@@ -98,16 +98,17 @@ function DescriptionView({ editorVisible, isLoading, card, onSave, onShowHideEdi
   const renderEmptyData = () => {
     if (!editorVisible && !editorData) {
       return (
-        <Card
-          elevation={0}
+        <Box
           sx={{
             cursor: 'pointer',
-            bgcolor: (theme) => (theme.palette.mode === 'light' ? theme.palette.grey[300] : theme.palette.grey.A700),
+            backgroundColor: (theme) => (theme.palette.mode === 'dark' ? '#525456' : '#dbdfe5'),
+            p: 2,
+            borderRadius: '30px',
           }}
           onClick={onShowHideEditor}
         >
-          <CardContent>Add a more detailed description…</CardContent>
-        </Card>
+          <Typography>Add a more detailed description…</Typography>
+        </Box>
       );
     }
   };
