@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
-import { Avatar, Box, Button, Card, CardContent, Stack, Typography } from '@/components/UIElements';
+import { Avatar, Box, Button, Stack, Typography } from '@/components/UIElements';
 import Editor from '@/components/Editor/components/Form';
 import { useAppSelector } from '@/redux/store';
 import { selectUserProfile } from '@/redux/slices/user';
@@ -57,7 +57,7 @@ function CommentEditorView({ isLoading, onSave }: CommentEditorViewProps) {
             Comments
           </Typography>
         </Stack>
-        <Stack direction="row" alignItems="flex-start" spacing={1} sx={{ mt: 2 }}>
+        <Stack direction="row" alignItems={addMode ? 'flex-start' : 'center'} spacing={1} sx={{ my: 2 }}>
           <Avatar src={user?.avatar} alt={user?.name} sx={{ width: 32, height: 32 }} />
           <Box sx={{ flex: 1, maxWidth: '100%' }}>
             {addMode ? (
@@ -76,11 +76,18 @@ function CommentEditorView({ isLoading, onSave }: CommentEditorViewProps) {
                 </Stack>
               </>
             ) : (
-              <Card sx={{ cursor: 'pointer' }} onClick={handleShowHideEditor}>
-                <CardContent>
-                  <Typography>Write a comment...</Typography>
-                </CardContent>
-              </Card>
+              <Box
+                sx={{
+                  cursor: 'pointer',
+                  backgroundColor: (theme) => (theme.palette.mode === 'dark' ? '#525456' : '#dbdfe5'),
+                  px: 2,
+                  py: '10px',
+                  borderRadius: '20px',
+                }}
+                onClick={handleShowHideEditor}
+              >
+                <Typography>Write a comment...</Typography>
+              </Box>
             )}
           </Box>
         </Stack>
