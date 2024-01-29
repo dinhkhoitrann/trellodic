@@ -21,6 +21,10 @@ const boardSlice = createSlice({
     clearAllBoardFilter: (state) => {
       state.filter = { ...initialState.filter };
     },
+    clear: (state) => {
+      state = { ...initialState };
+      return state;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(resetStates, () => initialState);
@@ -40,7 +44,7 @@ const boardSlice = createSlice({
   },
 });
 
-export const { save, clearAllBoardFilter } = boardSlice.actions;
+export const { save, clearAllBoardFilter, clear } = boardSlice.actions;
 export default boardSlice.reducer;
 
 export const selectBoardDetails = (state: RootState) => state.board.detail;

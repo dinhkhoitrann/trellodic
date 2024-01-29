@@ -11,7 +11,12 @@ const initialState: { detail: Partial<Card> } = {
 const cardSlice = createSlice({
   name: 'card',
   initialState,
-  reducers: {},
+  reducers: {
+    clear: (state) => {
+      state = { ...initialState };
+      return state;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(resetStates, () => initialState);
     builder.addMatcher(cardApi.endpoints.getCardDetails.matchFulfilled, (state, action) => {
@@ -20,6 +25,7 @@ const cardSlice = createSlice({
   },
 });
 
+export const { clear } = cardSlice.actions;
 export default cardSlice.reducer;
 
 export const selectCardDetails = (state: RootState) => state.card.detail;
