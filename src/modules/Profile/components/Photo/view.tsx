@@ -26,8 +26,8 @@ function ProfilePhotoView({ uploadedImage, isLoading, onSaveAvatar, onUpload }: 
   const renderUploadButton = () => {
     if (uploadedImage)
       return (
-        <Button variant="contained" sx={{ minWidth: '200px', mt: 2 }} disabled={isLoading} onClick={onSaveAvatar}>
-          {isLoading ? 'Uploading' : 'Upload'}
+        <Button variant="contained" sx={{ minWidth: '200px', mt: 2 }} loading={isLoading} onClick={onSaveAvatar}>
+          Upload
         </Button>
       );
   };

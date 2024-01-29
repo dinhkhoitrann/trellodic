@@ -59,7 +59,7 @@ function ProfileDetailsView({ methods, onSubmit }: ProfileDetailsViewProps) {
               </Grid>
             </Grid>
             <Box sx={{ textAlign: 'end' }}>
-              <Button variant="contained" type="submit" disabled={!isDirty || !isValid || isSubmitting}>
+              <Button variant="contained" type="submit" disabled={!isDirty || !isValid} loading={isSubmitting}>
                 Save
               </Button>
             </Box>

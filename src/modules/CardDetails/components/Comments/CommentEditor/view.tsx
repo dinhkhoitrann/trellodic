@@ -66,11 +66,12 @@ function CommentEditorView({ isLoading, onSave }: CommentEditorViewProps) {
                 <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 2 }}>
                   <Button
                     variant="contained"
-                    disabled={comment === '' || isLoading}
+                    disabled={comment === ''}
+                    loading={isLoading}
                     sx={{ mt: 2 }}
                     onClick={() => onSave(comment, handleClear)}
                   >
-                    {isLoading ? 'Saving' : 'Save'}
+                    Save
                   </Button>
                   <Button onClick={handleCloseEditor}>Cancel</Button>
                 </Stack>

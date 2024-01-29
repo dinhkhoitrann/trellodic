@@ -48,8 +48,8 @@ function SignupFormView({ methods, isSigningup, onSubmit }: SignupFormViewProps)
           size="small"
         />
         <RHFDatePicker id="birthday" name="birthday" label="Birthday" />
-        <Button fullWidth variant="contained" type="submit" disabled={isSigningup}>
-          {isSigningup ? 'Creating' : 'Create'}
+        <Button fullWidth variant="contained" type="submit" loading={isSigningup}>
+          Create
         </Button>
         <Box sx={{ textAlign: 'center', fontSize: '14px', mt: 2 }}>
           <Link href="/auth/login">You have already an account? Log in</Link>

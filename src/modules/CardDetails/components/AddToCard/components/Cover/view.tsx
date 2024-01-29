@@ -33,8 +33,8 @@ function CoverView({ image, isUploading, isSaveSuccess, onUpload, onSaveCover }:
           <Image src={image as string} width={200} height={200} style={{ width: '100%' }} alt="Cover image" />
         </Box>
         <Box sx={{ textAlign: 'end', mt: 1 }}>
-          <Button variant="contained" disabled={isUploading} onClick={onSaveCover}>
-            {isUploading ? 'Saving' : 'Save'}
+          <Button variant="contained" loading={isUploading} onClick={onSaveCover}>
+            Save
           </Button>
         </Box>
       </>

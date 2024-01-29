@@ -43,8 +43,8 @@ function ChecklistView({ title, isPending, isSuccess, onAddChecklist, onTitleCha
             sx={{ marginTop: '20px' }}
             onChange={onTitleChange}
           />
-          <Button variant="contained" disabled={isPending || !title} sx={{ mt: 2 }} onClick={handleAddChecklist}>
-            {isPending ? 'Adding...' : 'Add'}
+          <Button variant="contained" disabled={!title} loading={isPending} sx={{ mt: 2 }} onClick={handleAddChecklist}>
+            Add
           </Button>
         </PopoverWrapper>
       )}

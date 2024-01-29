@@ -16,8 +16,8 @@ function CreateFormView({ methods, isCreating, onSubmit }: CreateFormViewProps) 
     <Box sx={{ mt: 4 }}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <RHFTextField name="name" label="Workspace name" id="name" placeholder="Workspace name" />
-        <Button fullWidth variant="contained" type="submit" disabled={isCreating} sx={{ py: '10px' }}>
-          {isCreating ? 'Creating' : 'Create'}
+        <Button fullWidth variant="contained" type="submit" loading={isCreating} sx={{ py: '10px' }}>
+          Create
         </Button>
       </FormProvider>
     </Box>

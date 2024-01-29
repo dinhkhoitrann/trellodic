@@ -58,8 +58,8 @@ function AttachmentView({ file, loading, onUpload, onSave, onClearFile }: Attach
                 </Stack>
               </Box>
               <Stack direction="row" justifyContent="end" spacing={1}>
-                <Button variant="contained" disabled={loading} onClick={() => onSave(handleClose)}>
-                  {loading ? 'Saving' : 'Save'}
+                <Button variant="contained" loading={loading} onClick={() => onSave(handleClose)}>
+                  Save
                 </Button>
               </Stack>
             </>

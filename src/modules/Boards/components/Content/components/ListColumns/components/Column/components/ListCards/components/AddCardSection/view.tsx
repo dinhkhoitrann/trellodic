@@ -31,8 +31,8 @@ function AddCardSectionView({ isPending, onHideTextField, onAddCard }: AddCardSe
         inputRef={textFieldRef}
       />
       <Stack direction="row" sx={{ mt: 1 }} spacing={1}>
-        <Button variant="contained" disabled={isPending} onClick={handleAddCard}>
-          {isPending ? 'Adding...' : 'Add card'}
+        <Button variant="contained" loading={isPending} onClick={handleAddCard}>
+          Add card
         </Button>
         <Button onClick={onHideTextField}>
           <CloseIcon />

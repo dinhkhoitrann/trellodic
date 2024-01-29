@@ -31,8 +31,8 @@ function EditLabelView({ label, isPending, selectedColor, onSelectColorChange, o
       />
       <Typography sx={{ my: 2 }}>Select a color</Typography>
       <Colors colors={colors} selectedColor={selectedColor} onSelect={onSelectColorChange} />
-      <Button variant="contained" disabled={isPending} sx={{ mt: 2 }} onClick={handleEdit}>
-        {isPending ? 'Editing...' : 'Edit'}
+      <Button variant="contained" loading={isPending} sx={{ mt: 2 }} onClick={handleEdit}>
+        Edit
       </Button>
     </>
   );

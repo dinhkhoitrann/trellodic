@@ -31,8 +31,8 @@ function ResetPasswordFormView({ methods, isSending, onSubmit }: ResetPasswordFo
           placeholder="Enter your confirm password"
           size="small"
         />
-        <Button fullWidth variant="contained" type="submit" disabled={isSending}>
-          {isSending ? 'Sending' : 'Send'}
+        <Button fullWidth variant="contained" type="submit" loading={isSending}>
+          Send
         </Button>
       </FormProvider>
     </Box>

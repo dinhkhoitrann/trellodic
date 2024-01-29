@@ -25,8 +25,8 @@ function ForgotPasswordFormView({ methods, isSending, onSubmit }: ForgotPassword
       </Box>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <RHFTextField name="email" label="Email" id="email" placeholder="Enter your email" type="email" size="small" />
-        <Button fullWidth variant="contained" type="submit" disabled={isSending}>
-          {isSending ? 'Sending' : 'Send'}
+        <Button fullWidth variant="contained" type="submit" loading={isSending}>
+          Send
         </Button>
       </FormProvider>
     </Box>

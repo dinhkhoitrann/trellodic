@@ -62,8 +62,14 @@ function MembersView({ isSaving, onAddMember }: MembersViewProps) {
           </Alert>
           <SelectMembers onChangeMembers={handleChangeMembers} />
           <Recommendations onSelectRecommendations={handleChangeMembers} />
-          <Button variant="contained" disabled={isSaving || !isModified} sx={{ mt: 2 }} onClick={handleAddMember}>
-            {isSaving ? 'Saving' : 'Save'}
+          <Button
+            variant="contained"
+            disabled={!isModified}
+            loading={isSaving}
+            sx={{ mt: 2 }}
+            onClick={handleAddMember}
+          >
+            Save
           </Button>
         </PopoverWrapper>
       )}

@@ -71,8 +71,8 @@ function DatesView({ card, isPending, isSuccess, onSave, onRemoveDates }: DatesV
               onChange={(newValue) => setDates(newValue)}
             />
           </LocalizationProvider>
-          <Button variant="contained" disabled={!enabledDate || isPending} sx={{ mt: 2 }} onClick={handleSave}>
-            {isPending ? 'Saving...' : 'Save'}
+          <Button variant="contained" disabled={!enabledDate} loading={isPending} sx={{ mt: 2 }} onClick={handleSave}>
+            Save
           </Button>
         </PopoverWrapper>
       )}

@@ -47,7 +47,7 @@ function TitleView({ board, methods, isEditing, isSuccess, onSubmit }: TitleView
             type="text"
             size="small"
           />
-          <Button fullWidth variant="contained" type="submit" disabled={isEditing}>
+          <Button fullWidth variant="contained" type="submit" loading={isEditing}>
             Save
           </Button>
         </FormProvider>

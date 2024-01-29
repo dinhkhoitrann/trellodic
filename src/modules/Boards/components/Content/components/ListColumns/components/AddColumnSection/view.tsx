@@ -32,8 +32,8 @@ function AddColumnSectionView({ isPending, onHideTextField, onAddColumn }: AddCo
         inputRef={textFieldRef}
       />
       <Stack direction="row" sx={{ mt: 1 }} spacing={1}>
-        <Button variant="contained" disabled={isPending} onClick={handleAddColumn}>
-          {isPending ? 'Adding...' : 'Add column'}
+        <Button variant="contained" loading={isPending} onClick={handleAddColumn}>
+          Add column
         </Button>
         <Button onClick={onHideTextField}>
           <CloseIcon />

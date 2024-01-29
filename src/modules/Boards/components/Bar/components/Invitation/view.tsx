@@ -76,7 +76,8 @@ export default forwardRef<InvitationViewRef, InvitationViewProps>(function Invit
             variant="contained"
             fullWidth
             sx={{ mt: 2 }}
-            disabled={selectedMembers.length === 0 || isInviting}
+            disabled={selectedMembers.length === 0}
+            loading={isInviting}
             onClick={() => onInvite(selectedMembers)}
           >
             Invite

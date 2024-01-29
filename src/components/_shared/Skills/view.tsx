@@ -44,7 +44,7 @@ function SkillsView({ options, selectedSkills, state, onQueryChange, onSelectSki
         )}
       />
       <Box sx={{ textAlign: 'end', mt: 2 }}>
-        <Button variant="contained" disabled={isUpdating} onClick={onSaveSkills}>
+        <Button variant="contained" loading={isUpdating} onClick={onSaveSkills}>
           Save
         </Button>
       </Box>

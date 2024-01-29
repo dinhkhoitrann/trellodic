@@ -66,11 +66,12 @@ function CommentItemView({ comment, isLoading, onEdit, onDelete }: CommentItemVi
         <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 2 }}>
           <Button
             variant="contained"
-            disabled={enteredComment === '' || isLoading}
+            disabled={enteredComment === ''}
+            loading={isLoading}
             sx={{ mt: 2 }}
             onClick={() => onEdit(comment._id, enteredComment, () => setEditMode(false))}
           >
-            {isLoading ? 'Saving' : 'Save'}
+            Save
           </Button>
           <Button onClick={handleCloseEditor}>Cancel</Button>
         </Stack>

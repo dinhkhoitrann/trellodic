@@ -31,8 +31,8 @@ function LoginFormView({ methods, isLoggingin, onSubmit }: FormViewProps) {
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <RHFTextField name="email" label="Email" id="email" placeholder="Enter your email" type="email" size="small" />
         <PasswordField name="password" label="Password" id="password" placeholder="Enter your password" size="small" />
-        <Button fullWidth variant="contained" type="submit" disabled={isLoggingin}>
-          {isLoggingin ? 'Logging in' : 'Login'}
+        <Button fullWidth variant="contained" type="submit" loading={isLoggingin}>
+          Login
         </Button>
         <Divider sx={{ my: 4 }}>Or</Divider>
         <GoogleSignInButton />

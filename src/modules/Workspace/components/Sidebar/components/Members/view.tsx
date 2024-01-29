@@ -108,7 +108,8 @@ function MembersView({
             variant="contained"
             fullWidth
             sx={{ mt: 2 }}
-            disabled={selectedUsers.length === 0 || isInviting}
+            disabled={selectedUsers.length === 0}
+            loading={isInviting}
             onClick={() => onInvite(handleInviteModalVisibility)}
           >
             Invite

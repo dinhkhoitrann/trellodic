@@ -56,8 +56,8 @@ function CreateFormView({ methods, isLoading, onSubmit, onClose }: CreateFormVie
           getOptionLabel={(option: Partial<Workspace>) => option.name || ''}
           isOptionEqualToValue={(option: any, value: any) => option === value}
         />
-        <Button fullWidth variant="contained" type="submit" disabled={isLoading} sx={{ mt: 2 }}>
-          {isLoading ? 'Creating' : 'Create'}
+        <Button fullWidth variant="contained" type="submit" loading={isLoading} sx={{ mt: 2 }}>
+          Create
         </Button>
       </FormProvider>
     </Box>
