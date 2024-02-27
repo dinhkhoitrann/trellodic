@@ -1,23 +1,27 @@
+import { useRef } from 'react';
 import { useChat, Message } from 'ai/react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
+import SendIcon from '@mui/icons-material/Send';
+import StopCircleOutlinedIcon from '@mui/icons-material/StopCircleOutlined';
+import { Box, IconButton, InputAdornment, TextField, Typography } from '@/components/UIElements';
 
 function ChatWithGPTView() {
-  const { input, handleInputChange, handleSubmit, isLoading, messages } = useChat();
+  const { input, handleInputChange, handleSubmit, stop, isLoading, messages } = useChat();
+  const formRef = useRef<HTMLFormElement>(null);
   // messages -> [user asks a question, gpt-4 response, user asks again, gpt-4 responds]
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      formRef.current?.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    }
+  };
 
   return (
     <Box>
       {messages.map((message: Message) => {
         return (
           <div key={message.id}>
-            {message.role === 'assistant' ? (
-              <h3 className="text-lg font-semibold mt-2">GPT-3.5</h3>
-            ) : (
-              <h3 className="text-lg font-semibold mt-2">User</h3>
-            )}
+            {message.role === 'assistant' ? <h3>GPT-3.5</h3> : <h3>User</h3>}
 
             {message.content.split('\n').map((currentTextBlock, index) => {
               if (currentTextBlock === '') {
@@ -29,19 +33,32 @@ function ChatWithGPTView() {
         );
       })}
       <Box sx={{ mt: 8 }}>
-        <form onSubmit={handleSubmit}>
+        <form ref={formRef} onSubmit={handleSubmit}>
           <Typography>User Message</Typography>
           <TextField
             fullWidth
-            placeholder="Send a message"
+            placeholder="Message ChatGPT..."
             multiline
             value={input}
             sx={{ mt: 1, mb: 2 }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {isLoading ? (
+                    <IconButton onClick={() => stop()}>
+                      <StopCircleOutlinedIcon />
+                    </IconButton>
+                  ) : (
+                    <IconButton type="submit">
+                      <SendIcon />
+                    </IconButton>
+                  )}
+                </InputAdornment>
+              ),
+            }}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
           />
-          <Button variant="contained" disabled={isLoading} type="submit">
-            Send message
-          </Button>
         </form>
       </Box>
     </Box>

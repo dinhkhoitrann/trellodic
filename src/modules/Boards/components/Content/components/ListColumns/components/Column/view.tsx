@@ -1,18 +1,12 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { isEmpty } from 'lodash';
-import Box from '@mui/material/Box';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box, Menu, MenuItem, Tooltip, ListItem } from '@/components/UIElements';
 import { useAppSelector } from '@/redux/store';
 import { selectBoardFilter } from '@/redux/slices/board';
 import { useCustomTheme } from '@/common/styles/theme';
-import { Theme } from '@/common/enums';
 import { Column } from '@/types/column.type';
 import { useAlert, useAuthorized } from '@/hooks';
 import { DND_ANIMATION_OPACITY } from '@/utils/constants';
@@ -65,7 +59,7 @@ function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnView
           sx={{
             minWidth: '300px',
             maxWidth: '300px',
-            bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0'),
+            bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#333643' : '#ebecf0'),
             ml: 2,
             px: '10px',
             pb: 1,
@@ -92,10 +86,10 @@ function ColumnView({ column, anchorEl, onClick, onClose, onDelete }: ColumnView
                   <Tooltip title={!canDelete && 'You can not delete the column containing cards'} arrow placement="top">
                     <div>
                       <MenuItem disabled={!canDelete} onClick={() => handleOpenAlert(column._id)}>
-                        <ListItemIcon>
+                        <ListItem.Icon>
                           <DeleteIcon fontSize="small" />
-                        </ListItemIcon>
-                        <ListItemText>Delete column</ListItemText>
+                        </ListItem.Icon>
+                        <ListItem.Text>Delete column</ListItem.Text>
                       </MenuItem>
                     </div>
                   </Tooltip>

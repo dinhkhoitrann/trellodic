@@ -1,8 +1,5 @@
 import { useRef } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import { colors } from '../../../../../modules/CardDetails/components/AddToCard/components/Labels/constants';
+import { TextField, Typography, Button } from '@/components/UIElements';
 import Colors from '@/components/Colors';
 
 type CreateLabelViewProps = {
@@ -23,9 +20,9 @@ function CreateLabelView({ selectedColor, isPending, onSelectColorChange, onCrea
     <>
       <TextField inputRef={titleRef} fullWidth size="small" placeholder="Title" sx={{ marginTop: '20px' }} />
       <Typography sx={{ my: 2 }}>Select a color</Typography>
-      <Colors colors={colors} selectedColor={selectedColor} onSelect={onSelectColorChange} />
-      <Button variant="contained" disabled={isPending} sx={{ mt: 2 }} onClick={handleCreateLabel}>
-        {isPending ? 'Creating...' : 'Create'}
+      <Colors selectedColor={selectedColor} onSelect={onSelectColorChange} />
+      <Button variant="contained" loading={isPending} sx={{ mt: 2 }} onClick={handleCreateLabel}>
+        Create
       </Button>
     </>
   );

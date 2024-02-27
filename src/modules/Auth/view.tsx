@@ -1,11 +1,8 @@
-import { ReactNode } from 'react';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import Typography from '@mui/material/Typography';
-import SvgIcon from '@mui/material/SvgIcon';
+import { PropsWithChildren } from 'react';
+import { Box, Card, SvgIcon, Typography } from '@/components/UIElements';
 import TrelloIcon from '@/common/assets/icons/trello.svg';
 
-function AuthFormView({ children }: { children: ReactNode }) {
+function AuthFormView({ children }: PropsWithChildren) {
   return (
     <Box
       sx={{

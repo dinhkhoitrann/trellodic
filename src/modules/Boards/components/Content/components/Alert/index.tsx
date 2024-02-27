@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { IconButton, Snackbar } from '@/components/UIElements';
 
 function Alert() {
   const [open, setOpen] = useState(true);

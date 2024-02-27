@@ -1,19 +1,17 @@
 'use client';
-import { ReactNode, useEffect } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import BoardBar from '@/modules/Boards/components/Bar';
-import { useLazyGetWorkspaceQuery } from '@/redux/services/workspace/workspace';
-import { BoardGlobalProps, withBoard } from '@/hocs';
+import { useAppDispatch } from '@/redux/store';
+import { clear } from '@/redux/slices/board';
 
-type BoardDetailsLayoutProps = BoardGlobalProps & {
-  children: ReactNode;
-};
-
-function BoardDetailsLayout({ board, children }: BoardDetailsLayoutProps) {
-  const [getWorkspace] = useLazyGetWorkspaceQuery();
+function BoardDetailsLayout({ children }: PropsWithChildren) {
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getWorkspace({ workspaceId: board.workspaceId });
-  }, [board.workspaceId, getWorkspace]);
+    return () => {
+      dispatch(clear());
+    };
+  }, [dispatch]);
 
   return (
     <>
@@ -23,4 +21,4 @@ function BoardDetailsLayout({ board, children }: BoardDetailsLayoutProps) {
   );
 }
 
-export default withBoard(BoardDetailsLayout);
+export default BoardDetailsLayout;

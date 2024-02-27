@@ -1,8 +1,4 @@
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import IconButton from '@mui/material/IconButton';
+import { Avatar, Box, IconButton, Stack, Typography } from '@/components/UIElements';
 import CloseIcon from '@mui/icons-material/Close';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 import { useAlert } from '@/hooks';

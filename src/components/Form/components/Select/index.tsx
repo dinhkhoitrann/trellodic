@@ -1,11 +1,7 @@
+import { PropsWithChildren } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { FormHelperText, SelectProps } from '@mui/material';
-import Select from '@mui/material/Select';
-import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Typography from '@mui/material/Typography';
-import InputLabel from '@mui/material/InputLabel';
+import { Chip, OutlinedInput, Select, Typography, InputLabel, Box } from '@/components/UIElements';
 import { getOptionLabel } from './service';
 import { MenuProps } from './constants';
 
@@ -31,7 +27,7 @@ function RHFSelect({
   getLabelBy,
   renderValue,
   ...rest
-}: RHFSelectProps) {
+}: PropsWithChildren<RHFSelectProps>) {
   const { control } = useFormContext();
   return (
     <Controller

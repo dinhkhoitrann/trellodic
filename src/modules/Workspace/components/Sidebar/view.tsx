@@ -1,15 +1,10 @@
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Skeleton from '@mui/material/Skeleton';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import Divider from '@mui/material/Divider';
-import AddIcon from '@mui/icons-material/Add';
-import WorkspaceItem from './components/WorkspaceItem';
-import { Workspace } from '@/types/workspace.type';
-import Members from './components/Members';
-import { useCreateWorkspace } from '@/hooks';
 import { isEmpty } from 'lodash';
+import AddIcon from '@mui/icons-material/Add';
+import { Box, Divider, IconButton, Skeleton, Stack, Typography } from '@/components/UIElements';
+import { useCreateWorkspace } from '@/hooks';
+import { Workspace } from '@/types/workspace.type';
+import WorkspaceItem from './components/WorkspaceItem';
+import Members from './components/Members';
 
 type WorkspaceSidebarViewProps = {
   isFetching: boolean;

@@ -1,8 +1,6 @@
 'use client';
 import { MouseEvent, useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Popover from '@mui/material/Popover';
-import { Theme } from '@/common/enums';
+import { Popover, Typography } from '@/components/UIElements';
 import BoardItem from '../BoardItem';
 import CreateForm from './components/Form';
 
@@ -21,7 +19,10 @@ function CreateBoardView() {
   return (
     <>
       <BoardItem
-        sx={{ bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#282d33' : '#f1f2f4') }}
+        sx={{
+          bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#282d33' : '#f1f2f4'),
+          backgroundImage: 'unset',
+        }}
         onClick={handleOpen}
       >
         <Typography sx={{ textAlign: 'center', lineHeight: '96px' }}>Create new board</Typography>

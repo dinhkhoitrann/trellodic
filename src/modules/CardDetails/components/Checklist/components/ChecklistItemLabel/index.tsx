@@ -1,7 +1,7 @@
 import { ChecklistItem } from '@/types/card.type';
-import ChecklistItemLabelView from './view';
 import { useUpdateChecklistItemMutation } from '@/redux/services/card/checklist';
 import { withBoard, BoardGlobalProps } from '@/hocs';
+import ChecklistItemLabelView from './view';
 
 type ChecklistItemLabelProps = BoardGlobalProps & {
   item: ChecklistItem;

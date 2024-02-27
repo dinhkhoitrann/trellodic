@@ -1,8 +1,6 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import AddCardIcon from '@mui/icons-material/AddCard';
-import Tooltip from '@mui/material/Tooltip';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
+import { Box, Button, Tooltip } from '@/components/UIElements';
 import { useCustomTheme } from '@/common/styles/theme';
 
 type OutsideAddCardViewProps = {

@@ -1,12 +1,12 @@
 import { isEqual } from 'lodash';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import FormView from './view';
 import { useLazyFilterBoardQuery } from '@/redux/services/board/filter';
 import { useAppDispatch } from '@/redux/store';
 import { clearAllBoardFilter } from '@/redux/slices/board';
 import { withBoard, BoardGlobalProps } from '@/hocs';
 import { FilterDefaultValues, FilterSchema, defaultValues } from './validation';
+import FormView from './view';
 
 type FormProps = BoardGlobalProps & {
   isOpen: boolean;

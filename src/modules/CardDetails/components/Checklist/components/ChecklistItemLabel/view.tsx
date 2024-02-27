@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { FormControlLabel, TextField } from '@/components/UIElements';
 import { ChecklistItem } from '@/types/card.type';
 
 type ChecklistItemLabelViewProps = {

@@ -1,11 +1,11 @@
 'use client';
-import { ReactNode, useEffect } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import { useColorScheme } from '@mui/material/styles';
 import AuthForm from '@/modules/Auth';
 import { usePathname } from 'next/navigation';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
-function AuthLayout({ children }: { children: ReactNode }) {
+function AuthLayout({ children }: PropsWithChildren) {
   const { setMode } = useColorScheme();
   const pathname = usePathname();
 

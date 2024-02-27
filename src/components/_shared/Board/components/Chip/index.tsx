@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import Chip from '@mui/material/Chip';
+import { Chip } from '@/components/UIElements';
 
 export const StyledChip = styled(Chip)(({ theme }) => {
   const textColor = theme.palette.mode === 'dark' ? theme.palette.text.primary : 'white';

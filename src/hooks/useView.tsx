@@ -1,7 +1,5 @@
 import Image from 'next/image';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { Box, CircularProgress, Typography } from '@/components/UIElements';
 
 type ViewProps = {
   data: any;

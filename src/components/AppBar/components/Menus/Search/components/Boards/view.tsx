@@ -1,7 +1,5 @@
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import { Box, List, Typography } from '@/components/UIElements';
 import { Board } from '@/types/board.type';
 import ResultItem from '../ResultItem';
 

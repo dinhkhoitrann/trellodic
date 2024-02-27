@@ -1,7 +1,6 @@
 import { useRef, useEffect, ChangeEvent } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import ChecklistIcon from '@mui/icons-material/Checklist';
+import { TextField, Button } from '@/components/UIElements';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import PopoverWrapper from '../Popover';
 
@@ -44,8 +43,8 @@ function ChecklistView({ title, isPending, isSuccess, onAddChecklist, onTitleCha
             sx={{ marginTop: '20px' }}
             onChange={onTitleChange}
           />
-          <Button variant="contained" disabled={isPending || !title} sx={{ mt: 2 }} onClick={handleAddChecklist}>
-            {isPending ? 'Adding...' : 'Add'}
+          <Button variant="contained" disabled={!title} loading={isPending} sx={{ mt: 2 }} onClick={handleAddChecklist}>
+            Add
           </Button>
         </PopoverWrapper>
       )}

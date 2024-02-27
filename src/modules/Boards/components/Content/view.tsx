@@ -1,5 +1,4 @@
 import { useSearchParams } from 'next/navigation';
-import Box from '@mui/material/Box';
 import {
   CollisionDetection,
   DndContext,
@@ -12,6 +11,7 @@ import {
   defaultDropAnimationSideEffects,
 } from '@dnd-kit/core';
 import { isEmpty } from 'lodash';
+import { Box } from '@/components/UIElements';
 import { useCustomTheme } from '@/common/styles/theme';
 import CardDetails from '@/modules/CardDetails';
 import SummaryTodos from '@/modules/Summary';
@@ -20,11 +20,11 @@ import { selectBoardFilter, selectBoardLoading } from '@/redux/slices/board';
 import { useAppSelector } from '@/redux/store';
 import BackdropLoading from '@/components/Loading/Backdrop';
 import { Column as ColumnType } from '@/types/column.type';
+import Alert from './components/Alert';
 import ListColumns from './components/ListColumns';
 import Column from './components/ListColumns/components/Column';
 import Card from './components/ListColumns/components/Column/components/ListCards/components/Card';
 import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
-import Alert from './components/Alert';
 
 type BoardContentViewProps = {
   columns: ColumnType[];

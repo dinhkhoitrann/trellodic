@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useMutation } from '@tanstack/react-query';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { AxiosError } from 'axios';
 import { changePassword } from '@/services/user';
 import { ChangePasswordFormSchema, ChangePasswordFormValues } from './validation';
 import AccountView from './view';
-import { AxiosError } from 'axios';
 
 function Account() {
   const methods = useForm({

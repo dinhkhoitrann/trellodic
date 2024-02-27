@@ -1,15 +1,11 @@
 'use client';
+import Link from 'next/link';
 import { UseFormReturn } from 'react-hook-form';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Badge from '@mui/material/Badge';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
+import { Badge, Box, Button, Divider, Typography } from '@/components/UIElements';
 import FormProvider from '@/components/Form/components/FormProvider';
 import RHFTextField from '@/components/Form/components/TextField';
-import GoogleSignInButton from './components/GoogleSignInButton';
-import Link from 'next/link';
 import PasswordField from '@/components/Form/components/Fields/Password';
+import GoogleSignInButton from './components/GoogleSignInButton';
 
 type FormViewProps = {
   methods: UseFormReturn<
@@ -35,8 +31,8 @@ function LoginFormView({ methods, isLoggingin, onSubmit }: FormViewProps) {
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <RHFTextField name="email" label="Email" id="email" placeholder="Enter your email" type="email" size="small" />
         <PasswordField name="password" label="Password" id="password" placeholder="Enter your password" size="small" />
-        <Button fullWidth variant="contained" type="submit" disabled={isLoggingin}>
-          {isLoggingin ? 'Logging in' : 'Login'}
+        <Button fullWidth variant="contained" type="submit" loading={isLoggingin}>
+          Login
         </Button>
         <Divider sx={{ my: 4 }}>Or</Divider>
         <GoogleSignInButton />

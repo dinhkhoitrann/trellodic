@@ -1,13 +1,9 @@
-import React, { ReactNode } from 'react';
-
-interface ProviderProps {
-  children: ReactNode;
-}
+import React, { PropsWithChildren } from 'react';
 
 export const buildProviderTree = (componentsWithProps: [React.ComponentType<any>, any?][]) => {
-  const InitialComponent = ({ children }: ProviderProps) => <>{children}</>;
+  const InitialComponent = ({ children }: PropsWithChildren) => <>{children}</>;
   return componentsWithProps.reduce((AccumulatedComponents, [Provider, props = {}]) => {
-    const ProviderComponent = ({ children }: ProviderProps) => {
+    const ProviderComponent = ({ children }: PropsWithChildren) => {
       return (
         <AccumulatedComponents>
           <Provider {...props}>{children}</Provider>

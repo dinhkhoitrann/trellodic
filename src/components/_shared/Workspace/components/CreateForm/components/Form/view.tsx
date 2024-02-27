@@ -1,8 +1,7 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import { UseFormReturn } from 'react-hook-form';
+import { Box, Button } from '@/components/UIElements';
 import FormProvider from '@/components/Form/components/FormProvider';
 import RHFTextField from '@/components/Form/components/TextField';
-import { UseFormReturn } from 'react-hook-form';
 
 type CreateFormViewProps = {
   methods: UseFormReturn<any, any>;
@@ -17,8 +16,8 @@ function CreateFormView({ methods, isCreating, onSubmit }: CreateFormViewProps) 
     <Box sx={{ mt: 4 }}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <RHFTextField name="name" label="Workspace name" id="name" placeholder="Workspace name" />
-        <Button fullWidth variant="contained" type="submit" disabled={isCreating} sx={{ py: '10px' }}>
-          {isCreating ? 'Creating' : 'Create'}
+        <Button fullWidth variant="contained" type="submit" loading={isCreating} sx={{ py: '10px' }}>
+          Create
         </Button>
       </FormProvider>
     </Box>

@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import Fab from '@mui/material/Fab';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import AssistantIcon from '@mui/icons-material/Assistant';
+import { Box, Fab, Typography } from '@/components/UIElements';
 import Modal from '@/components/Modal';
 import Section from '@/components/Accordion';
-import { Theme } from '@/common/enums';
 import ChatWithGPT from './components/Chat';
 import Summary from './components/Summary';
 
@@ -33,7 +30,7 @@ function SummaryTodos() {
         sx={{
           width: { xs: '95%', md: '60%' },
           transform: 'translate(-50%, -250px)',
-          bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0'),
+          bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#333643' : '#ebecf0'),
         }}
       >
         <>

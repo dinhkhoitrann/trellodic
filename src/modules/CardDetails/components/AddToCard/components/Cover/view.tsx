@@ -1,12 +1,10 @@
 import { useEffect, useRef } from 'react';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import Image from 'next/image';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import { Box, Button, Typography } from '@/components/UIElements';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import PopoverWrapper from '../Popover';
-import Image from 'next/image';
 
 type CoverViewProps = {
   image: string | ArrayBuffer | null | undefined;
@@ -35,8 +33,8 @@ function CoverView({ image, isUploading, isSaveSuccess, onUpload, onSaveCover }:
           <Image src={image as string} width={200} height={200} style={{ width: '100%' }} alt="Cover image" />
         </Box>
         <Box sx={{ textAlign: 'end', mt: 1 }}>
-          <Button variant="contained" disabled={isUploading} onClick={onSaveCover}>
-            {isUploading ? 'Saving' : 'Save'}
+          <Button variant="contained" loading={isUploading} onClick={onSaveCover}>
+            Save
           </Button>
         </Box>
       </>

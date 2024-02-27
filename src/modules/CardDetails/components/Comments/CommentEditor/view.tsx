@@ -1,13 +1,9 @@
 import { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
-import Editor from '@/components/Editor';
+import { Avatar, Box, Button, Stack, Typography } from '@/components/UIElements';
+import Editor from '@/components/Editor/components/Form';
+import { useAppSelector } from '@/redux/store';
+import { selectUserProfile } from '@/redux/slices/user';
 import { useAlert } from '@/hooks';
 
 type CommentEditorViewProps = {
@@ -18,6 +14,7 @@ type CommentEditorViewProps = {
 function CommentEditorView({ isLoading, onSave }: CommentEditorViewProps) {
   const [addMode, setAddMode] = useState(false);
   const [comment, setComment] = useState('');
+  const user = useAppSelector(selectUserProfile);
 
   const handleShowHideEditor = () => {
     setAddMode(!addMode);
@@ -60,8 +57,8 @@ function CommentEditorView({ isLoading, onSave }: CommentEditorViewProps) {
             Comments
           </Typography>
         </Stack>
-        <Stack direction="row" alignItems="flex-start" spacing={1} sx={{ mt: 2 }}>
-          <Avatar alt="Tran Dinh Khoi" />
+        <Stack direction="row" alignItems={addMode ? 'flex-start' : 'center'} spacing={1} sx={{ my: 2 }}>
+          <Avatar src={user?.avatar} alt={user?.name} sx={{ width: 32, height: 32 }} />
           <Box sx={{ flex: 1, maxWidth: '100%' }}>
             {addMode ? (
               <>
@@ -69,21 +66,29 @@ function CommentEditorView({ isLoading, onSave }: CommentEditorViewProps) {
                 <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 2 }}>
                   <Button
                     variant="contained"
-                    disabled={comment === '' || isLoading}
+                    disabled={comment === ''}
+                    loading={isLoading}
                     sx={{ mt: 2 }}
                     onClick={() => onSave(comment, handleClear)}
                   >
-                    {isLoading ? 'Saving' : 'Save'}
+                    Save
                   </Button>
                   <Button onClick={handleCloseEditor}>Cancel</Button>
                 </Stack>
               </>
             ) : (
-              <Card sx={{ cursor: 'pointer' }} onClick={handleShowHideEditor}>
-                <CardContent>
-                  <Typography>Write a comment...</Typography>
-                </CardContent>
-              </Card>
+              <Box
+                sx={{
+                  cursor: 'pointer',
+                  backgroundColor: (theme) => (theme.palette.mode === 'dark' ? '#525456' : '#dbdfe5'),
+                  px: 2,
+                  py: '10px',
+                  borderRadius: '20px',
+                }}
+                onClick={handleShowHideEditor}
+              >
+                <Typography>Write a comment...</Typography>
+              </Box>
             )}
           </Box>
         </Stack>

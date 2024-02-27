@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import TextField from '@mui/material/TextField';
+import { TextField } from '@/components/UIElements';
 
 type EditCLNameViewProps = {
   currentName: string;

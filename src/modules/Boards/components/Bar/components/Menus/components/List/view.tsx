@@ -1,17 +1,8 @@
 import { useState } from 'react';
-import Drawer from '@mui/material/Drawer';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import CloseIcon from '@mui/icons-material/Close';
 import LabelOutlinedIcon from '@mui/icons-material/LabelOutlined';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import { Box, Divider, Drawer, IconButton, List, ListItem, Typography } from '@/components/UIElements';
 import { ITEMS } from './constants';
 import Labels from '../Labels';
 
@@ -80,12 +71,12 @@ function ListView({ isOpen, onClose }: ListViewProps) {
         ) : (
           <List sx={{ p: 1 }}>
             <ListItem disablePadding onClick={() => handleSelectItem(ITEMS.labels)}>
-              <ListItemButton>
-                <ListItemIcon>
+              <ListItem.Button>
+                <ListItem.Icon>
                   <LabelOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Labels" />
-              </ListItemButton>
+                </ListItem.Icon>
+                <ListItem.Text primary="Labels" />
+              </ListItem.Button>
             </ListItem>
           </List>
         )}

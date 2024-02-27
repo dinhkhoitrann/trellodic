@@ -1,8 +1,6 @@
 import { UseFormReturn } from 'react-hook-form';
 import Link from 'next/link';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Box, Button, Typography } from '@/components/UIElements';
 import FormProvider from '@/components/Form/components/FormProvider';
 import RHFTextField from '@/components/Form/components/TextField';
 import RHFDatePicker from '@/components/Form/components/DatePicker';
@@ -50,8 +48,8 @@ function SignupFormView({ methods, isSigningup, onSubmit }: SignupFormViewProps)
           size="small"
         />
         <RHFDatePicker id="birthday" name="birthday" label="Birthday" />
-        <Button fullWidth variant="contained" type="submit" disabled={isSigningup}>
-          {isSigningup ? 'Creating' : 'Create'}
+        <Button fullWidth variant="contained" type="submit" loading={isSigningup}>
+          Create
         </Button>
         <Box sx={{ textAlign: 'center', fontSize: '14px', mt: 2 }}>
           <Link href="/auth/login">You have already an account? Log in</Link>

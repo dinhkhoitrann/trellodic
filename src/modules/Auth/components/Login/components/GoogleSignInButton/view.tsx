@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { CodeResponse, useGoogleLogin } from '@react-oauth/google';
-import Card from '@mui/material/Card';
-import Button from '@mui/material/Button';
+import { Button, Card } from '@/components/UIElements';
 
 type GoogleSignInButtonViewProps = {
   onSuccess: (_codeResponse: Omit<CodeResponse, 'error' | 'error_description' | 'error_uri'>) => void;

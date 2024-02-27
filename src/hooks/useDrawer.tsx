@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DrawerProps as DrawerPropsMUI } from '@mui/material';
+import { DrawerProps as DrawerPropsMUI } from '@/components/UIElements';
 
 type DrawerProps = {
   isOpen: boolean;

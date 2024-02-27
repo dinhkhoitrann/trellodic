@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
-import Box from '@mui/material/Box';
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
+import { Box } from '@/components/UIElements';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
-import PopoverWrapper from '../Popover';
 import UpdateSkills from '@/components/_shared/Skills';
 import { useAppSelector } from '@/redux/store';
 import { selectCardDetails } from '@/redux/slices/card';
+import PopoverWrapper from '../Popover';
 
 type SkillsViewProps = {
   isUpdating: boolean;

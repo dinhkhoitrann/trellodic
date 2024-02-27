@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { BoardGlobalProps, withBoard } from '@/hocs';
-import DescriptionView from './view';
 import { useEditCardMutation } from '@/redux/services/card/card';
+import DescriptionView from './view';
 
 function Description({ cardId, card, onRefreshCard }: BoardGlobalProps) {
   const [editorVisible, setEditorVisible] = useState(false);

@@ -1,11 +1,10 @@
+import { isEmpty } from 'lodash';
 import { Chart } from 'react-google-charts';
+import Image from 'next/image';
 import { useColorScheme } from '@mui/material';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { Box, Typography } from '@/components/UIElements';
 import { useView } from '@/hooks';
 import { useCustomTheme } from '@/common/styles/theme';
-import { isEmpty } from 'lodash';
-import Image from 'next/image';
 
 type GanntChartViewProps = {
   data: any[];

@@ -103,7 +103,7 @@ const theme = extendTheme({
     bgBlueDark: '#1565c0',
     bgBlueLight: '#1976d2',
     bgCardDark: '#282e33',
-    workspaceAvatar: '#4bce97',
+    workspaceAvatar: 'linear-gradient(to right bottom, #9f8fef, #579dff)',
     textInLightMode: 'white',
     textInDarkMode: '#b6c2cf',
   },

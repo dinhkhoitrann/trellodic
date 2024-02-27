@@ -1,6 +1,4 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import { Box, Grid, Typography } from '@/components/UIElements';
 import Members from './components/Members';
 import Labels from './components/Labels';
 import Checklist from './components/Checklist';

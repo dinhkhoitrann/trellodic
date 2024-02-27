@@ -1,10 +1,5 @@
 import { ReactNode } from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import { Button, Dialog } from '@/components/UIElements';
 
 type AlertProps = {
   title?: string;
@@ -24,18 +19,18 @@ function Alert({ title, content, isOpen, okText, cancelText, onOk, onClose }: Al
 
   return (
     <Dialog open={isOpen} onClose={onClose}>
-      <DialogTitle>{title}</DialogTitle>
-      <DialogContent>
-        <DialogContentText sx={{ minWidth: '350px' }}>{content}</DialogContentText>
-      </DialogContent>
-      <DialogActions>
+      <Dialog.Title>{title}</Dialog.Title>
+      <Dialog.Content>
+        <Dialog.ContentText sx={{ minWidth: '350px' }}>{content}</Dialog.ContentText>
+      </Dialog.Content>
+      <Dialog.Actions>
         <Button variant="outlined" onClick={onClose}>
           {cancelText || 'Cancel'}
         </Button>
         <Button variant="contained" onClick={handleOk} autoFocus>
           {okText || 'Agree'}
         </Button>
-      </DialogActions>
+      </Dialog.Actions>
     </Dialog>
   );
 }

@@ -1,7 +1,5 @@
 import Image from 'next/image';
-import MenuList from '@mui/material/MenuList';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import { MenuList, Stack, Typography } from '@/components/UIElements';
 import { useNotiContext } from '../..';
 import { filterNotiList } from '../../service';
 import NotiItem from './components/Item';

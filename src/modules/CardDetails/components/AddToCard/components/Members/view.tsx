@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
-import Button from '@mui/material/Button';
-import Alert from '@mui/material/Alert';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import { Alert, Button } from '@/components/UIElements';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import Recommendations from './components/Recommendations';
 import SelectMembers from './components/SelectMembers';
@@ -63,8 +62,14 @@ function MembersView({ isSaving, onAddMember }: MembersViewProps) {
           </Alert>
           <SelectMembers onChangeMembers={handleChangeMembers} />
           <Recommendations onSelectRecommendations={handleChangeMembers} />
-          <Button variant="contained" disabled={isSaving || !isModified} sx={{ mt: 2 }} onClick={handleAddMember}>
-            {isSaving ? 'Saving' : 'Save'}
+          <Button
+            variant="contained"
+            disabled={!isModified}
+            loading={isSaving}
+            sx={{ mt: 2 }}
+            onClick={handleAddMember}
+          >
+            Save
           </Button>
         </PopoverWrapper>
       )}

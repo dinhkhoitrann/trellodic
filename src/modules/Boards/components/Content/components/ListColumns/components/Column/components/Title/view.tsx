@@ -1,7 +1,5 @@
 import { useRef, useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import { Box } from '@mui/material';
+import { Box, TextField, Typography } from '@/components/UIElements';
 
 type ColumnTitleViewProps = {
   title: string;

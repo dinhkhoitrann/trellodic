@@ -1,17 +1,15 @@
 import { useRouter } from 'next/navigation';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import { Theme } from '@/common/enums';
+import { Box, Grid } from '@/components/UIElements';
+import Modal from '@/components/Modal';
+import { useEditCardMutation } from '@/redux/services/card/card';
+import { useView } from '@/hooks';
+import { Card } from '@/types/card.type';
 import AddToCard from './components/AddToCard';
 import ActiveSections from './components/ActiveSections';
 import Description from './components/Description';
 import Checklist from './components/Checklist';
 import Comments from './components/Comments';
-import { useEditCardMutation } from '@/redux/services/card/card';
-import { Card } from '@/types/card.type';
-import Modal from '@/components/Modal';
 import Attachment from './components/Attachment';
-import { useView } from '@/hooks';
 
 type CardDetailsViewProps = {
   card: Card;
@@ -69,11 +67,11 @@ export default function CardDetailsView({ card, isError }: CardDetailsViewProps)
       isVisibleModal
       onClose={handleCloseModal}
       sx={{
-        transform: 'translate(-50%, -250px)',
+        transform: 'translate(-50%, -300px)',
         width: { xs: '95%', md: '75%' },
         px: 0,
         py: 0,
-        bgcolor: (theme) => (theme.palette.mode === Theme.Dark ? '#333643' : '#ebecf0'),
+        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#333643' : '#ebecf0'),
       }}
     >
       {content}

@@ -1,8 +1,6 @@
 import { useRouter } from 'next/navigation';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import { styled } from '@mui/material/styles';
+import { Typography, ListItem, MenuItem } from '@/components/UIElements';
 import { useLazyGetWorkspaceQuery } from '@/redux/services/workspace/workspace';
 import { useCustomTheme } from '@/common/styles/theme';
 import { Workspace } from '@/types/workspace.type';
@@ -12,10 +10,11 @@ const StyledMenuItem = styled(MenuItem)(() => ({
 }));
 
 type WorkspaceListProps = {
+  title: string;
   workspaces: Partial<Workspace>[];
 };
 
-function WorkspaceList({ workspaces }: WorkspaceListProps) {
+function WorkspaceList({ title, workspaces }: WorkspaceListProps) {
   const [getWorkspace] = useLazyGetWorkspaceQuery({
     pollingInterval: 60000 * 5,
     refetchOnFocus: true,
@@ -31,14 +30,15 @@ function WorkspaceList({ workspaces }: WorkspaceListProps) {
 
   return (
     <>
+      {workspaces.length > 0 && <Typography sx={{ ml: 2, mb: 1 }}>{title}</Typography>}
       {workspaces.map((workspace) => (
         <StyledMenuItem key={workspace._id} onClick={() => handleSelectWorkspace(workspace._id || '')}>
-          <ListItemIcon
+          <ListItem.Icon
             sx={{
               width: '30px',
               height: '30px',
               lineHeight: '30px',
-              bgcolor: customTheme.colors.workspaceAvatar,
+              background: customTheme.colors.workspaceAvatar,
               borderRadius: '4px',
               color: 'black',
               textAlign: 'center',
@@ -49,8 +49,8 @@ function WorkspaceList({ workspaces }: WorkspaceListProps) {
             }}
           >
             {workspace.name?.[0]}
-          </ListItemIcon>
-          <ListItemText>{workspace.name}</ListItemText>
+          </ListItem.Icon>
+          <ListItem.Text>{workspace.name}</ListItem.Text>
         </StyledMenuItem>
       ))}
     </>

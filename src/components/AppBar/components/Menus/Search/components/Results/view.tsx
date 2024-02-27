@@ -1,7 +1,5 @@
 import Image from 'next/image';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Box, CircularProgress, Typography } from '@/components/UIElements';
 import { SearchResults } from '@/types/search.type';
 import Cards from '../Cards';
 import Boards from '../Boards';

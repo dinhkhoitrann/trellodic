@@ -1,18 +1,9 @@
 import dayjs from 'dayjs';
 import { toast } from 'react-toastify';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Box, IconButton, List, ListItem, Stack, Typography } from '@/components/UIElements';
 import { BoardGlobalProps, withBoard } from '@/hocs';
-import { Theme } from '@/common/enums';
 import { useAlert } from '@/hooks';
 
 type AttachmentViewProps = BoardGlobalProps & {
@@ -62,17 +53,17 @@ function AttachmentView({ card, cardId, onRefreshCard, onRefreshBoard, onDelete 
               }
               disablePadding
             >
-              <ListItemButton>
-                <ListItemAvatar sx={{ minWidth: '100px' }}>
+              <ListItem.Button>
+                <ListItem.Avatar sx={{ minWidth: '100px' }}>
                   <Box sx={{ p: 3 }}>
                     <Typography variant="h6">{attachment.extension}</Typography>
                   </Box>
-                </ListItemAvatar>
-                <ListItemText
+                </ListItem.Avatar>
+                <ListItem.Text
                   primary={
                     <Typography
                       sx={{
-                        color: (theme) => (theme.palette.mode === Theme.Dark ? 'white' : 'black'),
+                        color: (theme) => (theme.palette.mode === 'dark' ? 'white' : 'black'),
                         fontWeight: 'bold',
                         mb: 1,
                         display: 'inline-block',
@@ -86,7 +77,7 @@ function AttachmentView({ card, cardId, onRefreshCard, onRefreshBoard, onDelete 
                   }
                   secondary={`Added on ${dayjs(attachment.createdTime).format('DD-MM-YYYY HH:mm')}`}
                 />
-              </ListItemButton>
+              </ListItem.Button>
             </ListItem>
           ))}
         </List>

@@ -1,9 +1,6 @@
 import { useRef } from 'react';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
+import { Box, Button, Stack, TextField } from '@/components/UIElements';
 
 type AddCardSectionViewProps = {
   isPending: boolean;
@@ -34,8 +31,8 @@ function AddCardSectionView({ isPending, onHideTextField, onAddCard }: AddCardSe
         inputRef={textFieldRef}
       />
       <Stack direction="row" sx={{ mt: 1 }} spacing={1}>
-        <Button variant="contained" disabled={isPending} onClick={handleAddCard}>
-          {isPending ? 'Adding...' : 'Add card'}
+        <Button variant="contained" loading={isPending} onClick={handleAddCard}>
+          Add card
         </Button>
         <Button onClick={onHideTextField}>
           <CloseIcon />

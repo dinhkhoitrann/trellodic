@@ -1,6 +1,4 @@
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+import { Box, Container, Typography } from '@/components/UIElements';
 import ProfilePhoto from './components/Photo';
 import ProfileDetails from './components/Detail';
 import Account from './components/Account';

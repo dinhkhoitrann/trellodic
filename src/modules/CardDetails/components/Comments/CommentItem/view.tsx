@@ -1,13 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import dayjs from 'dayjs';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import Editor from '@/components/Editor';
+import { Avatar, Box, Button, Stack, Typography } from '@/components/UIElements';
+import EditorForm from '@/components/Editor/components/Form';
+import EditorView from '@/components/Editor/components/View';
+import { useAppSelector } from '@/redux/store';
+import { selectUserProfile } from '@/redux/slices/user';
 import { Comment } from '@/types/card.type';
 import { useAlert } from '@/hooks';
 
@@ -22,6 +19,9 @@ function CommentItemView({ comment, isLoading, onEdit, onDelete }: CommentItemVi
   const [editMode, setEditMode] = useState(false);
   const [enteredComment, setEnteredComment] = useState(comment.content);
   const editorDataRef = useRef<HTMLDivElement>(null);
+
+  const user = useAppSelector(selectUserProfile);
+  const isCommentAuthor = user?._id === comment.author._id;
 
   useEffect(() => {
     if (!editMode && editorDataRef.current) {
@@ -66,16 +66,17 @@ function CommentItemView({ comment, isLoading, onEdit, onDelete }: CommentItemVi
     return (
       <>
         <Box sx={{ my: 1 }}>
-          <Editor data={enteredComment} onDataChange={handleCommentChange} />
+          <EditorForm data={enteredComment} onDataChange={handleCommentChange} />
         </Box>
         <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 2 }}>
           <Button
             variant="contained"
-            disabled={enteredComment === '' || isLoading}
+            disabled={enteredComment === ''}
+            loading={isLoading}
             sx={{ mt: 2 }}
             onClick={() => onEdit(comment._id, enteredComment, () => setEditMode(false))}
           >
-            {isLoading ? 'Saving' : 'Save'}
+            Save
           </Button>
           <Button onClick={handleCloseEditor}>Cancel</Button>
         </Stack>
@@ -86,41 +87,34 @@ function CommentItemView({ comment, isLoading, onEdit, onDelete }: CommentItemVi
   const renderCommentInViewMode = () => {
     return (
       <>
-        <Card
-          sx={{
-            my: 1,
-            '.MuiCardContent-root:last-child': {
-              pb: 2,
-            },
-          }}
-        >
-          <CardContent>
-            <Box ref={editorDataRef} />
-          </CardContent>
-        </Card>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <Button onClick={() => setEditMode(true)}>Edit</Button>
-          <Button color="error" onClick={handleOpenDeleteAlert}>
-            Delete
-          </Button>
-        </Stack>
+        <Box sx={{ marginTop: '12px', marginLeft: '12px', marginBottom: '8px' }}>
+          <EditorView ref={editorDataRef} />
+        </Box>
+        {isCommentAuthor && (
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Button onClick={() => setEditMode(true)}>Edit</Button>
+            <Button color="error" onClick={handleOpenDeleteAlert}>
+              Delete
+            </Button>
+          </Stack>
+        )}
       </>
     );
   };
 
   return (
     <>
-      <Box sx={{ mt: 2 }}>
-        <Stack direction="row" alignItems="flex-start" spacing={1}>
-          <Avatar src={comment.author.avatar} alt={comment.author.name} />
+      <Box sx={{ my: '20px' }}>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <Avatar src={comment.author.avatar} alt={comment.author.name} sx={{ width: 32, height: 32 }} />
           <Box sx={{ flex: 1 }}>
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Typography sx={{ fontWeight: 'bold' }}>{comment.author.name}</Typography>
-              <Typography variant="caption">{dayjs(comment.createdAt).format('DD-MM-YYYY HH:mm')}</Typography>
-            </Stack>
-            {editMode ? renderCommentInEditMode() : renderCommentInViewMode()}
+            <Typography>
+              <strong>{comment.author.name}</strong> added a comment -{' '}
+              {dayjs(comment.createdAt).format('DD/MM/YYYY HH:mm')}
+            </Typography>
           </Box>
         </Stack>
+        {editMode ? renderCommentInEditMode() : renderCommentInViewMode()}
       </Box>
       {renderDiscardAlert()}
       {renderDeleteAlert()}

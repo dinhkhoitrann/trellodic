@@ -1,7 +1,5 @@
 import { TextFieldProps, TextareaAutosizeProps } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
+import { Box, InputLabel, TextField } from '@/components/UIElements';
 import { Controller, useFormContext } from 'react-hook-form';
 import StyledTextarea from './components/TextArea';
 

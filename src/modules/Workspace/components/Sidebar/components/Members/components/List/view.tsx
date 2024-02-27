@@ -1,10 +1,4 @@
-import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
+import { Avatar, IconButton, List, ListItem, Typography } from '@/components/UIElements';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useAppSelector } from '@/redux/store';
 import { selectWorkspaceDetails } from '@/redux/slices/workspace';
@@ -53,10 +47,10 @@ function ListView({ onRemoveMember }: ListViewProps) {
                 )
               }
             >
-              <ListItemAvatar>
+              <ListItem.Avatar>
                 <Avatar src={member.avatar} alt={member.name} />
-              </ListItemAvatar>
-              <ListItemText
+              </ListItem.Avatar>
+              <ListItem.Text
                 primary={<Typography sx={{ fontSize: '1rem !important', fontWeight: 600 }}>{member.name}</Typography>}
                 secondary={getMemberRole(member._id, user?._id || '', workspace.ownerUserId!)}
               />

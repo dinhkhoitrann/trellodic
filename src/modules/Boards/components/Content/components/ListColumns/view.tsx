@@ -1,7 +1,6 @@
 import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
+import { Box, Button } from '@/components/UIElements';
 import Column from './components/Column';
 import { Column as ColumnType } from '@/types/column.type';
 import AddColumnSection from './components/AddColumnSection';

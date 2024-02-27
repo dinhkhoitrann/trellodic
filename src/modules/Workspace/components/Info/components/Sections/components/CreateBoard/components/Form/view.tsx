@@ -1,10 +1,7 @@
 import Image from 'next/image';
 import { UseFormReturn } from 'react-hook-form';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { Box, Button, IconButton, Typography } from '@/components/UIElements';
 import FormProvider from '@/components/Form/components/FormProvider';
 import RHFTextField from '@/components/Form/components/TextField';
 import RHFAutocomplete from '@/components/Form/components/Autocomplete';
@@ -59,8 +56,8 @@ function CreateFormView({ methods, isLoading, onSubmit, onClose }: CreateFormVie
           getOptionLabel={(option: Partial<Workspace>) => option.name || ''}
           isOptionEqualToValue={(option: any, value: any) => option === value}
         />
-        <Button fullWidth variant="contained" type="submit" disabled={isLoading} sx={{ mt: 2 }}>
-          {isLoading ? 'Creating' : 'Create'}
+        <Button fullWidth variant="contained" type="submit" loading={isLoading} sx={{ mt: 2 }}>
+          Create
         </Button>
       </FormProvider>
     </Box>

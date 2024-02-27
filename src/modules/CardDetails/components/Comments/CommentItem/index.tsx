@@ -1,7 +1,7 @@
 import { Comment } from '@/types/card.type';
-import CommentItemView from './view';
 import { BoardGlobalProps, withBoard } from '@/hocs';
 import { useDeleteCommentMutation, useEditCommentMutation } from '@/redux/services/card/comment';
+import CommentItemView from './view';
 
 type CommentItemProps = BoardGlobalProps & {
   comment: Comment;

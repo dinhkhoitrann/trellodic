@@ -3,11 +3,11 @@ import { toast } from 'react-toastify';
 import { useAppSelector } from '@/redux/store';
 import { selectWorkspaceDetails } from '@/redux/slices/workspace';
 import { BoardGlobalProps, withBoard } from '@/hocs';
+import { useAddMembersToBoardMutation, useGetMembersQuery } from '@/redux/services/board/member';
+import { User } from '@/types/user.type';
 import InvitationView, { InvitationViewRef } from './view';
 import { getMemberOptions } from './service';
 import { MemberOption } from './type';
-import { useAddMembersToBoardMutation, useGetMembersQuery } from '@/redux/services/board/member';
-import { User } from '@/types/user.type';
 
 function Invitation({ boardId, onRefreshBoard }: BoardGlobalProps) {
   const workspace = useAppSelector(selectWorkspaceDetails);

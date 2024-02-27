@@ -2,11 +2,11 @@
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import LoginFormView from './view';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { LoginSchema, defaultValues } from './validation';
 import { useLoginMutation } from '@/redux/services/auth/auth';
 import { externalRequest } from '@/services/request';
+import { LoginSchema, defaultValues } from './validation';
+import LoginFormView from './view';
 
 function LoginForm() {
   const methods = useForm({

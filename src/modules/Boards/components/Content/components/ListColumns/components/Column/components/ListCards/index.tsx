@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { mapOrder } from '@/utils/sort';
-import ListCardsView from './view';
 import { Card } from '@/types/card.type';
+import ListCardsView from './view';
 
 type ListCardsProps = {
   cards: Card[];

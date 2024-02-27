@@ -1,19 +1,14 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import Skeleton from '@mui/material/Skeleton';
-import Tooltip from '@mui/material/Tooltip';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
+import { Box, Grid, Skeleton, Stack, Tooltip, Typography } from '@/components/UIElements';
 import { useAppSelector } from '@/redux/store';
 import { selectUserProfile } from '@/redux/slices/user';
-import BoardItem from './components/BoardItem';
-import CreateBoard from './components/CreateBoard';
 import { Board } from '@/types/board.type';
 import { Workspace } from '@/types/workspace.type';
+import BoardItem from './components/BoardItem';
+import CreateBoard from './components/CreateBoard';
 
 type SectionsViewProps = {
   ownerBoards: Partial<Board>[];
@@ -62,7 +57,8 @@ function SectionsView({ ownerBoards, otherBoards, workspace }: SectionsViewProps
               <div>
                 <BoardItem
                   sx={{
-                    bgcolor: '#ae4d7b',
+                    backgroundSize: 'cover',
+                    backgroundPosition: '50%',
                     padding: 1,
                     fontWeight: 'bold',
                     color: 'white',

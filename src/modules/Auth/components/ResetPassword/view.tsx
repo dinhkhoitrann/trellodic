@@ -1,7 +1,5 @@
 import { UseFormReturn } from 'react-hook-form';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
+import { Box, Button, Typography } from '@/components/UIElements';
 import FormProvider from '@/components/Form/components/FormProvider';
 import PasswordField from '@/components/Form/components/Fields/Password';
 import { ResetPasswordDefaultValues } from './validation';
@@ -33,8 +31,8 @@ function ResetPasswordFormView({ methods, isSending, onSubmit }: ResetPasswordFo
           placeholder="Enter your confirm password"
           size="small"
         />
-        <Button fullWidth variant="contained" type="submit" disabled={isSending}>
-          {isSending ? 'Sending' : 'Send'}
+        <Button fullWidth variant="contained" type="submit" loading={isSending}>
+          Send
         </Button>
       </FormProvider>
     </Box>

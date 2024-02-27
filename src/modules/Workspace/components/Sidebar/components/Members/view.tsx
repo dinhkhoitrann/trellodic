@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import CircularProgress from '@mui/material/CircularProgress';
-import IconButton from '@mui/material/IconButton';
+import {
+  Autocomplete,
+  Button,
+  CircularProgress,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from '@/components/UIElements';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
@@ -106,7 +108,8 @@ function MembersView({
             variant="contained"
             fullWidth
             sx={{ mt: 2 }}
-            disabled={selectedUsers.length === 0 || isInviting}
+            disabled={selectedUsers.length === 0}
+            loading={isInviting}
             onClick={() => onInvite(handleInviteModalVisibility)}
           >
             Invite

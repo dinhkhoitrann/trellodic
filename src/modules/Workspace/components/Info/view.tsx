@@ -1,11 +1,9 @@
 'use client';
 import Image from 'next/image';
 import { isEmpty } from 'lodash';
-import { useAppSelector } from '@/redux/store';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import { Box, Button, Typography } from '@/components/UIElements';
 import Tabs from '@/components/Tab';
+import { useAppSelector } from '@/redux/store';
 import { selectWorkspaceDetails, selectWorkspaceList } from '@/redux/slices/workspace';
 import { useGetWorkspaceListQuery } from '@/redux/services/workspace/workspace';
 import { useAuthorized, useCreateWorkspace } from '@/hooks';

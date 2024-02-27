@@ -1,7 +1,5 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import { Box, IconButton, Typography } from '@/components/UIElements';
 import { useLabels } from '@/hooks';
 import { MODES } from '@/utils/constants';
 

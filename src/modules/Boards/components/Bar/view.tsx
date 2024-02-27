@@ -1,4 +1,4 @@
-import Box from '@mui/material/Box';
+import { Box } from '@/components/UIElements';
 import { useCustomTheme } from '@/common/styles/theme';
 import { useAuthorized } from '@/hooks';
 import Invitation from './components/Invitation';

@@ -1,12 +1,7 @@
 import { useRef, useState } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import Skeleton from '@mui/material/Skeleton';
-import Divider from '@mui/material/Divider';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import EditIcon from '@mui/icons-material/Edit';
+import { Box, Divider, Skeleton, Stack, TextField, Typography } from '@/components/UIElements';
 import { useCustomTheme } from '@/common/styles/theme';
 
 type WorkspaceHeaderViewProps = {
@@ -39,7 +34,7 @@ function WorkspaceHeaderView({ workspaceName, onEditName }: WorkspaceHeaderViewP
               width: '60px',
               height: '60px',
               lineHeight: '60px',
-              bgcolor: customTheme.colors.workspaceAvatar,
+              background: customTheme.colors.workspaceAvatar,
               borderRadius: '4px',
               color: 'black',
               textAlign: 'center',

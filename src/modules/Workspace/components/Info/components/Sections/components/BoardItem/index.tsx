@@ -1,14 +1,13 @@
-import { ReactNode } from 'react';
-import Box from '@mui/material/Box';
+import { PropsWithChildren } from 'react';
 import { SxProps, Theme } from '@mui/material';
+import { Box } from '@/components/UIElements';
 
 type BoardItemProps = {
-  children: ReactNode;
   sx?: SxProps<Theme> | undefined;
   onClick?: (..._allParams: any[]) => void;
 };
 
-function BoardItem({ children, sx, onClick }: BoardItemProps) {
+function BoardItem({ children, sx, onClick }: PropsWithChildren<BoardItemProps>) {
   return (
     <Box
       sx={{
@@ -18,6 +17,7 @@ function BoardItem({ children, sx, onClick }: BoardItemProps) {
         cursor: 'pointer',
         fontSize: '0.875rem',
         '&:hover': { opacity: 0.8 },
+        backgroundImage: "url('/board-item.jpg')",
         ...sx,
       }}
       onClick={onClick}

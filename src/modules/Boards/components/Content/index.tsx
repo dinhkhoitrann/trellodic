@@ -19,16 +19,16 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import { cloneDeep, isEmpty } from 'lodash';
-import BoardContentView from './view';
 import { mapOrder } from '@/utils/sort';
-import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
-import { Column } from '@/types/column.type';
 import { generatePlaceholderCard } from '@/utils/card';
 import { updateColumn } from '@/services/column';
+import { Column } from '@/types/column.type';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { selectBoardDetails } from '@/redux/slices/board';
 import { useGetBoardDetailsQuery } from '@/redux/services/board/board';
 import { addPlaceholderCard, findColumnByCardId } from './service';
+import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
+import BoardContentView from './view';
 
 type BoardContentProps = {
   boardId: string;

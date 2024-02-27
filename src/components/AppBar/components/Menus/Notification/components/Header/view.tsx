@@ -1,6 +1,4 @@
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import Switch from '@mui/material/Switch';
+import { Stack, Switch, Typography } from '@/components/UIElements';
 import { useNotiContext } from '../..';
 
 function HeaderView() {

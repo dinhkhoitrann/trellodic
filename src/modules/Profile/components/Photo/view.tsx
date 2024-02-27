@@ -1,12 +1,14 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  IconButton,
+  Stack,
+  Typography,
+} from '@/components/UIElements';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { useAppSelector } from '@/redux/store';
 import { selectUserProfile } from '@/redux/slices/user';
@@ -24,8 +26,8 @@ function ProfilePhotoView({ uploadedImage, isLoading, onSaveAvatar, onUpload }: 
   const renderUploadButton = () => {
     if (uploadedImage)
       return (
-        <Button variant="contained" sx={{ minWidth: '200px', mt: 2 }} disabled={isLoading} onClick={onSaveAvatar}>
-          {isLoading ? 'Uploading' : 'Upload'}
+        <Button variant="contained" sx={{ minWidth: '200px', mt: 2 }} loading={isLoading} onClick={onSaveAvatar}>
+          Upload
         </Button>
       );
   };

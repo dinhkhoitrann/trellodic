@@ -1,6 +1,6 @@
-import EditCLNameView from './view';
 import { useUpdateChecklistNameMutation } from '@/redux/services/card/checklist';
 import { withBoard, BoardGlobalProps } from '@/hocs';
+import EditCLNameView from './view';
 
 type EditCLNameProps = BoardGlobalProps & {
   checklistId: string;

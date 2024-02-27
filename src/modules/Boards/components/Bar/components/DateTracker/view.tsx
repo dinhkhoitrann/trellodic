@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Tooltip from '@mui/material/Tooltip';
+import { Tooltip } from '@/components/UIElements';
 import InsightsIcon from '@mui/icons-material/Insights';
 import Modal from '@/components/Modal';
 import GanntChart from './components/GanntChart';

@@ -1,12 +1,8 @@
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { useColorScheme } from '@mui/material';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import Autocomplete from '@mui/material/Autocomplete';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { Button, Stack, TextField, Typography, Autocomplete } from '@/components/UIElements';
 import Modal from '@/components/Modal';
 import { useCustomTheme } from '@/common/styles/theme';
 import { MemberOption } from './type';
@@ -80,7 +76,8 @@ export default forwardRef<InvitationViewRef, InvitationViewProps>(function Invit
             variant="contained"
             fullWidth
             sx={{ mt: 2 }}
-            disabled={selectedMembers.length === 0 || isInviting}
+            disabled={selectedMembers.length === 0}
+            loading={isInviting}
             onClick={() => onInvite(selectedMembers)}
           >
             Invite

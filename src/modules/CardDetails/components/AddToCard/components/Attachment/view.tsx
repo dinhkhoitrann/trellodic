@@ -1,12 +1,9 @@
 import { ChangeEvent, useRef } from 'react';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import { Box, Button, Stack, Typography } from '@/components/UIElements';
 import ActionButton, { ActionButtonRef } from '@/components/ActionButton';
 import PopoverWrapper from '../Popover';
 
@@ -61,8 +58,8 @@ function AttachmentView({ file, loading, onUpload, onSave, onClearFile }: Attach
                 </Stack>
               </Box>
               <Stack direction="row" justifyContent="end" spacing={1}>
-                <Button variant="contained" disabled={loading} onClick={() => onSave(handleClose)}>
-                  {loading ? 'Saving' : 'Save'}
+                <Button variant="contained" loading={loading} onClick={() => onSave(handleClose)}>
+                  Save
                 </Button>
               </Stack>
             </>

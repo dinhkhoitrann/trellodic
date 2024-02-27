@@ -1,5 +1,4 @@
 import { useState, useEffect, ChangeEvent } from 'react';
-import ChecklistView from './view';
 import { Checklist as ChecklistType } from '@/types/card.type';
 import {
   useAddChecklistItemMutation,
@@ -8,6 +7,7 @@ import {
   useUpdateChecklistItemMutation,
 } from '@/redux/services/card/checklist';
 import { withBoard, BoardGlobalProps } from '@/hocs';
+import ChecklistView from './view';
 
 type ChecklistProps = BoardGlobalProps & {
   checklist: ChecklistType;

@@ -1,12 +1,14 @@
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import FormLabel from '@mui/material/FormLabel';
-import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
+  Tooltip,
+  Typography,
+} from '@/components/UIElements';
 import { User } from '@/types/user.type';
 import { Card } from '@/types/card.type';
 import { useView } from '@/hooks';

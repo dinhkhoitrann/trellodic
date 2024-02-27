@@ -1,33 +1,23 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { Box, Divider } from '@/components/UIElements';
+import { useAppSelector } from '@/redux/store';
+import { selectUserProfile } from '@/redux/slices/user';
 import { Workspace } from '@/types/workspace.type';
 import WorkspaceList from '../List';
 import { getWorkspaces } from './service';
-import { Divider } from '@mui/material';
 
 type WorkspaceSectionsProps = {
   workspaces: Partial<Workspace>[];
 };
 
 function WorkspaceSections({ workspaces }: WorkspaceSectionsProps) {
-  const { guestWorkspaces, ownerWorkspaces } = getWorkspaces(workspaces, 'o1');
+  const user = useAppSelector(selectUserProfile);
+  const { guestWorkspaces, ownerWorkspaces } = getWorkspaces(workspaces, user?._id);
+
   return (
     <Box sx={{ mt: 1 }}>
-      {ownerWorkspaces.length > 0 && (
-        <>
-          <Box>
-            <Typography sx={{ ml: 2, mb: 1 }}>Your workspaces</Typography>
-            <WorkspaceList workspaces={ownerWorkspaces} />
-          </Box>
-          <Divider sx={{ my: 2 }} />
-        </>
-      )}
-      {guestWorkspaces.length > 0 && (
-        <Box>
-          <Typography sx={{ ml: 2, mb: 1 }}>Guest workspaces</Typography>
-          <WorkspaceList workspaces={guestWorkspaces} />
-        </Box>
-      )}
+      <WorkspaceList workspaces={ownerWorkspaces} title="Your workspaces" />
+      {guestWorkspaces.length > 0 && <Divider sx={{ my: 2 }} />}
+      <WorkspaceList workspaces={guestWorkspaces} title="Guest workspaces" />
     </Box>
   );
 }

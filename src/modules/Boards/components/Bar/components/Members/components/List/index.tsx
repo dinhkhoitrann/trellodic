@@ -1,7 +1,7 @@
 import { User } from '@/types/user.type';
-import ListView from './view';
 import { useRemoveMemberMutation } from '@/redux/services/board/member';
 import { BoardGlobalProps, withBoard } from '@/hocs';
+import ListView from './view';
 
 type ListProps = BoardGlobalProps & {
   members: Pick<User, '_id' | 'name' | 'avatar'>[];
