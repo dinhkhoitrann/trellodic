@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { TextField, Typography, Button } from '@/components/UIElements';
 import Colors from '@/components/Colors';
-import { colors } from '../../../../../modules/CardDetails/components/AddToCard/components/Labels/constants';
 
 type CreateLabelViewProps = {
   selectedColor: string;
@@ -21,7 +20,7 @@ function CreateLabelView({ selectedColor, isPending, onSelectColorChange, onCrea
     <>
       <TextField inputRef={titleRef} fullWidth size="small" placeholder="Title" sx={{ marginTop: '20px' }} />
       <Typography sx={{ my: 2 }}>Select a color</Typography>
-      <Colors colors={colors} selectedColor={selectedColor} onSelect={onSelectColorChange} />
+      <Colors selectedColor={selectedColor} onSelect={onSelectColorChange} />
       <Button variant="contained" loading={isPending} sx={{ mt: 2 }} onClick={handleCreateLabel}>
         Create
       </Button>
