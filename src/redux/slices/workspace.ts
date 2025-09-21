@@ -26,7 +26,6 @@ const workspaceSlice = createSlice({
     });
     builder.addMatcher(workspaceApi.endpoints.getWorkspaceList.matchFulfilled, (state, action) => {
       const list = action.payload;
-      console.log('here');
       state.list = list;
     });
   },
