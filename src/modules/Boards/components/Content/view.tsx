@@ -11,9 +11,9 @@ import {
   defaultDropAnimationSideEffects,
 } from '@dnd-kit/core';
 import { isEmpty } from 'lodash';
-import { Box } from '@/components/UIElements';
+import { Box, Typography } from '@/components/UIElements';
 import { useCustomTheme } from '@/common/styles/theme';
-import CardDetails from '@/modules/CardDetails';
+import React, { Suspense } from 'react';
 import SummaryTodos from '@/modules/Summary';
 import { DND_ANIMATION_OPACITY } from '@/utils/constants';
 import { selectBoardFilter, selectBoardLoading } from '@/redux/slices/board';
@@ -25,6 +25,8 @@ import ListColumns from './components/ListColumns';
 import Column from './components/ListColumns/components/Column';
 import Card from './components/ListColumns/components/Column/components/ListCards/components/Card';
 import { ACTIVE_DRAG_ITEM_TYPE } from './constants';
+
+const CardDetails = React.lazy(() => import('@/modules/CardDetails'));
 
 type BoardContentViewProps = {
   columns: ColumnType[];
@@ -87,7 +89,11 @@ function BoardContentView({ columns, activeDragItemType, activeDragItemData, ...
         </Box>
         <SummaryTodos />
       </Box>
-      {cardId && <CardDetails cardId={cardId} />}
+      {cardId && (
+        <Suspense fallback={<Typography>Loading card details...</Typography>}>
+          <CardDetails cardId={cardId} />
+        </Suspense>
+      )}
     </>
   );
 
