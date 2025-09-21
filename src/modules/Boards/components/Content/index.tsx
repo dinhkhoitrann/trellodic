@@ -118,6 +118,7 @@ function BoardContent({ boardId }: BoardContentProps) {
     activeColumn: Column,
     activeDraggingCardId: UniqueIdentifier,
     activeDraggingCardData: any,
+    isDragEnd: boolean = false,
   ) => {
     const overCardIndex = overColumn?.cards?.findIndex((card) => card._id === overCardId.toString());
 
@@ -154,8 +155,9 @@ function BoardContent({ boardId }: BoardContentProps) {
       nextOverColumn.orderedCardIds = nextOverColumn.cards.map((card) => card._id);
     }
 
-    // TODO:  Then, store nextColumns to DB
-
+    if (isDragEnd) {
+      // TODO:  Then, store nextColumns to DB
+    }
     setColumns(nextColumns);
   };
 
@@ -226,6 +228,7 @@ function BoardContent({ boardId }: BoardContentProps) {
           activeColumn,
           activeDraggingCardId,
           activeDraggingCardData,
+          true,
         );
       } else {
         const oldCardIndex = oldColumnWhenDraggingCard?.cards?.findIndex((card) => card._id === activeDragItemId);
